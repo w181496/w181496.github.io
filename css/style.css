@@ -162,6 +162,10 @@ h5,
 h6 {
   font-size: 1em;
 }
+.half_img {
+  width: 50%;
+  height: 50%;
+}
 a {
   text-decoration: none;
   outline-width: 0;
