@@ -34,7 +34,7 @@ var Instagram = (function(){
 		setTimeout(function(){
 			preLoad(data);
 		},3000);
-		
+
 		$("a[rel=example_group]").fancybox();
 	}
 
@@ -78,7 +78,8 @@ var Instagram = (function(){
 	}
 
 	var getList = function(url){
-		$(".open-ins").html("图片来自instagram，正在加载中…");
+		//alert(url);
+    $(".open-ins").html("圖片來自instagram，正在載入中…");
 		$.ajax({
 			url: url,
 			type:"GET",
@@ -90,7 +91,7 @@ var Instagram = (function(){
 					if(next){
 						getList(next);
 					}else{
-						$(".open-ins").html("图片来自instagram，点此访问");
+						$(".open-ins").html("圖片來自instagram，點我訪問");
 						ctrler(_collection);
 					}
 				}else{
@@ -99,9 +100,9 @@ var Instagram = (function(){
 			}
 		});
 	}
-	
 
-	var changeSize = function(){	
+
+	var changeSize = function(){
 		if($(document).width() <= 600){
 			$(".img-box").css({"width":"auto", "height":"auto"});
 		}else{
@@ -119,8 +120,10 @@ var Instagram = (function(){
 
 	return {
 		init:function(){
+      //getList("https://api.instagram.com/v1/users/2055282079/media/recent/?access_token=2055282079.6217825.cf0f8f77eff040e39d61b4d46803f17f&count=100");
 			//getList("https://api.instagram.com/v1/users/438522285/media/recent/?access_token=438522285.2082eef.ead70f432f444a2e8b1b341617637bf6&count=100");
-			var insid = $(".instagram").attr("data-client-id");
+
+      var insid = $(".instagram").attr("data-client-id");
             var userId = $(".instagram").attr("data-user-id");
 
 			if(!insid){
@@ -129,7 +132,8 @@ var Instagram = (function(){
 				return;
 			}
 			getList("https://api.instagram.com/v1/users/"+ userId +"/media/recent/?client_id="+insid+"&count=100");
-			bind();
+
+      bind();
 		}
 	}
 })();
