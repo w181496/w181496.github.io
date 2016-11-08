@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://w181496.twbbs.org/"/>
-  <updated>2016-03-02T04:57:17.000Z</updated>
+  <updated>2016-11-08T17:38:05.000Z</updated>
   <id>http://w181496.twbbs.org/</id>
   
   <author>
@@ -13,6 +13,67 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Linux Kernel編譯+新增System call(Ubuntu)]]></title>
+    <link href="http://w181496.twbbs.org/2016/11/07/Linux-Kernel%E7%B7%A8%E8%AD%AF-Ubuntu/"/>
+    <id>http://w181496.twbbs.org/2016/11/07/Linux-Kernel編譯-Ubuntu/</id>
+    <published>2016-11-07T07:34:15.000Z</published>
+    <updated>2016-11-08T17:38:05.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h2><p>因Linux Operating System課的project需要，人生第一次編Kernel就獻給他惹，所以怕忘就順手筆記一下。</p>
+<h2 id="u74B0_u5883"><a href="#u74B0_u5883" class="headerlink" title="環境"></a>環境</h2><p>使用Ubuntu 16.04 LTS i386 Desktop<br>要編的Kernel是3.10版</p>
+<h2 id="u904E_u7A0B"><a href="#u904E_u7A0B" class="headerlink" title="過程"></a>過程</h2><p>一開始當然要先裝好Linux環境(我是裝Ubuntu)<br>然後決定你要編的Kernel，並載下來解壓縮<br>(Kernel source可以到<a href="https://www.kernel.org" target="_blank" rel="external">https://www.kernel.org</a> 下載)<br>我這邊解壓縮出來後是linux-3.10.104/</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd linux-3.10.104/</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>進去之後，要新增一個system call<br>創一個資料夾用來放我們system call的code</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir mycall&#10;$ cd mycall</span><br></pre></td></tr></table></figure>
+<p>新增一個檔案helloworld.c，就是我們system call的程式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim helloworld.c</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;linux/kernel.h&gt;</span></span></span><br><span class="line"><span class="function">asmlinkage <span class="keyword">int</span> <span class="title">sys_helloworld</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    printk(<span class="string">"kaibro ininder\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再來新增Makefile，用來確保我們的程式會被編譯進Kernel</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim Makefile&#10;obj-y := helloworld.o</span><br></pre></td></tr></table></figure>
+<p>再來回上一層目錄，修改Makefile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd ..&#10;$ vim Makefile&#10;core-y += kernel/ mm/ fs/ ipc/ security/ crypto/ block/&#10;&#25214;&#21040;&#36889;&#34892;&#65292;&#22312;&#26368;&#24460;&#38754;&#26032;&#22686; mycall/&#10;&#10;core-y += kernel/ mm/ fs/ ipc/ security/ crypto/ block/ mycall/</span><br></pre></td></tr></table></figure>
+<p>這是為了告訴它，我們新的system call的source files在mycall資料夾裡</p>
+<p>再來我們要新增我們的system call到system call table裡</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// &#22914;&#26524;&#26159;64&#20301;&#20803;&#31995;&#32113;&#65292;&#23601;&#26159;syscall_64.tbl&#10;$ vim arch/x86/syscalls/syscall_32.tbl&#10;&#10;&#22312;&#26368;&#24460;&#38754;&#26032;&#22686;&#19968;&#34892;&#65292;&#21407;&#26412;system call&#21482;&#21040;350&#34399;&#65292;&#25152;&#20197;&#36889;&#37002;&#23601;&#22635;351&#34399;&#10;351   i386  helloworld  sys_helloworld</span><br></pre></td></tr></table></figure>
+<p>再來修改system call header</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim include/linux/syscalls.h&#10;&#10;&#22312;&#26368;&#19979;&#38754;(#endif&#21069;)&#26032;&#22686;&#19968;&#34892;&#10;asmlinkage int helloworld(void);&#10;&#10;&#36889;&#23450;&#32681;&#20102;&#25105;&#20497;system call&#30340;prototype&#10;asmlinkage&#20195;&#34920;&#25105;&#20497;&#30340;&#21443;&#25976;&#37117;&#21487;&#20197;&#22312;stack&#35041;&#21462;&#29992;</span><br></pre></td></tr></table></figure>
+<p>接著編譯kernel前要裝一些套件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install libncurses5-dev</span><br></pre></td></tr></table></figure>
+<p>還有設定檔</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo make menuconfig&#10;// &#36889;&#37002;&#25105;&#37117;&#29992;&#38928;&#35373;&#30340;&#10;$ sudo make oldconfig</span><br></pre></td></tr></table></figure>
+<p>最後就開始漫長的compile了！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo make</span><br></pre></td></tr></table></figure>
+<p>編完之後，就安裝到我們系統上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo make moudles_install install</span><br></pre></td></tr></table></figure>
+<p>裝後之後沒問題，就重開機，用我們新的kernel開機</p>
+<p>但是grub選單，預設好像是關的</p>
+<p>所以我們要先把它打開，再重開機</p>
+<p>重開時記得選我們編的kernel</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/default/grub&#10;&#20687;&#25105;&#19968;&#27171;&#25214;&#21040;&#19979;&#38754;&#36889;&#20841;&#34892;&#65292;&#21069;&#38754;&#21152;#&#65292;&#25226;&#20182;&#20497;&#35387;&#35299;&#25481;&#10;#GRUB_HIDDEN_TIMEOUT=0&#10;#GRUB_HIDDEN_TIMEOUT_QUIET=true&#10;&#10;&#28982;&#24460;&#26356;&#26032;&#10;$ sudo update-grub</span><br></pre></td></tr></table></figure>
+<p>最後寫個小程式來檢驗是否成功新增system call</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;syscall.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = syscall(<span class="number">351</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然後執行之後，用以下這指令看kernel有沒有輸出我們想要的訊息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ dmesg</span><br></pre></td></tr></table></figure>
+<p>如果有看到”kaibro ininder”，就代表成功惹～</p>
+<h2 id="u5F8C_u8A18"><a href="#u5F8C_u8A18" class="headerlink" title="後記"></a>後記</h2><p>其實一開始我是裝Fedora<br>但不知為何總是一直失敗<br>一開始是虛擬機空間開太小<br>後來好不容易重灌好，也編完，卻莫名無法開機<br>想說是編太新版的Kernel炸掉，結果重編個相同版本的Kernel還是一樣<br>(前前後後大概編了6次吧….)<br>之後就果斷改用Ubuntu…</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h2><p>因Linux Operating System課的project需要，人生第一次編Kernel就獻給他惹，所以怕忘就順手筆記一下。</p>
+<h2 id="u74B0_u5883"><a href="#u74B0_u5883" class="headerlink" title="環境"></a>環境</h2><p>使用Ubuntu 16.04 LTS i386 Desktop<br>要編的Kernel是3.10版</p>
+<h2 id="u904E_u7A0B"><a href="#u904E_u7A0B" class="headerlink" title="過程"></a>過程</h2><p>一開始當然要先裝好Linux環境(我是裝Ubuntu)<br>然後決定你要編的Kernel，並載下來解壓縮<br>(Kernel source可以到<a href="https://www.kernel.org">https://www.kernel.org</a> 下載)<br>我這邊解壓縮出來後是linux-3.10.104/</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd linux-3.10.104/</span><br></pre></td></tr></table></figure>]]>
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://w181496.twbbs.org/tags/Linux/"/>
+    
+      <category term="NCU" scheme="http://w181496.twbbs.org/tags/NCU/"/>
+    
+      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[台灣燈會2016在桃園]]></title>
