@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://w181496.twbbs.org/"/>
-  <updated>2016-11-14T13:54:15.000Z</updated>
+  <updated>2016-11-14T15:03:39.000Z</updated>
   <id>http://w181496.twbbs.org/</id>
   
   <author>
@@ -15,11 +15,95 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[小朋友下樓梯輔助程式]]></title>
+    <link href="http://w181496.twbbs.org/2016/11/14/%E5%B0%8F%E6%9C%8B%E5%8F%8B%E4%B8%8B%E6%A8%93%E6%A2%AF%E8%BC%94%E5%8A%A9%E7%A8%8B%E5%BC%8F/"/>
+    <id>http://w181496.twbbs.org/2016/11/14/小朋友下樓梯輔助程式/</id>
+    <published>2016-11-14T14:01:30.000Z</published>
+    <updated>2016-11-14T15:03:39.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="u5C0F_u670B_u53CB_u4E0B_u6A13_u68AF_u662F_u5565_uFF1F"><a href="#u5C0F_u670B_u53CB_u4E0B_u6A13_u68AF_u662F_u5565_uFF1F" class="headerlink" title="小朋友下樓梯是啥？"></a>小朋友下樓梯是啥？</h2><p>它不僅是一個很狂的小遊戲</p>
+<p>它更代表了我們的童年回憶</p>
+<p><br><br><img src="/images/pic7.png" alt="圖7"></p>
+<a id="more"></a>
+<p><br><br><br></p>
+<h2 id="u8F14_u52A9_u7A0B_u5F0F"><a href="#u8F14_u52A9_u7A0B_u5F0F" class="headerlink" title="輔助程式"></a>輔助程式</h2><p>其實就是外掛</p>
+<p>這篇紀錄一下怎寫出這個糞game的外掛(記憶體外掛)</p>
+<p>沒啥太多技術含量</p>
+<p><br></p>
+<p>首先</p>
+<p>先開個Cheat Engine搜一下</p>
+<p>這遊戲最基本的改法就是修改血量</p>
+<p><br></p>
+<p>一開始搜滿血是12格</p>
+<p>讓他自殘幾次搜一下</p>
+<p>就能找到血量值的記憶體位址<br><br><br>為了避免每次重開遊戲都要找一次</p>
+<p>我們得找出人物屬性的基址(Base address)<br><br><br>通常人物屬性都是一條陣列，假設基址是0x1bd2</p>
+<p>並且我們知道血量的偏移是0x04</p>
+<p>那血量大致上就可推算是[[0x1bd2]+0x04]<br><br><br>下面介紹一下找基址的一種方法：</p>
+<p>首先找出血量位址後</p>
+<p>點選Find out what writes to this address</p>
+<p><img src="/images/pic1.png" alt="圖1"></p>
+<p>會跳出一個視窗 此時繼續遊戲再自殘一下</p>
+<p>這個視窗會把寫入到這個位址的opcode列出來 相當方便<br><br><br><img src="/images/pic2.png" alt="圖2"></p>
+<p>如此一來 就能幫助我們找到人物屬性陣列的位址</p>
+<p><img src="/images/pic3.png" alt="圖3"></p>
+<p>但這還不是基址 [人物陣列基址] = 人物陣列的位址<br><br><br>我們把這個位址拿去搜一下 就能找到哪個位址(基址)存放這個值</p>
+<p><img src="/images/pic4.png" alt="圖4"></p>
+<p>有了基址就能找各種屬性的偏移(offset)</p>
+<p>因為人物屬性通常是條陣列</p>
+<p>就可以亂try偏移去找一些神奇的屬性(x,y座標 目前階梯數等等)</p>
+<p>也許就可以開發出超酷炫的功能</p>
+<p><br></p>
+<h2 id="u958B_u59CB_u5BEB_u5916_u639B"><a href="#u958B_u59CB_u5BEB_u5916_u639B" class="headerlink" title="開始寫外掛"></a>開始寫外掛</h2><p>前面只教怎麼開發屬性和找基址</p>
+<p>這裏正式介紹一下怎麼實作我們想要的功能</p>
+<p>這裏我用C#來寫</p>
+<p>下面會用到幾個函數：</p>
+<ol>
+<li><p>ReadProcessMemory</p>
+</li>
+<li><p>WriteProcessMemory</p>
+</li>
+<li><p>OpenProcess<br><br><br>C#要調用Win32 api可以這樣子寫：</p>
+</li>
+</ol>
+<p><img src="/images/pic5.png" alt="圖5"></p>
+<p><br></p>
+<p>人物基址0x0018FD9C 血量偏移0x1170</p>
+<p>則血量值即為[[0x0018FD9C]+0x1170]</p>
+<p>程式中讀血量寫起來⼤概像這樣：</p>
+<p><img src="/images/pic6.png" alt="圖6"></p>
+<p><br></p>
+<p>而WriteProcessMemory可以寫入值到記憶體中</p>
+<p>故可以簡單達到血量控制的效果！</p>
+<p>當然也可以控制階層數、人物座標等</p>
+<p><br></p>
+<p>當然還能做出一些更炫砲的功能</p>
+<p>例如….滑鼠走路！！</p>
+<p>方法：抓滑鼠相對於遊戲視窗的座標，Timer定時設定角色座標</p>
+<p>Demo影片:<br><a href="https://drive.google.com/file/d/0B0u00oV7NdOiRWtSSWhvQVZGRHc/view?usp=sharing" target="_blank" rel="external">https://drive.google.com/file/d/0B0u00oV7NdOiRWtSSWhvQVZGRHc/view?usp=sharing</a></p>
+<p><br></p>
+<p>再來個沒啥用的功能…反重力</p>
+<p>變小朋友上樓梯…</p>
+<p>方法：找出修改y座標的opcode<br>然後把add改成sub<br>修改opcode一樣可用WriteProcessMemory<br>但盡量opcode長度改完跟原本要一樣 不然容易crash</p>
+<p>反重力Demo:<br><a href="https://drive.google.com/file/d/0B0u00oV7NdOiTjd2WDd3Y1lsc3c/view?usp=sharing" target="_blank" rel="external">https://drive.google.com/file/d/0B0u00oV7NdOiTjd2WDd3Y1lsc3c/view?usp=sharing</a><br><br></p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><p>程式碼放在github上：<br><a href="https://github.com/w181496/GoingDown" target="_blank" rel="external">https://github.com/w181496/GoingDown</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="u5C0F_u670B_u53CB_u4E0B_u6A13_u68AF_u662F_u5565_uFF1F"><a href="#u5C0F_u670B_u53CB_u4E0B_u6A13_u68AF_u662F_u5565_uFF1F" class="headerlink" title="小朋友下樓梯是啥？"></a>小朋友下樓梯是啥？</h2><p>它不僅是一個很狂的小遊戲</p>
+<p>它更代表了我們的童年回憶</p>
+<p><br><br><img src="/images/pic7.png" alt="圖7"></p>]]>
+    
+    </summary>
+    
+      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Linux project - PGD present bit]]></title>
     <link href="http://w181496.twbbs.org/2016/11/10/Linux-project-PGD-present-bit/"/>
     <id>http://w181496.twbbs.org/2016/11/10/Linux-project-PGD-present-bit/</id>
     <published>2016-11-10T14:50:31.000Z</published>
-    <updated>2016-11-14T13:54:15.000Z</updated>
+    <updated>2016-11-14T13:58:17.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h2><p>延續上一篇，這篇記錄Project主要內容的實作過程。</p>
 <p>題目的要求是：For each page directory entry with an index located in the group of indexes specified by the parameters, this system call shows the value of the present field of the entry.</p>
 <p>簡單說就是新增一個system call<br>讓它可以取得當前process的page directory entry中的present bit<br>參數包含兩個integer代表起始和結尾index<br>和一個陣列指標參數，存放結果</p>
@@ -112,27 +196,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[台灣燈會2016在桃園]]></title>
-    <link href="http://w181496.twbbs.org/2016/03/02/%E5%8F%B0%E7%81%A3%E7%87%88%E6%9C%832016%E5%9C%A8%E6%A1%83%E5%9C%92/"/>
-    <id>http://w181496.twbbs.org/2016/03/02/台灣燈會2016在桃園/</id>
-    <published>2016-03-02T04:18:55.000Z</published>
-    <updated>2016-03-02T04:57:17.000Z</updated>
-    <content type="html"><![CDATA[<p>今年台灣燈會辦在桃園<br>而且還是在高鐵站那邊<br>離中央大學超近，當然一定要去一下啦</p>
-<p>到目前為止，我總共去了四次 超狂XD<br>去那麼多次主要的原因是因為展區超大<br>這一次有六個燈區：科技新世界燈區、童話夢工廠燈區、新桃花源燈區、桃園故事燈區、宗教祈福燈區、多元交流燈區</p>
-<p>身為一個桃園人，這應該是我從小到大看過最大的一次燈會XD<br>感覺錯過了就很難有機會再看到了<br><a id="more"></a><br><img src="https://googledrive.com/host/0B0u00oV7NdOiTGN3YkI0eEk0V1U" alt=""><br>主燈是一隻超大的猴子<br>每30分鐘會有一次主燈秀的樣子<br>但我覺得主燈秀就只是猴子一直發光，然後轉一圈而已…<br><br><br><br><br><img src="https://googledrive.com/host/0B0u00oV7NdOiMm5CR3BxcXA5ZTg" alt=""><br><img src="https://googledrive.com/host/0B0u00oV7NdOidHRYLXdodlBlRkU" alt=""><br><img src="https://googledrive.com/host/0B0u00oV7NdOiSGhfN2RSQ2p5aG8" alt=""><br><img src="https://googledrive.com/host/0B0u00oV7NdOiUVhGemFoeVJqLW8" alt=""><br>宇宙塔，超美<br><br><br><img src="https://googledrive.com/host/0B0u00oV7NdOiTHRrNkV5UVc5cDA" alt=""><br>這個氣球超酷，在那邊拍照，照片會被投影到氣球上<br><br><br><img src="https://googledrive.com/host/0B0u00oV7NdOibnlhaTZxLTdYX3c" alt=""><br><img src="https://googledrive.com/host/0B0u00oV7NdOiMEViX2hsdFljSUk" alt=""><br>在Lamigo舞台有時會有唱歌之類的表演<br><br><br><img src="https://googledrive.com/host/0B0u00oV7NdOiVUtOSzlOMG0yTUU" alt=""><br><img src="https://googledrive.com/host/0B0u00oV7NdOiMWxNMzJicmQ3WlE" alt=""><br><img src="https://googledrive.com/host/0B0u00oV7NdOiMF9yYmpPMG5Ud1U" alt=""><br><img src="https://googledrive.com/host/0B0u00oV7NdOiYXdOaW41WEZUOW8" alt=""><br>這是超熱門的妖怪手錶花燈，各種小屁孩興奮的鬼吼鬼叫<br>完全不懂妖怪手錶在紅什麼，可能我老了吧QQ<br><br><br><img src="https://googledrive.com/host/0B0u00oV7NdOiN0J3RzFrcTZmOVU" alt=""><br><img src="https://googledrive.com/host/0B0u00oV7NdOidHVYTXB5bmdMTjg" alt=""><br>主舞台（主燈旁邊）也會有一些表演，像這個就是國樂的表演<br><br><br><img src="https://googledrive.com/host/0B0u00oV7NdOiX1ZqR1VHVlVzclE" alt=""><br>這個是文創區裡面賣玩具的攤販<br>裏頭賣了一些很酷的機器人，還有可以變形成機器人的遙控車<br><br><br>這次燈會預計會展出到3/6，覺得沒去的真該去一下<br>附近還有免費汽機車停車場，火車站附近也有接駁車可以搭，蠻方便的</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>今年台灣燈會辦在桃園<br>而且還是在高鐵站那邊<br>離中央大學超近，當然一定要去一下啦</p>
-<p>到目前為止，我總共去了四次 超狂XD<br>去那麼多次主要的原因是因為展區超大<br>這一次有六個燈區：科技新世界燈區、童話夢工廠燈區、新桃花源燈區、桃園故事燈區、宗教祈福燈區、多元交流燈區</p>
-<p>身為一個桃園人，這應該是我從小到大看過最大的一次燈會XD<br>感覺錯過了就很難有機會再看到了<br>]]>
-    
-    </summary>
-    
-      <category term="遊記" scheme="http://w181496.twbbs.org/tags/%E9%81%8A%E8%A8%98/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[DJ DAO FB9 Jubeat控制器開箱]]></title>
     <link href="http://w181496.twbbs.org/2016/02/07/DJ-DAO-FB9-Jubeat%E6%8E%A7%E5%88%B6%E5%99%A8%E9%96%8B%E7%AE%B1/"/>
     <id>http://w181496.twbbs.org/2016/02/07/DJ-DAO-FB9-Jubeat控制器開箱/</id>
@@ -187,57 +250,6 @@
       <category term="NCU" scheme="http://w181496.twbbs.org/tags/NCU/"/>
     
       <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[中壢-藏壽司 くら寿司(JC Park中壢店)]]></title>
-    <link href="http://w181496.twbbs.org/2016/01/17/%E4%B8%AD%E5%A3%A2-%E8%97%8F%E5%A3%BD%E5%8F%B8-%E3%81%8F%E3%82%89%E5%AF%BF%E5%8F%B8-JC-Park%E4%B8%AD%E5%A3%A2%E5%BA%97/"/>
-    <id>http://w181496.twbbs.org/2016/01/17/中壢-藏壽司-くら寿司-JC-Park中壢店/</id>
-    <published>2016-01-17T05:47:42.000Z</published>
-    <updated>2016-01-17T10:04:36.000Z</updated>
-    <content type="html"><![CDATA[<div style="width:50%" align="center"><br>  <img src="https://googledrive.com/host/0B0u00oV7NdOib2h0Ulg2REM4ZkU"><br></div><br>學期末考完一堆期末考，專題也弄一個段落，就想來找家好料的犒賞自己<br>剛好最近中壢新開的藏壽司在試營運，就和室友衝一發了<br>這家店的位置在中壢火車站附近的客運站三樓<br>可能因為我們比較早到吧，幾乎沒啥人在排隊<br><br><br>一走進店門，就覺得氣度不凡、金光四射(?<br>光是環境就跟爭X差蠻多的<br><br>然後會有服務生介紹壽司盤子的拿法，拿的時候要稍微往上提，蓋子自己就會打開<br><a id="more"></a><br><div style="width:80%" align="center"><br>  <img src="https://googledrive.com/host/0B0u00oV7NdOia3ZWcm53djEyLUk" alt="環境"><br></div><br>圖上那個觸控螢幕是用來點餐的，點的餐做好之後會用下面白色那條快速輸送帶傳過來<br>那條白色輸送帶送餐時真的超酷，你會看到一盤盤食物咻的一聲飛過去，一整個高科技<br>快速輸送帶下面就是一般常見的迴轉壽司輸送帶<br>然後觸控螢幕上頭的是轉蛋機，只要投入5個盤子就能抽一次轉蛋，還蠻好玩的<br><br><br><div style="width:80%" align="center"><br>  <img src="https://googledrive.com/host/0B0u00oV7NdOiWG9tV2R5ajVXdEE" alt="炙烤"><br></div>
-
-<p>一開始，我先挑了這個炙烤照燒鮭魚，不沾醬直接吃味道就很濃郁</p>
-<div style="width:80%" align="center"><br>  <img src="https://googledrive.com/host/0B0u00oV7NdOiWTJ6SjRpdWFHcW8" alt="鮪魚"><br></div>
-
-<p>這個醃漬鮪魚配上他們自家的新鮮山葵，感覺魚在我的口中跳舞似的</p>
-<div style="width:80%" align="center"><br>  <img src="https://googledrive.com/host/0B0u00oV7NdOiWjVQZjllblFtcDg" alt="蒜香"><br></div>
-
-<p>炙烤蒜香鮭魚，他上面那個蒜香的醬料味道蠻獨特的</p>
-<div style="width:80%" align="center"><br>  <img src="https://googledrive.com/host/0B0u00oV7NdOidWxsWnZzQy1UU1k" alt="貝"><br></div>
-
-<p>北海道帆立貝，這個好像相當於兩盤壽司的價錢</p>
-<div style="width:80%" align="center"><br>  <img src="https://googledrive.com/host/0B0u00oV7NdOiQWg0SDNlMGNNdUk" alt="鰻魚"><br></div>
-
-<p>這個鰻魚吃起來感覺就比較普通一點了，個人覺得大概只比爭X好吃一點</p>
-<div style="width:80%" align="center"><br>  <img src="https://googledrive.com/host/0B0u00oV7NdOiS05RaGVoZ0thSDA" alt="1"><br></div>
-
-<div style="width:80%" align="center"><br>  <img src="https://googledrive.com/host/0B0u00oV7NdOiRHd0NlB3WkJBRzQ" alt="2"><br></div>
-
-<p>這個章魚吃起來有點硬，我個人不是很喜歡</p>
-<div style="width:80%" align="center"><br>  <img src="https://googledrive.com/host/0B0u00oV7NdOib2h0Ulg2REM4ZkU" alt="3"><br></div>
-
-<div style="width:80%" align="center"><br>  <img src="https://googledrive.com/host/0B0u00oV7NdOiNXpERDc2aFZuT1E" alt="4"><br></div>
-
-<p>這蝦鮮味蠻重的，感覺像是剛捕捉起來沒多久一樣</p>
-<div style="width:80%" align="center"><br>  <img src="https://googledrive.com/host/0B0u00oV7NdOiN1B0MEVCbXBfdFE" alt="5"><br></div>
-
-<p>這個京都風蕨餅吃起來像麻糬，但口感又不太一樣</p>
-<div style="width:80%" align="center"><br>  <img src="https://googledrive.com/host/0B0u00oV7NdOiNkU5cVN5bkhIQjg" alt="6"><br></div>
-
-<p>現炸甜甜圈配上冰淇淋，他的甜甜圈真的不錯吃，沾冰淇淋來吃別有一番風味</p>
-<div style="width:80%" align="center"><br>  <img src="https://googledrive.com/host/0B0u00oV7NdOiMVhpZ0VpU0V4dE0" alt="7"><br></div>
-
-<p>這道甜點是我最愛的一道，雖然90元，但覺得蠻值得的<br>不論外觀還是口感都超棒的，底部還有麥片</p>
-<p>整體來說，真的還不錯吃，吃到飽大概花了620元<br>下次還有機會可能會再吃一次吧！只怕可能搶不到位子</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<div style="width:50%" align=center><br>  <img src="https://googledrive.com/host/0B0u00oV7NdOib2h0Ulg2REM4ZkU"><br></div><br>學期末考完一堆期末考，專題也弄一個段落，就想來找家好料的犒賞自己<br>剛好最近中壢新開的藏壽司在試營運，就和室友衝一發了<br>這家店的位置在中壢火車站附近的客運站三樓<br>可能因為我們比較早到吧，幾乎沒啥人在排隊<br><br><br>一走進店門，就覺得氣度不凡、金光四射(?<br>光是環境就跟爭X差蠻多的<br><br>然後會有服務生介紹壽司盤子的拿法，拿的時候要稍微往上提，蓋子自己就會打開<br>]]>
-    
-    </summary>
-    
-      <category term="食記" scheme="http://w181496.twbbs.org/tags/%E9%A3%9F%E8%A8%98/"/>
     
   </entry>
   
