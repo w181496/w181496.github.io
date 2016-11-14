@@ -4,32 +4,23 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Google Drive 圖床 | Kaibro&#39;s blog</title>
+  <title>Linux project - PGD present bit | Kaibro&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="共用設定
-如果是要用在Blog，記得這裡的共用設定選擇公開
-取得連結
-替換網址使用圖片前，把網址的 drive.google.com/open?id= 換成 googledrive.com/host/ 即可
-1&amp;#26367;&amp;#25563;&amp;#21069;&amp;#65306;&amp;#10;https://drive.google.com/open?id=0B0u00oV7NdOiOG53VktmcTR4">
+  <meta name="description" content="前情提要延續上一篇，這篇記錄Project主要內容的實作過程。
+題目的要求是：For each page directory entry with an index located in the group of indexes specified by the parameters, this system call shows the value of the present field of">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Google Drive 圖床">
-<meta property="og:url" content="http://w181496.twbbs.org/2016/01/17/Google-Drive-圖床/index.html">
+<meta property="og:title" content="Linux project - PGD present bit">
+<meta property="og:url" content="http://w181496.twbbs.org/2016/11/10/Linux-project-PGD-present-bit/index.html">
 <meta property="og:site_name" content="Kaibro's blog">
-<meta property="og:description" content="共用設定
-如果是要用在Blog，記得這裡的共用設定選擇公開
-取得連結
-替換網址使用圖片前，把網址的 drive.google.com/open?id= 換成 googledrive.com/host/ 即可
-1&amp;#26367;&amp;#25563;&amp;#21069;&amp;#65306;&amp;#10;https://drive.google.com/open?id=0B0u00oV7NdOiOG53VktmcTR4">
-<meta property="og:image" content="https://googledrive.com/host/0B0u00oV7NdOiUW1IVjZyNmRXcWs">
-<meta property="og:image" content="https://googledrive.com/host/0B0u00oV7NdOiOG53VktmcTR4UzQ">
-<meta property="og:updated_time" content="2016-01-19T14:41:09.000Z">
+<meta property="og:description" content="前情提要延續上一篇，這篇記錄Project主要內容的實作過程。
+題目的要求是：For each page directory entry with an index located in the group of indexes specified by the parameters, this system call shows the value of the present field of">
+<meta property="og:image" content="http://i.imgur.com/mqdizUz.jpg">
+<meta property="og:image" content="http://i.imgur.com/y3VcmGU.png">
+<meta property="og:updated_time" content="2016-11-14T13:54:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Google Drive 圖床">
-<meta name="twitter:description" content="共用設定
-如果是要用在Blog，記得這裡的共用設定選擇公開
-取得連結
-替換網址使用圖片前，把網址的 drive.google.com/open?id= 換成 googledrive.com/host/ 即可
-1&amp;#26367;&amp;#25563;&amp;#21069;&amp;#65306;&amp;#10;https://drive.google.com/open?id=0B0u00oV7NdOiOG53VktmcTR4">
+<meta name="twitter:title" content="Linux project - PGD present bit">
+<meta name="twitter:description" content="前情提要延續上一篇，這篇記錄Project主要內容的實作過程。
+題目的要求是：For each page directory entry with an index located in the group of indexes specified by the parameters, this system call shows the value of the present field of">
   
     <link rel="alternative" href="/atom.xml" title="Kaibro&#39;s blog" type="application/atom+xml">
   
@@ -186,11 +177,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-Google-Drive-圖床" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Linux-project-PGD-present-bit" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/01/17/Google-Drive-圖床/" class="article-date">
-  	<time datetime="2016-01-17T05:24:41.000Z" itemprop="datePublished">2016-01-17</time>
+      <a href="/2016/11/10/Linux-project-PGD-present-bit/" class="article-date">
+  	<time datetime="2016-11-10T14:50:31.000Z" itemprop="datePublished">2016-11-10</time>
 </a>
     </div>
   
@@ -203,7 +194,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Google Drive 圖床
+      Linux project - PGD present bit
     </h1>
   
 
@@ -212,7 +203,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/筆記/">筆記</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NCU/">NCU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/筆記/">筆記</a></li></ul>
 	</div>
 
         
@@ -223,11 +214,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="u5171_u7528_u8A2D_u5B9A"><a href="#u5171_u7528_u8A2D_u5B9A" class="headerlink" title="共用設定"></a>共用設定</h2><p><img src="https://googledrive.com/host/0B0u00oV7NdOiUW1IVjZyNmRXcWs" alt="共用"></p>
-<p>如果是要用在Blog，記得這裡的共用設定選擇公開</p>
-<h2 id="u53D6_u5F97_u9023_u7D50"><a href="#u53D6_u5F97_u9023_u7D50" class="headerlink" title="取得連結"></a>取得連結</h2><p><img src="https://googledrive.com/host/0B0u00oV7NdOiOG53VktmcTR4UzQ" alt="取得連結"></p>
-<h2 id="u66FF_u63DB_u7DB2_u5740"><a href="#u66FF_u63DB_u7DB2_u5740" class="headerlink" title="替換網址"></a>替換網址</h2><p>使用圖片前，把網址的 drive.google.com/open?id= 換成 googledrive.com/host/ 即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#26367;&#25563;&#21069;&#65306;&#10;https://drive.google.com/open?id=0B0u00oV7NdOiOG53VktmcTR4UzQ&#10;&#26367;&#25563;&#24460;&#65306;&#10;https://googledrive.com/host/0B0u00oV7NdOiOG53VktmcTR4UzQ</span><br></pre></td></tr></table></figure>
+        <h2 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h2><p>延續上一篇，這篇記錄Project主要內容的實作過程。</p>
+<p>題目的要求是：For each page directory entry with an index located in the group of indexes specified by the parameters, this system call shows the value of the present field of the entry.</p>
+<p>簡單說就是新增一個system call<br>讓它可以取得當前process的page directory entry中的present bit<br>參數包含兩個integer代表起始和結尾index<br>和一個陣列指標參數，存放結果</p>
+<a id="more"></a>
+<h2 id="u904E_u7A0B"><a href="#u904E_u7A0B" class="headerlink" title="過程"></a>過程</h2><p>新增system call和compile kernel的方法都在上一篇中，這邊不再贅述。</p>
+<p>首先我們得先知道kernel中有個current指標能取得目前執行process的task_struct<br>而current-&gt;mm則會取得跟這個process memory management相關的mm_struct<br>current-&gt;mm-&gt;pgd就指向我們page directory table的開頭位址</p>
+<p>再來我們先觀察Linux在32位元下的Linear address<br><img src="http://i.imgur.com/mqdizUz.jpg" alt=""><br>Directory有10 bits、page table 10 bits、offset 22 bits<br>最左邊10 bits其實就可看作page directory的index<br>總共1024個page directory</p>
+<p>我們的目標就是directory中entry的present<br>要得到某個page directory table中的entry可以用下面這種方式：<br>current-&gt;mm-&gt;pgd[index]<br>它是一條長度1024的pgd_t陣列</p>
+<p>有了page directory entry後<br>page directory entry的value第一位bit其實就是present bit<br>那就可以像下面這樣子取得present bit:<br>pgd_val(current-&gt;mm-&gt;pgd[index]) &amp; 0x01</p>
+<p>pgd_val是取得pgd_t實際的值</p>
+<p>最後的程式碼：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;linux/sched.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;asm/current.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;asm/pgtable.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">asmlinkage <span class="keyword">int</span> <span class="title">sys_address_space_survey</span><span class="params">(<span class="keyword">int</span> first, <span class="keyword">int</span> last, <span class="keyword">int</span> *result)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">struct</span> mm_struct *mm;</span><br><span class="line">    <span class="keyword">pgd_t</span> *pgd = current-&gt;mm-&gt;pgd; <span class="comment">//base address of pgd table</span></span><br><span class="line">    <span class="keyword">int</span> pst;</span><br><span class="line">    <span class="keyword">int</span> addr = first;</span><br><span class="line">    <span class="keyword">while</span>(addr &lt;= last) &#123;</span><br><span class="line">        pst = pgd_val(pgd[addr]) &amp; <span class="number">0x1</span>; <span class="comment">//get present bit</span></span><br><span class="line">        result[addr] = pst;</span><br><span class="line">        printk(<span class="string">"pgd[%d] present bit is %x\n"</span>, addr, pst);</span><br><span class="line">        addr++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然後編譯kernel時PAE記得關<br>不然結果會不正確<br>make meunconfig時取消PAE(Ubuntu這版本預設有開)</p>
+<h2 id="u7D50_u679C"><a href="#u7D50_u679C" class="headerlink" title="結果"></a>結果</h2><p><img src="http://i.imgur.com/y3VcmGU.png" alt=""><br>三個程式在entry 768以上的present bit都是相同的<br>驗證了我們學過的: Kernel是映射到0xc0000000以上<br>(0xc0000000 &gt;&gt; 22 = 768)</p>
+<p>整體沒啥難度，主要是編kernel太花時間…<br>當初熬夜3天才做完</p>
 
       
     </div>
@@ -237,18 +237,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/01/17/中壢-藏壽司-くら寿司-JC-Park中壢店/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          中壢-藏壽司 くら寿司(JC Park中壢店)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/01/16/project1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">攻防Project1 Writeup</div>
+    <a href="/2016/11/07/Linux-Kernel編譯-Ubuntu/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux Kernel編譯+新增System call(Ubuntu)</div>
       <strong class="article-nav-caption">></strong>
     </a>
   

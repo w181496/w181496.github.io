@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://w181496.twbbs.org/"/>
-  <updated>2016-11-08T17:38:05.000Z</updated>
+  <updated>2016-11-14T13:54:15.000Z</updated>
   <id>http://w181496.twbbs.org/</id>
   
   <author>
@@ -13,6 +13,42 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Linux project - PGD present bit]]></title>
+    <link href="http://w181496.twbbs.org/2016/11/10/Linux-project-PGD-present-bit/"/>
+    <id>http://w181496.twbbs.org/2016/11/10/Linux-project-PGD-present-bit/</id>
+    <published>2016-11-10T14:50:31.000Z</published>
+    <updated>2016-11-14T13:54:15.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h2><p>延續上一篇，這篇記錄Project主要內容的實作過程。</p>
+<p>題目的要求是：For each page directory entry with an index located in the group of indexes specified by the parameters, this system call shows the value of the present field of the entry.</p>
+<p>簡單說就是新增一個system call<br>讓它可以取得當前process的page directory entry中的present bit<br>參數包含兩個integer代表起始和結尾index<br>和一個陣列指標參數，存放結果</p>
+<a id="more"></a>
+<h2 id="u904E_u7A0B"><a href="#u904E_u7A0B" class="headerlink" title="過程"></a>過程</h2><p>新增system call和compile kernel的方法都在上一篇中，這邊不再贅述。</p>
+<p>首先我們得先知道kernel中有個current指標能取得目前執行process的task_struct<br>而current-&gt;mm則會取得跟這個process memory management相關的mm_struct<br>current-&gt;mm-&gt;pgd就指向我們page directory table的開頭位址</p>
+<p>再來我們先觀察Linux在32位元下的Linear address<br><img src="http://i.imgur.com/mqdizUz.jpg" alt=""><br>Directory有10 bits、page table 10 bits、offset 22 bits<br>最左邊10 bits其實就可看作page directory的index<br>總共1024個page directory</p>
+<p>我們的目標就是directory中entry的present<br>要得到某個page directory table中的entry可以用下面這種方式：<br>current-&gt;mm-&gt;pgd[index]<br>它是一條長度1024的pgd_t陣列</p>
+<p>有了page directory entry後<br>page directory entry的value第一位bit其實就是present bit<br>那就可以像下面這樣子取得present bit:<br>pgd_val(current-&gt;mm-&gt;pgd[index]) &amp; 0x01</p>
+<p>pgd_val是取得pgd_t實際的值</p>
+<p>最後的程式碼：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;linux/sched.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;asm/current.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;asm/pgtable.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">asmlinkage <span class="keyword">int</span> <span class="title">sys_address_space_survey</span><span class="params">(<span class="keyword">int</span> first, <span class="keyword">int</span> last, <span class="keyword">int</span> *result)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">struct</span> mm_struct *mm;</span><br><span class="line">    <span class="keyword">pgd_t</span> *pgd = current-&gt;mm-&gt;pgd; <span class="comment">//base address of pgd table</span></span><br><span class="line">    <span class="keyword">int</span> pst;</span><br><span class="line">    <span class="keyword">int</span> addr = first;</span><br><span class="line">    <span class="keyword">while</span>(addr &lt;= last) &#123;</span><br><span class="line">        pst = pgd_val(pgd[addr]) &amp; <span class="number">0x1</span>; <span class="comment">//get present bit</span></span><br><span class="line">        result[addr] = pst;</span><br><span class="line">        printk(<span class="string">"pgd[%d] present bit is %x\n"</span>, addr, pst);</span><br><span class="line">        addr++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然後編譯kernel時PAE記得關<br>不然結果會不正確<br>make meunconfig時取消PAE(Ubuntu這版本預設有開)</p>
+<h2 id="u7D50_u679C"><a href="#u7D50_u679C" class="headerlink" title="結果"></a>結果</h2><p><img src="http://i.imgur.com/y3VcmGU.png" alt=""><br>三個程式在entry 768以上的present bit都是相同的<br>驗證了我們學過的: Kernel是映射到0xc0000000以上<br>(0xc0000000 &gt;&gt; 22 = 768)</p>
+<p>整體沒啥難度，主要是編kernel太花時間…<br>當初熬夜3天才做完</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h2><p>延續上一篇，這篇記錄Project主要內容的實作過程。</p>
+<p>題目的要求是：For each page directory entry with an index located in the group of indexes specified by the parameters, this system call shows the value of the present field of the entry.</p>
+<p>簡單說就是新增一個system call<br>讓它可以取得當前process的page directory entry中的present bit<br>參數包含兩個integer代表起始和結尾index<br>和一個陣列指標參數，存放結果</p>]]>
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://w181496.twbbs.org/tags/Linux/"/>
+    
+      <category term="NCU" scheme="http://w181496.twbbs.org/tags/NCU/"/>
+    
+      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Linux Kernel編譯+新增System call(Ubuntu)]]></title>
