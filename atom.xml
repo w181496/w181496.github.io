@@ -103,10 +103,10 @@
     <link href="http://w181496.twbbs.org/2016/11/10/Linux-project-PGD-present-bit/"/>
     <id>http://w181496.twbbs.org/2016/11/10/Linux-project-PGD-present-bit/</id>
     <published>2016-11-10T14:50:31.000Z</published>
-    <updated>2016-11-14T13:58:17.000Z</updated>
+    <updated>2016-11-30T15:37:02.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h2><p>延續上一篇，這篇記錄Project主要內容的實作過程。</p>
 <p>題目的要求是：For each page directory entry with an index located in the group of indexes specified by the parameters, this system call shows the value of the present field of the entry.</p>
-<p>簡單說就是新增一個system call<br>讓它可以取得當前process的page directory entry中的present bit<br>參數包含兩個integer代表起始和結尾index<br>和一個陣列指標參數，存放結果</p>
+<p>簡單說就是新增一個system call<br>讓它可以取得當前process的page global directory entry中的present bit<br>參數包含兩個integer代表起始和結尾index<br>和一個陣列指標參數，存放結果</p>
 <a id="more"></a>
 <h2 id="u904E_u7A0B"><a href="#u904E_u7A0B" class="headerlink" title="過程"></a>過程</h2><p>新增system call和compile kernel的方法都在上一篇中，這邊不再贅述。</p>
 <p>首先我們得先知道kernel中有個current指標能取得目前執行process的task_struct<br>而current-&gt;mm則會取得跟這個process memory management相關的mm_struct<br>current-&gt;mm-&gt;pgd就指向我們page directory table的開頭位址</p>
@@ -115,14 +115,16 @@
 <p>有了page directory entry後<br>page directory entry的value第一位bit其實就是present bit<br>那就可以像下面這樣子取得present bit:<br>pgd_val(current-&gt;mm-&gt;pgd[index]) &amp; 0x01</p>
 <p>pgd_val是取得pgd_t實際的值</p>
 <p>最後的程式碼：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;linux/sched.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;asm/current.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;asm/pgtable.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">asmlinkage <span class="keyword">int</span> <span class="title">sys_address_space_survey</span><span class="params">(<span class="keyword">int</span> first, <span class="keyword">int</span> last, <span class="keyword">int</span> *result)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">struct</span> mm_struct *mm;</span><br><span class="line">    <span class="keyword">pgd_t</span> *pgd = current-&gt;mm-&gt;pgd; <span class="comment">//base address of pgd table</span></span><br><span class="line">    <span class="keyword">int</span> pst;</span><br><span class="line">    <span class="keyword">int</span> addr = first;</span><br><span class="line">    <span class="keyword">while</span>(addr &lt;= last) &#123;</span><br><span class="line">        pst = pgd_val(pgd[addr]) &amp; <span class="number">0x1</span>; <span class="comment">//get present bit</span></span><br><span class="line">        result[addr] = pst;</span><br><span class="line">        printk(<span class="string">"pgd[%d] present bit is %x\n"</span>, addr, pst);</span><br><span class="line">        addr++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>然後編譯kernel時PAE記得關<br>不然結果會不正確<br>make meunconfig時取消PAE(Ubuntu這版本預設有開)</p>
-<h2 id="u7D50_u679C"><a href="#u7D50_u679C" class="headerlink" title="結果"></a>結果</h2><p><img src="http://i.imgur.com/y3VcmGU.png" alt=""><br>三個程式在entry 768以上的present bit都是相同的<br>驗證了我們學過的: Kernel是映射到0xc0000000以上<br>(0xc0000000 &gt;&gt; 22 = 768)</p>
-<p>整體沒啥難度，主要是編kernel太花時間…<br>當初熬夜3天才做完</p>
+<p>然後編譯kernel時PAE記得關<br>不然結果會不正確<br>make meunconfig時取消PAE(Ubuntu這版本預設有開)<br>Processor type and features -&gt; High Memory Support -&gt; off<br><img src="http://i.imgur.com/4axf392.png" alt=""></p>
+<h2 id="u7D50_u679C"><a href="#u7D50_u679C" class="headerlink" title="結果"></a>結果</h2><p><img src="http://i.imgur.com/7ORN2Z4.jpg" alt=""><br><img src="http://i.imgur.com/uXqiE8H.jpg" alt=""></p>
+<p>從768以下的present bit結果可觀察出三份程式中<br>都各有一段連續的present bit是1<br>但所在位置都不同，這段連續的1其實就是對應到a[SIZE]<br>仔細觀察可發現三份code的a[SIZE]陣列剛好分別在stack、bss、heap段<br>而從present bit分布狀況來看的確符合不同區段的相對位置<br>註1: 這邊必須設定過a[SIZE]陣列中的元素才會使pgd present bit被設定<br>例如：for(int i = 0; i &lt; SIZE; ++i) a[i] = i; 即可<br>註2: 因為原本SIZE有點小，可以設大一點方便觀察結果，例如設10000000<br>但因為SIZE很大，所以可能會Segmentation fault，可以用ulimit -s來增大stack size<br>(這部分感謝jxcode大神指點m(<em> </em>)m)</p>
+<p>而三個程式在entry 768以上的present bit都是相同的<br>驗證了我們學過的: Kernel是映射到0xc0000000以上<br>(0xc0000000 &gt;&gt; 22 = 768)</p>
+<p>整體似乎沒啥難度，主要是編kernel太花時間還有細節很多要注意的地方…<br>當初熬夜3天才做完QQ</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h2><p>延續上一篇，這篇記錄Project主要內容的實作過程。</p>
 <p>題目的要求是：For each page directory entry with an index located in the group of indexes specified by the parameters, this system call shows the value of the present field of the entry.</p>
-<p>簡單說就是新增一個system call<br>讓它可以取得當前process的page directory entry中的present bit<br>參數包含兩個integer代表起始和結尾index<br>和一個陣列指標參數，存放結果</p>]]>
+<p>簡單說就是新增一個system call<br>讓它可以取得當前process的page global directory entry中的present bit<br>參數包含兩個integer代表起始和結尾index<br>和一個陣列指標參數，存放結果</p>]]>
     
     </summary>
     
@@ -139,7 +141,7 @@
     <link href="http://w181496.twbbs.org/2016/11/07/Linux-Kernel%E7%B7%A8%E8%AD%AF-Ubuntu/"/>
     <id>http://w181496.twbbs.org/2016/11/07/Linux-Kernel編譯-Ubuntu/</id>
     <published>2016-11-07T07:34:15.000Z</published>
-    <updated>2016-11-08T17:38:05.000Z</updated>
+    <updated>2016-11-30T15:38:11.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h2><p>因Linux Operating System課的project需要，人生第一次編Kernel就獻給他惹，所以怕忘就順手筆記一下。</p>
 <h2 id="u74B0_u5883"><a href="#u74B0_u5883" class="headerlink" title="環境"></a>環境</h2><p>使用Ubuntu 16.04 LTS i386 Desktop<br>要編的Kernel是3.10版</p>
 <h2 id="u904E_u7A0B"><a href="#u904E_u7A0B" class="headerlink" title="過程"></a>過程</h2><p>一開始當然要先裝好Linux環境(我是裝Ubuntu)<br>然後決定你要編的Kernel，並載下來解壓縮<br>(Kernel source可以到<a href="https://www.kernel.org" target="_blank" rel="external">https://www.kernel.org</a> 下載)<br>我這邊解壓縮出來後是linux-3.10.104/</p>
@@ -166,12 +168,12 @@
 <p>最後就開始漫長的compile了！</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo make</span><br></pre></td></tr></table></figure>
 <p>編完之後，就安裝到我們系統上</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo make moudles_install install</span><br></pre></td></tr></table></figure>
-<p>裝後之後沒問題，就重開機，用我們新的kernel開機</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo make modules_install install</span><br></pre></td></tr></table></figure>
+<p>裝好之後沒問題，就重開機，用我們新的kernel開機</p>
 <p>但是grub選單，預設好像是關的</p>
 <p>所以我們要先把它打開，再重開機</p>
 <p>重開時記得選我們編的kernel</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/default/grub&#10;&#20687;&#25105;&#19968;&#27171;&#25214;&#21040;&#19979;&#38754;&#36889;&#20841;&#34892;&#65292;&#21069;&#38754;&#21152;#&#65292;&#25226;&#20182;&#20497;&#35387;&#35299;&#25481;&#10;#GRUB_HIDDEN_TIMEOUT=0&#10;#GRUB_HIDDEN_TIMEOUT_QUIET=true&#10;&#10;&#28982;&#24460;&#26356;&#26032;&#10;$ sudo update-grub</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/default/grub&#10;&#20687;&#25105;&#19968;&#27171;&#25214;&#21040;&#19979;&#38754;&#36889;&#20841;&#34892;&#65292;&#21069;&#38754;&#21152;#&#65292;&#25226;&#20182;&#20497;&#35387;&#35299;&#25481;&#10;#GRUB_HIDDEN_TIMEOUT=0&#10;#GRUB_HIDDEN_TIMEOUT_QUIET=true&#10;&#10;&#28982;&#24460;&#26356;&#26032;&#10;$ sudo update-grub&#10;&#20043;&#24460;&#37325;&#38283;&#27231;&#23601;&#33021;&#30475;&#21040;&#36984;&#21934;&#20102;</span><br></pre></td></tr></table></figure>
 <p>最後寫個小程式來檢驗是否成功新增system call</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;syscall.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = syscall(<span class="number">351</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>然後執行之後，用以下這指令看kernel有沒有輸出我們想要的訊息</p>

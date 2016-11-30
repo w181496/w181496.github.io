@@ -87,8 +87,6 @@
 				        
 							<li><a href="/archives">所有文章</a></li>
 				        
-							<li><a href="/schedule">行程表</a></li>
-				        
 						</ul>
 					</nav>
 					<nav class="header-nav">
@@ -150,8 +148,6 @@
 					<li><a href="/">主頁</a></li>
 		        
 					<li><a href="/archives">所有文章</a></li>
-		        
-					<li><a href="/schedule">行程表</a></li>
 		        
 		        <div class="clearfix"></div>
 				</ul>
@@ -263,7 +259,7 @@
       
         <h2 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h2><p>延續上一篇，這篇記錄Project主要內容的實作過程。</p>
 <p>題目的要求是：For each page directory entry with an index located in the group of indexes specified by the parameters, this system call shows the value of the present field of the entry.</p>
-<p>簡單說就是新增一個system call<br>讓它可以取得當前process的page directory entry中的present bit<br>參數包含兩個integer代表起始和結尾index<br>和一個陣列指標參數，存放結果</p>
+<p>簡單說就是新增一個system call<br>讓它可以取得當前process的page global directory entry中的present bit<br>參數包含兩個integer代表起始和結尾index<br>和一個陣列指標參數，存放結果</p>
       
     </div>
     
