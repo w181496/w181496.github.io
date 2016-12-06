@@ -103,7 +103,7 @@
     <link href="http://w181496.twbbs.org/2016/11/10/Linux-project-PGD-present-bit/"/>
     <id>http://w181496.twbbs.org/2016/11/10/Linux-project-PGD-present-bit/</id>
     <published>2016-11-10T14:50:31.000Z</published>
-    <updated>2016-12-01T14:40:50.000Z</updated>
+    <updated>2016-12-06T05:26:26.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h2><p>延續上一篇，這篇記錄Project主要內容的實作過程。</p>
 <p>題目的要求是：For each page directory entry with an index located in the group of indexes specified by the parameters, this system call shows the value of the present field of the entry.</p>
 <p>簡單說就是新增一個system call<br>讓它可以取得當前process的page global directory entry中的present bit<br>參數包含兩個integer代表起始和結尾index<br>和一個陣列指標參數，存放結果</p>
@@ -112,7 +112,8 @@
 <p><img src="http://i.imgur.com/e9n5HH7.png" alt=""><br>首先我們得先知道kernel中有個current指標能取得目前執行process的task_struct<br>而current-&gt;mm則會取得跟這個process memory management相關的mm_struct<br>current-&gt;mm-&gt;pgd就指向我們page directory table的開頭位址</p>
 <p>再來我們先觀察Linux在32位元下的Linear address<br><img src="http://i.imgur.com/mqdizUz.jpg" alt=""><br>Directory有10 bits、page table 10 bits、offset 22 bits<br>最左邊10 bits其實就可看作page directory的index<br>總共1024個page directory</p>
 <p>我們的目標就是directory中entry的present<br>要得到某個page directory table中的entry可以用下面這種方式：<br>current-&gt;mm-&gt;pgd[index]<br>它是一條長度1024的pgd_t陣列</p>
-<p>有了page directory entry後<br>page directory entry的value第一位bit其實就是present bit<br><img src="http://wiki.osdev.org/images/9/94/Page_dir.png" alt=""></p>
+<p>有了page directory entry後<br>page directory entry的value第一位bit其實就是present bit</p>
+<p><img src="http://wiki.osdev.org/images/9/94/Page_dir.png" alt=""></p>
 <p>那就可以像下面這樣子取得present bit:<br>pgd_val(current-&gt;mm-&gt;pgd[index]) &amp; 0x01</p>
 <p>pgd_val是取得pgd_t實際的值</p>
 <p>最後的程式碼：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;linux/sched.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;asm/current.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;asm/pgtable.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">asmlinkage <span class="keyword">int</span> <span class="title">sys_address_space_survey</span><span class="params">(<span class="keyword">int</span> first, <span class="keyword">int</span> last, <span class="keyword">int</span> *result)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">pgd_t</span> *pgd = current-&gt;mm-&gt;pgd; <span class="comment">//base address of pgd table</span></span><br><span class="line">    <span class="keyword">int</span> pst;</span><br><span class="line">    <span class="keyword">int</span> addr = first;</span><br><span class="line">    <span class="keyword">while</span>(addr &lt;= last) &#123;</span><br><span class="line">        pst = pgd_val(pgd[addr]) &amp; <span class="number">0x1</span>; <span class="comment">//get present bit</span></span><br><span class="line">        result[addr] = pst;</span><br><span class="line">        printk(<span class="string">"pgd[%d] present bit is %x\n"</span>, addr, pst);</span><br><span class="line">        addr++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -121,6 +122,7 @@
 <p>從768以下的present bit結果可觀察出三份程式中<br>都各有一段連續的present bit是1<br>但所在位置都不同，這段連續的1其實就是對應到a[SIZE]<br>仔細觀察可發現三份code的a[SIZE]陣列剛好分別在stack、bss、heap段<br>而從present bit分布狀況來看的確符合不同區段的相對位置</p>
 <p>註1: 這邊必須設定過a[SIZE]陣列中的元素才會使pgd present bit被設定<br>例如：for(int i = 0; i &lt; SIZE; ++i) a[i] = i; 即可</p>
 <p>註2: 因為原本SIZE有點小，可以設大一點方便觀察結果，例如設10000000<br>但因為SIZE很大，所以可能會Segmentation fault，可以用ulimit -s來增大stack size<br>(這部分感謝jxcode大神指點)</p>
+<p>註3: 觀察可發現三份code在index 32那個pgd present bit都是1<br>是因為code也需要有地方存放，那其實就是存放code的區段</p>
 <p>而三個程式在entry 768以上的present bit都是相同的<br>驗證了我們學過的: Kernel是映射到0xc0000000以上<br>(0xc0000000 &gt;&gt; 22 = 768)</p>
 <p>整體似乎沒啥難度，主要是編kernel太花時間還有細節很多要注意的地方…<br>當初熬夜3天才做完QQ</p>
 ]]></content>
