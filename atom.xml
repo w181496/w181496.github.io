@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://w181496.twbbs.org/"/>
-  <updated>2017-07-03T19:41:14.000Z</updated>
+  <updated>2017-07-03T19:51:20.000Z</updated>
   <id>http://w181496.twbbs.org/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://w181496.twbbs.org/2017/07/04/%E5%BA%A7%E6%A8%99%E7%B3%BB%E3%80%81%E6%AD%90%E6%8B%89%E8%A7%92%E8%88%87%E6%96%B9%E4%BD%8D%E8%A7%92/"/>
     <id>http://w181496.twbbs.org/2017/07/04/座標系、歐拉角與方位角/</id>
     <published>2017-07-03T16:50:11.000Z</published>
-    <updated>2017-07-03T19:41:14.000Z</updated>
+    <updated>2017-07-03T19:51:20.000Z</updated>
     <content type="html"><![CDATA[<p>此篇文章為我在研究利用車載IMU判斷行進方向並預防事故的一些技術資料整理及個人理解。<br>可能在學術上不是很嚴謹，也有可能有地方有錯誤。<br>名詞定義上也可能和其他學術論文不同。</p>
 <h2 id="u74B0_u5883"><a href="#u74B0_u5883" class="headerlink" title="環境"></a>環境</h2><p><strong><em> IMU(Inertial measurement unit): 慣性測量單元 </em></strong><br> IMU包含加速度計、磁力計、陀螺儀等sensor<br> 而IMU被包進後照鏡中，掛在車子上<br> 目的是希望車子行進時，可以計算出車子的方向或是其他資訊來幫助後續處理</p>
 <a id="more"></a>
@@ -52,7 +52,7 @@
 <p><br></p>
 <p>但兩種方法各有優缺，像加速度計在快速震動(高頻)時，容易有誤差干擾。<br>而陀螺儀在幾乎靜止(低頻)的狀態容易有漂移(drift)的問題。<br>解決這種狀況的方法之一就是下面要介紹的互補濾波器：</p>
 <p><strong><em>互補濾波器(Complementary Filter)</em></strong></p>
-<p>將高頻的陀螺儀算出的角度，跟低頻的加速度計算出的角度，依照比例相加<br>得到誤差影響較低的角度</p>
+<p>所謂的濾波器，就是能幫我們過濾掉不需要資訊的玩意。<br>濾波器有分很多種，像平均濾波器、卡爾曼濾波器等等<br>互補濾波器是將高頻的陀螺儀算出的角度，跟低頻的加速度計算出的角度，依照比例相加<br>藉而得到誤差影響程度較低的角度</p>
 <p>公式： <code>Angle = Gyro_Angle * a + (1 - a) * Acc_Angle</code>，Gyro_Angle為陀螺儀算出的角度; Acc_Angle為加速度計算出的角度<br>其中 <code>0 &lt; a &lt; 1</code></p>
 <h2 id="u5176_u4ED6"><a href="#u5176_u4ED6" class="headerlink" title="其他"></a>其他</h2><p><strong><em> atan2 </em></strong><br>C/C++當中的atan2(y, x)，是我們這個研究當中會很常用到的函數<br>它的意義是求y/x的反正切值<br>返回值介於<code>[-pi/2, pi/2]</code></p>
 <p>具體一點來說就是以x軸轉到(x,y)向量的角度</p>
