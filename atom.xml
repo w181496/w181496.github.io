@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://w181496.twbbs.org/"/>
-  <updated>2016-11-14T15:03:39.000Z</updated>
+  <updated>2017-07-03T16:51:56.000Z</updated>
   <id>http://w181496.twbbs.org/</id>
   
   <author>
@@ -13,6 +13,73 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[座標系、歐拉角與方位角]]></title>
+    <link href="http://w181496.twbbs.org/2017/07/04/%E5%BA%A7%E6%A8%99%E7%B3%BB%E3%80%81%E6%AD%90%E6%8B%89%E8%A7%92%E8%88%87%E6%96%B9%E4%BD%8D%E8%A7%92/"/>
+    <id>http://w181496.twbbs.org/2017/07/04/座標系、歐拉角與方位角/</id>
+    <published>2017-07-03T16:50:11.000Z</published>
+    <updated>2017-07-03T16:51:56.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="u5EA7_u6A19_u7CFB_u3001_u6B50_u62C9_u89D2_u8207_u65B9_u4F4D_u89D2"><a href="#u5EA7_u6A19_u7CFB_u3001_u6B50_u62C9_u89D2_u8207_u65B9_u4F4D_u89D2" class="headerlink" title="座標系、歐拉角與方位角"></a>座標系、歐拉角與方位角</h1><p>此篇文章為我在研究利用車載IMU判斷行進方向並預防事故的一些技術資料整理及個人理解。<br>可能在學術上不是很嚴謹，也有可能有地方有錯誤。<br>名詞定義上也可能和其他學術論文不同。</p>
+<h2 id="u74B0_u5883"><a href="#u74B0_u5883" class="headerlink" title="環境"></a>環境</h2><p>==IMU(Inertial measurement unit): 慣性測量單元==<br>                                  IMU包含加速度計、磁力計、陀螺儀等sensor<br>                                  而IMU被包進後照鏡中，掛在車子上<br>                                  目的是希望車子行進時，可以計算出車子的方向或是其他資訊來幫助後續處理</p>
+<h2 id="u5EA7_u6A19_u7CFB"><a href="#u5EA7_u6A19_u7CFB" class="headerlink" title="座標系"></a>座標系</h2><pre><code>                              所謂座標系，像我們高中數學、物理所學的直角座標系、慣性座標系也是座標系的一種
+                              而這裡我們主要討論的是「地球座標系」
+
+                              ==地球座標系(Earth Frame)==
+                              這裡的地球座標系，指的是x軸指向北方，y軸指向東方，z軸指向地心的座標系
+                              所以在地球座標系上，重力加速度平行z軸，且垂直xy平面
+                              (xy平面即為水平面)
+
+&lt;img src=&quot;data:image/png;base64,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&quot;&gt;
+
+==附體座標系(Body Frame)==
+附體座標系在這裡指的是，相對於車子的座標系
+例如：車子行進方向為x軸，左右方向為y軸，垂直兩者的為z軸
+而在車上的物體就能以此座標系來表示
+</code></pre><h2 id="u6B50_u62C9_u89D2"><a href="#u6B50_u62C9_u89D2" class="headerlink" title="歐拉角"></a>歐拉角</h2><pre><code>歐拉角分為三種角度：roll、pitch、yaw
+
+[補圖]
+
+==roll==
+roll一般指的是繞x軸旋轉的角度
+就是往x軸看過去，yz平面上旋轉的角度
+
+==pitch==
+pitch一般指的是繞y軸旋轉的角度
+
+==yaw==
+yaw一般指的是繞z軸旋轉的角度
+
+對於一個三維剛體的旋轉來說，roll、pitch、yaw三個角度可以定義出該剛體的旋轉情形
+
+以我們的環境來說，後照鏡(IMU)因為每次掛在車上時的角度都不同，所以我們用&quot;目前後照鏡的座標系&quot; 與 &quot;地球座標系&quot;之間的角度差異來定義我們IMU傾斜的幅度
+而兩個座標系的角度差異即可用roll、pitch、yaw來表示
+
+例如：水平擺放的IMU轉了roll角，再轉了pitch，最後轉yaw角，變成目前掛在後照鏡上的狀態(傾斜角度)
+這個我們稱為==傾角補償==
+
+而這裡旋轉的先後是有差別的，先旋轉roll或先旋轉pitch，最後的結果有可能不同
+所以可能有不同組(roll, pitch, yaw)旋轉可以對應到同一個物體的傾斜狀態
+</code></pre><h2 id="u65B9_u4F4D_u89D2"><a href="#u65B9_u4F4D_u89D2" class="headerlink" title="方位角"></a>方位角</h2><pre><code>又稱為==Azimuth==
+這裏的方位角定義為車子在水平面上的行進方向與磁北在水平面上的投影的夾角
+此方位角即可拿來作為車子行進方向(heading)的依據
+[補圖]
+
+仔細觀察即可發現，Azimuth其實就是yaw角(相對於水平面來說)
+
+若IMU為水平擺放，且磁力計x軸為車行進方向，則Azimuth的值即為<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">    (mx: &#30913;&#21147;&#35336;x&#36600;&#28204;&#24471;&#20043;&#25976;&#20540; ; my: &#30913;&#21147;&#35336;y&#36600;&#28204;&#24471;&#20043;&#25976;&#20540;)&#10;    [&#35036;&#22294;]&#10;&#10;&#10;## &#35336;&#31639;&#26041;&#20301;&#35282;&#10;&#10;    &#30001;&#26044;IMU&#25850;&#25918;&#36890;&#24120;&#19981;&#26371;&#26159;&#27700;&#24179;&#30340;&#65292;&#25152;&#20197;&#25105;&#20497;&#24517;&#38920;&#35336;&#31639;&#20986;IMU&#30340;roll&#12289;pitch&#12289;yaw&#35282;&#24230;&#10;    &#20358;&#21435;&#20462;&#27491;&#30913;&#21147;&#35336;&#30340;&#36039;&#26009;&#65292;&#20006;&#35336;&#31639;&#20986;Azimuth&#10;    (&#36889;&#37002;&#30913;&#21147;&#35336;&#36996;&#26371;&#21463;&#21040;&#22806;&#30028;&#30913;&#22580;&#24178;&#25854;&#65292;&#22914;&#36575;&#30828;&#30913;&#24178;&#25854;&#31561;&#65292;&#38656;&#35201;&#20808;&#26657;&#27491;)&#10;&#10;&#10;&#10;## &#20854;&#20182;&#10;&#10;    ==atan2==&#10;    C/C++&#30070;&#20013;&#30340;atan2(y, x)&#65292;&#26159;&#25105;&#20497;&#36889;&#20491;&#30740;&#31350;&#30070;&#20013;&#26371;&#24456;&#24120;&#29992;&#21040;&#30340;&#20989;&#25976;&#10;    &#23427;&#30340;&#24847;&#32681;&#26159;&#27714;y/x&#30340;&#21453;&#27491;&#20999;&#20540;&#10;    &#36820;&#22238;&#20540;&#20171;&#26044;```[-pi/2, pi/2]</span><br></pre></td></tr></table></figure>
+
+具體一點來說就是以x軸轉到(x,y)向量的角度
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#33509;y&#62;0:  &#25152;&#24471;&#20043;&#20540;&#28858;x&#36600;&#36870;&#26178;&#37341;&#35336;&#31639;&#30340;&#35282;&#24230;&#10;&#33509;y&#60;0:  &#25152;&#24471;&#20043;&#20540;&#28858;x&#36600;&#38918;&#26178;&#37341;&#35336;&#31639;&#30340;&#35282;&#24230;</span><br></pre></td></tr></table></figure>
+
+舉例： 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1. atan2(-1, 1) * 180 / PI == -45&#24230;&#10;2. atan2(1, -1) * 180 / PI == 135&#24230;</span><br></pre></td></tr></table></figure>
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="u5EA7_u6A19_u7CFB_u3001_u6B50_u62C9_u89D2_u8207_u65B9_u4F4D_u89D2"><a href="#u5EA7_u6A19_u7CFB_u3001_u6B50_u62C9_u89D2_u8207_u65B9_u]]>
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[小朋友下樓梯輔助程式]]></title>

