@@ -6,29 +6,24 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Linux Kernel編譯+新增System call(Ubuntu) | Kaibro&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前情提要因Linux Operating System課的project需要，人生第一次編Kernel就獻給他惹，所以怕忘就順手筆記一下。
-環境使用Ubuntu 16.04 LTS i386 Desktop要編的Kernel是3.10版
-過程一開始當然要先裝好Linux環境(我是裝Ubuntu)然後決定你要編的Kernel，並載下來解壓縮(Kernel source可以到https://www.k">
+  <meta name="description" content="前情提要因Linux Operating System課的project需要，人生第一次編Kernel就獻給他惹，所以怕忘就順手筆記一下。 環境使用Ubuntu 16.04 LTS i386 Desktop要編的Kernel是3.10版 過程一開始當然要先裝好Linux環境(我是裝Ubuntu)然後決定你要編的Kernel，並載下來解壓縮(Kernel source可以到https://www.k">
+<meta name="keywords" content="筆記,NCU,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux Kernel編譯+新增System call(Ubuntu)">
 <meta property="og:url" content="http://w181496.twbbs.org/2016/11/07/Linux-Kernel編譯-Ubuntu/index.html">
-<meta property="og:site_name" content="Kaibro's blog">
-<meta property="og:description" content="前情提要因Linux Operating System課的project需要，人生第一次編Kernel就獻給他惹，所以怕忘就順手筆記一下。
-環境使用Ubuntu 16.04 LTS i386 Desktop要編的Kernel是3.10版
-過程一開始當然要先裝好Linux環境(我是裝Ubuntu)然後決定你要編的Kernel，並載下來解壓縮(Kernel source可以到https://www.k">
+<meta property="og:site_name" content="Kaibro&#39;s blog">
+<meta property="og:description" content="前情提要因Linux Operating System課的project需要，人生第一次編Kernel就獻給他惹，所以怕忘就順手筆記一下。 環境使用Ubuntu 16.04 LTS i386 Desktop要編的Kernel是3.10版 過程一開始當然要先裝好Linux環境(我是裝Ubuntu)然後決定你要編的Kernel，並載下來解壓縮(Kernel source可以到https://www.k">
 <meta property="og:updated_time" content="2016-11-30T15:38:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux Kernel編譯+新增System call(Ubuntu)">
-<meta name="twitter:description" content="前情提要因Linux Operating System課的project需要，人生第一次編Kernel就獻給他惹，所以怕忘就順手筆記一下。
-環境使用Ubuntu 16.04 LTS i386 Desktop要編的Kernel是3.10版
-過程一開始當然要先裝好Linux環境(我是裝Ubuntu)然後決定你要編的Kernel，並載下來解壓縮(Kernel source可以到https://www.k">
+<meta name="twitter:description" content="前情提要因Linux Operating System課的project需要，人生第一次編Kernel就獻給他惹，所以怕忘就順手筆記一下。 環境使用Ubuntu 16.04 LTS i386 Desktop要編的Kernel是3.10版 過程一開始當然要先裝好Linux環境(我是裝Ubuntu)然後決定你要編的Kernel，並載下來解壓縮(Kernel source可以到https://www.k">
   
     <link rel="alternative" href="/atom.xml" title="Kaibro&#39;s blog" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
   
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
@@ -74,10 +69,10 @@
 					<div class="tips-arrow"></div>
 					<ul class="tips-inner">
 						<li>Menu</li>
-						<li>標籤</li>
+						<li>Tags</li>
 						
 						
-						<li>關於</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -214,39 +209,39 @@
         <h2 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h2><p>因Linux Operating System課的project需要，人生第一次編Kernel就獻給他惹，所以怕忘就順手筆記一下。</p>
 <h2 id="u74B0_u5883"><a href="#u74B0_u5883" class="headerlink" title="環境"></a>環境</h2><p>使用Ubuntu 16.04 LTS i386 Desktop<br>要編的Kernel是3.10版</p>
 <h2 id="u904E_u7A0B"><a href="#u904E_u7A0B" class="headerlink" title="過程"></a>過程</h2><p>一開始當然要先裝好Linux環境(我是裝Ubuntu)<br>然後決定你要編的Kernel，並載下來解壓縮<br>(Kernel source可以到<a href="https://www.kernel.org" target="_blank" rel="external">https://www.kernel.org</a> 下載)<br>我這邊解壓縮出來後是linux-3.10.104/</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd linux-3.10.104/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cd linux-3.10.104/</div></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>進去之後，要新增一個system call<br>創一個資料夾用來放我們system call的code</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir mycall&#10;$ cd mycall</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ mkdir mycall</div><div class="line">$ cd mycall</div></pre></td></tr></table></figure>
 <p>新增一個檔案helloworld.c，就是我們system call的程式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim helloworld.c</span><br></pre></td></tr></table></figure>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;linux/kernel.h&gt;</span></span></span><br><span class="line"><span class="function">asmlinkage <span class="keyword">int</span> <span class="title">sys_helloworld</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    printk(<span class="string">"kaibro ininder\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vim helloworld.c</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/kernel.h&gt;</span></span></div><div class="line"><span class="function">asmlinkage <span class="keyword">int</span> <span class="title">sys_helloworld</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</div><div class="line">    printk(<span class="string">"kaibro ininder\n"</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>再來新增Makefile，用來確保我們的程式會被編譯進Kernel</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim Makefile&#10;obj-y := helloworld.o</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ vim Makefile</div><div class="line">obj-y := helloworld.o</div></pre></td></tr></table></figure>
 <p>再來回上一層目錄，修改Makefile</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd ..&#10;$ vim Makefile&#10;core-y += kernel/ mm/ fs/ ipc/ security/ crypto/ block/&#10;&#25214;&#21040;&#36889;&#34892;&#65292;&#22312;&#26368;&#24460;&#38754;&#26032;&#22686; mycall/&#10;&#10;core-y += kernel/ mm/ fs/ ipc/ security/ crypto/ block/ mycall/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ cd ..</div><div class="line">$ vim Makefile</div><div class="line">core-y += kernel/ mm/ fs/ ipc/ security/ crypto/ block/</div><div class="line">找到這行，在最後面新增 mycall/</div><div class="line"></div><div class="line">core-y += kernel/ mm/ fs/ ipc/ security/ crypto/ block/ mycall/</div></pre></td></tr></table></figure>
 <p>這是為了告訴它，我們新的system call的source files在mycall資料夾裡</p>
 <p>再來我們要新增我們的system call到system call table裡</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// &#22914;&#26524;&#26159;64&#20301;&#20803;&#31995;&#32113;&#65292;&#23601;&#26159;syscall_64.tbl&#10;$ vim arch/x86/syscalls/syscall_32.tbl&#10;&#10;&#22312;&#26368;&#24460;&#38754;&#26032;&#22686;&#19968;&#34892;&#65292;&#21407;&#26412;system call&#21482;&#21040;350&#34399;&#65292;&#25152;&#20197;&#36889;&#37002;&#23601;&#22635;351&#34399;&#10;351   i386  helloworld  sys_helloworld</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 如果是64位元系統，就是syscall_64.tbl</div><div class="line">$ vim arch/x86/syscalls/syscall_32.tbl</div><div class="line"></div><div class="line">在最後面新增一行，原本system call只到350號，所以這邊就填351號</div><div class="line">351   i386  helloworld  sys_helloworld</div></pre></td></tr></table></figure>
 <p>再來修改system call header</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim include/linux/syscalls.h&#10;&#10;&#22312;&#26368;&#19979;&#38754;(#endif&#21069;)&#26032;&#22686;&#19968;&#34892;&#10;asmlinkage int helloworld(void);&#10;&#10;&#36889;&#23450;&#32681;&#20102;&#25105;&#20497;system call&#30340;prototype&#10;asmlinkage&#20195;&#34920;&#25105;&#20497;&#30340;&#21443;&#25976;&#37117;&#21487;&#20197;&#22312;stack&#35041;&#21462;&#29992;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ vim include/linux/syscalls.h</div><div class="line"></div><div class="line">在最下面(#endif前)新增一行</div><div class="line">asmlinkage int helloworld(void);</div><div class="line"></div><div class="line">這定義了我們system call的prototype</div><div class="line">asmlinkage代表我們的參數都可以在stack裡取用</div></pre></td></tr></table></figure>
 <p>接著編譯kernel前要裝一些套件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install libncurses5-dev</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install libncurses5-dev</div></pre></td></tr></table></figure>
 <p>還有設定檔</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo make menuconfig&#10;// &#36889;&#37002;&#25105;&#37117;&#29992;&#38928;&#35373;&#30340;&#10;$ sudo make oldconfig</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo make menuconfig</div><div class="line">// 這邊我都用預設的</div><div class="line">$ sudo make oldconfig</div></pre></td></tr></table></figure>
 <p>最後就開始漫長的compile了！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo make</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo make</div></pre></td></tr></table></figure>
 <p>編完之後，就安裝到我們系統上</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo make modules_install install</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo make modules_install install</div></pre></td></tr></table></figure>
 <p>裝好之後沒問題，就重開機，用我們新的kernel開機</p>
 <p>但是grub選單，預設好像是關的</p>
 <p>所以我們要先把它打開，再重開機</p>
 <p>重開時記得選我們編的kernel</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/default/grub&#10;&#20687;&#25105;&#19968;&#27171;&#25214;&#21040;&#19979;&#38754;&#36889;&#20841;&#34892;&#65292;&#21069;&#38754;&#21152;#&#65292;&#25226;&#20182;&#20497;&#35387;&#35299;&#25481;&#10;#GRUB_HIDDEN_TIMEOUT=0&#10;#GRUB_HIDDEN_TIMEOUT_QUIET=true&#10;&#10;&#28982;&#24460;&#26356;&#26032;&#10;$ sudo update-grub&#10;&#20043;&#24460;&#37325;&#38283;&#27231;&#23601;&#33021;&#30475;&#21040;&#36984;&#21934;&#20102;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ sudo vim /etc/default/grub</div><div class="line">像我一樣找到下面這兩行，前面加#，把他們註解掉</div><div class="line">#GRUB_HIDDEN_TIMEOUT=0</div><div class="line">#GRUB_HIDDEN_TIMEOUT_QUIET=true</div><div class="line"></div><div class="line">然後更新</div><div class="line">$ sudo update-grub</div><div class="line">之後重開機就能看到選單了</div></pre></td></tr></table></figure>
 <p>最後寫個小程式來檢驗是否成功新增system call</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;syscall.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = syscall(<span class="number">351</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;syscall.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> a = syscall(<span class="number">351</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>然後執行之後，用以下這指令看kernel有沒有輸出我們想要的訊息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ dmesg</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ dmesg</div></pre></td></tr></table></figure>
 <p>如果有看到”kaibro ininder”，就代表成功惹～</p>
 <h2 id="u5F8C_u8A18"><a href="#u5F8C_u8A18" class="headerlink" title="後記"></a>後記</h2><p>其實一開始我是裝Fedora<br>但不知為何總是一直失敗<br>一開始是虛擬機空間開太小<br>後來好不容易重灌好，也編完，卻莫名無法開機<br>想說是編太新版的Kernel炸掉，結果重編個相同版本的Kernel還是一樣<br>(前前後後大概編了6次吧….)<br>之後就果斷改用Ubuntu…</p>
 
@@ -335,7 +330,7 @@
 </footer>
     </div>
     
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
 
 <script>
@@ -351,8 +346,8 @@
 		open_in_new: false
 	}
 </script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
 
 
 <script>
