@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://w181496.twbbs.org/"/>
-  <updated>2017-07-16T15:42:00.000Z</updated>
+  <updated>2017-07-19T08:41:46.000Z</updated>
   <id>http://w181496.twbbs.org/</id>
   
   <author>
@@ -15,11 +15,170 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[106 資工所考試心得]]></title>
+    <link href="http://w181496.twbbs.org/2017/07/19/106-%E8%B3%87%E5%B7%A5%E6%89%80%E8%80%83%E8%A9%A6%E5%BF%83%E5%BE%97/"/>
+    <id>http://w181496.twbbs.org/2017/07/19/106-資工所考試心得/</id>
+    <published>2017-07-19T07:02:54.000Z</published>
+    <updated>2017-07-19T08:41:46.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="u6210_u7E3E"><a href="#u6210_u7E3E" class="headerlink" title="成績"></a>成績</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">系所</th>
+<th style="text-align:center">資演</th>
+<th style="text-align:center">數學</th>
+<th style="text-align:center">計系</th>
+<th style="text-align:center">英文</th>
+<th style="text-align:center">總分</th>
+<th style="text-align:center">結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">台大資工</td>
+<td style="text-align:center">75</td>
+<td style="text-align:center">35</td>
+<td style="text-align:center">31</td>
+<td style="text-align:center">20</td>
+<td style="text-align:center">143.0</td>
+<td style="text-align:center">備取18</td>
+</tr>
+<tr>
+<td style="text-align:center">台大電丙</td>
+<td style="text-align:center">64</td>
+<td style="text-align:center">83</td>
+<td style="text-align:center">75</td>
+<td style="text-align:center">48</td>
+<td style="text-align:center">226.8</td>
+<td style="text-align:center">正取</td>
+</tr>
+<tr>
+<td style="text-align:center">交大資工</td>
+<td style="text-align:center">59</td>
+<td style="text-align:center">47</td>
+<td style="text-align:center">57</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">163.0</td>
+<td style="text-align:center">甲組備6X 乙組備1X</td>
+</tr>
+<tr>
+<td style="text-align:center">清大資工</td>
+<td style="text-align:center">68(計科)</td>
+<td style="text-align:center">39(計系)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">107.0</td>
+<td style="text-align:center">正取</td>
+</tr>
+<tr>
+<td style="text-align:center">中央資工</td>
+<td style="text-align:center">77</td>
+<td style="text-align:center">89</td>
+<td style="text-align:center">59</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">225.0</td>
+<td style="text-align:center">正取</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="u6E96_u5099_u65B9_u5F0F"><a href="#u6E96_u5099_u65B9_u5F0F" class="headerlink" title="準備方式"></a>準備方式</h2><a id="more"></a>
+<p>基本上我大三下就報名補習班了，不過不是報X碩，是報X點<br>因為我當初覺得報哪家補習班理論上不會差太多<br>重點還是要靠自己努力讀<br>可是到中後期才發現，X碩的教材、課程資源的確屌打X點<br>(X點某科老師真的很雷，講義各種錯，連交大有公布正解都能給錯的答案)<br>不過當然最主要還是靠自己，補習班只是輔助的角色</p>
+<p>開始衝刺是大約暑假的時候<br>每天去中原的自習室或圖書館看書<br>讀的時間大概AM 11:00 ~ PM 12:00左右<br>讀的勤一點的時候，會從早上9、10點讀到凌晨1、2點<br>所以讀書的時間算是非常長的<br>這樣也有壞處，就是前期太積極，後期會有點無力<br>而且長時間讀，效率也會愈讀愈低</p>
+<p><strong><em>[數學]</em></strong><br>數學的話，準備方式除了上補習班課程外<br>就是在暑假的時候，把課本看完一遍<br>然後之後就是不斷複習跟刷題目<br>考古題的話，大概是最後三個月才拼命刷<br>像台大資工，我就從97刷到105，可以明顯感受到考題趨勢的變化<br>(聽說是有出題教授退休，所以後來風格變化很大)</p>
+<p><strong><em>[資演]</em></strong><br>因為一直有稍微在碰ACM競賽<br>所以這科基本上我沒花太多時間準備<br>只讀了一些競賽中不會看到的資料結構<br>然後把資結、演算法的筆記快速看過幾遍<br>剩下時間就是一直去刷I2A習題和一些難題<br>因為像台大資工，有幾年很喜歡出一些競賽經典題目或是I2A習題變化<br>可是今年台大就考得偏簡單，有點後悔花時間刷難題</p>
+<p><strong><em>[計系]</em></strong><br>台大資工的計系是出了名的詭異<br>計組感覺很愛出比較後面的章節<br>所以我花了很多時間研究幾乎每年都考的GPU<br>然後也花不少時間猜今年會考啥題目<br>也研究了很冷門的Snoopy protocol<br>恐龍本一些比較沒人考過的技術或名詞也都讀了一遍<br>但都沒考出來啊!!! 崩潰!!<br>而其他比較正常的題目，像交大資工<br>我的準備方式就是買一本順眼的筆記來啃，然後一直刷題</p>
+<p><br></p>
+<h2 id="u53F0_u5927_u8CC7_u5DE5"><a href="#u53F0_u5927_u8CC7_u5DE5" class="headerlink" title="台大資工"></a>台大資工</h2><p>考台大資工時數學和資演各種鬼遮眼、各種粗心計算錯誤<br>數學連第一題送分的反矩陣都算錯(10分)<br><strong><em>“不是反身也不是非反身”</em></strong>也看成<strong><em>“不是反身也不是對稱”</em></strong>(10分)…<br>更別說還考了一題10分的<strong><em>psuedo-inverse</em></strong>惹，補習班老師當初說絕對不會考，我就沒看惹，慘</p>
+<p>然後資演複雜度都算錯、LCS填空格也莫名手殘少寫、證明題還寫到一半就打鐘惹…<br>不過居然還有75分，原本以為頂多65<br>所以證明題倒扣啥的應該是嚇唬人的(?<br>感覺只要演算法是對的，就算證明寫爛也不會倒扣吧，我猜<br>因為我很確定我算法是對的，只是證明沒寫完，也寫爛了。<br>考完的時候，聽到一堆人說第一題證明是Dijkstra，我都嚇呆惹<br>這不是怎麼看都是DP嗎(?<br>證明應該就是去證他有最佳子結構跟重複子問題 (我寫到一半就收卷了QQ</p>
+<p>計系就跟往年風格類似，比較意外的是居然沒出啥GPU之類的東西<br>原本以為他會考AI、Machine Learning、AlphaGo相關的也沒出，我還花了不少時間準備QQ…<br>不過IoT倒是有猜到就是了，但也沒啥幫助，還是不會寫…<br>最後計系只考31，比預期的還低分QQ</p>
+<p>離最低正取只差6.2分，如果少粗心一、兩題就上了<br>只能說考運和細心程度也是很重要的<br>在考數學之前一直覺得自己已經很穩了<br>結果考完數學心情整個跌落谷底<br>目標75分以上，結果只考35分，慘慘慘</p>
+<p><br></p>
+<h2 id="u53F0_u5927_u96FB_u6A5F_u4E19"><a href="#u53F0_u5927_u96FB_u6A5F_u4E19" class="headerlink" title="台大電機丙"></a>台大電機丙</h2><p>電機丙是在資工的隔一天考<br>但因為資工考完就超級大崩潰，回去旅館也沒啥心情看書就睡覺了<br>隔天考前才稍微翻書複習一下<br>結果一個出乎意料的穩住惹<br>離散第一題剛好跟清大某年考古很類似，所以最後尻出來了<br>如果沒看過這題的話，可能真的會寫不出來<br>所以考古題真的很重要啊…少了這一題，我應該就不會正取了<br>但最後一題粗心，範圍沒證到，答案寫4K…還好分數沒全扣掉<br>資演部分，非常慘的2-3-4 tree的top-down insertion沒學過，只會bottom-up，整題噴掉<br>其他題感覺大部份蠻順的，但最後只有64，也不知哪裡噴掉惹G_G</p>
+<p><br></p>
+<h2 id="u4EA4_u5927_u8CC7_u5DE5"><a href="#u4EA4_u5927_u8CC7_u5DE5" class="headerlink" title="交大資工"></a>交大資工</h2><p>考前就有在猜今年會不會教授一個狂，資演改出手寫題，結果還真的就出手寫題惹G_G<br>資演的話其實難度算蠻簡單的，可是我也不知為啥就是一整個粗心<br>水題各種眼幹算錯，連有一題陷阱題明明就知道他的陷阱在哪<br>卻還是一個自己跳進陷阱爆掉QQ</p>
+<p>數學一整個悲劇，很多題目想不出來怎麼解，不然就是計算量太大<br>一直算錯，然後先跳下一題算，又一樣算很久又算錯<br>所以整體時間分配有點悲劇，寫不完<br>一些基本題也因為這樣慌了，結果粗心噴掉，慘。</p>
+<p>計系的話，寫起來覺得很簡單，可是倒扣，扣一扣分數還是很難看…</p>
+<p><br></p>
+<h2 id="u6E05_u5927_u8CC7_u5DE5"><a href="#u6E05_u5927_u8CC7_u5DE5" class="headerlink" title="清大資工"></a>清大資工</h2><p>寫過105年題目，以為今年計系也會考很簡單，結果拿到考卷就傻眼惹<br>題目狂的程度幾乎不輸台大，連要掰都很難掰QQ<br>計科部分印象中有7面，題目算蠻多的，所以我一個慢慢寫，到後面就有點寫不完G_G<br>計科整體難度偏簡單，不過還是粗心噴了幾題…</p>
+<p><br></p>
+<h2 id="u4E2D_u592E_u8CC7_u5DE5"><a href="#u4E2D_u592E_u8CC7_u5DE5" class="headerlink" title="中央資工"></a>中央資工</h2><p>中央的話，就沒特別準備，只寫幾份考古就上場了<br>計系部分考了幾題卡諾圖、邏輯等題目<br>這部分其他學校幾乎不考，所以很多人直接放掉沒讀，有點可惜<br>其他像是計算機網路的部分也會考，像IPv4、IPv6等等的基本觀念會考<br>演算法部分，我覺得題目出得還算有趣，考了一題點上有權重的Dijkstra<br>數學離散很多怪題目，線代就幾乎都考古題<br>不過整體考題都偏簡單，穩住基本題就夠</p>
+<p><br></p>
+<h2 id="u7D50_u8AD6"><a href="#u7D50_u8AD6" class="headerlink" title="結論"></a>結論</h2><p>考完這麼多間的感想就是，很多學校的題目都很狂<br>有的幾乎沒啥鑑別度，但你不會的別人通常也不會<br>所以真的穩住基本題大概就會上惹。<br>如果跟我一樣容易粗心，就很容易會居居…<br>尤其是數學，成敗的關鍵幾乎就看這科惹<br>這科分數對大家來說相對較好掌握<br>所以如果這科粗心或放掉不讀，可能差距就一下子拉很大惹</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="u6210_u7E3E"><a href="#u6210_u7E3E" class="headerlink" title="成績"></a>成績</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">系所</th>
+<th style="text-align:center">資演</th>
+<th style="text-align:center">數學</th>
+<th style="text-align:center">計系</th>
+<th style="text-align:center">英文</th>
+<th style="text-align:center">總分</th>
+<th style="text-align:center">結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">台大資工</td>
+<td style="text-align:center">75</td>
+<td style="text-align:center">35</td>
+<td style="text-align:center">31</td>
+<td style="text-align:center">20</td>
+<td style="text-align:center">143.0</td>
+<td style="text-align:center">備取18</td>
+</tr>
+<tr>
+<td style="text-align:center">台大電丙</td>
+<td style="text-align:center">64</td>
+<td style="text-align:center">83</td>
+<td style="text-align:center">75</td>
+<td style="text-align:center">48</td>
+<td style="text-align:center">226.8</td>
+<td style="text-align:center">正取</td>
+</tr>
+<tr>
+<td style="text-align:center">交大資工</td>
+<td style="text-align:center">59</td>
+<td style="text-align:center">47</td>
+<td style="text-align:center">57</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">163.0</td>
+<td style="text-align:center">甲組備6X 乙組備1X</td>
+</tr>
+<tr>
+<td style="text-align:center">清大資工</td>
+<td style="text-align:center">68(計科)</td>
+<td style="text-align:center">39(計系)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">107.0</td>
+<td style="text-align:center">正取</td>
+</tr>
+<tr>
+<td style="text-align:center">中央資工</td>
+<td style="text-align:center">77</td>
+<td style="text-align:center">89</td>
+<td style="text-align:center">59</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">225.0</td>
+<td style="text-align:center">正取</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="u6E96_u5099_u65B9_u5F0F"><a href="#u6E96_u5099_u65B9_u5F0F" class="headerlink" title="準備方式"></a>準備方式</h2>]]>
+    
+    </summary>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[AIS3 pre-exam 2017 writeup]]></title>
     <link href="http://w181496.twbbs.org/2017/07/16/AIS3-pre-exam-writeup/"/>
     <id>http://w181496.twbbs.org/2017/07/16/AIS3-pre-exam-writeup/</id>
     <published>2017-07-16T06:07:44.000Z</published>
-    <updated>2017-07-16T15:42:00.000Z</updated>
+    <updated>2017-07-19T07:01:22.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>因為平常沒在打CTF，也很久沒認真碰這塊，所以最後只有31分 QAQ<br>然後這是我第一次參加AIS3，高手感覺好多，怕</p>
 <h2 id="Web_1"><a href="#Web_1" class="headerlink" title="Web 1"></a>Web 1</h2><p>這題直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl https://quiz.ais3.org:42351/</div></pre></td></tr></table></figure></p>
 <p>就看得到Flag了<br><a id="more"></a></p>
@@ -29,7 +188,7 @@
 <p>所以只要我們輸入的password經過md5加密後也是[0e數字]形式就可繞過<br>例如：240610708</p>
 <h2 id="Web_3"><a href="#Web_3" class="headerlink" title="Web 3"></a>Web 3</h2><p>這題的p參數有LFI漏洞<br>像?p=index 會去include index.php<br>可以利用php://filter 去看index.php的源碼<br>像這樣</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://quiz.ais3.org:23545/?p=php://filter/read=convert.base64-encode/resource=index</div></pre></td></tr></table></figure>
-<p>不過得到的源碼是Base64加密過的，需要再去decode才看得到flag</p>
+<p>不過得到的源碼是Base64加密過的，需要再去decode才看得到藏在源碼裡的flag</p>
 <h2 id="Web_4"><a href="#Web_4" class="headerlink" title="Web 4"></a>Web 4</h2><p>延續上題，我們看源碼可以發現有地方可以上傳jpg檔<br>這題用到的就是phar的漏洞<br>把我們的webshell或其他php檔（例如myshell.php）包成zip（shell.zip）<br>然後把這個zip副檔名改成jpg傳上去（shell.jpg）<br>之後用?p=phar://圖片位址/shell.jpg/myshell<br>就會解析並include我們的webshell來執行惹<br>然後可以發現網站根目錄下有個超長的檔名：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">the_flag2_which_the_filename_you_can_not_guess_without_getting_the_shellllllll1l</div></pre></td></tr></table></figure>
 <p>裡面放的就是Flag惹</p>
@@ -243,11 +402,11 @@
     
     </summary>
     
-      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
-    
       <category term="NCU" scheme="http://w181496.twbbs.org/tags/NCU/"/>
     
       <category term="Linux" scheme="http://w181496.twbbs.org/tags/Linux/"/>
+    
+      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
     
   </entry>
   
@@ -304,11 +463,11 @@
     
     </summary>
     
-      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
-    
       <category term="NCU" scheme="http://w181496.twbbs.org/tags/NCU/"/>
     
       <category term="Linux" scheme="http://w181496.twbbs.org/tags/Linux/"/>
+    
+      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
     
   </entry>
   
@@ -364,9 +523,9 @@
     <![CDATA[<h2 id="LD_PRELOAD"><a href="#LD_PRELOAD" class="headerlink" title="LD_PRELOAD"></a>LD_PRELOAD</h2><p>LD_PRELOAD是Linux/Unix下的環境變數，他可以決定預先要載入]]>
     </summary>
     
-      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
-    
       <category term="NCU" scheme="http://w181496.twbbs.org/tags/NCU/"/>
+    
+      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
     
   </entry>
   
@@ -406,9 +565,9 @@
     
     </summary>
     
-      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
-    
       <category term="NCU" scheme="http://w181496.twbbs.org/tags/NCU/"/>
+    
+      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
     
       <category term="CTF" scheme="http://w181496.twbbs.org/tags/CTF/"/>
     
