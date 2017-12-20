@@ -3,9 +3,9 @@
   <title><![CDATA[Kaibro's blog]]></title>
   
   <link href="/atom.xml" rel="self"/>
-  <link href="http://w181496.twbbs.org/"/>
+  <link href="http://blog.kaibro.tw/"/>
   <updated>2017-12-20T11:10:37.000Z</updated>
-  <id>http://w181496.twbbs.org/</id>
+  <id>http://blog.kaibro.tw/</id>
   
   <author>
     <name><![CDATA[KaiBro]]></name>
@@ -16,8 +16,8 @@
   
   <entry>
     <title><![CDATA[Line Bug Bounty初體驗]]></title>
-    <link href="http://w181496.twbbs.org/2017/12/13/Line-Bug-Bounty%E5%88%9D%E9%AB%94%E9%A9%97/"/>
-    <id>http://w181496.twbbs.org/2017/12/13/Line-Bug-Bounty初體驗/</id>
+    <link href="http://blog.kaibro.tw/2017/12/13/Line-Bug-Bounty%E5%88%9D%E9%AB%94%E9%A9%97/"/>
+    <id>http://blog.kaibro.tw/2017/12/13/Line-Bug-Bounty初體驗/</id>
     <published>2017-12-13T13:12:21.000Z</published>
     <updated>2017-12-20T11:10:37.000Z</updated>
     <content type="html"><![CDATA[<p><img src="https://i.imgur.com/5iXqRUo.jpg" alt=""></p>
@@ -46,16 +46,16 @@
     
     </summary>
     
-      <category term="Web" scheme="http://w181496.twbbs.org/tags/Web/"/>
+      <category term="Web" scheme="http://blog.kaibro.tw/tags/Web/"/>
     
-      <category term="BugBounty" scheme="http://w181496.twbbs.org/tags/BugBounty/"/>
+      <category term="BugBounty" scheme="http://blog.kaibro.tw/tags/BugBounty/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[HITCON CTF初賽]]></title>
-    <link href="http://w181496.twbbs.org/2017/11/07/HITCON-CTF%E5%88%9D%E8%B3%BD/"/>
-    <id>http://w181496.twbbs.org/2017/11/07/HITCON-CTF初賽/</id>
+    <link href="http://blog.kaibro.tw/2017/11/07/HITCON-CTF%E5%88%9D%E8%B3%BD/"/>
+    <id>http://blog.kaibro.tw/2017/11/07/HITCON-CTF初賽/</id>
     <published>2017-11-07T05:35:17.000Z</published>
     <updated>2017-11-08T09:41:16.000Z</updated>
     <content type="html"><![CDATA[<p>我來打醬油的<br>好像都沒貢獻到啥QQ</p>
@@ -115,16 +115,16 @@
     
     </summary>
     
-      <category term="CTF" scheme="http://w181496.twbbs.org/tags/CTF/"/>
+      <category term="CTF" scheme="http://blog.kaibro.tw/tags/CTF/"/>
     
-      <category term="Web" scheme="http://w181496.twbbs.org/tags/Web/"/>
+      <category term="Web" scheme="http://blog.kaibro.tw/tags/Web/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[EDU-CTF 計算機安全]]></title>
-    <link href="http://w181496.twbbs.org/2017/10/15/EDU-CTF-%E8%A8%88%E7%AE%97%E6%A9%9F%E5%AE%89%E5%85%A8/"/>
-    <id>http://w181496.twbbs.org/2017/10/15/EDU-CTF-計算機安全/</id>
+    <link href="http://blog.kaibro.tw/2017/10/15/EDU-CTF-%E8%A8%88%E7%AE%97%E6%A9%9F%E5%AE%89%E5%85%A8/"/>
+    <id>http://blog.kaibro.tw/2017/10/15/EDU-CTF-計算機安全/</id>
     <published>2017-10-15T02:34:27.000Z</published>
     <updated>2017-12-20T09:35:37.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>這堂課是台大、台科大、交大、中央(?聯合的資安課程<br>今年全上pwn跟reverse，跟前年不太一樣(前年還有教Web、Crypto…等)<br>這一篇文章主要放這門課作業和練習的Write up，記錄一下解法怕忘記</p>
@@ -277,20 +277,20 @@
     
     </summary>
     
-      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
+      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
     
-      <category term="CTF" scheme="http://w181496.twbbs.org/tags/CTF/"/>
+      <category term="CTF" scheme="http://blog.kaibro.tw/tags/CTF/"/>
     
-      <category term="Pwn" scheme="http://w181496.twbbs.org/tags/Pwn/"/>
+      <category term="Pwn" scheme="http://blog.kaibro.tw/tags/Pwn/"/>
     
-      <category term="NTU" scheme="http://w181496.twbbs.org/tags/NTU/"/>
+      <category term="NTU" scheme="http://blog.kaibro.tw/tags/NTU/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[AIS3 2017 Workshop]]></title>
-    <link href="http://w181496.twbbs.org/2017/09/06/AIS3-2017-Workshop/"/>
-    <id>http://w181496.twbbs.org/2017/09/06/AIS3-2017-Workshop/</id>
+    <link href="http://blog.kaibro.tw/2017/09/06/AIS3-2017-Workshop/"/>
+    <id>http://blog.kaibro.tw/2017/09/06/AIS3-2017-Workshop/</id>
     <published>2017-09-06T08:34:36.000Z</published>
     <updated>2017-10-30T16:22:58.000Z</updated>
     <content type="html"><![CDATA[<p><img src="https://i.imgur.com/jEhADhe.png width:70%" alt=""></p>
@@ -354,20 +354,20 @@
     
     </summary>
     
-      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
+      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
     
-      <category term="CTF" scheme="http://w181496.twbbs.org/tags/CTF/"/>
+      <category term="CTF" scheme="http://blog.kaibro.tw/tags/CTF/"/>
     
-      <category term="Pwn" scheme="http://w181496.twbbs.org/tags/Pwn/"/>
+      <category term="Pwn" scheme="http://blog.kaibro.tw/tags/Pwn/"/>
     
-      <category term="Web" scheme="http://w181496.twbbs.org/tags/Web/"/>
+      <category term="Web" scheme="http://blog.kaibro.tw/tags/Web/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[自組四軸初體驗]]></title>
-    <link href="http://w181496.twbbs.org/2017/07/29/%E8%87%AA%E7%B5%84%E5%9B%9B%E8%BB%B8%E5%88%9D%E9%AB%94%E9%A9%97/"/>
-    <id>http://w181496.twbbs.org/2017/07/29/自組四軸初體驗/</id>
+    <link href="http://blog.kaibro.tw/2017/07/29/%E8%87%AA%E7%B5%84%E5%9B%9B%E8%BB%B8%E5%88%9D%E9%AB%94%E9%A9%97/"/>
+    <id>http://blog.kaibro.tw/2017/07/29/自組四軸初體驗/</id>
     <published>2017-07-29T12:27:40.000Z</published>
     <updated>2017-08-02T14:15:57.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>從以前就一直對四軸相當感興趣<br>覺得身為理工人應該要玩個四軸才對，而且不應該買套裝成品，應該要自己組XD<br>然後最近因為研究歐拉角、姿態等問題，讓我有了想自己買零件組裝的衝動。<br>可是稍微做一下功課發現，如果要組一台F450機架大小的四軸(含遙控器)，大概也至少要5000、6000以上。<br>於是我就忍痛賣掉一部分考研的書，賺了一些錢去某個沒屋頂賣場買了一組6500的套餐<br>但因為RX-701沒貨了，我就改買RX-601，老闆還因此只算我5000多而已，撿了一點便宜。</p>
@@ -403,16 +403,16 @@
     
     </summary>
     
-      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
+      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
     
-      <category term="開箱" scheme="http://w181496.twbbs.org/tags/%E9%96%8B%E7%AE%B1/"/>
+      <category term="開箱" scheme="http://blog.kaibro.tw/tags/%E9%96%8B%E7%AE%B1/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[106 資工所考試心得]]></title>
-    <link href="http://w181496.twbbs.org/2017/07/19/106-%E8%B3%87%E5%B7%A5%E6%89%80%E8%80%83%E8%A9%A6%E5%BF%83%E5%BE%97/"/>
-    <id>http://w181496.twbbs.org/2017/07/19/106-資工所考試心得/</id>
+    <link href="http://blog.kaibro.tw/2017/07/19/106-%E8%B3%87%E5%B7%A5%E6%89%80%E8%80%83%E8%A9%A6%E5%BF%83%E5%BE%97/"/>
+    <id>http://blog.kaibro.tw/2017/07/19/106-資工所考試心得/</id>
     <published>2017-07-19T07:02:54.000Z</published>
     <updated>2017-09-11T14:53:25.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u6210_u7E3E"><a href="#u6210_u7E3E" class="headerlink" title="成績"></a>成績</h2><table>
@@ -571,8 +571,8 @@
   
   <entry>
     <title><![CDATA[AIS3 pre-exam 2017 writeup]]></title>
-    <link href="http://w181496.twbbs.org/2017/07/16/AIS3-pre-exam-writeup/"/>
-    <id>http://w181496.twbbs.org/2017/07/16/AIS3-pre-exam-writeup/</id>
+    <link href="http://blog.kaibro.tw/2017/07/16/AIS3-pre-exam-writeup/"/>
+    <id>http://blog.kaibro.tw/2017/07/16/AIS3-pre-exam-writeup/</id>
     <published>2017-07-16T06:07:44.000Z</published>
     <updated>2017-10-21T16:17:54.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>因為平常沒在打CTF，也很久沒認真碰這塊，所以最後只有31分 QAQ<br>然後這是我第一次參加AIS3，高手感覺好多，怕</p>
@@ -617,20 +617,20 @@
     
     </summary>
     
-      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
+      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
     
-      <category term="CTF" scheme="http://w181496.twbbs.org/tags/CTF/"/>
+      <category term="CTF" scheme="http://blog.kaibro.tw/tags/CTF/"/>
     
-      <category term="Pwn" scheme="http://w181496.twbbs.org/tags/Pwn/"/>
+      <category term="Pwn" scheme="http://blog.kaibro.tw/tags/Pwn/"/>
     
-      <category term="Web" scheme="http://w181496.twbbs.org/tags/Web/"/>
+      <category term="Web" scheme="http://blog.kaibro.tw/tags/Web/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[座標系、歐拉角與方位角]]></title>
-    <link href="http://w181496.twbbs.org/2017/07/04/%E5%BA%A7%E6%A8%99%E7%B3%BB%E3%80%81%E6%AD%90%E6%8B%89%E8%A7%92%E8%88%87%E6%96%B9%E4%BD%8D%E8%A7%92/"/>
-    <id>http://w181496.twbbs.org/2017/07/04/座標系、歐拉角與方位角/</id>
+    <link href="http://blog.kaibro.tw/2017/07/04/%E5%BA%A7%E6%A8%99%E7%B3%BB%E3%80%81%E6%AD%90%E6%8B%89%E8%A7%92%E8%88%87%E6%96%B9%E4%BD%8D%E8%A7%92/"/>
+    <id>http://blog.kaibro.tw/2017/07/04/座標系、歐拉角與方位角/</id>
     <published>2017-07-03T16:50:11.000Z</published>
     <updated>2017-07-04T09:18:03.000Z</updated>
     <content type="html"><![CDATA[<p>此篇文章為我在研究利用車載IMU判斷行進方向並預防事故的一些技術資料整理及個人理解。<br>可能在學術上不是很嚴謹，也有可能有地方有錯誤。<br>名詞定義上也可能和其他學術論文不同。</p>
@@ -682,14 +682,14 @@
     
     </summary>
     
-      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
+      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[小朋友下樓梯輔助程式]]></title>
-    <link href="http://w181496.twbbs.org/2016/11/14/%E5%B0%8F%E6%9C%8B%E5%8F%8B%E4%B8%8B%E6%A8%93%E6%A2%AF%E8%BC%94%E5%8A%A9%E7%A8%8B%E5%BC%8F/"/>
-    <id>http://w181496.twbbs.org/2016/11/14/小朋友下樓梯輔助程式/</id>
+    <link href="http://blog.kaibro.tw/2016/11/14/%E5%B0%8F%E6%9C%8B%E5%8F%8B%E4%B8%8B%E6%A8%93%E6%A2%AF%E8%BC%94%E5%8A%A9%E7%A8%8B%E5%BC%8F/"/>
+    <id>http://blog.kaibro.tw/2016/11/14/小朋友下樓梯輔助程式/</id>
     <published>2016-11-14T14:01:30.000Z</published>
     <updated>2016-11-14T15:03:39.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u5C0F_u670B_u53CB_u4E0B_u6A13_u68AF_u662F_u5565_uFF1F"><a href="#u5C0F_u670B_u53CB_u4E0B_u6A13_u68AF_u662F_u5565_uFF1F" class="headerlink" title="小朋友下樓梯是啥？"></a>小朋友下樓梯是啥？</h2><p>它不僅是一個很狂的小遊戲</p>
@@ -766,14 +766,14 @@
     
     </summary>
     
-      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
+      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Linux project - PGD present bit]]></title>
-    <link href="http://w181496.twbbs.org/2016/11/10/Linux-project-PGD-present-bit/"/>
-    <id>http://w181496.twbbs.org/2016/11/10/Linux-project-PGD-present-bit/</id>
+    <link href="http://blog.kaibro.tw/2016/11/10/Linux-project-PGD-present-bit/"/>
+    <id>http://blog.kaibro.tw/2016/11/10/Linux-project-PGD-present-bit/</id>
     <published>2016-11-10T14:50:31.000Z</published>
     <updated>2017-10-22T19:08:49.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h2><p>延續上一篇，這篇記錄Project主要內容的實作過程。</p>
@@ -805,18 +805,18 @@
     
     </summary>
     
-      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
+      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
     
-      <category term="NCU" scheme="http://w181496.twbbs.org/tags/NCU/"/>
+      <category term="NCU" scheme="http://blog.kaibro.tw/tags/NCU/"/>
     
-      <category term="Linux" scheme="http://w181496.twbbs.org/tags/Linux/"/>
+      <category term="Linux" scheme="http://blog.kaibro.tw/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Linux Kernel編譯+新增System call(Ubuntu)]]></title>
-    <link href="http://w181496.twbbs.org/2016/11/07/Linux-Kernel%E7%B7%A8%E8%AD%AF-Ubuntu/"/>
-    <id>http://w181496.twbbs.org/2016/11/07/Linux-Kernel編譯-Ubuntu/</id>
+    <link href="http://blog.kaibro.tw/2016/11/07/Linux-Kernel%E7%B7%A8%E8%AD%AF-Ubuntu/"/>
+    <id>http://blog.kaibro.tw/2016/11/07/Linux-Kernel編譯-Ubuntu/</id>
     <published>2016-11-07T07:34:15.000Z</published>
     <updated>2016-11-30T15:38:11.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h2><p>因Linux Operating System課的project需要，人生第一次編Kernel就獻給他惹，所以怕忘就順手筆記一下。</p>
@@ -866,18 +866,18 @@
     
     </summary>
     
-      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
+      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
     
-      <category term="NCU" scheme="http://w181496.twbbs.org/tags/NCU/"/>
+      <category term="NCU" scheme="http://blog.kaibro.tw/tags/NCU/"/>
     
-      <category term="Linux" scheme="http://w181496.twbbs.org/tags/Linux/"/>
+      <category term="Linux" scheme="http://blog.kaibro.tw/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[DJ DAO FB9 Jubeat控制器開箱]]></title>
-    <link href="http://w181496.twbbs.org/2016/02/07/DJ-DAO-FB9-Jubeat%E6%8E%A7%E5%88%B6%E5%99%A8%E9%96%8B%E7%AE%B1/"/>
-    <id>http://w181496.twbbs.org/2016/02/07/DJ-DAO-FB9-Jubeat控制器開箱/</id>
+    <link href="http://blog.kaibro.tw/2016/02/07/DJ-DAO-FB9-Jubeat%E6%8E%A7%E5%88%B6%E5%99%A8%E9%96%8B%E7%AE%B1/"/>
+    <id>http://blog.kaibro.tw/2016/02/07/DJ-DAO-FB9-Jubeat控制器開箱/</id>
     <published>2016-02-07T14:53:32.000Z</published>
     <updated>2016-02-07T16:54:59.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>有鑒於過去一年打ju實在燒太多錢了，但要戒掉也沒那麼容易<br>於是就有買controller的念頭，這樣就可以在家打ju，不用一直燒錢了!<br>所以一開始我就先買了一台27吋的螢幕<br>一方面可以當控制器的螢幕，另一方面可以雙螢幕coding或看影片，整個爽度十足<br>然後存了一段時間的錢後，就上淘寶買了看起來價格便宜內容又實在的DJ DAO控制器FB9<br><a id="more"></a><br>在下單後，其實還發生一連串瑣碎的麻煩事<br>一開始因為我沒有信用卡和金融卡，所以付款超麻煩<br>後來才找了個代付網站成功付款<br>結果過幾天看到淘寶居然推出超商付款的功能，害我白忙了那麼久QQ</p>
@@ -905,14 +905,14 @@
     
     </summary>
     
-      <category term="開箱文" scheme="http://w181496.twbbs.org/tags/%E9%96%8B%E7%AE%B1%E6%96%87/"/>
+      <category term="開箱文" scheme="http://blog.kaibro.tw/tags/%E9%96%8B%E7%AE%B1%E6%96%87/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[攻防Project2 - LD_PRELOAD實作library rootkit]]></title>
-    <link href="http://w181496.twbbs.org/2016/01/18/project2/"/>
-    <id>http://w181496.twbbs.org/2016/01/18/project2/</id>
+    <link href="http://blog.kaibro.tw/2016/01/18/project2/"/>
+    <id>http://blog.kaibro.tw/2016/01/18/project2/</id>
     <published>2016-01-18T07:36:24.000Z</published>
     <updated>2016-01-19T14:41:46.000Z</updated>
     <content type="html"><![CDATA[<h2 id="LD_PRELOAD"><a href="#LD_PRELOAD" class="headerlink" title="LD_PRELOAD"></a>LD_PRELOAD</h2><p>LD_PRELOAD是Linux/Unix下的環境變數，他可以決定預先要載入的共享函式庫<br>它比LD_LIBRARY_PATH指定的共用函式庫還要優先，因此LD_PRELOAD裡的全域符號會蓋掉後面載入的同名全域符號<br>所以我們可以利用LD_PRELOAD來達成Linux/Unix下的hook，要達到rootkit的效果也就輕而易舉<br>但這只對動態連結的程式有效，因為靜態連結函式庫的代碼都已經包進程式中</p>
@@ -926,16 +926,16 @@
     <![CDATA[<h2 id="LD_PRELOAD"><a href="#LD_PRELOAD" class="headerlink" title="LD_PRELOAD"></a>LD_PRELOAD</h2><p>LD_PRELOAD是Linux/Unix下的環境變數，他可以決定預先要載入]]>
     </summary>
     
-      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
+      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
     
-      <category term="NCU" scheme="http://w181496.twbbs.org/tags/NCU/"/>
+      <category term="NCU" scheme="http://blog.kaibro.tw/tags/NCU/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[攻防Project1 Writeup]]></title>
-    <link href="http://w181496.twbbs.org/2016/01/16/project1/"/>
-    <id>http://w181496.twbbs.org/2016/01/16/project1/</id>
+    <link href="http://blog.kaibro.tw/2016/01/16/project1/"/>
+    <id>http://blog.kaibro.tw/2016/01/16/project1/</id>
     <published>2016-01-16T15:10:19.000Z</published>
     <updated>2017-10-21T16:18:15.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u7B2C_u4E00_u984C_uFF1ABOF_easy__5B_pwn__5D"><a href="#u7B2C_u4E00_u984C_uFF1ABOF_easy__5B_pwn__5D" class="headerlink" title="第一題：BOF easy [ pwn ]"></a>第一題：BOF easy [ pwn ]</h2><h3 id="u984C_u76EE"><a href="#u984C_u76EE" class="headerlink" title="題目"></a>題目</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">l33t</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">puts</span>(<span class="string">"Congrat !!Congrat"</span>);</div><div class="line">    system(<span class="string">"/bin/sh"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">char</span> buf[<span class="number">20</span>];</div><div class="line">    <span class="built_in">puts</span>(<span class="string">"Buffer overerflow is easy"</span>);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"Read your input :"</span>);</div><div class="line">    fflush(<span class="built_in">stdout</span>);</div><div class="line">    read(fflush0,buf,<span class="number">100</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -968,13 +968,13 @@
     
     </summary>
     
-      <category term="筆記" scheme="http://w181496.twbbs.org/tags/%E7%AD%86%E8%A8%98/"/>
+      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
     
-      <category term="CTF" scheme="http://w181496.twbbs.org/tags/CTF/"/>
+      <category term="CTF" scheme="http://blog.kaibro.tw/tags/CTF/"/>
     
-      <category term="Pwn" scheme="http://w181496.twbbs.org/tags/Pwn/"/>
+      <category term="Pwn" scheme="http://blog.kaibro.tw/tags/Pwn/"/>
     
-      <category term="NCU" scheme="http://w181496.twbbs.org/tags/NCU/"/>
+      <category term="NCU" scheme="http://blog.kaibro.tw/tags/NCU/"/>
     
   </entry>
   
