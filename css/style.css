@@ -878,7 +878,8 @@ a {
   visibility: hidden;
 }
 .article img {
-  max-width: 100%;
+  max-width: 80%;
+  height: auto;
 }
 @-webkit-keyframes cd-bounce-1 {
   0% {
