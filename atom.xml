@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.kaibro.tw/"/>
-  <updated>2017-12-30T19:20:43.000Z</updated>
+  <updated>2017-12-30T19:29:56.000Z</updated>
   <id>http://blog.kaibro.tw/</id>
   
   <author>
@@ -19,8 +19,9 @@
     <link href="http://blog.kaibro.tw/2017/12/31/%E8%87%AA%E5%B7%B1%E7%9A%84Telegram-BOT%E8%87%AA%E5%B7%B1%E5%AF%AB/"/>
     <id>http://blog.kaibro.tw/2017/12/31/自己的Telegram-BOT自己寫/</id>
     <published>2017-12-30T18:58:27.000Z</published>
-    <updated>2017-12-30T19:20:43.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>因為之前有在用別人寫的HITCON ZeroDay BOT</p>
+    <updated>2017-12-30T19:29:56.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="https://i.imgur.com/VhHYbWa.png" alt="img"></p>
+<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>因為之前有在用別人寫的HITCON ZeroDay BOT</p>
 <p>可是最近好像壞惹，都收不到通知</p>
 <p>所以就想說，好吧，那就自己來寫一個吧！</p>
 <h2 id="u958B_u5BEB"><a href="#u958B_u5BEB" class="headerlink" title="開寫"></a>開寫</h2><p>首先，我想要的BOT功能是：</p>
@@ -30,6 +31,7 @@
 <li><p>如果有新的Open漏洞，就傳通知給我</p>
 </li>
 </ul>
+<a id="more"></a>
 <p>Telegram BOT可以去找一個叫做<code>BOTFather</code>的帳號申請</p>
 <p>連結在這 <a href="https://telegram.me/botfather" target="_blank" rel="external">https://telegram.me/botfather</a></p>
 <p>輸入<code>/newbot</code>，之後填寫帳號名稱等資訊就申請完成了</p>
@@ -41,7 +43,7 @@
 <p>傳訊息要有使用者ID才能傳</p>
 <p>使用者ID怎麼取得呢？</p>
 <p>可以先用自己的帳號加BOT</p>
-<p>然後隨便傳個訊息</p>
+<p>然後隨便傳個訊息給BOT</p>
 <p>之後去<code>https://api.telegram.org/bot$TOKEN/getUpdates</code>就可以看到自己的ID惹</p>
 <p>(<code>$TOKEN</code>這邊填我們前面拿到的<code>Token</code>)</p>
 <p><br></p>
@@ -62,6 +64,7 @@
 <p>就傳送該漏洞訊息給使用者</p>
 <p>詳細實作如下：  (Ruby)</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">require 'net/http'</div><div class="line">require 'uri'</div><div class="line">require 'cgi'</div><div class="line"></div><div class="line">$userid = 'YOUR_ID'</div><div class="line">$token = 'YOUR_BOT_TOKEN'</div><div class="line">$log_path = 'YOUR_LOG_PATH'</div><div class="line"></div><div class="line">f = File.open($log_path, "r+")</div><div class="line">prev = f.read()</div><div class="line"></div><div class="line">def get_vul()</div><div class="line">    uri = URI("https://zeroday.hitcon.org/vulnerability/disclosed")</div><div class="line">    http = Net::HTTP.start(uri.host, uri.port,:use_ssl =&gt; uri.scheme == 'https')</div><div class="line">    request = Net::HTTP::Get.new(uri.request_uri)</div><div class="line">    r = http.request(request)</div><div class="line">    vuls = r.body.scan /&lt;a href="(.*)"&gt;(.*)&lt;\/a&gt;&lt;\/h4&gt;/</div><div class="line">end</div><div class="line"></div><div class="line">new_vuls = get_vul()</div><div class="line">new_vuls.each do |s|</div><div class="line">    if !prev.include? s[0]  # link</div><div class="line">        $msg = URI.encode s[1]  # title</div><div class="line">        sendMsg = "https://api.telegram.org/bot#&#123;$token&#125;/sendMessage?chat_id=#&#123;$userid&#125;&amp;text=#&#123;$msg&#125;"</div><div class="line"></div><div class="line">        uri = URI(sendMsg)</div><div class="line">        Net::HTTP.start(uri.host, uri.port, :use_ssl =&gt; uri.scheme == 'https') do |http|</div><div class="line">            request = Net::HTTP::Get.new uri</div><div class="line">            response = http.request request </div><div class="line">        end</div><div class="line">        f.write(s[0] + "\n")</div><div class="line">        sleep(0.5)</div><div class="line">    end</div><div class="line">end</div><div class="line">f.close()</div></pre></td></tr></table></figure>
+<p>github repo連結在這: <a href="https://github.com/w181496/TG_Zeroday" target="_blank" rel="external">https://github.com/w181496/TG_Zeroday</a></p>
 <p>把<code>ID</code>、<code>TOKEN</code>換成你自己的</p>
 <p>再設定log檔的絕對路徑就OK了</p>
 <p>之後設定crontab</p>
@@ -73,8 +76,18 @@
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.forsomedefinition.com/automation/creating-telegram-bot-notifications/" target="_blank" rel="external">https://www.forsomedefinition.com/automation/creating-telegram-bot-notifications/</a></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>因為之前有在用別人寫的HITCON ZeroDay BOT</p>
-<p>可是最近好像壞惹，都收不到通知]]>
+    <![CDATA[<p><img src="https://i.imgur.com/VhHYbWa.png" alt="img"></p>
+<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>因為之前有在用別人寫的HITCON ZeroDay BOT</p>
+<p>可是最近好像壞惹，都收不到通知</p>
+<p>所以就想說，好吧，那就自己來寫一個吧！</p>
+<h2 id="u958B_u5BEB"><a href="#u958B_u5BEB" class="headerlink" title="開寫"></a>開寫</h2><p>首先，我想要的BOT功能是：</p>
+<ul>
+<li><p>每天同一時間，自己爬HITCON ZeroDay</p>
+</li>
+<li><p>如果有新的Open漏洞，就傳通知給我</p>
+</li>
+</ul>]]>
+    
     </summary>
     
       <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
