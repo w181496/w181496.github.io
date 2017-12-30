@@ -15,7 +15,8 @@
 <meta property="og:site_name" content="Kaibro&#39;s blog">
 <meta property="og:description" content="前言最近開始嘗試打Bug Bounty和認真搞Web，沒時間碰Pwn惹QQ 有聽聞Line的bug bounty打得人少，但錢給蠻多的 所以理論上應該會比較好挖一點 雖然最後沒拿到錢啦QQ 不過有個Special Contributor 也挺潮的，值得紀念一下">
 <meta property="og:image" content="https://i.imgur.com/5iXqRUo.jpg">
-<meta property="og:updated_time" content="2017-12-20T11:10:37.000Z">
+<meta property="og:image" content="https://i.imgur.com/YOqYaW4.png">
+<meta property="og:updated_time" content="2017-12-30T05:55:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Line Bug Bounty初體驗">
 <meta name="twitter:description" content="前言最近開始嘗試打Bug Bounty和認真搞Web，沒時間碰Pwn惹QQ 有聽聞Line的bug bounty打得人少，但錢給蠻多的 所以理論上應該會比較好挖一點 雖然最後沒拿到錢啦QQ 不過有個Special Contributor 也挺潮的，值得紀念一下">
@@ -220,7 +221,47 @@
 <h2 id="u6F0F_u6D1E_u8A73_u60C5"><a href="#u6F0F_u6D1E_u8A73_u60C5" class="headerlink" title="漏洞詳情"></a>漏洞詳情</h2><p>大略來說，就是一個邏輯上的漏洞</p>
 <p>但沒想到其它方法做進一步利用，只能達到類似釣魚、欺騙使用者的效果</p>
 <p>剛剛檢查了一下，這個洞應該已經修掉了</p>
-<p>詳細之後有空再補上</p>
+<p><br></p>
+<p>簡單說，就是Line有個admin manager網頁 <a href="https://admin-official.line.me/" target="_blank" rel="external">https://admin-official.line.me/</a></p>
+<p>他是用來管理BOT、廣告帳號等的</p>
+<p>左邊有個選單，可以建立宣傳頁面和調查功能</p>
+<p>然後裡面有個地方很有趣</p>
+<p>他讓你可以輸入Youtube網址</p>
+<p>看到這個，我第一個反應是：踹SSRF</p>
+<p>踹了一波之後，感覺沒啥用，就放棄惹</p>
+<p>然後過幾天剛好遇到TUCTF</p>
+<p>發現 這怎麼跟最後一題的情境那麼像XD</p>
+<p>於是馬上來踹踹Command Injection</p>
+<p>很可惜也失敗了</p>
+<p>可是我發現一個有趣的事</p>
+<p>原本正常網址大概是這樣：<a href="http://youtube.com/watch?v=mebzXfWi87E" target="_blank" rel="external">http://youtube.com/watch?v=mebzXfWi87E</a></p>
+<p>可是如果我輸入以下這些網址，他也會抓到跟上面連結一樣的「預覽圖」！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">http://0.com/watch?v=mebzXfWi87E</div><div class="line">https://0.com.com/watch?v=mebzXfWi87E</div><div class="line">https://0.com/watch?v=mebzXfWi87E</div><div class="line">http://kaibro.tw/watch?v=mebzXfWi87E</div></pre></td></tr></table></figure>
+<p>但是以下這幾種不行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">https://com/watch?v=mebzXfWi87E</div><div class="line">https://watch?v=mebzXfWi87E</div></pre></td></tr></table></figure>
+<p>所以，看到這裡我就猜測，他後端應該是用正規表達式之類的去抓</p>
+<p>規則大概是這樣： http(s)://隨意.隨意/watch?v=影片id</p>
+<p>然後他會把影片id抓出來，塞在影片預覽圖片的網址中，再顯示出來</p>
+<p><a href="https://img.youtube.com/vi/影片id/0.jpg" target="_blank" rel="external">https://img.youtube.com/vi/影片id/0.jpg</a></p>
+<p><br></p>
+<p>到這一步，我就想，這樣好像也沒啥可以利用的</p>
+<p>他最後還是會去抓正常的影片預覽圖</p>
+<p>給錯的id，一樣會說不合法</p>
+<p>可是，我發現如果我輸入<code>http://kaibro.tw/watch?v=mebzXfWi87E</code></p>
+<p>他會抓到正確的<code>https://img.youtube.com/vi/mebzXfWi87E/0.jpg</code></p>
+<p>這裡都很OK</p>
+<p>但提交這個宣傳頁面出去給使用者時</p>
+<p>他這個影片的連結還是錯誤的連結：<code>http://kaibro.tw/watch?v=mebzXfWi87E</code></p>
+<p>但顯示出來的卻是正確的圖片</p>
+<p><img src="https://i.imgur.com/YOqYaW4.png" alt="img"></p>
+<p>所以利用這點，我們就可以構造一個釣魚網站</p>
+<p>讓別人以為自己點的是Youtube影片，實際上卻不是XDDD</p>
+<p>因為想不到進一步可以利用的地方，就回報上去惹</p>
+<p>不得不說，Line處理的時間真的很快</p>
+<p>大概1, 2天就給了回應</p>
+<p>只可惜沒$$ QQ</p>
+<p>很廢的一個洞XDDD</p>
+<hr>
 <p>原本目標年底前拿到人生第一筆Bug Bounty獎金</p>
 <p>看來有點難實現惹XD</p>
 
