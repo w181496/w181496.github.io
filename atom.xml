@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.kaibro.tw/"/>
-  <updated>2017-12-30T19:29:56.000Z</updated>
+  <updated>2018-01-08T15:19:06.000Z</updated>
   <id>http://blog.kaibro.tw/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://blog.kaibro.tw/2017/12/31/%E8%87%AA%E5%B7%B1%E7%9A%84Telegram-BOT%E8%87%AA%E5%B7%B1%E5%AF%AB/"/>
     <id>http://blog.kaibro.tw/2017/12/31/自己的Telegram-BOT自己寫/</id>
     <published>2017-12-30T18:58:27.000Z</published>
-    <updated>2017-12-30T19:29:56.000Z</updated>
+    <updated>2018-01-08T15:19:06.000Z</updated>
     <content type="html"><![CDATA[<p><img src="https://i.imgur.com/VhHYbWa.png" alt="img"></p>
 <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>因為之前有在用別人寫的HITCON ZeroDay BOT</p>
 <p>可是最近好像壞惹，都收不到通知</p>
@@ -73,6 +73,9 @@
 <p><code>5 19 * * * /usr/bin/ruby /home/kaibro/bot/zero.rb</code></p>
 <p>到這邊就大功告成惹</p>
 <p>Easy Peasy</p>
+<p>不過Telegram BOT當然不只有這樣而已</p>
+<p>Telegram BOT有各式各樣的類型</p>
+<p>這個只是其中一種通知型的BOT</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.forsomedefinition.com/automation/creating-telegram-bot-notifications/" target="_blank" rel="external">https://www.forsomedefinition.com/automation/creating-telegram-bot-notifications/</a></p>
 ]]></content>
     <summary type="html">
