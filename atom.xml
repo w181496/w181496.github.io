@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.kaibro.tw/"/>
-  <updated>2018-01-16T07:13:28.000Z</updated>
+  <updated>2018-01-16T10:02:55.000Z</updated>
   <id>http://blog.kaibro.tw/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://blog.kaibro.tw/2018/01/16/AIS3-EOF-2017-%E5%88%9D%E8%B3%BD/"/>
     <id>http://blog.kaibro.tw/2018/01/16/AIS3-EOF-2017-初賽/</id>
     <published>2018-01-15T16:53:52.000Z</published>
-    <updated>2018-01-16T07:13:28.000Z</updated>
+    <updated>2018-01-16T10:02:55.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>這場比賽是跟台大、交大、台科大三校的計算機安全課程期末考一起辦的</p>
 <p>然後任何人都可以報名參加</p>
 <p>前十名的隊伍可以進決賽</p>
@@ -197,7 +197,7 @@
 <p>時間戳記讓他跟leak出來的一樣</p>
 <p>這樣reload時可以蓋掉Key噴第一題flag，或是直接在secret.pyc執行任意指令</p>
 <p><br></p>
-<h2 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a>Reverse</h2><p>Reverse主要都是另一個隊友在解</p>
+<h2 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a>Reverse</h2><p>Reverse主要是<a href="https://blog.jxcode.tw" target="_blank" rel="external">@JxCode</a>在解的</p>
 <p>我花比較多時間的，是在踩地雷那題</p>
 <h3 id="simple"><a href="#simple" class="headerlink" title="simple"></a>simple</h3><p>一開始scanf要打<code>&quot;zero&quot;</code></p>
 <p>然後call 要跳到<code>XDDD()</code></p>
@@ -219,6 +219,20 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> binascii</div><div class="line">n = int(<span class="string">'101010100101 .... '</span>)</div><div class="line">flag = binascii.unhexlify(<span class="string">'%x'</span> % n)</div></pre></td></tr></table></figure>
 <p><code>FLAG{I&#39;m not hungry:(}</code></p>
 <h3 id="AEG"><a href="#AEG" class="headerlink" title="AEG"></a>AEG</h3><p>這題主要是隊友解的，我還沒看就解掉惹XD</p>
+<p>這題一開始連上去會出現一串hex字串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a239030d04d6993e8afcc0201251d84712d6383bbe14b420a34d3e66d092b436c2d0393522b299a489f55ca37e1d5927454631c048bbd19d9691d08c97ff48f7db53545f995257545eb03b0f05</div></pre></td></tr></table></figure>
+<p>接著印出連過去的binary的base64</p>
+<p>把binary抓下來看發現他會比對你的輸入是否跟他想要的一樣</p>
+<p>然後執行輸入的後半段 當作shellcode</p>
+<p><br></p>
+<p>比對後發現一開始吐的那串hex的前100個char就傳一樣的回去給他</p>
+<p>101個char以後的就是直接被當成shellcode執行</p>
+<p>但是101以後的那段他會打亂順序</p>
+<p>所以要從他給的base64的那個binary得知他怎麼打亂順序的</p>
+<p><br></p>
+<p>把他base64那串抓下來執行</p>
+<p>前一百個維持不變，後面幾個打01020304…這樣的字串下去，用gdb看他怎麼跳順序</p>
+<p>然後把shellcode改成他的順序送過去，就能執行任意shellcode拿shell惹</p>
 <h3 id="singlehell"><a href="#singlehell" class="headerlink" title="singlehell"></a>singlehell</h3><p>這題是打怪遊戲，可是怪物血量太多，手動不可能贏</p>
 <p>然後這題直接objdump或ida會爛掉</p>
 <p>我後來直接<code>strings ./client</code>發現最底下出現<code>UPX</code></p>
@@ -253,7 +267,7 @@
 <p>就連第二天還沒幾個人解掉的xss leak都突然一堆人解</p>
 <p>很好奇是真的那麼剛好最後一天大家突然都想到解法嗎QQ</p>
 <p>不過最主要還是只能怪自己太廢，平時練習不夠</p>
-<p>以Web來說太專注在後端安全，沒顧到前端QQ</p>
+<p>以Web來說平常太專注在後端安全，沒顧到前端QQ</p>
 <p>以Pwn來說，寫shellcode的速度太慢，以致於老早就找到洞卻卡很久，少200分QQ</p>
 <p>以Reverse來說，對一堆太複雜的運算組語還是有點看不太下去，工具熟練度也不夠</p>
 <p><br></p>
