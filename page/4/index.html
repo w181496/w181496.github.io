@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Archives: 2017/12 | Kaibro&#39;s blog</title>
+  <title>Kaibro&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Kaibro&#39;s blog">
-<meta property="og:url" content="http://blog.kaibro.tw/archives/2017/12/index.html">
+<meta property="og:url" content="http://blog.kaibro.tw/page/4/index.html">
 <meta property="og:site_name" content="Kaibro&#39;s blog">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kaibro&#39;s blog">
@@ -167,83 +167,72 @@
 
       <div class="body-wrap">
   
+    <article id="post-project1" class="article article-type-post" itemscope itemprop="blogPost">
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/31/自己的Telegram-BOT自己寫/" class="archive-article-date">
-  	<time datetime="2017-12-30T18:58:27.000Z" itemprop="datePublished">Dec 31</time>
+    <div class="article-meta">
+      <a href="/2016/01/16/project1/" class="article-date">
+  	<time datetime="2016-01-16T15:10:19.000Z" itemprop="datePublished">2016-01-16</time>
 </a>
-        </div>
-    	 
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/31/自己的Telegram-BOT自己寫/">自己的Telegram BOT自己寫</a>
+      <a class="article-title" href="/2016/01/16/project1/">攻防Project1 Writeup</a>
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="u7B2C_u4E00_u984C_uFF1ABOF_easy__5B_pwn__5D"><a href="#u7B2C_u4E00_u984C_uFF1ABOF_easy__5B_pwn__5D" class="headerlink" title="第一題：BOF easy [ pwn ]"></a>第一題：BOF easy [ pwn ]</h2><h3 id="u984C_u76EE"><a href="#u984C_u76EE" class="headerlink" title="題目"></a>題目</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">l33t</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">puts</span>(<span class="string">"Congrat !!Congrat"</span>);</div><div class="line">    system(<span class="string">"/bin/sh"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">char</span> buf[<span class="number">20</span>];</div><div class="line">    <span class="built_in">puts</span>(<span class="string">"Buffer overerflow is easy"</span>);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"Read your input :"</span>);</div><div class="line">    fflush(<span class="built_in">stdout</span>);</div><div class="line">    read(fflush0,buf,<span class="number">100</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="u89E3_u984C_u601D_u8DEF"><a href="#u89E3_u984C_u601D_u8DEF" class="headerlink" title="解題思路"></a>解題思路</h3><p>l33t()中有system(“/bin/sh”)，所以目標就是執行l33t()<br>由code可知buf長度20，但read()讀100個bytes，代表這裡可以buffer overflow<br>並且這題沒有ASLR，所以用objdump可以找出l33t()的address為0x80484fd<br>接著，只需要將main()的return address蓋成0x80484fd即可<br>payload:<br>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/筆記/">筆記</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NCU/">NCU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pwn/">Pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/筆記/">筆記</a></li></ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+        <p class="article-more-link">
+          <a  href="/2016/01/16/project1/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
   </div>
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/13/Line-Bug-Bounty初體驗/" class="archive-article-date">
-  	<time datetime="2017-12-13T13:12:21.000Z" itemprop="datePublished">Dec 13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/13/Line-Bug-Bounty初體驗/">Line Bug Bounty初體驗</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BugBounty/">BugBounty</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
+
+
+
+
+
   
   
-    </div></section>
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    </nav>
   
-
-    
-
 </div>
       <footer id="footer">
   <div class="outer">
@@ -267,9 +256,9 @@
 		fancybox: true,
 		mathjax: true,
 		animate: true,
-		isHome: false,
+		isHome: true,
 		isPost: false,
-		isArchive: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false
