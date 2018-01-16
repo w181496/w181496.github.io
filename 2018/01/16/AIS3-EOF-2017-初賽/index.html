@@ -14,7 +14,7 @@
 <meta property="og:url" content="http://blog.kaibro.tw/2018/01/16/AIS3-EOF-2017-初賽/index.html">
 <meta property="og:site_name" content="Kaibro&#39;s blog">
 <meta property="og:description" content="前言這場比賽是跟台大、交大、台科大三校的計算機安全課程期末考一起辦的 然後任何人都可以報名參加 前十名的隊伍可以進決賽 Pwn由於我們這隊基本上沒人熟Heap 囧 我也只摸了幾題課程網站的練習題 所以Pwn的解題狀況蠻慘的 Magicheap2這種一堆人解掉的題目，我們就解不出來">
-<meta property="og:updated_time" content="2018-01-16T15:27:39.000Z">
+<meta property="og:updated_time" content="2018-01-16T16:13:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AIS3 EOF CTF 初賽">
 <meta name="twitter:description" content="前言這場比賽是跟台大、交大、台科大三校的計算機安全課程期末考一起辦的 然後任何人都可以報名參加 前十名的隊伍可以進決賽 Pwn由於我們這隊基本上沒人熟Heap 囧 我也只摸了幾題課程網站的練習題 所以Pwn的解題狀況蠻慘的 Magicheap2這種一堆人解掉的題目，我們就解不出來">
@@ -313,6 +313,8 @@
 <p>要餵給Server時，可以用URL encode</p>
 <p>最後<code>$sig</code>的部分就很簡單，直接算<code>hash_mac(&#39;SHA512&#39;, $cmd, $key)</code>結果塞進去就行</p>
 <p>接著就是把flag讀出來就行</p>
+<p>我的產payload script:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$cmd = $_GET[<span class="string">'c'</span>];</div><div class="line">$s =  hash(<span class="string">'SHA512'</span>,$_SERVER[<span class="string">'REMOTE_ADDR'</span>]) ^ $cmd;</div><div class="line">$key = $_SERVER[<span class="string">'HTTP_USER_AGENT'</span>] . sha1(<span class="string">"webshell.eof-ctf.ais3.ntu.st"</span>);</div><div class="line">$sig = hash_hmac(<span class="string">'SHA512'</span>, $cmd, $key);</div><div class="line"></div><div class="line"><span class="keyword">echo</span> <span class="string">"input sig: "</span>.$sig;</div><div class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</div><div class="line"><span class="keyword">echo</span> <span class="string">"input cmd: "</span>.urlencode($s);</div></pre></td></tr></table></figure>
 <p><code>FLAG{Webshell? I only know sea shell~!}</code></p>
 <h3 id="command_executor"><a href="#command_executor" class="headerlink" title="command executor"></a>command executor</h3><p>這題的話，他是一個有很多功能的網頁</p>
 <p>大概有這些功能：</p>
@@ -336,6 +338,7 @@
 <p>最後ls list目錄的地方，可以看到<code>/</code>下面有<code>flag-reader</code>和<code>flag</code></p>
 <p>很明顯是告訴我們要拿shell才讀得到</p>
 <p>然後這邊參數也可以<code>LFI</code>，可以用<code>php://filter</code>去讀source code</p>
+<p><code>https://command-executor.eof-ctf.ais3.ntu.st/index.php?func=php://filter/convert.base64-encode/resource=index</code></p>
 <p>把幾個php檔大致讀了一遍之後，似乎沒啥重大發現</p>
 <p>接著我就跑去踹man了</p>
 <p>我原本以為他想考<code>man -P /bin/cat /etc/passwd</code>可以執行指令XD</p>
