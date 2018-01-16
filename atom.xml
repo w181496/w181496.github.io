@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.kaibro.tw/"/>
-  <updated>2018-01-16T10:08:29.000Z</updated>
+  <updated>2018-01-16T15:27:39.000Z</updated>
   <id>http://blog.kaibro.tw/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://blog.kaibro.tw/2018/01/16/AIS3-EOF-2017-%E5%88%9D%E8%B3%BD/"/>
     <id>http://blog.kaibro.tw/2018/01/16/AIS3-EOF-2017-初賽/</id>
     <published>2018-01-15T16:53:52.000Z</published>
-    <updated>2018-01-16T10:08:29.000Z</updated>
+    <updated>2018-01-16T15:27:39.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>這場比賽是跟台大、交大、台科大三校的計算機安全課程期末考一起辦的</p>
 <p>然後任何人都可以報名參加</p>
 <p>前十名的隊伍可以進決賽</p>
@@ -212,11 +212,12 @@
 <p>內容如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">----- .---- ----- ----- ----- .---- .---- ----- ----- .---- ----- ----- .---- .---- ----- ----- ----- .---- ----- ----- ----- ----- ----- .---- ----- .---- ----- ----- ----- .---- .---- .---- ----- .---- .---- .---- .---- ----- .---- .---- ----- .---- ----- ----- .---- ----- ----- .---- ----- ----- .---- ----- ----- .---- .---- .---- ----- .---- .---- ----- .---- .---- ----- .---- ----- ----- .---- ----- ----- ----- ----- ----- ----- .---- .---- ----- .---- .---- .---- ----- ----- .---- .---- ----- .---- .---- .---- .---- ----- .---- .---- .---- ----- .---- ----- ----- ----- ----- .---- ----- ----- ----- ----- ----- ----- .---- .---- ----- .---- ----- ----- ----- ----- .---- .---- .---- ----- .---- ----- .---- ----- .---- .---- ----- .---- .---- .---- ----- ----- .---- .---- ----- ----- .---- .---- .---- ----- .---- .---- .---- ----- ----- .---- ----- ----- .---- .---- .---- .---- ----- ----- .---- ----- ----- .---- .---- .---- ----- .---- ----- ----- ----- .---- ----- .---- ----- ----- ----- ----- .---- .---- .---- .---- .---- ----- .----</div></pre></td></tr></table></figure>
 <p>87%就是摩斯密碼：</p>
-<p><code>------</code>=&gt;<code>0</code></p>
+<p><code>-----</code>=&gt;<code>0</code></p>
 <p><code>.----</code> =&gt; <code>1</code></p>
 <p>轉出來變<code>01000110010011000100000101000111011110110100100100100111011011010010000001101110011011110111010000100000011010000111010101101110011001110111001001111001001110100010100001111101</code></p>
 <p>接著轉成Ascii</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> binascii</div><div class="line">n = int(<span class="string">'101010100101 .... '</span>)</div><div class="line">flag = binascii.unhexlify(<span class="string">'%x'</span> % n)</div></pre></td></tr></table></figure>
+<p>Ruby:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">data = <span class="string">"01000110010011000100000101000111011110110100100100100111011011010010000001101110011011110111010000100000011010000111010101101110011001110111001001111001001110100010100001111101"</span></div><div class="line">puts data.scan(<span class="regexp">/[01]&#123;8&#125;/</span>).map &#123; <span class="params">|e|</span> e.to_i <span class="number">2</span> &#125;.inject <span class="string">''</span>, &amp;<span class="symbol">:concat</span></div></pre></td></tr></table></figure>
 <p><code>FLAG{I&#39;m not hungry:(}</code></p>
 <h3 id="AEG"><a href="#AEG" class="headerlink" title="AEG"></a>AEG</h3><p>這題主要是隊友解的，我還沒看就解掉惹XD</p>
 <p>這題一開始連上去會出現一串hex字串</p>
@@ -264,7 +265,7 @@
 <p>大概都能維持在前十名上下</p>
 <p>可是第三天不知為啥一堆人突然爆衝= =</p>
 <p>一下子就被擠到1x名</p>
-<p>就連第二天還沒幾個人解掉的xss leak都突然一堆人解</p>
+<p>就連第二天還沒幾個人解掉的xssrf leak都突然一堆人解</p>
 <p>很好奇是真的那麼剛好最後一天大家突然都想到解法嗎QQ</p>
 <p>不過最主要還是只能怪自己太廢，平時練習不夠</p>
 <p>以Web來說平常太專注在後端安全，沒顧到前端QQ</p>
