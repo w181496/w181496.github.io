@@ -408,7 +408,7 @@
     <link href="http://blog.kaibro.tw/2017/12/13/Line-Bug-Bounty%E5%88%9D%E9%AB%94%E9%A9%97/"/>
     <id>http://blog.kaibro.tw/2017/12/13/Line-Bug-Bounty初體驗/</id>
     <published>2017-12-13T13:12:21.000Z</published>
-    <updated>2017-12-30T05:55:14.000Z</updated>
+    <updated>2018-02-08T07:46:10.000Z</updated>
     <content type="html"><![CDATA[<p><img src="https://i.imgur.com/5iXqRUo.jpg" alt=""></p>
 <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>最近開始嘗試打Bug Bounty和認真搞Web，沒時間碰Pwn惹QQ</p>
 <p>有聽聞Line的bug bounty打得人少，但錢給蠻多的</p>
@@ -463,6 +463,12 @@
 <hr>
 <p>原本目標年底前拿到人生第一筆Bug Bounty獎金</p>
 <p>看來有點難實現惹XD</p>
+<h2 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h2><p>我後來在他們修好之後，無聊又跑去踹</p>
+<p>結果發現能繞過XD</p>
+<p>繞過方式：<a href="http://kaibro.tw/www.youtube.com/watch?v=mebzXfWi87E" target="_blank" rel="external">http://kaibro.tw/www.youtube.com/watch?v=mebzXfWi87E</a></p>
+<p>他會抓<code>www.youtube.com/watch?v=mebzXfWi87E</code></p>
+<p>然後判定為合法youtube網址</p>
+<p>回報之後，現在已經修好了</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p><img src="https://i.imgur.com/5iXqRUo.jpg" alt=""></p>
