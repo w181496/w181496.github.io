@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Kaibro&#39;s blog">
 <meta property="og:description" content="前言因為之前有在用別人寫的HITCON ZeroDay BOT 可是最近好像壞惹，都收不到通知 所以就想說，好吧，那就自己來寫一個吧！ 開寫首先，我想要的BOT功能是：  每天同一時間，自己爬HITCON ZeroDay  如果有新的Open漏洞，就傳通知給我">
 <meta property="og:image" content="https://i.imgur.com/VhHYbWa.png">
-<meta property="og:updated_time" content="2018-01-08T15:19:06.000Z">
+<meta property="og:updated_time" content="2018-02-12T11:28:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自己的Telegram BOT自己寫">
 <meta name="twitter:description" content="前言因為之前有在用別人寫的HITCON ZeroDay BOT 可是最近好像壞惹，都收不到通知 所以就想說，好吧，那就自己來寫一個吧！ 開寫首先，我想要的BOT功能是：  每天同一時間，自己爬HITCON ZeroDay  如果有新的Open漏洞，就傳通知給我">
@@ -37,7 +37,7 @@
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
 			
-			<img lazy-src="https://avatars.plurk.com/10562062-big32.jpg" class="js-avatar">
+			<img lazy-src="https://i.imgur.com/QWxDDzd.jpg" class="js-avatar">
 			
 		</a>
 
@@ -75,7 +75,7 @@
 						<li>Tags</li>
 						
 						
-						<li>Über</li>
+						<li>A propos</li>
 						
 					</ul>
 				</div>
@@ -140,7 +140,7 @@
 		<header id="header" class="inner">
 			<div class="profilepic">
 			
-				<img lazy-src="https://avatars.plurk.com/10562062-big32.jpg" class="js-avatar">
+				<img lazy-src="https://i.imgur.com/QWxDDzd.jpg" class="js-avatar">
 			
 			</div>
 			<hgroup>
@@ -252,7 +252,7 @@
 <p>再去和之前抓過的比對，如果有沒看過的</p>
 <p>就傳送該漏洞訊息給使用者</p>
 <p>詳細實作如下：  (Ruby)</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">require 'net/http'</div><div class="line">require 'uri'</div><div class="line">require 'cgi'</div><div class="line"></div><div class="line">$userid = 'YOUR_ID'</div><div class="line">$token = 'YOUR_BOT_TOKEN'</div><div class="line">$log_path = 'YOUR_LOG_PATH'</div><div class="line"></div><div class="line">f = File.open($log_path, "r+")</div><div class="line">prev = f.read()</div><div class="line"></div><div class="line">def get_vul()</div><div class="line">    uri = URI("https://zeroday.hitcon.org/vulnerability/disclosed")</div><div class="line">    http = Net::HTTP.start(uri.host, uri.port,:use_ssl =&gt; uri.scheme == 'https')</div><div class="line">    request = Net::HTTP::Get.new(uri.request_uri)</div><div class="line">    r = http.request(request)</div><div class="line">    vuls = r.body.scan /&lt;a href="(.*)"&gt;(.*)&lt;\/a&gt;&lt;\/h4&gt;/</div><div class="line">end</div><div class="line"></div><div class="line">new_vuls = get_vul()</div><div class="line">new_vuls.each do |s|</div><div class="line">    if !prev.include? s[0]  # link</div><div class="line">        $msg = URI.encode s[1]  # title</div><div class="line">        sendMsg = "https://api.telegram.org/bot#&#123;$token&#125;/sendMessage?chat_id=#&#123;$userid&#125;&amp;text=#&#123;$msg&#125;"</div><div class="line"></div><div class="line">        uri = URI(sendMsg)</div><div class="line">        Net::HTTP.start(uri.host, uri.port, :use_ssl =&gt; uri.scheme == 'https') do |http|</div><div class="line">            request = Net::HTTP::Get.new uri</div><div class="line">            response = http.request request </div><div class="line">        end</div><div class="line">        f.write(s[0] + "\n")</div><div class="line">        sleep(0.5)</div><div class="line">    end</div><div class="line">end</div><div class="line">f.close()</div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">require</span> <span class="string">'net/http'</span></div><div class="line"><span class="keyword">require</span> <span class="string">'uri'</span></div><div class="line"><span class="keyword">require</span> <span class="string">'cgi'</span></div><div class="line"></div><div class="line">$userid = <span class="string">'YOUR_ID'</span></div><div class="line">$token = <span class="string">'YOUR_BOT_TOKEN'</span></div><div class="line">$log_path = <span class="string">'YOUR_LOG_PATH'</span></div><div class="line"></div><div class="line">f = File.open($log_path, <span class="string">"r+"</span>)</div><div class="line">prev = f.read()</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_vul</span><span class="params">()</span></span></div><div class="line">  uri = URI(<span class="string">'https://zeroday.hitcon.org/vulnerability/disclosed'</span>)</div><div class="line">  http = Net::HTTP.start(uri.host, uri.port,<span class="symbol">:use_ssl</span> =&gt; uri.scheme == <span class="string">'https'</span>)</div><div class="line">  request = Net::HTTP::Get.new(uri.request_uri)</div><div class="line">  r = http.request(request)</div><div class="line">  vuls = r.body.scan(<span class="regexp">/&lt;a href="(.*)"&gt;(.*)&lt;\/a&gt;&lt;\/h4&gt;/</span>)</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">new_vuls = get_vul()</div><div class="line">new_vuls.each <span class="keyword">do</span> <span class="params">|s|</span></div><div class="line">  <span class="keyword">if</span> !prev.<span class="keyword">include</span>? s[<span class="number">0</span>]  <span class="comment"># link</span></div><div class="line">    $msg = URI.encode s[<span class="number">1</span>]  <span class="comment"># title</span></div><div class="line">    sendMsg = <span class="string">"https://api.telegram.org/bot<span class="subst">#&#123;$token&#125;</span>/sendMessage?chat_id=<span class="subst">#&#123;$userid&#125;</span>&amp;text=<span class="subst">#&#123;$msg&#125;</span>"</span></div><div class="line"></div><div class="line">    uri = URI(sendMsg)</div><div class="line">    Net::HTTP.start(uri.host, uri.port, <span class="symbol">:use_ssl</span> =&gt; uri.scheme == <span class="string">'https'</span>) <span class="keyword">do</span> <span class="params">|http|</span></div><div class="line">      request = Net::HTTP::Get.new uri</div><div class="line">      response = http.request request </div><div class="line">    <span class="keyword">end</span></div><div class="line">    f.write(s[<span class="number">0</span>] + <span class="string">"\n"</span>)</div><div class="line">    sleep(<span class="number">0</span>.<span class="number">5</span>)</div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line">f.close()</div></pre></td></tr></table></figure>
 <p>github repo連結在這: <a href="https://github.com/w181496/TG_Zeroday" target="_blank" rel="external">https://github.com/w181496/TG_Zeroday</a></p>
 <p>把<code>ID</code>、<code>TOKEN</code>換成你自己的</p>
 <p>再設定log檔的絕對路徑就OK了</p>
