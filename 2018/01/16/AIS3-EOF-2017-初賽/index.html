@@ -14,7 +14,7 @@
 <meta property="og:url" content="http://blog.kaibro.tw/2018/01/16/AIS3-EOF-2017-初賽/index.html">
 <meta property="og:site_name" content="Kaibro&#39;s blog">
 <meta property="og:description" content="前言這場比賽是跟台大、交大、台科大三校的計算機安全課程期末考一起辦的 然後任何人都可以報名參加 前十名的隊伍可以進決賽 Pwn由於我們這隊基本上沒人熟Heap 囧 我也只摸了幾題課程網站的練習題 所以Pwn的解題狀況蠻慘的 Magicheap2這種一堆人解掉的題目，我們就解不出來">
-<meta property="og:updated_time" content="2018-02-26T07:55:40.000Z">
+<meta property="og:updated_time" content="2018-02-26T07:57:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AIS3 EOF CTF 初賽">
 <meta name="twitter:description" content="前言這場比賽是跟台大、交大、台科大三校的計算機安全課程期末考一起辦的 然後任何人都可以報名參加 前十名的隊伍可以進決賽 Pwn由於我們這隊基本上沒人熟Heap 囧 我也只摸了幾題課程網站的練習題 所以Pwn的解題狀況蠻慘的 Magicheap2這種一堆人解掉的題目，我們就解不出來">
@@ -395,7 +395,7 @@
 <p><br></p>
 <p>Update2:</p>
 <p>後來無聊再去把這題解掉了</p>
-<p>我一樣是用<svg>的onload去執行javascript，然後發request到我的Server收log</svg></p>
+<p>我一樣是用<code>&lt;svg&gt;</code>的<code>onload</code>去執行javascript，然後發request到我的Server收log</p>
 <p>只是這邊因為使用<code>&amp;#xH;</code>(Hex)的形式會被解碼，所以我們直接把所有onload裡面的javascript code用這種方式編碼</p>
 <p>這樣直接輕鬆繞過過濾惹</p>
 <p>以下的Payload為了方便閱讀，我就用<code>&amp;#xH;</code>編碼前的樣子表示</p>
