@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.kaibro.tw/"/>
-  <updated>2018-05-16T11:33:12.000Z</updated>
+  <updated>2018-05-16T13:39:24.000Z</updated>
   <id>http://blog.kaibro.tw/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://blog.kaibro.tw/2018/05/16/DEFCON-CTF-2018-Qual/"/>
     <id>http://blog.kaibro.tw/2018/05/16/DEFCON-CTF-2018-Qual/</id>
     <published>2018-05-15T19:37:40.000Z</published>
-    <updated>2018-05-16T11:33:12.000Z</updated>
+    <updated>2018-05-16T13:39:24.000Z</updated>
     <content type="html"><![CDATA[<p>這篇主要用來記錄近期幾場CTF的一些Writeup和心得</p>
 <h2 id="DEFCON_CTF_2018_Qual"><a href="#DEFCON_CTF_2018_Qual" class="headerlink" title="DEFCON CTF 2018 Qual"></a>DEFCON CTF 2018 Qual</h2><p>這場比賽我們隊和台大還有交大等隊伍一起組成聯隊</p>
 <p>見識到其他隊伍跟自己的差距，學了很多</p>
@@ -63,6 +63,10 @@
 <p>因為<code>AA...AAB</code>後面的<code>users where rowid=1</code>會蓋到<code>table_name</code></p>
 <p>所以這邊<code>snprintf(cmd, sizeof(cmd), &quot;select rowid from %s where username = &#39;%s&#39; and password = &#39;%s&#39;;&quot;, table_name, username, password);</code>就可以注入惹</p>
 <hr>
+<p>整體來說，這場的確很多黑人問號的題目</p>
+<p>不少題目都有猜測或暴力的成分在裡頭</p>
+<p>Web題也是一堆都要去逆向<code>.so</code>檔，很不web</p>
+<p>不過隊友太Carry，最後聯隊還是拿到22名 跪惹</p>
 <h2 id="0ctf_2018_Qual"><a href="#0ctf_2018_Qual" class="headerlink" title="0ctf 2018 Qual"></a>0ctf 2018 Qual</h2><h3 id="EzDoor"><a href="#EzDoor" class="headerlink" title="EzDoor"></a>EzDoor</h3><p>這題蠻有趣的</p>
 <p>他有幾個小功能，可以看phpinfo、上傳檔案等</p>
 <p>雖然能上傳，但是會檢查副檔名有沒有出現h，有的話就算不合法</p>
@@ -124,6 +128,24 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?</span>=</div><div class="line">$💩 = <span class="string">'[[[[@@'</span> ^ <span class="string">'("(/%-'</span>;</div><div class="line">$💩((<span class="string">'@@['</span>^<span class="string">'#!/'</span>).<span class="string">" /????"</span>);</div></pre></td></tr></table></figure>
 <p>他其實在做的就是<code>system(&quot;cat /????&quot;)</code></p>
 <p><code>vxctf{Symb01icExecut10nCanPhuck}</code></p>
+<h2 id="Codegate_2018_qual"><a href="#Codegate_2018_qual" class="headerlink" title="Codegate 2018 qual"></a>Codegate 2018 qual</h2><h3 id="SimpleCMS"><a href="#SimpleCMS" class="headerlink" title="SimpleCMS"></a>SimpleCMS</h3><p>這題是Code Review題目</p>
+<p>蠻明顯感覺就是在考SQL Injection</p>
+<p>但擋了一堆東西</p>
+<p>可以發現<code>col</code>參數沒有擋<code>#</code>和<code>:</code></p>
+<p>所以可以註解掉後面整句SQL</p>
+<p>那要怎麼利用這個點呢</p>
+<p><code>search</code>參數可以塞換行(<code>%0a</code>)!!</p>
+<p>換行之後可以繼續接SQL，這是這題最好玩的小trick</p>
+<p>透過註解+換行把中間一段不想要的SQL註解掉</p>
+<p>後面就可以去Union based注入惹</p>
+<p>只是這題他有擋<code>information.schema</code></p>
+<p>沒辦法知道表名、欄位名</p>
+<p>這裏可以用到另一個小trick</p>
+<p>因為他的table engine是<code>innodb</code></p>
+<p>我們可以這樣撈表名：</p>
+<p><code>/index.php?act=board&amp;mid=search&amp;type=2&amp;col=title|idx%23&amp;search=%0a)union+select+1,table_name,3,4,5 from mysql.innodb_table_stats limit 2,1--+</code></p>
+<p>爆flag也可以不需要Column name就撈出來:</p>
+<p><code>/index.php?act=board&amp;mid=search&amp;type=2&amp;col=title|idx%23&amp;search=%0a)union+select+c,2,3,4,5 from (SELECT 1 a,2 b,3 c, 4 d UNION SELECT * FROM 41786c497656426a6149_flag)x limit 1,1--+</code></p>
 <h2 id="l4w"><a href="#l4w" class="headerlink" title="l4w"></a>l4w</h2><p><a href="http://l4w.pw/%f0%9f%a4%94/" target="_blank" rel="external">http://l4w.pw/%f0%9f%a4%94/</a></p>
 <p>這是我過年時做的一題</p>
 <p>很有趣的php題</p>
