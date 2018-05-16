@@ -76,7 +76,7 @@
 						<li>Tags</li>
 						
 						
-						<li>Über</li>
+						<li>A propos</li>
 						
 					</ul>
 				</div>
@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BugBounty/" style="font-size: 10px;">BugBounty</a> <a href="/tags/CTF/" style="font-size: 18px;">CTF</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/NCU/" style="font-size: 14px;">NCU</a> <a href="/tags/NTU/" style="font-size: 12px;">NTU</a> <a href="/tags/Pwn/" style="font-size: 16px;">Pwn</a> <a href="/tags/Web/" style="font-size: 16px;">Web</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/開箱/" style="font-size: 10px;">開箱</a> <a href="/tags/開箱文/" style="font-size: 10px;">開箱文</a>
+						<a href="/tags/BugBounty/" style="font-size: 10px;">BugBounty</a> <a href="/tags/CTF/" style="font-size: 18.33px;">CTF</a> <a href="/tags/Linux/" style="font-size: 11.67px;">Linux</a> <a href="/tags/NCU/" style="font-size: 13.33px;">NCU</a> <a href="/tags/NTU/" style="font-size: 11.67px;">NTU</a> <a href="/tags/Pwn/" style="font-size: 15px;">Pwn</a> <a href="/tags/Web/" style="font-size: 16.67px;">Web</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/開箱/" style="font-size: 10px;">開箱</a> <a href="/tags/開箱文/" style="font-size: 10px;">開箱文</a>
 					</div>
 				</section>
 				
@@ -236,9 +236,9 @@
 <p>可是我發現一個有趣的事</p>
 <p>原本正常網址大概是這樣：<a href="http://youtube.com/watch?v=mebzXfWi87E" target="_blank" rel="external">http://youtube.com/watch?v=mebzXfWi87E</a></p>
 <p>可是如果我輸入以下這些網址，他也會抓到跟上面連結一樣的「預覽圖」！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">http://0.com/watch?v=mebzXfWi87E</div><div class="line">https://0.com.com/watch?v=mebzXfWi87E</div><div class="line">https://0.com/watch?v=mebzXfWi87E</div><div class="line">http://kaibro.tw/watch?v=mebzXfWi87E</div></pre></td></tr></table></figure>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">http:</span><span class="comment">//0.com/watch?v=mebzXfWi87E</span></div><div class="line"><span class="symbol">https:</span><span class="comment">//0.com.com/watch?v=mebzXfWi87E</span></div><div class="line"><span class="symbol">https:</span><span class="comment">//0.com/watch?v=mebzXfWi87E</span></div><div class="line"><span class="symbol">http:</span><span class="comment">//kaibro.tw/watch?v=mebzXfWi87E</span></div></pre></td></tr></table></figure>
 <p>但是以下這幾種不行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">https://com/watch?v=mebzXfWi87E</div><div class="line">https://watch?v=mebzXfWi87E</div></pre></td></tr></table></figure>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">https:</span><span class="comment">//com/watch?v=mebzXfWi87E</span></div><div class="line"><span class="symbol">https:</span><span class="comment">//watch?v=mebzXfWi87E</span></div></pre></td></tr></table></figure>
 <p>所以，看到這裡我就猜測，他後端應該是用正規表達式之類的去抓</p>
 <p>規則大概是這樣： http(s)://隨意.隨意/watch?v=影片id</p>
 <p>然後他會把影片id抓出來，塞在影片預覽圖片的網址中，再顯示出來</p>
