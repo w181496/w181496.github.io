@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.kaibro.tw/"/>
-  <updated>2018-05-24T08:54:18.000Z</updated>
+  <updated>2018-05-24T08:59:41.000Z</updated>
   <id>http://blog.kaibro.tw/</id>
   
   <author>
@@ -19,10 +19,11 @@
     <link href="http://blog.kaibro.tw/2018/05/16/DEFCON-CTF-2018-Qual/"/>
     <id>http://blog.kaibro.tw/2018/05/16/DEFCON-CTF-2018-Qual/</id>
     <published>2018-05-15T19:37:40.000Z</published>
-    <updated>2018-05-24T08:54:18.000Z</updated>
+    <updated>2018-05-24T08:59:41.000Z</updated>
     <content type="html"><![CDATA[<p>這篇主要用來記錄近期幾場CTF的一些Writeup和心得</p>
 <h2 id="DEFCON_CTF_2018_Qual"><a href="#DEFCON_CTF_2018_Qual" class="headerlink" title="DEFCON CTF 2018 Qual"></a>DEFCON CTF 2018 Qual</h2><p>這場比賽我們隊和台大還有交大等隊伍一起組成聯隊</p>
 <p>見識到其他隊伍跟自己的差距，學了很多</p>
+<p><img src="https://i.imgur.com/1m5PjtZ.png" alt="rank"></p>
 <a id="more"></a>
 <h3 id="Easy_Pisy"><a href="#Easy_Pisy" class="headerlink" title="Easy Pisy"></a>Easy Pisy</h3><p>這題有兩個功能：<code>sign</code>跟<code>execute</code></p>
 <p>sign只給我們sign ECHO指令(他會用OCR去辨識pdf上的文字)</p>
@@ -182,7 +183,8 @@
     <summary type="html">
     <![CDATA[<p>這篇主要用來記錄近期幾場CTF的一些Writeup和心得</p>
 <h2 id="DEFCON_CTF_2018_Qual"><a href="#DEFCON_CTF_2018_Qual" class="headerlink" title="DEFCON CTF 2018 Qual"></a>DEFCON CTF 2018 Qual</h2><p>這場比賽我們隊和台大還有交大等隊伍一起組成聯隊</p>
-<p>見識到其他隊伍跟自己的差距，學了很多</p>]]>
+<p>見識到其他隊伍跟自己的差距，學了很多</p>
+<p><img src="https://i.imgur.com/1m5PjtZ.png" alt="rank"></p>]]>
     
     </summary>
     
