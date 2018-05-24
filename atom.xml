@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.kaibro.tw/"/>
-  <updated>2018-05-16T13:55:18.000Z</updated>
+  <updated>2018-05-24T08:54:18.000Z</updated>
   <id>http://blog.kaibro.tw/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://blog.kaibro.tw/2018/05/16/DEFCON-CTF-2018-Qual/"/>
     <id>http://blog.kaibro.tw/2018/05/16/DEFCON-CTF-2018-Qual/</id>
     <published>2018-05-15T19:37:40.000Z</published>
-    <updated>2018-05-16T13:55:18.000Z</updated>
+    <updated>2018-05-24T08:54:18.000Z</updated>
     <content type="html"><![CDATA[<p>這篇主要用來記錄近期幾場CTF的一些Writeup和心得</p>
 <h2 id="DEFCON_CTF_2018_Qual"><a href="#DEFCON_CTF_2018_Qual" class="headerlink" title="DEFCON CTF 2018 Qual"></a>DEFCON CTF 2018 Qual</h2><p>這場比賽我們隊和台大還有交大等隊伍一起組成聯隊</p>
 <p>見識到其他隊伍跟自己的差距，學了很多</p>
@@ -28,7 +28,7 @@
 <p>sign只給我們sign ECHO指令(他會用OCR去辨識pdf上的文字)</p>
 <p>execute功能如果給正確的signature，他就會去執行pdf上面的指令</p>
 <p>所以如果我們有辨法構造或繞過signature就能搞定這題惹</p>
-<p>這題比較難發現的關鍵點是，他在sign前使用<code>SHA1</code></p>
+<p>這題比較難發現的關鍵點是，<code>openssl_verify</code>在sign前使用<code>SHA1</code></p>
 <p>也就是說可以去撞SHA1 Collision</p>
 <p>可以使用這個Tool來輔助：<a href="https://github.com/nneonneo/sha1collider/" target="_blank" rel="external">https://github.com/nneonneo/sha1collider/</a></p>
 <p>產生兩個pdf檔: (1) ECHO kaibro  (2) EXECUTE cat flag</p>
@@ -53,7 +53,8 @@
 <p>翻一下<code>php.ini</code>，可以找到<code>mydb.so</code>的路徑</p>
 <p>用LFI把他載下來: <code>/essays.php?preview&amp;name=../../../../../usr/lib/php/20151012/mydb.so</code></p>
 <p>用ida pro去看，可以發現它DB是用SQLite</p>
-<p>我們可以把他的DB載下來(但因為他有長度限制，所以沒辦法載完整的)</p>
+<p>mydb.so有db路徑，所以可以把他的DB載下來 (但因為<code>file_get_contents</code>有長度限制，所以沒辦法載完整的)</p>
+<p><img src="https://i.imgur.com/FrUJbJz.png" alt=""></p>
 <p>會發現目標的帳號跟密碼: <code>sarte:5f0e11fe91a3196d7bf8e80a7ee0bbdf516b1952a57569e4809a9e7bf21ad0f6</code></p>
 <p>賽中有試著去撞，但撞不出來 (SHA256攪20次)</p>
 <p>然後就是一連串崩潰逆向 </p>
@@ -70,10 +71,12 @@
 <p>所以這邊<code>snprintf(cmd, sizeof(cmd), &quot;select rowid from %s where username = &#39;%s&#39; and password = &#39;%s&#39;;&quot;, table_name, username, password);</code>就可以注入惹</p>
 <hr>
 <p>整體來說，這場的確很多黑人問號的題目</p>
+<p>(雖然也是有一些好題目)</p>
 <p>不少題目都有猜測或暴力的成分在裡頭</p>
 <p>Web題也是一堆都要去逆向<code>.so</code>檔，很不web</p>
 <p>不過隊友太Carry，最後聯隊還是拿到22名 跪惹</p>
-<h2 id="0ctf_2018_Qual"><a href="#0ctf_2018_Qual" class="headerlink" title="0ctf 2018 Qual"></a>0ctf 2018 Qual</h2><h3 id="EzDoor"><a href="#EzDoor" class="headerlink" title="EzDoor"></a>EzDoor</h3><p>這題蠻有趣的</p>
+<p>第一次參加DEFCON Qual就打進決賽，運氣真的很好XD</p>
+<h2 id="0ctf_2018_Qual"><a href="#0ctf_2018_Qual" class="headerlink" title="0ctf 2018 Qual"></a>0ctf 2018 Qual</h2><h3 id="EzDoor"><a href="#EzDoor" class="headerlink" title="EzDoor"></a>EzDoor</h3><p>這題蠻有趣的，第一次碰opcache</p>
 <p>他有幾個小功能，可以看phpinfo、上傳檔案等</p>
 <p>雖然能上傳，但是會檢查副檔名有沒有出現h，有的話就算不合法</p>
 <p><code>stristr(pathinfo($name)[&quot;extension&quot;], &quot;h&quot;))</code></p>
@@ -146,7 +149,7 @@
 <p>後面就可以去Union based注入惹</p>
 <p>只是這題他有擋<code>information.schema</code></p>
 <p>沒辦法知道表名、欄位名</p>
-<p>這裏可以用到另一個小trick</p>
+<p>這裡可以用到另一個小trick</p>
 <p>因為他的table engine是<code>innodb</code></p>
 <p>我們可以這樣撈表名：</p>
 <p><code>/index.php?act=board&amp;mid=search&amp;type=2&amp;col=title|idx%23&amp;search=%0a)union+select+1,table_name,3,4,5 from mysql.innodb_table_stats limit 2,1--+</code></p>
@@ -166,7 +169,7 @@
 <p>但太容易超過長度30，就放棄了</p>
 <p>我後來的解法是: <code>?%E2%81%A3=`$_`;//;a=sle;b=ep;$a$b 10;</code></p>
 <p><code>`$_`;//;</code>後面可以接指令</p>
-<p>然後把shell script用類似HITCON CTF 2017的技巧寫進<code>/tmp</code></p>
+<p>然後把shell script用類似HITCON CTF 2017 Babyfirst的技巧寫進<code>/tmp</code></p>
 <p>再把Reverse shell噴回來</p>
 <p>但噴回來還有個坑XD</p>
 <p>他沒有<code>nc</code>, <code>curl</code>, <code>wget</code>, <code>telnet</code>…等指令</p>
