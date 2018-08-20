@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.kaibro.tw/"/>
-  <updated>2018-05-24T08:59:41.000Z</updated>
+  <updated>2018-08-20T07:47:30.352Z</updated>
   <id>http://blog.kaibro.tw/</id>
   
   <author>
@@ -13,6 +13,261 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[DEFCON 26 Final CTF初體驗]]></title>
+    <link href="http://blog.kaibro.tw/2018/08/20/DEFCON-26-Final-CTF%E5%88%9D%E9%AB%94%E9%A9%97/"/>
+    <id>http://blog.kaibro.tw/2018/08/20/DEFCON-26-Final-CTF初體驗/</id>
+    <published>2018-08-20T00:41:33.000Z</published>
+    <updated>2018-08-20T07:47:30.352Z</updated>
+    <content type="html"><![CDATA[<p><img src="/images/vegas.jpg" alt="vegas"></p>
+<h1 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h1><p>這是台灣第一次有兩隊一起進DEFCON Final</p>
+<p>也是我第一次出國打CTF，和第一次去Las Vegas，以前最遠只去過關島</p>
+<p>感謝教育部、趨勢、中華電信、中華資安等乾爹們的贊助，還有同行的博士、教授及助理打理我們的食衣住行</p>
+<p>然後這篇文不會有太多技術細節，應該會比較偏向遊記或是廢文XD</p>
+<a id="more"></a>
+<p><br></p>
+<h1 id="u8CED_u5834"><a href="#u8CED_u5834" class="headerlink" title="賭場"></a>賭場</h1><p>下飛機後，麥卡倫機場裡面整個冷爆，冷氣開超強</p>
+<p>但走出外面又爆幹熱，但那種熱跟台灣的熱不太一樣，是有點悶的熱，但又不會流汗</p>
+<p>比較有趣的是，機場裡面到處都是賭博機台</p>
+<p><img src="/images/gamble.jpg" alt="gamble"></p>
+<p><br></p>
+<p>出了機場後，迎接我們的是超潮的長型接駁車</p>
+<p>裡面就像電影演的一樣，各種潮爆的燈光和一直震的音樂，旁邊還有一堆酒XD</p>
+<p><img src="/images/car.jpg" alt="car"></p>
+<p>到了凱薩宮，一走進去就是超級大賭場</p>
+<p>我們這群鄉巴佬都看傻惹，很想上去玩個兩把</p>
+<p>不愧是賭城，不管走到哪都是賭場，路上每間飯店裡幾乎都有賭場</p>
+<p>而且天花板都是密密麻麻的監視器，不知道背後是不是真的一堆人24小時監看XD</p>
+<p><img src="/images/casino.jpg" alt="casino"></p>
+<p><br></p>
+<p>後面幾天，就有撥空上去小玩一下，我都只玩拉霸機</p>
+<p>不過每次去都會被工作人員要求檢查護照</p>
+<p>可能亞洲人的臉都看起來比較年輕吧</p>
+<p>有一次忘記帶護照就直接被趕走XD</p>
+<p>至於有沒有贏錢，我只有第一次玩的時候有贏過XD</p>
+<p>後面幾次玩全賠慘，放了10鎂，只剩0.4鎂QQ</p>
+<p>然後Cashout不會直接吐鈔票回來，他會印一張紙出來，好像可以拿去換錢吧</p>
+<p><img src="/images/cashout.jpg" alt="cashout"></p>
+<p><br></p>
+<h1 id="u98EF_u5E97"><a href="#u98EF_u5E97" class="headerlink" title="飯店"></a>飯店</h1><p>我們飯店住的是Caesar Palace，會住這邊主要是因為DEFCON場地就辦在這</p>
+<p>有趣的是電影醉後大丈夫也是在這裡拍的，有很多似曾相識的場景XD</p>
+<p>我這幾天住的是四人房，還算高級</p>
+<p>雖然沒有很大，但落地窗能看到Las Vegas的夜景和一部分百樂宮噴水池</p>
+<p><img src="/images/night.jpg" alt="night"></p>
+<p>床躺起來超舒服，第一天晚上躺下去就直接睡著，結果沒跟到晚餐的高級牛排QQ</p>
+<p>比賽時用來討論的六人房更狂XD</p>
+<p>大小是四人房的好幾倍，超大面的落地窗，還可以看到樓下整片的泳池</p>
+<p><img src="/images/swim.jpg" alt="swim"></p>
+<p>比較坑的地方是，房間裡放的水和餅乾之類的，他下面有開關，一拿起來就會收錢</p>
+<p>冰箱裡面雖然擺滿酒，但也是有開關，一拿出來就扣錢 (可惡想喝)</p>
+<p>似乎有人不知道就每瓶都拿出看，再放回去，不知道有沒有被扣到錢XD</p>
+<p><img src="/images/drink.jpg" alt="酒"></p>
+<p><br></p>
+<p>然後，飯店網路雷爆，卡到爆，我們比賽也是用這個超雷網路，很慘</p>
+<p>網路的部分還有一個Bug，在房間裡連wifi要收錢，可是去一樓連完免費wifi，再回來房間就不用收錢</p>
+<p>一個Bypass的概念</p>
+<p><br></p>
+<h1 id="u5403_u5403_u559D_u559D"><a href="#u5403_u5403_u559D_u559D" class="headerlink" title="吃吃喝喝"></a>吃吃喝喝</h1><p>Las Vegas的食物真的貴到爆，而且很油很不健康</p>
+<p>一瓶百事可樂換算下來，大概就要100台幣</p>
+<p>然後一餐漢堡或炸物都要1X~2X美金起跳..</p>
+<p>第一天晚上原本有人要請吃牛排，但我們這房全睡過頭沒吃到</p>
+<p>所以後來就跑去Blue Ribbon買了炸雞和奶昔</p>
+<p>花了19鎂，很貴，但份量超多，美國人的食量果然不能小看</p>
+<p>之後幾天還吃了Dennis、wahlburgers、拉麵和一堆有的沒的不健康食物</p>
+<p>到後來整個超膩，很懷念台灣食物。</p>
+<p>比賽期間，都是助理和博士幫忙買食物回來給大家吃，這部分真的很感謝他們</p>
+<p><br></p>
+<p>最後一天比完賽，吃了一家超高級的Buffet</p>
+<p>裡面有各種高級食物，有生蠔、蟹腳、鮭魚生魚片、各種精緻甜點，還有會融化的肉!</p>
+<p>我還點了一杯Mojito，但喝下去就是很一般的Mojito</p>
+<p>身為一個酒鬼，原本以為來Vegas會一直喝酒，結果幾天下來只喝了這杯酒XD</p>
+<p><img src="/images/food1.jpg" alt="food1"></p>
+<p><img src="/images/food2.jpg" alt="food2"></p>
+<p><img src="/images/food3.jpg" alt="food3"></p>
+<p><img src="/images/mojito.jpg" alt="mojito"></p>
+<p><br></p>
+<h1 id="blackhat__26amp_3B_DEFCON"><a href="#blackhat__26amp_3B_DEFCON" class="headerlink" title="blackhat &amp; DEFCON"></a>blackhat &amp; DEFCON</h1><p><img src="/images/blackhat.jpg" alt="blackhat"></p>
+<p>第二天，因為隊上有人參加BlackHat</p>
+<p>所以在快結束要去接他的時候，順便去BlackHat逛紀念品店</p>
+<p>裡頭衣服多到爆，我只買了一件T-shirt和幾張貼紙(沒錯，貼紙要錢，一張1鎂)，還買了一個酒壺XD</p>
+<p><img src="/images/blackhat2.jpg" alt="blackhat2"></p>
+<p>原本以為DEFCON也會跟BlackHat一樣超多東西可以買</p>
+<p>可是第一天去買DEFCON紀念品時，才發現人爆幹多</p>
+<p>排到我們時，很多想買的東西都賣完惹QQ</p>
+<p>最後只買了一件polo衫和一個pin</p>
+<p><br></p>
+<p>DEFCON第一天基本上只有賣官方紀念品，沒有議程和活動</p>
+<p>主要活動和議程都跟三天的CTF重疊</p>
+<p>所以這幾天都沒聽到半場議程，也沒觀摩到任何Villiage，有點可惜</p>
+<p>不過，還是有利用空擋時間快速逛一下Vendor Area</p>
+<p>裡面就是各種攤位賣工具和紀念品</p>
+<p>例如Hak5有賣Ducky USB、HackRF、Bash Bunny之類的，我也手癢買了一個玩玩</p>
+<p>其他攤位還有賣一些開鎖工具、硬體keylogger，和一些我看不懂，但感覺很猛的玩具</p>
+<p>還有一個神奇的金正恩USB牆</p>
+<p><img src="/images/korea.jpg" alt="korea"></p>
+<p><br></p>
+<p>快速走過整個會場後，雖然跟我想像的DEFCON有點不太一樣</p>
+<p>但還是能感受到濃濃的黑客氣場，和國外的獨特黑客風氣</p>
+<p>整個氛圍跟台灣的conf完全不一樣，很特別。</p>
+<p>記得某天路過飯店ATM時，看到一群人圍在旁邊操作，然後畫面上是一個Windows視窗，我和我的小夥伴都驚呆惹XD</p>
+<p>不過除了技術超強的黑客外，會場裡面的瘋子也超多XDD</p>
+<p>還有人脫到只剩一件內褲，爬上桌子跳著奇怪的舞，畫面十分嚇人</p>
+<p>然後整個凱薩宮也被貼滿貼紙，連雕像的頭上、牆壁上的畫和電梯裡都被貼滿，估計結束後清潔人員會超級崩潰</p>
+<p><img src="/images/weird.jpg" alt="weird"></p>
+<p><img src="/images/sticker.jpg" alt="sticker"></p>
+<p><img src="/images/sticker2.jpg" alt="sticker2"></p>
+<p><br></p>
+<p>在CTF同個會場旁邊，還看到有奇怪的帽子比賽</p>
+<p>看起來是一群人用鋁箔紙做帽子</p>
+<p>然後不知道依據啥標準來比賽，最後他們頒獎時，我還在台下聽了一會</p>
+<p>但場面實在太詭異，大家戴著各種畸形的鋁箔帽子，講著不知道笑點在哪的笑話</p>
+<p>聽了幾分鐘受不了就走了。</p>
+<p><img src="/images/hat.jpg" alt="hat"></p>
+<p><br></p>
+<p>今年Badge是個紅綠小人亂跑的小遊戲</p>
+<p>然後可以跟別人的Badge連接，我後來用破英文跑去跟櫃台工作人員(紅色Badge)連接，結果Badge上就多了一個小紅人XDD</p>
+<p>排紀念品時一直在玩，可惜還是玩不出啥東西，看到很多國外黑客直接接電腦，然後一直在terminal敲敲打打，感覺好像挺厲害的，比好厲駭還厲害</p>
+<p><img src="/images/badge.jpg" alt="badge"></p>
+<p><img src="/images/coin.jpg" alt="coin"></p>
+<p><br></p>
+<h1 id="CTF"><a href="#CTF" class="headerlink" title="CTF"></a>CTF</h1><p><img src="/images/box.jpg" alt="box"></p>
+<p>今年的賽制是Attack &amp; Defense + King of Hill</p>
+<p><a href="https://www.oooverflow.io/obey/" target="_blank" rel="external">https://www.oooverflow.io/obey/</a></p>
+<p>隊伍名單：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>	<span class="number">0</span>daysober</div><div class="line"><span class="number">2</span>	A*<span class="number">0</span>*E</div><div class="line"><span class="number">3</span>	BFS</div><div class="line"><span class="number">4</span>	binja</div><div class="line"><span class="number">5</span>	C.G.K.S</div><div class="line"><span class="number">6</span>	DEFKOR00T</div><div class="line"><span class="number">7</span>	Dragon Sector</div><div class="line"><span class="number">8</span>	HITCON</div><div class="line"><span class="number">9</span>	hxp</div><div class="line"><span class="number">10</span>	KaisHack+PLUS+GoN</div><div class="line"><span class="number">11</span>	koreanbadass</div><div class="line"><span class="number">12</span>	mhackeroni</div><div class="line"><span class="number">13</span>	pasten</div><div class="line"><span class="number">14</span>	PPP</div><div class="line"><span class="number">15</span>	PwnThyBytes</div><div class="line"><span class="number">16</span>	r3kapig</div><div class="line"><span class="number">17</span>	RPISEC</div><div class="line"><span class="number">18</span>	Samurai</div><div class="line"><span class="number">19</span>	Sauercloud</div><div class="line"><span class="number">20</span>	Shellphish</div><div class="line"><span class="number">21</span>	Spaceballs</div><div class="line"><span class="number">22</span>	Tea Deliverers</div><div class="line"><span class="number">23</span>	TeamBaguette</div><div class="line"><span class="number">24</span>	TokyoWesterns</div></pre></td></tr></table></figure>
+<p>然後Flag格式是000開頭的，例如: <code>00083A0113576E0BEC5DF2F9472DEE36BFB7518B82232C1A</code></p>
+<p><br></p>
+<p>開賽後，第一題出來的是<code>reverse</code>，這題是King of Hill</p>
+<p>他是一個好幾個Round的填ASM or Machine code的遊戲</p>
+<p>答對愈多愈高分，遊戲分數最高前五名才能得分</p>
+<p>一開始我們就一部分人去寫自動化，一部分人去手動刷分，一部分人逆向找洞</p>
+<p>然後我和小圓好幾次神運氣，手動刷到前五，有賺到一些分數XDD</p>
+<p>但到後面其他隊不知道是自動化寫太快，還是找到題目的洞，分數爆幹高，我們就擠不進前五、拿不到分數</p>
+<p>服務隨著打的人愈來愈多，狀態會從綠色慢慢變紅色，最後關閉題目。</p>
+<p><img src="/images/score.png" alt="score"></p>
+<p><br></p>
+<p>不得不說，這場比賽主辦方出蠻多狀況的</p>
+<p>各種放錯題目(第一天中間有把後面幾天的<code>poool</code>放出來幾秒XD)、git爛掉、計分問題、網路問題…有的沒的。</p>
+<p><br></p>
+<p><code>doublethink</code>那題要串shellcode，別隊很多都是用題目漏洞才刷到9分、11分</p>
+<p>隊友們沒有用這個漏洞還硬串串出4、5個shellcode，屌爆了XDD</p>
+<p><br></p>
+<p>其他題目像<code>pointless</code>是MIPS架構，有一題是ObjectiveC，還有一堆神奇的架構</p>
+<p>用JEB free trial去看MIPS還會一直Crash，傳參的地方感覺也解得很爛，看得很崩潰</p>
+<p>身為Web狗，解這些題目整個很卡，還好後面有出一題<code>bew</code></p>
+<p>它是用node.js和wasm寫的題目</p>
+<p>以前沒實際玩過wasm，所以就只能現學現賣，現場裝個emcc</p>
+<p>後來發現直接輸入js code，他就會拿來跑，只是他有黑名單，要稍微繞一下</p>
+<p>e.g. <code>eval(&#39;requir&#39;+&#39;e&#39;)(&#39;child&#39;+&#39;_process&#39;).exec(&#39;sleep 10&#39;);</code></p>
+<p>晚上時，大家就尻了一堆Payload和加密腳本，準備隔天要大屠殺一番</p>
+<p>結果一開賽，我們的服務就被別隊打爛，救不回來，超凶狠</p>
+<p>聽說主辦單位權限設置好像有問題(?</p>
+<p>我們後來連自己的服務都無法打成功，所有準備的招都用不上</p>
+<p>最後還是只能回歸老招，一直刷<code>suspects.txt</code>偷別人的flag，也是有搶到一些分數啦</p>
+<p>不太懂為啥有人要把flag寫在<code>suspects.txt</code>上XD</p>
+<p><br></p>
+<p>整場比賽下來，覺得自己超廢，題目還沒看完，別隊就已經首殺了</p>
+<p>看著變態強隊一直刷分，果然打Binary的才是高富帥</p>
+<p>雖然賽前有一直在練Pwn和Reverse，但看到各種奇怪架構還是會不知所措</p>
+<p>以後有時間應該會想繼續練一下這塊XD</p>
+<p>最後也感謝強者我隊友們Carry，吊車尾進決賽，結果20多隊中拿了第12名</p>
+<p>四隊韓國隊只輸給DEFKOROOT，超強</p>
+<p><img src="/images/rank.png" alt="rank"></p>
+<p><img src="/images/defkor.jpg" alt="defkor"><br>(實體Hijack flag)</p>
+<p><br></p>
+<h1 id="u5927_u9EBB"><a href="#u5927_u9EBB" class="headerlink" title="大麻"></a>大麻</h1><p>在Las Vegas，大麻是合法的!</p>
+<p>在Las Vegas，大麻是合法的!</p>
+<p>在Las Vegas，大麻是合法的!</p>
+<p>因為很重要，所以要強調三次XD</p>
+<p>所以我們在還沒出發前，就一直嘴砲說來了一定要抽大麻</p>
+<p>結果原本只是說說，後來又覺得沒抽好像真的有點可惜，人生可能就只有這麼一次機會</p>
+<p>就在某天比賽完，大家都要回房睡覺時，和小圓一起搭Uber腦衝跑去Reef dispensaries買大麻</p>
+<p>這家店是Google map上離我們飯店最近的一間專賣店，看圖片感覺很明亮、很高級XD</p>
+<p>(中間還遇到網路定位太雷，定到超遠的地方，害我叫Uber被扣錢)</p>
+<p>經過幾分鐘的路途後，終於到Reef了</p>
+<p>店外面環境看起來整個超偏僻，燈光昏暗，然後店面很小間的樣子</p>
+<p>感覺就會有一些毒蟲或壞蛋平常喜歡聚集在外面(X</p>
+<p>但進去之後，果然後Google圖片裡一樣，燈光很亮、很乾淨，很像精品店XDD</p>
+<p>一進去，門口的守衛會檢查護照，檢查過才放你進去 (小於21歲不能買)</p>
+<p>裡面賣了各式各樣的大麻商品，有看起來像大麻保養品的東西、大麻餅乾，甚至還有紀念衣XD</p>
+<p>晃了一下，感覺裡面也是一堆各國遊客想來嚐試大麻</p>
+<p>由於我們沒有事先做功課，所以看著menu上各式各樣的大麻口味，完全不知道該如何挑選</p>
+<p>最後就用破英文請女店員推薦我們新手用的</p>
+<p>(女店員擦紫黑色口紅，感覺超壞，應該是個老江湖)</p>
+<p>然後她推薦了幾個新手可以嘗試的種類</p>
+<p>我選了preroll的mimosa大麻兩根，一根17.5鎂，然後順便買了一個2鎂的打火機</p>
+<p>回去的時候，搭的Uber超帥，是一個黑人開Dodge的紅色肌肉車，然後改超爆幹震的音響</p>
+<p>車子那個加速度，配上他播<code>Moneybagg Yo - More</code>的歌，一路震回飯店，整個超爽XDDD</p>
+<p><img src="/images/weed.jpg" alt="weed"></p>
+<p><br></p>
+<p>大麻抽起來，味道很濃，隔數十公尺都聞得到</p>
+<p>抽完當下，完全沒任何特別感覺，還以為大麻就這樣，當時以為網路上心得文都是唬爛的</p>
+<p>結果後來走回飯店，走到一半遇到博士，然後講話講一講</p>
+<p>突然一個覺得身體和大腦「飄起來」，精神突然變很好</p>
+<p>然後感官四肢突然變得很遲緩，變得很不像自己的</p>
+<p>笑點也突然變很低，一直想笑，整個ㄎㄧㄤ掉XDD</p>
+<p>一整個感覺自己像在作夢，博士當時好像有點看傻眼XD</p>
+<p>最後還要靠小圓攙扶上樓</p>
+<p>跟喝醉酒完全不同感覺，很醉酒腦袋會不太清醒，而且會想睡覺，可是大麻有點相反的感覺</p>
+<p>然後為了證明抽完大麻，腦袋還是清醒的，還跟他們PK解webhacking.kr和算心算 XDDD</p>
+<p>之後回房間睡個一覺起來之後效果就退了</p>
+<p>很特別的體驗，而且真的沒有成癮性，抽完隔天完全不想再抽</p>
+<p>難得在Las Vegas可以合法抽，來了一定要試試看XD</p>
+<p><img src="/images/weed2.jpg" alt="weed2"></p>
+<p><br></p>
+<h1 id="u7E3D_u7D50"><a href="#u7E3D_u7D50" class="headerlink" title="總結"></a>總結</h1><p>簡單小總結一下</p>
+<ul>
+<li><p>感謝乾爹們</p>
+</li>
+<li><p>食物好貴</p>
+</li>
+<li><p>Las Vegas室外爆幹熱，但室內都爆幹冷</p>
+</li>
+<li><p>飯店不一定會附牙膏牙刷</p>
+</li>
+<li><p>飯店的零食、酒拿起來太久會計費</p>
+</li>
+<li><p>飯店WiFi不一定是免費的</p>
+</li>
+<li><p>記得給小費</p>
+</li>
+<li><p>CVS好棒棒，買水、買食物、買日常用品、買紀念品都方便</p>
+</li>
+<li><p>去賭場玩記得帶護照</p>
+</li>
+<li><p>DEFCON紀念品要早點搶</p>
+</li>
+<li><p>美國衣服Size比台灣大很多，買紀念品要挑小1~2號</p>
+</li>
+<li><p>擺在桌上的貼紙不一定是免費的</p>
+</li>
+<li><p>DEFCON有些地方不能拍照</p>
+</li>
+<li><p>大麻不能在公共場合抽，雖然還是偶而會看到黑人在路上抽</p>
+</li>
+<li><p>神秘電話 702-6969696</p>
+</li>
+<li><p>u know what?  I don’t know, asshole!</p>
+</li>
+</ul>
+<p><br></p>
+<p><img src="/images/gameover.jpg" alt="gameover"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><img src="/images/vegas.jpg" alt="vegas"></p>
+<h1 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h1><p>這是台灣第一次有兩隊一起進DEFCON Final</p>
+<p>也是我第一次出國打CTF，和第一次去Las Vegas，以前最遠只去過關島</p>
+<p>感謝教育部、趨勢、中華電信、中華資安等乾爹們的贊助，還有同行的博士、教授及助理打理我們的食衣住行</p>
+<p>然後這篇文不會有太多技術細節，應該會比較偏向遊記或是廢文XD</p>]]>
+    
+    </summary>
+    
+      <category term="CTF" scheme="http://blog.kaibro.tw/tags/CTF/"/>
+    
+      <category term="DEFCON" scheme="http://blog.kaibro.tw/tags/DEFCON/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[DEFCON CTF 2018 Qual和一些有趣題目]]></title>
@@ -519,9 +774,9 @@
     
       <category term="CTF" scheme="http://blog.kaibro.tw/tags/CTF/"/>
     
-      <category term="Pwn" scheme="http://blog.kaibro.tw/tags/Pwn/"/>
-    
       <category term="Web" scheme="http://blog.kaibro.tw/tags/Web/"/>
+    
+      <category term="Pwn" scheme="http://blog.kaibro.tw/tags/Pwn/"/>
     
       <category term="NTU" scheme="http://blog.kaibro.tw/tags/NTU/"/>
     
@@ -707,7 +962,7 @@
 <p>後來我們搞老半天<br>成功想到可以這樣去爆所有檔案路徑<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="builtin-name">find</span></div><div class="line">* /&gt;z</div></pre></td></tr></table></figure></p>
 <p>然後發現<code>/home/fl4444g/</code>下有一個README.txt<br>接著就想辦法去讀它</p>
 <p>後來終於構造出<code>tar vcf a /</code>，把整個root打包起來下載(1.4G左右)<br>打開<code>/home/fl4444g/README.txt</code>看，崩潰<br>他給你mysql帳號密碼，說flag在裡面</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Flag <span class="keyword">is</span> <span class="keyword">in</span> the MySQL database</div><div class="line">fl4444g / SugZXUtgeJ52_Bvr</div></pre></td></tr></table></figure>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Flag <span class="keyword">is</span> <span class="keyword">in</span> the MySQL database</div><div class="line">fl4444g / SugZXUtgeJ52_Bvr</div></pre></td></tr></table></figure>
 <p>所以基本上就是要拿shell惹QQ</p>
 <p><br></p>
 <p>我後來是發現有<code>lsof</code>可以用<br>可以看其他人在幹啥XDDD<br>甚至也可以拿到別人的ip hash  (( 就是<code>md5(&#39;orange&#39;.ip);</code><br>這一招真的對我們幫助很大XD<br><img src="https://i.imgur.com/I7szGI7.png" alt=""></p>
@@ -968,11 +1223,11 @@
     
       <category term="CTF" scheme="http://blog.kaibro.tw/tags/CTF/"/>
     
+      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
+    
       <category term="Pwn" scheme="http://blog.kaibro.tw/tags/Pwn/"/>
     
       <category term="NTU" scheme="http://blog.kaibro.tw/tags/NTU/"/>
-    
-      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
     
   </entry>
   
@@ -1045,11 +1300,11 @@
     
       <category term="CTF" scheme="http://blog.kaibro.tw/tags/CTF/"/>
     
-      <category term="Pwn" scheme="http://blog.kaibro.tw/tags/Pwn/"/>
-    
       <category term="Web" scheme="http://blog.kaibro.tw/tags/Web/"/>
     
       <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
+    
+      <category term="Pwn" scheme="http://blog.kaibro.tw/tags/Pwn/"/>
     
   </entry>
   
@@ -1308,11 +1563,11 @@
     
       <category term="CTF" scheme="http://blog.kaibro.tw/tags/CTF/"/>
     
-      <category term="Pwn" scheme="http://blog.kaibro.tw/tags/Pwn/"/>
-    
       <category term="Web" scheme="http://blog.kaibro.tw/tags/Web/"/>
     
       <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
+    
+      <category term="Pwn" scheme="http://blog.kaibro.tw/tags/Pwn/"/>
     
   </entry>
   
@@ -1659,9 +1914,9 @@
     
       <category term="CTF" scheme="http://blog.kaibro.tw/tags/CTF/"/>
     
-      <category term="Pwn" scheme="http://blog.kaibro.tw/tags/Pwn/"/>
-    
       <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
+    
+      <category term="Pwn" scheme="http://blog.kaibro.tw/tags/Pwn/"/>
     
       <category term="NCU" scheme="http://blog.kaibro.tw/tags/NCU/"/>
     

@@ -105,7 +105,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BugBounty/" style="font-size: 10px;">BugBounty</a> <a href="/tags/CTF/" style="font-size: 18.33px;">CTF</a> <a href="/tags/Linux/" style="font-size: 11.67px;">Linux</a> <a href="/tags/NCU/" style="font-size: 13.33px;">NCU</a> <a href="/tags/NTU/" style="font-size: 11.67px;">NTU</a> <a href="/tags/Pwn/" style="font-size: 15px;">Pwn</a> <a href="/tags/Web/" style="font-size: 16.67px;">Web</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/開箱/" style="font-size: 10px;">開箱</a> <a href="/tags/開箱文/" style="font-size: 10px;">開箱文</a>
+						<a href="/tags/BugBounty/" style="font-size: 10px;">BugBounty</a> <a href="/tags/CTF/" style="font-size: 18.33px;">CTF</a> <a href="/tags/DEFCON/" style="font-size: 10px;">DEFCON</a> <a href="/tags/Linux/" style="font-size: 11.67px;">Linux</a> <a href="/tags/NCU/" style="font-size: 13.33px;">NCU</a> <a href="/tags/NTU/" style="font-size: 11.67px;">NTU</a> <a href="/tags/Pwn/" style="font-size: 15px;">Pwn</a> <a href="/tags/Web/" style="font-size: 16.67px;">Web</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/開箱/" style="font-size: 10px;">開箱</a> <a href="/tags/開箱文/" style="font-size: 10px;">開箱文</a>
 					</div>
 				</section>
 				
@@ -170,6 +170,69 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-HITCON-CTF初賽" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/11/07/HITCON-CTF初賽/" class="article-date">
+  	<time datetime="2017-11-07T05:35:17.000Z" itemprop="datePublished">2017-11-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/07/HITCON-CTF初賽/">HITCON CTF初賽</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我來打醬油的<br>好像都沒貢獻到啥QQ</p>
+<p>來記錄一下Web簡單題的解法<br>和幾題賽中有碰，但沒解出來的QQ</p>
+<h2 id="Baby_First_Revenge_v1"><a href="#Baby_First_Revenge_v1" class="headerlink" title="Baby First Revenge v1"></a>Baby First Revenge v1</h2><p>這題和隊友討論很久才搞定QQ<br>其實一開始我們的方向就是正確的<br>比賽剛開始就在想，利用<code>&gt;ls</code>之類的寫檔<br>再用<code>ls&gt;z</code>，把產生的那些檔名塞到另一個檔案<br>最後串成指令去<code>sh z</code>跑</p>
+<p>但後來發現ls會有順序問題，難搞定<br>思路就愈走愈偏了QQ<br>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/11/07/HITCON-CTF初賽/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-EDU-CTF-計算機安全" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -457,69 +520,6 @@
       
         <p class="article-more-link">
           <a  href="/2017/07/19/106-資工所考試心得/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-AIS3-pre-exam-writeup" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/16/AIS3-pre-exam-writeup/" class="article-date">
-  	<time datetime="2017-07-16T06:07:44.000Z" itemprop="datePublished">2017-07-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/16/AIS3-pre-exam-writeup/">AIS3 pre-exam 2017 writeup</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>因為平常沒在打CTF，也很久沒認真碰這塊，所以最後只有31分 QAQ<br>然後這是我第一次參加AIS3，高手感覺好多，怕</p>
-<p>UPDATE: 最後正取惹，我朋友8x、9x名也正取惹，所以要上應該算容易的(?</p>
-<h2 id="Web_1"><a href="#Web_1" class="headerlink" title="Web 1"></a>Web 1</h2><p>這題直接<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl http<span class="variable">s:</span>//quiz.ais3.<span class="built_in">or</span><span class="variable">g:42351</span>/</div></pre></td></tr></table></figure></p>
-<p>就看得到Flag了<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pwn/">Pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/筆記/">筆記</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/16/AIS3-pre-exam-writeup/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
