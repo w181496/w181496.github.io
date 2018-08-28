@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.kaibro.tw/"/>
-  <updated>2018-08-20T13:57:27.156Z</updated>
+  <updated>2018-08-28T19:40:55.310Z</updated>
   <id>http://blog.kaibro.tw/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://blog.kaibro.tw/2018/08/20/DEFCON-26-Final-CTF%E5%88%9D%E9%AB%94%E9%A9%97/"/>
     <id>http://blog.kaibro.tw/2018/08/20/DEFCON-26-Final-CTF初體驗/</id>
     <published>2018-08-20T00:41:33.000Z</published>
-    <updated>2018-08-20T13:57:27.156Z</updated>
+    <updated>2018-08-28T19:40:55.310Z</updated>
     <content type="html"><![CDATA[<p><img src="/images/vegas.jpg" alt="vegas"></p>
 <h1 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h1><p>這是台灣第一次有兩隊一起進DEFCON Final</p>
 <p>也是我第一次出國打CTF，和第一次去Las Vegas，以前最遠只去過關島</p>
@@ -174,7 +174,7 @@
 <p>雖然賽前有一直在練Pwn和Reverse，但看到各種奇怪架構還是會不知所措</p>
 <p>以後有時間應該會想繼續練一下這塊XD</p>
 <p>最後也感謝強者我隊友們Carry，吊車尾進決賽，結果20多隊中拿了第12名</p>
-<p>四隊韓國隊只輸給DEFKOROOT，超強</p>
+<p>四隊韓國隊中，我們只輸給DEFKOROOT，超強</p>
 <p><img src="/images/rank.png" alt="rank"></p>
 <p><img src="/images/defkor.jpg" alt="defkor"><br>(實體Hijack flag)</p>
 <p><br></p>
@@ -182,7 +182,11 @@
 <p>在Las Vegas，大麻是合法的!</p>
 <p>在Las Vegas，大麻是合法的!</p>
 <p>因為很重要，所以要強調三次XD</p>
-<p>所以我們在還沒出發前，就一直嘴砲說來了一定要抽大麻</p>
+<p>先說結論，我體驗完之後，還是不太支持這玩意</p>
+<p>但一輩子來這邊合法體驗一次，我覺得還挺OK的</p>
+<p>而且不會有成癮性，不用怕會上癮</p>
+<p><br></p>
+<p>我們在還沒出發前，就一直嘴砲說來了一定要抽大麻</p>
 <p>結果原本只是說說，後來又覺得沒抽好像真的有點可惜，人生可能就只有這麼一次機會</p>
 <p>就在某天比賽完，大家都要回房睡覺時，和小圓一起搭Uber腦衝跑去Reef dispensaries買大麻</p>
 <p>這家店是Google map上離我們飯店最近的一間專賣店，看圖片感覺很明亮、很高級XD</p>
@@ -215,7 +219,7 @@
 <p>然後為了證明抽完大麻，腦袋還是清醒的，還跟他們PK解webhacking.kr和算心算 XDDD</p>
 <p>之後回房間睡個一覺起來之後效果就退了</p>
 <p>很特別的體驗，而且真的沒有成癮性，抽完隔天完全不想再抽</p>
-<p>難得在Las Vegas可以合法抽，來了一定要試試看XD</p>
+<p>難得在Las Vegas可以合法抽，來了可以考慮體驗看看XD</p>
 <p><img src="/images/weed2.jpg" alt="weed2"></p>
 <p><br></p>
 <h1 id="u7E3D_u7D50"><a href="#u7E3D_u7D50" class="headerlink" title="總結"></a>總結</h1><p>簡單小總結一下</p>
@@ -254,6 +258,7 @@
 </li>
 </ul>
 <p><br></p>
+<p>What happens in Vegas, stays in Vegas.</p>
 <p><img src="/images/gameover.jpg" alt="gameover"></p>
 ]]></content>
     <summary type="html">
