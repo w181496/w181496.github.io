@@ -68,7 +68,7 @@
 						<li>Tags</li>
 						
 						
-						<li>A propos</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -170,6 +170,68 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-Linux-project-PGD-present-bit" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/11/10/Linux-project-PGD-present-bit/" class="article-date">
+  	<time datetime="2016-11-10T14:50:31.000Z" itemprop="datePublished">2016-11-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/10/Linux-project-PGD-present-bit/">Linux project - PGD present bit</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h2><p>延續上一篇，這篇記錄Project主要內容的實作過程。</p>
+<p>題目的要求是：For each page directory entry with an index located in the group of indexes specified by the parameters, this system call shows the value of the present field of the entry.</p>
+<p>簡單說就是新增一個system call<br>讓它可以取得當前process的page global directory entry中的present bit<br>參數包含兩個integer代表起始和結尾index<br>和一個陣列指標參數，存放結果</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NCU/">NCU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/筆記/">筆記</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/11/10/Linux-project-PGD-present-bit/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Linux-Kernel編譯-Ubuntu" class="article article-type-post" itemscope itemprop="blogPost">
   

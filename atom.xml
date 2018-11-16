@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.kaibro.tw/"/>
-  <updated>2018-10-27T04:47:44.870Z</updated>
+  <updated>2018-11-16T18:24:04.110Z</updated>
   <id>http://blog.kaibro.tw/</id>
   
   <author>
@@ -13,6 +13,357 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[羅馬尼亞遊記 & DCTF Final心得]]></title>
+    <link href="http://blog.kaibro.tw/2018/11/15/%E7%BE%85%E9%A6%AC%E5%B0%BC%E4%BA%9E%E9%81%8A%E8%A8%98-DCTF-Final%E5%BF%83%E5%BE%97/"/>
+    <id>http://blog.kaibro.tw/2018/11/15/羅馬尼亞遊記-DCTF-Final心得/</id>
+    <published>2018-11-15T05:32:32.000Z</published>
+    <updated>2018-11-16T18:24:04.110Z</updated>
+    <content type="html"><![CDATA[<p><img src="https://i.imgur.com/f928yat.png" alt=""></p>
+<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>因為DCTF初賽時運氣好，進了決賽</p>
+<p>也很幸運地申請到了各種經費，所以能夠DoubleSigma全隊五個人都出國去羅馬尼亞比賽</p>
+<p>這篇文章會大部分著重在羅馬尼亞一個禮拜的一些記錄</p>
+<p>比賽方面的細節會稍微少一點</p>
+<p>(圖多，慎入)<br><a id="more"></a></p>
+<h2 id="u884C_u7A0B_u898F_u5283"><a href="#u884C_u7A0B_u898F_u5283" class="headerlink" title="行程規劃"></a>行程規劃</h2><p>除了比賽兩天外，其他幾天的行程都是我規劃的</p>
+<p>也很幸運地，沒有發生啥重大的突發狀況，基本上所有規劃的行程景點都有走完</p>
+<p>(如果有要去城堡參觀，記得注意開放時間)</p>
+<p>以下是行程的細節:</p>
+<h3 id="11/7"><a href="#11/7" class="headerlink" title="11/7"></a>11/7</h3><ul>
+<li>下午1:10下飛機</li>
+<li>搭Uber到Airbnb住宿處 (在DCTF會場旁)<ul>
+<li>56.34 Lei</li>
+</ul>
+</li>
+<li>隔壁Chicken Staff吃雞 + Mega Image買零食、食材、飲料</li>
+<li>Airbnb廚房DIY Party time</li>
+</ul>
+<h3 id="11/8"><a href="#11/8" class="headerlink" title="11/8"></a>11/8</h3><ul>
+<li>早起DCTF會場集合</li>
+<li>中午比賽開始</li>
+</ul>
+<h3 id="11/9"><a href="#11/9" class="headerlink" title="11/9"></a>11/9</h3><ul>
+<li>凌晨3~4點比賽中，隊上4/5人回房間睡覺</li>
+<li>天亮睡飽後，回會場繼續打比賽</li>
+<li>中午比賽結束</li>
+<li>回Airbnb放東西+買零食開趴</li>
+<li>傍晚回會場等比賽結果</li>
+<li>搭Uber到old town</li>
+<li>爽吃Caru’ cu bere</li>
+<li>Old town亂晃+拍照</li>
+<li>搭Uber回去睡覺</li>
+</ul>
+<h3 id="11/10"><a href="#11/10" class="headerlink" title="11/10"></a>11/10</h3><ul>
+<li>早起退房</li>
+<li>人民宮外圍亂晃拍照</li>
+<li>搭Uber到North Railway Station搭火車</li>
+<li>Sinaia車站下車</li>
+<li>Peles Castle參觀拍照</li>
+<li>搭火車到Brasov</li>
+<li>搭Uber到Airbnb住宿處(廣場中心旁)</li>
+<li>旁邊餐廳吃飯</li>
+</ul>
+<h3 id="11/11"><a href="#11/11" class="headerlink" title="11/11"></a>11/11</h3><ul>
+<li>早起隔壁餐廳吃早餐</li>
+<li>黑教堂參觀拍照</li>
+<li>走到Tampa山下搭纜車</li>
+<li>Tampa山頂拍照</li>
+<li>Brasov市區到處拍拍</li>
+<li>爽吃KFC</li>
+</ul>
+<h3 id="11/12"><a href="#11/12" class="headerlink" title="11/12"></a>11/12</h3><ul>
+<li>早起退房</li>
+<li>搭Uber到Brasov火車站</li>
+<li>寄放行李</li>
+<li>到2號公車站搭車去布蘭城堡</li>
+<li>布蘭城堡參觀拍照</li>
+<li>旁邊餐廳吃飯喝酒</li>
+<li>回火車站搭車往Bucharesti</li>
+<li>搭Uber去Airbnb住宿處睡覺</li>
+</ul>
+<h3 id="11/13"><a href="#11/13" class="headerlink" title="11/13"></a>11/13</h3><ul>
+<li>早起退房</li>
+<li>搭Uber回機場</li>
+<li>飛荷蘭轉機</li>
+<li>轉機五小時入境+搭火車到市區亂晃拍照</li>
+<li>回機場飛台灣</li>
+</ul>
+<p><br></p>
+<p>簡易版行程:</p>
+<p>DCTF -&gt; Sinia + Peles Castle -&gt; Brasov -&gt; 黑教堂 -&gt; Tampa山 -&gt; Bran Castle -&gt; 荷蘭</p>
+<h2 id="u63DB_u9322"><a href="#u63DB_u9322" class="headerlink" title="換錢"></a>換錢</h2><p>基本上羅馬尼亞Lei都是到那邊才換，去都只帶歐元</p>
+<p>我們是在機場挑了一個聽說匯率不錯的ATM，把歐元換成Lei</p>
+<p>其實不用換太多，因為那邊物價蠻低的</p>
+<p>我只換了1300~1500 Lei</p>
+<p>一個禮拜完全用不完，大概只用了一半</p>
+<h2 id="u4EA4_u901A"><a href="#u4EA4_u901A" class="headerlink" title="交通"></a>交通</h2><p>這邊的交通很恐怖</p>
+<p>羅馬尼亞人開車都很兇狠，各種硬超車+迴轉</p>
+<p>喇叭聲更是此起彼落，懷疑他們根本把喇叭當作油門在按</p>
+<p>很常看到開車開一開就搖下窗戶互罵XDD</p>
+<p><br></p>
+<p>如果中長距離要搭車的話，非常不推計程車之類的</p>
+<p>尤其是火車站旁邊那些主動來招人的</p>
+<p>很常聽到各種被坑的案例，例如Lei變歐元計費、每個人都收高額車費…等</p>
+<p>最保險的還是Uber，只要卡片有開通國外交易，就能爽爽叫Uber</p>
+<p>我這一個禮拜叫Uber花的錢，總共只有184 Lei (相當於台幣1374)</p>
+<p>然後一台車可以載2~3個人，所以平均下來其實根本沒花多少錢</p>
+<p><br></p>
+<p>如果是跨城市的移動的話，我們是搭IR</p>
+<p>火車站可以選擇要買R或IR</p>
+<p>不太確定R跟IR確切的區別是啥</p>
+<p>不過可以知道的是IR比R快非常多，蠻推薦搭IR的，能省下很多時間</p>
+<p>(小插曲: 我們回程時，一開始買成R，後來櫃台很好心的讓我們補差價換IR)</p>
+<p>(小插曲2: 我們在首都買火車票時，有兩個看起來壞壞的人(一個高瘦，一個矮胖)，很好心協助我們買票，買完還想帶我們去搭車的車廂位置。但由於熱心到有點不太正常，我們後來就拒絕他們帶路了，所以最後還是不知道他們到底是好人還壞人…)</p>
+<p><img src="https://i.imgur.com/S28CyAh.jpg" alt=""></p>
+<p>車票非常大張，從Bucharesti坐到Sinaia要39.5 Lei</p>
+<p>然後羅馬尼亞都是先上車，後驗票</p>
+<p>火車裡面有點類似哈利波特電影中那樣，有的會有一個一個的包廂，很酷</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/ZFFFaUQ.jpg" alt=""></p>
+<p>(不小心就黑了售票機)</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/pcEBUNy.jpg" alt=""></p>
+<p>Sinaia火車站超美</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/FIlbOhK.png" alt=""></p>
+<p><img src="https://i.imgur.com/TDPAL5s.png" alt=""></p>
+<p>首都的公車有的會長著兩根詭異的天線</p>
+<p><img src="https://i.imgur.com/hko0QLq.jpg" alt=""></p>
+<p>羅馬尼亞版Youbike?</p>
+<h2 id="u6CBB_u5B89"><a href="#u6CBB_u5B89" class="headerlink" title="治安"></a>治安</h2><p>其實治安還算不錯，去之前有查了一下資料</p>
+<p>大部分都是說要小心路邊的吉普賽人</p>
+<p>不過其實我們在那邊也分不太出來哪些是吉普賽人</p>
+<p>比較要注意的應該是車站之類的地方，尤其是晚上</p>
+<p>我們就遇到一個很奇怪的小孩</p>
+<p>一直繞著我們，用很挑釁的語氣跳針說hello</p>
+<p>然後比出要錢的手勢</p>
+<h2 id="u98F2_u98DF"><a href="#u98F2_u98DF" class="headerlink" title="飲食"></a>飲食</h2><p>在出發去羅馬尼亞之前，我們還很擔心會飲食習慣差太多</p>
+<p>結果來了才發現</p>
+<p>這裡的食物，不但大部分都超級好吃，還便宜到爆</p>
+<p>尤其是農產品、肉類等，價格更是不科學的低</p>
+<p><br></p>
+<p>如果是去餐廳吃飯，要注意它們上菜和點餐時間都拖很久</p>
+<p>所以行程很密集的，不建議排餐廳，因為很容易吃1~2小時以上</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/zjD9e27.jpg" alt=""></p>
+<p>第一天的宵夜<br>樓下就是Chicken Staff，所以買了一堆炸雞(雖然店員好像不太友善，但最後還是買到了)<br>和一堆Mega Image買的牛奶、飲料、披薩、培根</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/Th8RFJK.jpg" alt=""></p>
+<p>Chicken Staff賣的食物，肉超好吃，很推</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/l9fGSzs.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/RdfpExK.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/VDZETkx.jpg" alt=""></p>
+<p>比賽會場提供的餐點，他的馬鈴薯泥超好吃，很香</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/wN8HO5N.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/0znGXye.jpg" alt=""></p>
+<p>從Mega Image買食材自己煮的早餐</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/8iZYbMP.jpg" alt=""></p>
+<p>Caru’cu bere的豬腳，超級浮誇，超級大<br>一個人根本不可能吃完…</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/QlBrXVr.jpg" alt=""></p>
+<p>Caru’cu bere的甜點，超讚</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/qp1QFwy.jpg" alt=""></p>
+<p>在Brasov廣場旁餐廳點的雞胸肉</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/ErlESOO.jpg" alt=""></p>
+<p>Brasov早餐店的棉花糖巧克力牛奶，超級好喝~~</p>
+<p><img src="https://i.imgur.com/fCGwdJR.jpg" alt=""></p>
+<p>同一間早餐店的英式早餐</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/aIiryxT.jpg" alt=""></p>
+<p>公車站旁賣的食物</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/8fMMRgh.jpg" alt=""></p>
+<p>KFC大餐，可惜沒賣蛋塔(沒蛋塔的KFC根本不是KFC QQ)</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/9a68kC2.jpg" alt=""></p>
+<p>Bran Castle旁邊餐廳的雞肉料理</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/4pkzEAY.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/gP14mTR.jpg" alt=""></p>
+<p>機場的美味甜點</p>
+<h2 id="u9152"><a href="#u9152" class="headerlink" title="酒"></a>酒</h2><p>這邊的酒因為很便宜，所以身為酒鬼，來羅馬尼亞後就是各種喝酒</p>
+<p><img src="https://i.imgur.com/CnXhGQF.jpg" alt=""></p>
+<p>Tampa山的啤酒，爬完山後來一杯冰涼的啤酒超過癮</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/VH3pWdI.png" alt=""></p>
+<p>ursus啤酒 (聽說是羅馬尼亞最流行的酒，應該是羅馬尼亞版的台啤吧)</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/gZhvd4A.png" alt=""></p>
+<p>pina colada，這杯超好喝，Brasov廣場旁餐廳點的</p>
+<p><img src="https://i.imgur.com/8Uz00lJ.png" alt=""></p>
+<p>台灣也買的到的蘋果酒，不過因為太便宜了，所以就順手買了好幾瓶XD</p>
+<p><img src="https://i.imgur.com/jItBIU3.jpg" alt=""></p>
+<p>Caru’cu bere的自家啤酒，很順口</p>
+<p><img src="https://i.imgur.com/nZXBZcL.png" alt=""></p>
+<p>這杯不是我點的，ddd亂點點到的，一點就點到長島冰茶XD<br>這杯比我之前喝過的長島冰茶還小杯一點，可是還是很猛<br>後來被毛哥灌掉惹</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/CaCqJdV.png" alt=""></p>
+<p>Mimosa，喝起來很甜，還不錯喝</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/Qp7rZTC.png" alt=""></p>
+<p>不知名的啤酒，被我當早餐喝掉了</p>
+<h2 id="u4F4F_u5BBF"><a href="#u4F4F_u5BBF" class="headerlink" title="住宿"></a>住宿</h2><p>這次我們的住宿全部都是訂Airbnb</p>
+<p>Airbnb的好處是，價錢很便宜，CP值很高</p>
+<p>總共訂了三間</p>
+<p>Bucharest兩間+Brasov一間</p>
+<p>第一家Bucharest會場旁的最滿意，女房東人很好，很細心的講解每個地方</p>
+<p>房子超大也超級美，還帶有文青風</p>
+<p>有趣的是，他電梯居然是那種要自己手動拉門關門的那種古老電梯XD</p>
+<p><img src="https://i.imgur.com/lV3T4o2.png" alt=""></p>
+<p><img src="https://i.imgur.com/vJIIYXg.jpg" alt=""></p>
+<p>廚房，超棒，各種廚具應有盡有</p>
+<p><img src="https://i.imgur.com/qv87AbC.png" alt=""></p>
+<p>不知道是不是因為早期共產統治治安不好的關係，這邊的鎖都很多道，複雜到一看就覺得很安全</p>
+<p><br></p>
+<p>第二間、第三間，相對就沒那麼好了，甚至連房東本人都看不到，頂多看到管理員</p>
+<p>但第二間也超美，地理位置超棒，在Brasov廣場旁邊而已</p>
+<p><img src="https://i.imgur.com/kj7zVr2.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/Phwwq8Z.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/1E0Qmzi.jpg" alt=""></p>
+<h2 id="u5EC1_u6240"><a href="#u5EC1_u6240" class="headerlink" title="廁所"></a>廁所</h2><p>羅馬尼亞有些地方的廁所是要收錢的</p>
+<p>例如Sinaia車站的廁所、Tampa山纜車旁的廁所都要錢</p>
+<p><img src="https://i.imgur.com/tBGC9MR.jpg" alt=""></p>
+<p>上廁所還會開這張，看起來像收據的東西</p>
+<h2 id="u884C_u674E_u5BC4_u653E"><a href="#u884C_u674E_u5BC4_u653E" class="headerlink" title="行李寄放"></a>行李寄放</h2><p>羅馬尼亞的火車站大部分都有寄放行李的地方</p>
+<p>像我們去Peles Castle時，行李就是寄放在Sinaia車站(是管廁所收費的阿姨在處理的)</p>
+<p>去Bran Castle時，行李就寄放在Brasov車站</p>
+<p><img src="https://i.imgur.com/QZd1nwe.png" alt=""></p>
+<p><img src="https://i.imgur.com/lbd7cK5.png" alt=""></p>
+<h2 id="u666F_u9EDE"><a href="#u666F_u9EDE" class="headerlink" title="景點"></a>景點</h2><h3 id="u4EBA_u6C11_u5BAE"><a href="#u4EBA_u6C11_u5BAE" class="headerlink" title="人民宮"></a>人民宮</h3><p><img src="https://i.imgur.com/9lZGuID.jpg" alt=""></p>
+<p>這只是側面而已，正面更寬廣更大</p>
+<p>我們繞了30分鐘，還是繞不到它的正面，超大XD</p>
+<h3 id="Peles_Castle"><a href="#Peles_Castle" class="headerlink" title="Peles Castle"></a>Peles Castle</h3><p>Peles Castle的位置在Sinaia車站出來，旁邊的公園一直往上走就到了</p>
+<p>我們一開始以為距離很近</p>
+<p>結果沒想到爆幹遠，而且又是上坡，走到腳斷掉</p>
+<p>最後雖然在表定閉館時間內趕到，但還是沒進去城堡內部參觀，不知道是提早關門還是怎樣的，有點可惜</p>
+<p>真心建議想去的人，可以搭計程車或公車、接駁車之類的</p>
+<p><img src="https://i.imgur.com/GYlNbrW.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/nHAWv5D.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/vrPjMuN.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/ZHXtlpZ.jpg" alt=""></p>
+<p>還內建網美牆</p>
+<p><img src="https://i.imgur.com/Yc0y05v.jpg" alt=""></p>
+<p>遇到羅馬尼亞小屁孩校外教學，亞洲人根本被當動物園裡的動物看</p>
+<p><img src="https://i.imgur.com/DPoyYJf.jpg" alt=""></p>
+<p>隔壁的另一個城堡</p>
+<h3 id="u9ED1_u6559_u5802"><a href="#u9ED1_u6559_u5802" class="headerlink" title="黑教堂"></a>黑教堂</h3><p><img src="https://i.imgur.com/cEDRMLl.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/McdwGaV.jpg" alt=""></p>
+<p>真的很大</p>
+<p><img src="https://i.imgur.com/0nzNa0b.jpg" alt=""></p>
+<p>可以付錢進去參觀的樣子，但我們沒進去</p>
+<h3 id="Brasov"><a href="#Brasov" class="headerlink" title="Brasov"></a>Brasov</h3><p><img src="https://i.imgur.com/I3XH0l0.jpg" alt=""></p>
+<p>我們住的地方拍出去的樣子</p>
+<p><img src="https://i.imgur.com/mTe4o5V.jpg" alt=""></p>
+<p>廣場全景照(中間的人時空扭曲惹)</p>
+<p><img src="https://i.imgur.com/YkGFY0L.jpg" alt=""><br>很歐洲味的樹和房子</p>
+<p><img src="https://i.imgur.com/FAWZqG7.jpg" alt=""><br>不知道啥來頭的城門</p>
+<p><img src="https://i.imgur.com/Ds5jwNt.jpg" alt=""><br>山上那一長條就是Tampa山纜車，右上Brasov也是我們有去拍照的地方</p>
+<p><img src="https://i.imgur.com/RlxZjm7.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/meLhcI7.jpg" alt=""></p>
+<h3 id="u6478_u4E73_u5DF7"><a href="#u6478_u4E73_u5DF7" class="headerlink" title="摸乳巷"></a>摸乳巷</h3><p><img src="https://i.imgur.com/DYuhrBi.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/tNv5JGy.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/j6RDZ1l.jpg" alt=""></p>
+<h3 id="Tampa_u5C71"><a href="#Tampa_u5C71" class="headerlink" title="Tampa山"></a>Tampa山</h3><p><img src="https://i.imgur.com/2bOxfEh.jpg" alt=""><br>搭纜車的地方，旁邊有一些賣玉米、爆米花的攤位</p>
+<p><img src="https://i.imgur.com/S6fDN4V.jpg" alt=""><br><img src="https://i.imgur.com/P6TpKxO.jpg" alt=""><br>纜車很高，其實也可以徒步爬山上去</p>
+<p><img src="https://i.imgur.com/RZ2bOKQ.jpg" alt=""><br>上去之後，走一小段路，可以走到Brasov的牌子後面</p>
+<p><img src="https://i.imgur.com/KgW9gV3.jpg" alt=""><br><img src="https://i.imgur.com/P49iWQ8.jpg" alt=""><br><img src="https://i.imgur.com/QH5zS7i.jpg" alt=""><br>山上的風景不錯</p>
+<p><img src="https://i.imgur.com/pQ7m87A.jpg" alt=""><br>似乎有機會遇到一些野生動物</p>
+<p><img src="https://i.imgur.com/ZgCFNDh.jpg" alt=""><br>大狗</p>
+<h3 id="u5E03_u862D_u57CE_u5821__28Bran_Castle_29"><a href="#u5E03_u862D_u57CE_u5821__28Bran_Castle_29" class="headerlink" title="布蘭城堡 (Bran Castle)"></a>布蘭城堡 (Bran Castle)</h3><p><img src="https://i.imgur.com/9GTICSN.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/MPjRkXN.jpg" alt=""><br>要先買票</p>
+<p><img src="https://i.imgur.com/JPYb8f6.jpg" alt=""><br>票價</p>
+<p><img src="https://i.imgur.com/JBwzurq.jpg" alt=""><br>城堡往外看的風景很讚</p>
+<p><img src="https://i.imgur.com/dQ9Myni.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/33wfyMB.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/j0aDQXf.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/5JYvWZW.jpg" alt=""><br>大砲上頭居然有VOC</p>
+<p><img src="https://i.imgur.com/POyG9Ck.jpg" alt=""><br>城堡內的結構其實有點複雜，上上下下的</p>
+<p><img src="https://i.imgur.com/k7WZvRb.jpg" alt=""><br>傳說中的鐵處女</p>
+<p><img src="https://i.imgur.com/Fb3y3C3.jpg" alt=""><br>有一段路會經過一個詭異的狹小步道</p>
+<p><img src="https://i.imgur.com/OyJiqaV.jpg" alt=""><br>整棟城堡布置了很多假蜘蛛絲、蝙蝠、骷髏頭，整個破壞美感</p>
+<p><img src="https://i.imgur.com/SSVCQZJ.jpg" alt=""><br>紀念品店賣了很多很中二的東西</p>
+<p><br></p>
+<p><img src="https://i.imgur.com/Q7nPxy6.jpg" alt=""><br>如果要搭公車回去Brasov，找這個百事可樂就對惹<br>(上網查資料說要找紅色fastfood招牌，但我們那天去的時候那塊紅色招牌其實收起來，很不明顯)</p>
+<p><br></p>
+<p><img src="blob:https://imgur.com/a5b3eb92-c1c9-4c4e-bfde-e48e151cc1a3" alt=""><br>公車票，是上車時跟司機買的，公車站到Bran Castle票價8 lei</p>
+<p><img src="https://i.imgur.com/TYXX527.jpg" alt=""><br>去Bran Castle，搭這班車就對惹，大概40分鐘就到了<br>然後公車站不是在火車站旁邊那個，要找2號公車站，我們是從火車站搭Uber搭一小段路才到的</p>
+<h3 id="u8377_u862D"><a href="#u8377_u862D" class="headerlink" title="荷蘭"></a>荷蘭</h3><p>我們利用荷蘭等轉機的短短五個小時</p>
+<p>迅速入境，然後買車票，衝往Amsterdam Central亂晃</p>
+<p>攻略:<br>下飛機後，順著指示，往Arrival hall走<br>然後入境，入境有可能會問你要幹嘛之類的，然後轉機的話通常有兩張機票，要給他看<br>我是直接跟他說我要去拍個照，他就放我進去惹<br>一入境後，應該會看到一堆黃色機器，那個就是火車票販賣機，可以投歐元硬幣或刷卡買票，建議買當天來回比較方便<br>接著往exit走，會看到很大的大廳，大廳中央就是通往地下火車站的手扶梯<br>下去之後就看準方向搭車就行，車還蠻密集的，搭到Amsterdam Central大概10幾分鐘</p>
+<p>比較可惜的是，因為時間有點趕，所以比較沒看到那些荷蘭特有的coffee shop或紅燈區<br>不過路上不時都飄著大麻味就是惹…</p>
+<p><img src="https://i.imgur.com/0IUovjW.jpg" alt=""><br>Amsterdam Central車站</p>
+<p><img src="https://i.imgur.com/cDnRoFx.jpg" alt=""><br>這裡景色美到像一幅油畫</p>
+<p><img src="https://i.imgur.com/8Po5DQx.jpg" alt=""><br><img src="https://i.imgur.com/TkAFK7F.jpg" alt=""><br>荷蘭街道</p>
+<p><img src="https://i.imgur.com/0ViNlP9.jpg" alt=""><br><img src="https://i.imgur.com/ky4qbK8.jpg" alt=""><br>奇怪的店</p>
+<p><img src="https://i.imgur.com/1PyB41F.jpg" alt=""><br>如果要去Amsterdam Central，記得在機場買票<br>可以找黃色的自動售票機，買來回票(Day return)<br>理論上進出站都要刷，但我們進站都沒刷，也不會有啥問題</p>
+<p><img src="https://i.imgur.com/z2EzNIn.jpg" alt=""><br>機場內</p>
+<h2 id="u8C93"><a href="#u8C93" class="headerlink" title="貓"></a>貓</h2><p>不知道為啥，羅馬尼亞超多貓的，感覺都是野貓</p>
+<p>那就放幾張貓咪照吧</p>
+<p><img src="https://i.imgur.com/pARziLX.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/Qm7m5Ls.jpg" alt=""><br>一直討食物的黑白貓</p>
+<p><img src="https://i.imgur.com/DVouvm8.jpg" alt=""><br>很兇的看門貓</p>
+<p><img src="https://i.imgur.com/co8v0vk.jpg" alt=""><br>peles castle旁不知道在幹嘛的黑貓</p>
+<p><img src="https://i.imgur.com/JzgWqgv.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/PvU5zt8.jpg" alt=""></p>
+<h2 id="u5176_u4ED6"><a href="#u5176_u4ED6" class="headerlink" title="其他"></a>其他</h2><p><img src="https://i.imgur.com/02Ouu7C.jpg" alt=""><br>羅馬尼亞夾娃娃機</p>
+<p><img src="https://i.imgur.com/nBnwKkw.jpg" alt=""><br>熟悉的Logo(?)</p>
+<p><img src="https://i.imgur.com/fzgt7p9.jpg" alt=""><br>我們在Tampa山挖出一塊磚頭</p>
+<p><img src="https://i.imgur.com/02d2wo6.jpg" alt=""><br>一群在火車站要錢的死小孩</p>
+<p><img src="https://i.imgur.com/e2evTq9.jpg" alt=""><br>這是一個充滿塗鴉的國家</p>
+<h2 id="DCTF_Final"><a href="#DCTF_Final" class="headerlink" title="DCTF Final"></a>DCTF Final</h2><p><img src="https://i.imgur.com/b0HbPJJ.jpg" alt=""></p>
+<p>這場比賽，時間只有24小時</p>
+<p>所以大部分隊伍幾乎都不睡覺</p>
+<p>但我們隊因為住非常近，所以半夜時就回住宿處睡飽飽</p>
+<p>題目的話，感覺品質還行</p>
+<p>Web的話，兩題黑箱，一題PHP</p>
+<p>PHP題的話，考最近蠻常見的非英數字webshell變形</p>
+<p>細節可以看我的<a href="https://github.com/w181496/CTF/tree/master/dctf2018-final/Scribbles" target="_blank" rel="external">Writeup</a></p>
+<p><br></p>
+<p>另外兩題黑箱，一題是Laravel寫的Ticket system</p>
+<p>可以註冊帳號，然後從原始碼可以看到Ticket debug連結</p>
+<p>進去之後，可以拿到ticket</p>
+<p>ticket上面會有一串看起來像某種編碼的亂碼 (所以我一開始以為是Crypto Web，踹了許久，還去翻Laravel Source…)</p>
+<p>後來發現ticket id好像不太對勁</p>
+<p>id加一個單引號 =&gt; 噴500</p>
+<p>id加兩個單引號 =&gt; 正常</p>
+<p>id加三個單引號 =&gt; 噴500</p>
+<p>然後踹幾個關鍵字，會發現噴waf error</p>
+<p>基本上就可以確定是SQL Injection之類的題目了</p>
+<p>只是他擋蠻多東西的，踹了很久才踹出來</p>
+<p>用Boolean based SQL Injection加上猜欄位名就爆出來惹</p>
+<p><br></p>
+<p>而另外一題黑箱Web</p>
+<p>他只有一個上傳介面，給你上傳Word, xlsx, …等文件格式，會轉成PDF</p>
+<p>一開始還以為是GhostScript老梗</p>
+<p>後來官方給提示才知道，原來是Libreoffice CVE-2018-6871</p>
+<p>可以讀檔，然後用DNS把資料往外傳 (http被防火牆擋)</p>
+<p>但最後官方題目好像爛掉，本地成功讀檔，遠端沒辦法復現</p>
+<p>然後就一直爛到比賽結束都沒修好，0隊解，囧</p>
+<p><br></p>
+<p>最後比賽結束時，好像官方不允許Remote Support</p>
+<p>(但他題目沒擋外部連線)</p>
+<p>所以把非會場IP提交的FLAG，都當作非法FLAG</p>
+<p>我們就變第五名惹XD</p>
+<p>真的還好我們隊全隊就真的只有五個人，想Remote Support都無法</p>
+<p>其他隊就真的很慘QQ</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><img src="https://i.imgur.com/f928yat.png" alt=""></p>
+<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>因為DCTF初賽時運氣好，進了決賽</p>
+<p>也很幸運地申請到了各種經費，所以能夠DoubleSigma全隊五個人都出國去羅馬尼亞比賽</p>
+<p>這篇文章會大部分著重在羅馬尼亞一個禮拜的一些記錄</p>
+<p>比賽方面的細節會稍微少一點</p>
+<p>(圖多，慎入)<br>]]>
+    
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[HITCON CTF 2018 Web]]></title>
@@ -2055,11 +2406,11 @@
     
     </summary>
     
+      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
+    
       <category term="NCU" scheme="http://blog.kaibro.tw/tags/NCU/"/>
     
       <category term="Linux" scheme="http://blog.kaibro.tw/tags/Linux/"/>
-    
-      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
     
   </entry>
   
@@ -2116,11 +2467,11 @@
     
     </summary>
     
+      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
+    
       <category term="NCU" scheme="http://blog.kaibro.tw/tags/NCU/"/>
     
       <category term="Linux" scheme="http://blog.kaibro.tw/tags/Linux/"/>
-    
-      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
     
   </entry>
   
@@ -2176,9 +2527,9 @@
     <![CDATA[<h2 id="LD_PRELOAD"><a href="#LD_PRELOAD" class="headerlink" title="LD_PRELOAD"></a>LD_PRELOAD</h2><p>LD_PRELOAD是Linux/Unix下的環境變數，他可以決定預先要載入]]>
     </summary>
     
-      <category term="NCU" scheme="http://blog.kaibro.tw/tags/NCU/"/>
-    
       <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
+    
+      <category term="NCU" scheme="http://blog.kaibro.tw/tags/NCU/"/>
     
   </entry>
   
@@ -2220,9 +2571,9 @@
     
       <category term="CTF" scheme="http://blog.kaibro.tw/tags/CTF/"/>
     
-      <category term="NCU" scheme="http://blog.kaibro.tw/tags/NCU/"/>
-    
       <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
+    
+      <category term="NCU" scheme="http://blog.kaibro.tw/tags/NCU/"/>
     
       <category term="Pwn" scheme="http://blog.kaibro.tw/tags/Pwn/"/>
     
