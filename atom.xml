@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.kaibro.tw/"/>
-  <updated>2018-11-16T19:24:18.629Z</updated>
+  <updated>2018-11-17T04:29:07.436Z</updated>
   <id>http://blog.kaibro.tw/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://blog.kaibro.tw/2018/11/15/%E7%BE%85%E9%A6%AC%E5%B0%BC%E4%BA%9E%E9%81%8A%E8%A8%98-DCTF-Final%E5%BF%83%E5%BE%97/"/>
     <id>http://blog.kaibro.tw/2018/11/15/羅馬尼亞遊記-DCTF-Final心得/</id>
     <published>2018-11-15T05:32:32.000Z</published>
-    <updated>2018-11-16T19:24:18.629Z</updated>
+    <updated>2018-11-17T04:29:07.436Z</updated>
     <content type="html"><![CDATA[<p><img src="https://i.imgur.com/f928yat.png" alt=""></p>
 <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>因為DCTF初賽時運氣好，進了決賽</p>
 <p>也很幸運地申請到了各種經費，所以能夠DoubleSigma全隊五個人都出國去羅馬尼亞比賽</p>
@@ -148,6 +148,7 @@
 <p>我們就遇到一個很奇怪的小孩</p>
 <p>一直繞著我們，用很挑釁的語氣跳針說hello</p>
 <p>然後比出要錢的手勢</p>
+<p>沒看過那麼欠揍的死小孩</p>
 <p><br></p>
 <p>其他的話，大部分都還好</p>
 <p>比較有趣的是，亞洲面孔走在路上，會非常明顯感受到全世界都在看你</p>
@@ -183,7 +184,7 @@
 <p>從Mega Image買食材自己煮的早餐</p>
 <p><br></p>
 <p><img src="https://i.imgur.com/8iZYbMP.jpg" alt=""></p>
-<p>Caru’cu bere的豬腳，超級浮誇，超級大<br>一個人根本不可能吃完…</p>
+<p>Caru’cu bere的豬腳，超級浮誇，超級大<br>一個人根本不可能吃完…<br>不過是真的很好吃<br>除非你對自己的食量很有自信，不然建議2~3人分著吃</p>
 <p><br></p>
 <p><img src="https://i.imgur.com/QlBrXVr.jpg" alt=""></p>
 <p>Caru’cu bere的甜點，超讚</p>
@@ -207,7 +208,7 @@
 <p><br></p>
 <p><img src="https://i.imgur.com/4pkzEAY.jpg" alt=""></p>
 <p><img src="https://i.imgur.com/gP14mTR.jpg" alt=""></p>
-<p>機場的美味甜點</p>
+<p>Bucharesti機場的美味甜點</p>
 <p><br></p>
 <h2 id="u9152"><a href="#u9152" class="headerlink" title="酒"></a>酒</h2><p>這邊的酒因為很便宜，所以身為酒鬼，來羅馬尼亞後就是各種喝酒</p>
 <p><img src="https://i.imgur.com/CnXhGQF.jpg" alt=""></p>
@@ -419,6 +420,10 @@
     
     </summary>
     
+      <category term="CTF" scheme="http://blog.kaibro.tw/tags/CTF/"/>
+    
+      <category term="Web" scheme="http://blog.kaibro.tw/tags/Web/"/>
+    
   </entry>
   
   <entry>
@@ -426,7 +431,7 @@
     <link href="http://blog.kaibro.tw/2018/10/24/HITCON-CTF-2018-Web/"/>
     <id>http://blog.kaibro.tw/2018/10/24/HITCON-CTF-2018-Web/</id>
     <published>2018-10-24T01:08:58.000Z</published>
-    <updated>2018-10-27T04:47:44.870Z</updated>
+    <updated>2018-11-17T04:26:29.516Z</updated>
     <content type="html"><![CDATA[<h1 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h1><p><img src="https://i.imgur.com/axUff6E.png" alt=""></p>
 <p>今年跟Balsn, BambooFox, Kerkeryuan共四隊一起組成BFKinesiS</p>
 <p>我主要都看Web的部分，雖然很多賽中都沒做出來，但賽後花了點時間檢討了一下</p>
@@ -717,6 +722,12 @@
 <p>稍微看一下，可以發現是用CakePHP寫的</p>]]>
     
     </summary>
+    
+      <category term="CTF" scheme="http://blog.kaibro.tw/tags/CTF/"/>
+    
+      <category term="Web" scheme="http://blog.kaibro.tw/tags/Web/"/>
+    
+      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
     
   </entry>
   
