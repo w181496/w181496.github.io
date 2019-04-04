@@ -171,6 +171,72 @@
 
       <div class="body-wrap">
   
+    <article id="post-AIS3-EOF-2017-初賽" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/01/16/AIS3-EOF-2017-初賽/" class="article-date">
+  	<time datetime="2018-01-15T16:53:52.000Z" itemprop="datePublished">2018-01-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/16/AIS3-EOF-2017-初賽/">AIS3 EOF CTF 初賽</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>這場比賽是跟台大、交大、台科大三校的計算機安全課程期末考一起辦的</p>
+<p>然後任何人都可以報名參加</p>
+<p>前十名的隊伍可以進決賽</p>
+<h2 id="Pwn"><a href="#Pwn" class="headerlink" title="Pwn"></a>Pwn</h2><p>由於我們這隊基本上沒人熟Heap 囧</p>
+<p>我也只摸了幾題課程網站的練習題</p>
+<p>所以Pwn的解題狀況蠻慘的</p>
+<p><code>Magicheap2</code>這種一堆人解掉的題目，我們就解不出來</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NTU/">NTU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pwn/">Pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2018/01/16/AIS3-EOF-2017-初賽/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-自己的Telegram-BOT自己寫" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -399,8 +465,8 @@
         <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>這堂課是台大、台科大、交大、中央(?聯合的資安課程<br>今年全上pwn跟reverse，跟前年不太一樣(前年還有教Web、Crypto…等)<br>這一篇文章主要放這門課作業和練習的Write up，記錄一下解法怕忘記</p>
 <p>課程網站：<a href="https://csie.ctf.tw" target="_blank" rel="external">https://csie.ctf.tw</a></p>
 <h2 id="5Bhw0_5D_Pwn_1"><a href="#5Bhw0_5D_Pwn_1" class="headerlink" title="[hw0] Pwn 1"></a>[hw0] Pwn 1</h2><p>0x400566有個<code>callme()</code><br>裡頭就是<code>system(&quot;/bin/sh&quot;)</code><br>overflow蓋return address跳過去即可get shell<br>padding長度40</p>
-<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">perl -e 'print "A"x40, "<span class="symbol">\x</span>66<span class="symbol">\x</span>05<span class="symbol">\x</span>40<span class="symbol">\x</span>00<span class="symbol">\x</span>00<span class="symbol">\x</span>00<span class="symbol">\x</span>00<span class="symbol">\x</span>00"'</div></pre></td></tr></table></figure>
-<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FLAG&#123;BuFFer<span class="number">_0</span>V<span class="number">3</span>Rflow<span class="number">_</span><span class="keyword">is</span><span class="number">_</span>too<span class="number">_</span>easy&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">perl -e &apos;print &quot;A&quot;x40, &quot;\x66\x05\x40\x00\x00\x00\x00\x00&quot;&apos;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FLAG&#123;BuFFer_0V3Rflow_is_too_easy&#125;</div></pre></td></tr></table></figure>
       
     </div>
     
@@ -434,71 +500,9 @@
 
 
   
-    <article id="post-AIS3-2017-Workshop" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/09/06/AIS3-2017-Workshop/" class="article-date">
-  	<time datetime="2017-09-06T08:34:36.000Z" itemprop="datePublished">2017-09-06</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/06/AIS3-2017-Workshop/">AIS3 2017 Workshop</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://i.imgur.com/jEhADhe.png width:70%" alt=""></p>
-<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>AIS3 workshop是AIS3上課的pwn跟SSRF練習平台。<br>因為平台好像關惹，我也懶得重搞環境打一次<br>所以下面解法很多都是憑著印象打出來的，有錯請見諒</p>
-<h2 id="lab1"><a href="#lab1" class="headerlink" title="lab1"></a>lab1</h2>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pwn/">Pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/筆記/">筆記</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/09/06/AIS3-2017-Workshop/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 </div>
@@ -506,7 +510,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 KaiBro
+    		&copy; 2019 KaiBro
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten

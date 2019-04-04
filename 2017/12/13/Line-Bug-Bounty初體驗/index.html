@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">
   <meta name="description" content="前言最近開始嘗試打Bug Bounty和認真搞Web，沒時間碰Pwn惹QQ 有聽聞Line的bug bounty打得人少，但錢給蠻多的 所以理論上應該會比較好挖一點 雖然最後沒拿到錢啦QQ 不過有個Special Contributor 也挺潮的，值得紀念一下">
-<meta name="keywords" content="Web,BugBounty">
+<meta name="keywords" content="BugBounty,Web">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Line Bug Bounty初體驗">
 <meta property="og:url" content="http://blog.kaibro.tw/2017/12/13/Line-Bug-Bounty初體驗/index.html">
@@ -240,9 +240,9 @@
 <p>可是我發現一個有趣的事</p>
 <p>原本正常網址大概是這樣：<a href="http://youtube.com/watch?v=mebzXfWi87E" target="_blank" rel="external">http://youtube.com/watch?v=mebzXfWi87E</a></p>
 <p>可是如果我輸入以下這些網址，他也會抓到跟上面連結一樣的「預覽圖」！</p>
-<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">http:</span><span class="comment">//0.com/watch?v=mebzXfWi87E</span></div><div class="line"><span class="symbol">https:</span><span class="comment">//0.com.com/watch?v=mebzXfWi87E</span></div><div class="line"><span class="symbol">https:</span><span class="comment">//0.com/watch?v=mebzXfWi87E</span></div><div class="line"><span class="symbol">http:</span><span class="comment">//kaibro.tw/watch?v=mebzXfWi87E</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">http://0.com/watch?v=mebzXfWi87E</div><div class="line">https://0.com.com/watch?v=mebzXfWi87E</div><div class="line">https://0.com/watch?v=mebzXfWi87E</div><div class="line">http://kaibro.tw/watch?v=mebzXfWi87E</div></pre></td></tr></table></figure>
 <p>但是以下這幾種不行：</p>
-<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">https:</span><span class="comment">//com/watch?v=mebzXfWi87E</span></div><div class="line"><span class="symbol">https:</span><span class="comment">//watch?v=mebzXfWi87E</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">https://com/watch?v=mebzXfWi87E</div><div class="line">https://watch?v=mebzXfWi87E</div></pre></td></tr></table></figure>
 <p>所以，看到這裡我就猜測，他後端應該是用正規表達式之類的去抓</p>
 <p>規則大概是這樣： http(s)://隨意.隨意/watch?v=影片id</p>
 <p>然後他會把影片id抓出來，塞在影片預覽圖片的網址中，再顯示出來</p>
@@ -350,7 +350,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 KaiBro
+    		&copy; 2019 KaiBro
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
