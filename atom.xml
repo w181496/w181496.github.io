@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.kaibro.tw/"/>
-  <updated>2019-11-09T23:19:55.102Z</updated>
+  <updated>2019-11-09T23:45:38.913Z</updated>
   <id>http://blog.kaibro.tw/</id>
   
   <author>
@@ -19,12 +19,12 @@
     <link href="http://blog.kaibro.tw/2019/11/05/Google-CTF-2019-Final-%E9%81%8A%E8%A8%98/"/>
     <id>http://blog.kaibro.tw/2019/11/05/Google-CTF-2019-Final-遊記/</id>
     <published>2019-11-05T14:34:05.000Z</published>
-    <updated>2019-11-09T23:19:55.102Z</updated>
+    <updated>2019-11-09T23:45:38.913Z</updated>
     <content type="html"><![CDATA[<h1 id="Google_CTF_2019_Final"><a href="#Google_CTF_2019_Final" class="headerlink" title="Google CTF 2019 Final"></a>Google CTF 2019 Final</h1><p><img src="https://i.imgur.com/beVZJwI.png" alt="Final Scoreboard"></p>
 <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>這場是 Google 舉辦的 CTF 決賽，地點在英國倫敦的 Google 大樓內</p>
 <p>比賽時間兩天，都是早上9點開始，第一天到晚上8點，第二天到晚上6點半</p>
 <p>但其實回飯店後還是能繼續解題，題目都不會關，只有部分題目沒辦法線上解</p>
-<p>(內文圖多慎入)</p>
+<p>(p.s. 內文圖多慎入)</p>
 <a id="more"></a>
 <p><img src="https://i.imgur.com/DYKXG5a.jpg" alt=""></p>
 <p><br></p>
@@ -42,7 +42,8 @@
 <p><img src="https://i.imgur.com/sBgYpdv.jpg" alt=""></p>
 <p><img src="https://i.imgur.com/i54USyB.jpg" alt=""></p>
 <p><img src="https://i.imgur.com/5EwtUrG.jpg" alt=""></p>
-<p>蠻有趣的題目，很像那種會在Security Conference上看到的開鎖教學攤位XD</p>
+<p>蠻有趣的題目，對沒開過鎖的我來說是個不錯的體驗</p>
+<p>很像那種會在Security Conference上看到的開鎖教學攤位XD</p>
 <p><br></p>
 <p>硬體題有一題類似密室逃脫，是一題拆炸彈題，可以選一位隊員去炸彈房，其他隊員在另一間房，彼此可以用無線電溝通，想辦法拆炸彈</p>
 <p>在進去之前，我們還不知道是要拆炸彈，不過主辦方有給個小提示:</p>
@@ -54,6 +55,7 @@
 <p>第一天和第二天分別能進去一次，所以必須想辦法在兩天內拆掉炸彈，不然就拿不到flag了 (但主辦方中間有出包，炸彈一開就爆炸，所以我們總共進了三次)</p>
 <p>炸彈房裡聽說很黑，然後會有一個穿軍裝的人站在旁邊盯著你，讓你感覺壓力很大XD</p>
 <p>然後炸彈房不能帶東西進去，你必須想辦法透過無線電告訴另一間房的隊友，或是超越常人的記憶力把炸彈電路記下來</p>
+<p><br></p>
 <p>基本策略應該就是第一天盡可能把電路整體配置 Out of band 帶出來，第二天再速解電路然後剪線</p>
 <p>如果進去炸彈房的那個人連電路都看不懂，那基本上就不用玩了XD</p>
 <p>不過最大的難點是，很難透過無線電對話把各個邏輯閘、IC元件線路等資訊帶出來</p>
@@ -81,6 +83,7 @@
 <p><br></p>
 <p>Web 的部分，這場共三題 Web，難度應該算是我打過的決賽最高的</p>
 <p>第一天前半場只出了一題 gPhotos2，這題跟初賽的 gPhotos 功能幾乎一樣，你可以傳一張 png, jpg, jpeg 圖片 (會用 imghdr.what 去判)，之後會去 resize 變成縮圖</p>
+<p>(這裡圖片判斷很好繞，只要從第七個字元開始塞<code>JFIF</code>就能繞掉了)</p>
 <p>只是初賽是用 PHP 套 ImageMagick，這題則是 Python django 套 Wand image library</p>
 <p>初賽那題的解法可以參考 Bushwhackers 的 Writeup: <a href="https://blog.bushwhackers.ru/googlectf-2019-gphotos-writeup/" target="_blank" rel="external">https://blog.bushwhackers.ru/googlectf-2019-gphotos-writeup/</a></p>
 <p>基本上就是利用 MSL 搭配各種小技巧去 RCE</p>
@@ -353,6 +356,7 @@
 <p><br></p>
 <p>Web 的 Saber.ninja 那題，要讓 BOT 訪問你的連結，就是要來這邊跟他一樣玩這個VR遊戲:</p>
 <p><img src="https://i.imgur.com/fXT5UNT.jpg" alt=""></p>
+<p>(圖中那個是這題出題人，他會講中英日三種語言，超強)</p>
 <p><br></p>
 <p>這是First Blood 和 New Leader(第一名換人時) 的特效:</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/aSDAUpuaAhU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -492,8 +496,10 @@
 <p><br></p>
 <p>另外也遇到很多平常只會在 Twitter 上看到的超級大佬</p>
 <p>還記得跟某個出題人要 Twitter 時，才發現我已經 Follow 過他了，原來就是某某某大神XD</p>
+<p>人不可貌相這句話，在這次英國行也徹底體會到了</p>
+<p>你絕對想不到長得像毒梟的人，居然是出題大佬XD</p>
 <p><br></p>
-<p>不過這幾天下來，覺得英國食物真的幾乎都很難吃QQ</p>
+<p>不過這幾天下來，深深感受到英國食物真的幾乎都很難吃QQ</p>
 <p>還好有@bookgin帶的泡麵，幫忙解決兩餐宵夜</p>
 <p><img src="https://i.imgur.com/3t0CQs1.jpg" alt=""></p>
 ]]></content>
@@ -502,7 +508,7 @@
 <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>這場是 Google 舉辦的 CTF 決賽，地點在英國倫敦的 Google 大樓內</p>
 <p>比賽時間兩天，都是早上9點開始，第一天到晚上8點，第二天到晚上6點半</p>
 <p>但其實回飯店後還是能繼續解題，題目都不會關，只有部分題目沒辦法線上解</p>
-<p>(內文圖多慎入)</p>]]>
+<p>(p.s. 內文圖多慎入)</p>]]>
     
     </summary>
     
