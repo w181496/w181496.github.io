@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.kaibro.tw/"/>
-  <updated>2019-09-10T08:50:17.527Z</updated>
+  <updated>2019-11-09T23:19:55.102Z</updated>
   <id>http://blog.kaibro.tw/</id>
   
   <author>
@@ -13,6 +13,504 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Google CTF 2019 Final 遊記]]></title>
+    <link href="http://blog.kaibro.tw/2019/11/05/Google-CTF-2019-Final-%E9%81%8A%E8%A8%98/"/>
+    <id>http://blog.kaibro.tw/2019/11/05/Google-CTF-2019-Final-遊記/</id>
+    <published>2019-11-05T14:34:05.000Z</published>
+    <updated>2019-11-09T23:19:55.102Z</updated>
+    <content type="html"><![CDATA[<h1 id="Google_CTF_2019_Final"><a href="#Google_CTF_2019_Final" class="headerlink" title="Google CTF 2019 Final"></a>Google CTF 2019 Final</h1><p><img src="https://i.imgur.com/beVZJwI.png" alt="Final Scoreboard"></p>
+<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>這場是 Google 舉辦的 CTF 決賽，地點在英國倫敦的 Google 大樓內</p>
+<p>比賽時間兩天，都是早上9點開始，第一天到晚上8點，第二天到晚上6點半</p>
+<p>但其實回飯店後還是能繼續解題，題目都不會關，只有部分題目沒辦法線上解</p>
+<p>(內文圖多慎入)</p>
+<a id="more"></a>
+<p><img src="https://i.imgur.com/DYKXG5a.jpg" alt=""></p>
+<p><br></p>
+<h2 id="CTF"><a href="#CTF" class="headerlink" title="CTF"></a>CTF</h2><p><img src="https://i.imgur.com/NQQPVI6.jpg" alt=""></p>
+<p>現場跟初賽很大的不同點是，現場賽會有一些特殊的硬體類題目，或是一些必須真人到場才能解的題目，例如開鎖題</p>
+<p>而題目總共有七種分類：crypto, hardware, misc, sandbox, pwn, reversing, web</p>
+<p>前面講的開鎖題 (Picky blinders) 就被歸類在 Misc 中，這題會讓各隊選偏好的時段，然後時間到就會被抓出去外面開鎖</p>
+<p>這題有三個鎖，第一個鎖應該算練習用的，是那種透明教學用的鎖</p>
+<p>解鎖的方式就是把撞針頂到對的位置，然後用另一根工具(不知道叫啥名字)去轉它就能開了</p>
+<p>第二個鎖是不透明的鎖，就要自己慢慢一個一個踹到對的點</p>
+<p>@sasdf 踹了一波就秒開掉這個鎖了，真不愧是密碼學大佬</p>
+<p>第三個鎖是一個類似保險箱的東西，要用一隻能伸縮，且外型像筆的工具去開他的鎖</p>
+<p>FLAG則是放在這個保險箱中，打開鎖就能拿到flag</p>
+<p>我簡單踹了一波，發現其實還蠻容易抓到感覺的，只要戳到對的點，轉動的手感會不太一樣，慢慢微調就能打開了XD</p>
+<p><img src="https://i.imgur.com/sBgYpdv.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/i54USyB.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/5EwtUrG.jpg" alt=""></p>
+<p>蠻有趣的題目，很像那種會在Security Conference上看到的開鎖教學攤位XD</p>
+<p><br></p>
+<p>硬體題有一題類似密室逃脫，是一題拆炸彈題，可以選一位隊員去炸彈房，其他隊員在另一間房，彼此可以用無線電溝通，想辦法拆炸彈</p>
+<p>在進去之前，我們還不知道是要拆炸彈，不過主辦方有給個小提示:</p>
+<p><img src="https://i.imgur.com/Z7qSRSc.png" alt=""></p>
+<p>所以我們一開始只知道是跟七段顯示器有關的電路題XD</p>
+<p><br></p>
+<p>炸彈會倒數計時，時間到就會爆炸，然後上面有十個撥動開關，和兩條線，以及會影響計時快慢的電容</p>
+<p>所以解法其實蠻直觀的，就是把開關撥成正確的密碼，最後剪正確的線就能停止炸彈爆炸</p>
+<p>第一天和第二天分別能進去一次，所以必須想辦法在兩天內拆掉炸彈，不然就拿不到flag了 (但主辦方中間有出包，炸彈一開就爆炸，所以我們總共進了三次)</p>
+<p>炸彈房裡聽說很黑，然後會有一個穿軍裝的人站在旁邊盯著你，讓你感覺壓力很大XD</p>
+<p>然後炸彈房不能帶東西進去，你必須想辦法透過無線電告訴另一間房的隊友，或是超越常人的記憶力把炸彈電路記下來</p>
+<p>基本策略應該就是第一天盡可能把電路整體配置 Out of band 帶出來，第二天再速解電路然後剪線</p>
+<p>如果進去炸彈房的那個人連電路都看不懂，那基本上就不用玩了XD</p>
+<p>不過最大的難點是，很難透過無線電對話把各個邏輯閘、IC元件線路等資訊帶出來</p>
+<p>所以主辦方還貼心(?)附了一張NATO phonetic alphabet:</p>
+<p><img src="https://i.imgur.com/Eh1tvDD.jpg" alt=""></p>
+<p>但這題最後只有 !SpamAndHex 解掉，根本拆彈專家XD</p>
+<p>其實我們有想到一種能讓電路短路，然後停止時間的方法，但被主辦方禁止使用XD</p>
+<p><br></p>
+<p>Misc 另外有一題 Stuffed，內容是一個網頁，會用 Brotli 編碼去壓縮一堆垃圾，其中包含 flag，所以直接訪問這個網頁，瀏覽器就會把內容解壓縮並顯示出來</p>
+<p>但這題難點在於，這坨垃圾非常大，解壓縮非常吃時間和記憶體，就類似gzip bomb</p>
+<p>google很好心的提供我們免費的gcp帳號，可以任意的開機器</p>
+<p>所以我們就開了 160 Core + 3.7 TB Memory 的土豪級機器來炸這題:</p>
+<p><img src="https://i.imgur.com/jTnupY1.png" alt=""></p>
+<p>(它的 Memory 比我電腦硬碟還大…)</p>
+<p>結果雖然克服了記憶體問題，但時間上還是太慢，一個一個慢慢解，解不完</p>
+<p>由於算法的關係，這題也沒辦法像之前某場比賽一樣直接把重複的 Pattern 拔掉</p>
+<p>最後我在睡夢中時，隊友用這個: <a href="https://github.com/pothos/brotlipython" target="_blank" rel="external">https://github.com/pothos/brotlipython</a> 工具撈出 flag</p>
+<p>該網頁格式長這樣:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;title&gt;Flag page&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line"></div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">Flag:</div><div class="line"></div><div class="line">&lt;!-- aaaaa .... --&gt;</div><div class="line"></div><div class="line">CTF&#123;DontEatThePl4yerEatTheBrotli&#125;</div><div class="line"></div><div class="line">&lt;!-- aaaaa .... --&gt;</div><div class="line"></div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p>其他領域的題目，有的題類似 Pwn2Own，要把 exploit 塞進隨身碟，然後主辦方會在台上 demo 給大家看，打成功就送你flag</p>
+<p>不過這邊主辦有點小雷，他賽中沒有限制嘗試次數和間隔時間，但我們在解的時候，臨時說一個小時只能踹一次</p>
+<p>然後 Pwn 有一題 Gomium Browser，我們本地成功彈計算機，但上台 exploit 兩次都失敗，剛好就是比賽最後兩個小時，所以就很可惜的沒解掉</p>
+<p>(聽說主辦方在我們失敗之後，關掉螢幕再跑第二次就成功，似乎我們的 Exploit 沒有到非常穩定，所以運氣很差的剛好都失敗)</p>
+<p><br></p>
+<p>Web 的部分，這場共三題 Web，難度應該算是我打過的決賽最高的</p>
+<p>第一天前半場只出了一題 gPhotos2，這題跟初賽的 gPhotos 功能幾乎一樣，你可以傳一張 png, jpg, jpeg 圖片 (會用 imghdr.what 去判)，之後會去 resize 變成縮圖</p>
+<p>只是初賽是用 PHP 套 ImageMagick，這題則是 Python django 套 Wand image library</p>
+<p>初賽那題的解法可以參考 Bushwhackers 的 Writeup: <a href="https://blog.bushwhackers.ru/googlectf-2019-gphotos-writeup/" target="_blank" rel="external">https://blog.bushwhackers.ru/googlectf-2019-gphotos-writeup/</a></p>
+<p>基本上就是利用 MSL 搭配各種小技巧去 RCE</p>
+<p>但 Python 這題就很難了，因為你沒辦法像php去寫 Webshell，所以一開始我們的方向就變成是找 polyglot 的 payload 去想辦法寫檔蓋掉 import 的 python (搭配 DoS 的洞讓他 Reload library)</p>
+<p>到最後發現，的確成功能用 MSL 去任意寫檔，也成功 Polyglot 造出合法 Python，但寫了後不管怎麼 DoS 它，都沒有成功載入我們的 Python payload</p>
+<p>賽後問了出題人才知道，原來根本沒有資料夾寫入權限… 其實也不太意外，方向偏太多了</p>
+<p>第二天比賽到一半時，主辦方給了一個 Hint: docker image is based on standard debian</p>
+<p>看起來是跟作業系統環境有點關係的利用方式</p>
+<p>到比賽結束，共有兩隊解出來這題，分別是 RedGKFRocket 和 Pasten</p>
+<p>公布解答才知道，原來這題根本是 0day 題，預期解是類似 ImageTragick 要打 <code>.show</code> extension 的 Command Injection</p>
+<p>可以在本地踹: <code>$ convert &quot;http://evil.com/some.png?z=&#39;;id;#&#39;&amp;x=123&quot; out.show</code></p>
+<p>不過有隊找到非預期解，是用 ghostscript 去 RCE 的樣子，但也是 0day … ╮(╯_╰)╭</p>
+<p><br></p>
+<p>第二題 Web 是 Saber.ninja，這題還蠻有趣的，是一個音樂遊戲譜面上傳的網站</p>
+<p>一開始會給你一個 Example.bsl，其實就是個 zip 包，裡面包了 <code>Info.dat</code>, <code>Expert.dat</code>,<code>song.ogg</code> 等檔案，紀錄譜面出現時間、歌曲名字、作者名字等資訊</p>
+<p>然後網站可以讓你上傳你自己的 bsl，他會檢查裡面的格式是否符合要求 (這裡要自己黑箱踹)</p>
+<p>若上傳都沒問題，則可以預覽譜面和顯示歌曲名字、作者名字等資訊，還有連結可以直接下載這個 bundle 包跟 beatmap</p>
+<p>另外網站還有一個聊天室可以和你的對手 (admin之類的) 對話，他會要你只能塞 <code>https://saber-ninja.web.ctfcompetition.com/preview/*</code> 的網址，所以很明顯是個 XSS 題</p>
+<p>而我們也很快找到 <code>Info.dat</code> 裡的作者、歌曲等資訊都能塞 HTML Tag</p>
+<p>但這題有討人厭的 CSP: <code>content-security-policy: default-src &#39;self&#39;; frame-src *;</code></p>
+<p>所以很明顯這題要用到 <code>iframe</code> 來 XSS</p>
+<p><br></p>
+<p>OK，我們想說先看一下對面的瀏覽器版本，所以就塞 <code>&lt;iframe src=&quot;\\kaibro.tw&quot;&gt;</code> 之類的 Payload 來讓對面 Bot 送 Request</p>
+<p>但傳了老半天都沒半個 Request 回來，一度懷疑 Bot 已經爛掉了</p>
+<p>一問出題人，才知道原來送了連結過去，還要先去外面的遊戲房玩過你剛剛送的譜面，過關之後，Bot 才會讀你的連結… WTF</p>
+<p>其實玩遊戲這件事蠻有梗的，但是題目完全沒提到有遊戲室這個規則，整個很黑人問號</p>
+<p>如果我們沒問出題人，全場根本不會有人知道要先玩遊戲才能觸發 BOT 訪問= =</p>
+<p>後面還出了一些小問題，例如 BOT 不知為啥只能透過常用 Port 對外連線，應該是 Google 那邊出題環境沒弄好，有點小雷</p>
+<p><br></p>
+<p>而遊戲部份，是一個 VR 光劍的音樂節奏遊戲 (BeatSaber)，要戴上VR眼鏡，手拿光劍在那邊砍紅色跟藍色的 Notes，中間還會有牆壁之類的障礙物，所以人要跟著左右閃躲XD</p>
+<p>由於我們能夠控制譜面資訊，但是它規定每首歌都至少要有100個 notes，所以我就把譜面最開頭塞了 100 個相同的 notes 疊再一起，只要揮一次劍就能 Full combo XDDD</p>
+<p>玩完遊戲，主辦方就會 enable 題目 bot 對我們送過去連結訪問的權限</p>
+<p>從回來的 Request 可以看到，對方環境是 <code>Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3882.0 Safari/537.36</code></p>
+<p><br></p>
+<p>另外我也不小心從主辦方的電腦瞄到幾個關鍵字: <code>UXSS Bot</code>, <code>NaCl</code></p>
+<p>所以猜測這題可能是某種神奇的 Chrome 0/1 Day UXSS，搜尋了一波沒找到類似的洞，就果斷跳題了XD</p>
+<p>中間我們有嘗試透過 Polyglot zip+js 來去做 XSS，但在成功造出 Payload 且本地測試成功時，發現對面環境有設 Content-type nosniff，所以遠端失敗XD</p>
+<p>最後這題到結束，0 隊解，不意外XD</p>
+<p>解法在這: <a href="https://shhnjk.blogspot.com/2019/07/intro-to-chromes-gold-features.html" target="_blank" rel="external">https://shhnjk.blogspot.com/2019/07/intro-to-chromes-gold-features.html</a></p>
+<p><br></p>
+<p>Web 第三題是 Genie’s wishlist，這題是一個可以跟精靈許三個願望的網頁</p>
+<p>題目給了部分 <a href="https://gist.github.com/w181496/5a8b3398ae380419999e429bee64171f" target="_blank" rel="external">Source code</a>，是一個類似 Proxy 的架構，然後是 Flask 寫的</p>
+<p>基本上是從 <a href="https://github.com/dtkav/flask-batch/blob/master/flask_batch/flask_batch.py" target="_blank" rel="external">https://github.com/dtkav/flask-batch/blob/master/flask_batch/flask_batch.py</a> 這裡改來的</p>
+<p>你可以輸入三個字串送過去，他會包成 <code>multipart/mixed</code> 的格式送出去給後端，但後端其實就是同一台 Server</p>
+<p>然後網頁還有一個功能，可以塞一個 url 給它，它會用 Headless 訪問這個 URL:</p>
+<p><code>Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/79.0.3945.0 Safari/537.36</code></p>
+<p>所以猜測這題有可能也是 XSS 或前端類的題目</p>
+<p>認真看 Code 會發現不少小問題，但都很難串在一起</p>
+<p>例如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; ct = &quot;multipart/mixed;boundary=batch_abcdefg;boundary=batch_123456&quot;</div><div class="line">&gt;&gt;&gt; m = _rex.fullmatch(ct)</div><div class="line">&gt;&gt;&gt; m.groups()</div><div class="line">(None, None, &apos;batch_123456&apos;)</div></pre></td></tr></table></figure>
+<p>塞兩個 Boundary，它會取第二個，賽中一直在踹能不能想辦法造成 Proxy 跟後端解析不一致，然後達到類似 Desync 之類的污染效果，但最後失敗惹QQ</p>
+<p>另外還有像是:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/batch?ct=multipart/mixed;aaa=bbb;boundary=batch_w3ier5whgj</div></pre></td></tr></table></figure>
+<p>這樣塞，會導致最後後端回來的 Response Content-type Header 變成部分可控的，<code>aaa=bbb</code>會原封不動的回來</p>
+<p>所以可以類似這樣玩: <code>batch?ct=multipart/mixed;charset=utf-16;boundary=batch_w3ier5whgj</code>，會把charset搞掉</p>
+<p>不過還是沒辦法把 Content-type 弄成 <code>text/html</code>之類的</p>
+<p>而 Client-ID 的部分是會回顯的，所以只要我們能想辦法把 Content-type 蓋掉就能 XSS</p>
+<p>Source Code 中，用來 Parse Content-type 的正規表達式寫得很刻意，一眼就知道有洞，但還是找不出來問題:</p>
+<p><code>content_type_regexes = &#39;multipart/[a-z]+(?:-[a-z]+)*(?:[;,\\s]\\s*[a-z]+(?:-[a-z]+)*=(?:&quot;(?:[^&quot;]|\\&quot;)+&quot;|\&#39;(?:[^\&#39;]|\\\&#39;)+\&#39;|[^&quot;\&#39;:;,\\s]+))*[;,\\s]*boundary=(?:&quot;([^&quot;]+)&quot;|\&#39;([^\&#39;]+)\&#39;|([^&quot;\&#39;:;,\\s]+))(?:[;,\\s]\\s*[a-z]+(?:-[a-z]+)*=(?:&quot;(?:[^&quot;]|\\&quot;)+&quot;|\&#39;(?:[^\&#39;]|\\\&#39;)+\&#39;|[^&quot;\&#39;:;,\\s]+))*[;,]?&#39;</code></p>
+<p>賽中我手動看著 RFC 踹了幾個特殊字元，試著玩弄回顯的 Content-type，但都沒成功蓋掉 Content-type</p>
+<p>比賽結束後，出題人才說這題可以用 <code>Content-type: foo,bar</code> 會取成 <code>bar</code> 的特性來蓋</p>
+<p>結果原來我們離正解只差了一點，繼續多踹，運氣好蓋掉Content-type就贏了，算是這場最遺憾的一題 Web XD</p>
+<p>p.s. 這題最後只有 !SpamAndHex 解掉</p>
+<p><br></p>
+<p>整體來說，這場題目質量挺高的，也蠻多有趣的題目，食物飲料也各種爽拿爽吃，但還是有一些小地方待改進，例如很多題目環境都講得不清不楚，還有前面提的賽中臨時公告特殊規則等，希望未來可以改善這些小缺點!</p>
+<p><br></p>
+<h2 id="u884C_u7A0B"><a href="#u884C_u7A0B" class="headerlink" title="行程"></a>行程</h2><p>這次比賽日期主要在 11/2, 11/3 兩天，不過我們 10/30 就到倫敦了，提早跑一些行程，Google 還因此多送我們一晚住宿，聽說一晚價錢要8000台幣，真。佛心公司!</p>
+<p>10/31, 11/1, 11/4 這幾天主要就是跑跑倫敦，晃晃一些經典景點之類的地方，然後回去的飛機是 11/4 晚上</p>
+<p>10/31 報名一日旅遊團，跑了溫莎古堡、巨石陣、羅馬浴場等地方</p>
+<p>11/1 則是晃了一些倫敦市區經典景點，包含倫敦塔橋、西敏寺、白金漢宮、倫敦眼等</p>
+<p>11/4 則是跑了肯頓市集和大英博物館等地方之後，就搭飛機回台灣</p>
+<p><br></p>
+<h2 id="u4EA4_u901A"><a href="#u4EA4_u901A" class="headerlink" title="交通"></a>交通</h2><p><img src="https://i.imgur.com/bKGbDtp.jpg" alt=""></p>
+<p>交通方面，倫敦基本上觀光客會去的地方都有地鐵能到</p>
+<p>我們大概只有機場到倫敦這一段是搭火車，其他都是搭地鐵</p>
+<p>所以只要買張牡蠣卡(Oyster card，類似悠遊卡)，就能通行無阻了</p>
+<p><img src="https://i.imgur.com/6ioFgvH.jpg" alt=""></p>
+<p>牡蠣卡有分兩種版本：一般版和遊客版</p>
+<p>買的時候都是 35 英鎊，相當於卡片 5 英鎊，裡面帶有 30 英鎊餘額</p>
+<p>一般版可以把卡片退還，會把押金退還之類的，遊客版則是相當於花5英鎊買那張卡做紀念，不用退還</p>
+<p>但其實這個有 BUG，他跟台灣悠遊卡一樣可以刷到金額變負的，我們在最後一天搭車回機場時，最後餘額變-8，所以其實還倒賺3英鎊</p>
+<p><br></p>
+<h2 id="u4F4F_u5BBF"><a href="#u4F4F_u5BBF" class="headerlink" title="住宿"></a>住宿</h2><p><img src="https://i.imgur.com/MZxlyPE.jpg" alt=""></p>
+<p>這次我們的住宿全程都由 Google 包辦，住了一家叫 Pullman 的飯店，地點位在國王十字車站走路3~5分鐘遠的地方，算是還蠻方便的</p>
+<p>重點是每天早上在一樓都有很高級的早餐，裡面的食物屌打一堆英國昂貴餐廳的食物</p>
+<p><img src="https://i.imgur.com/GV25iJy.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/cgVlZCo.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/rdvLQI0.jpg" alt=""></p>
+<p>(飯店看出去的夜景)</p>
+<p><img src="https://i.imgur.com/SjcsmB7.jpg" alt=""></p>
+<p>(白天也蠻美的)</p>
+<p>硬要說這間的缺點的話，大概就是房卡很容易出問題的感覺，例如：某天回去莫名被消磁鎖在門外</p>
+<p><br></p>
+<h2 id="u666F_u9EDE"><a href="#u666F_u9EDE" class="headerlink" title="景點"></a>景點</h2><h3 id="u5DE8_u77F3_u9663_+__u6EAB_u838E_u53E4_u5821_+__u7F85_u99AC_u6D74_u5834"><a href="#u5DE8_u77F3_u9663_+__u6EAB_u838E_u53E4_u5821_+__u7F85_u99AC_u6D74_u5834" class="headerlink" title="巨石陣 + 溫莎古堡 + 羅馬浴場"></a>巨石陣 + 溫莎古堡 + 羅馬浴場</h3><p>這趟行程，我們是透過klook訂一日導覽票卷</p>
+<p>所以一早就去集合點坐遊覽車，然後他會帶我們跑這三個點+講解</p>
+<p>有趣的是車上的導遊會同時講日文和英文，好像是車上有不少日本遊客的關係吧</p>
+<p>第一站是到溫莎古堡，會在一個火車站旁邊下車，然後走上去就會看到一整區很大的城堡</p>
+<p><img src="https://i.imgur.com/BS2DL8P.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/xTbkQF0.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/QCqLSmn.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/Dlc3Bnp.jpg" alt=""></p>
+<p>不過也因為這種一日行程通常都很緊湊，很多城堡內的點都沒辦法走完，有點可惜</p>
+<p>最令人印象深刻的地方是裡面有個教堂，擺放各種騎士的劍和各種旗幟之類的東西，很壯觀，但可惜裡頭不開放拍照</p>
+<p><br></p>
+<p>第二站就是整趟旅程的重頭戲：巨石陣</p>
+<p>關於巨石陣的意義說法很多種，有人覺得是用來悼念亡靈用的，有人覺得跟觀測天文有關</p>
+<p>由於巨石陣成因過於神秘，所以總覺得來英國不來看一下巨石陣好像有點可惜</p>
+<p>但實際現場看完之後，又會覺得好像不該浪費時間大老遠跑來看幾塊大石頭XD</p>
+<p>光是從倫敦搭車過去，單趟就要花2~3小時，蠻累的</p>
+<p>真的是「不看會後悔，看了也會後悔」</p>
+<p>而且還只能遠遠隔著圍欄看著這些大石頭，沒辦法走近觀賞</p>
+<p><img src="https://i.imgur.com/bEvbEcK.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/EeqsG9k.jpg" alt=""></p>
+<p><br></p>
+<p>第三站是位於巴斯的羅馬浴場</p>
+<p>據說建於2000年前古羅馬帝國時期，跟電影裡演的一樣，古羅馬貴族都很愛泡溫泉澡XD</p>
+<p>而巴斯(Bath)這裡是英國唯一的天然溫泉區，所以古羅馬人就在這裡蓋了一座浴場，他們相信溫泉有治病的療效</p>
+<p><img src="https://i.imgur.com/vwxvEnF.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/hp2x1nX.jpg" alt=""></p>
+<p>(二樓雕像是大家歷史課讀過的那幾位著名古羅馬皇帝)</p>
+<p><img src="https://i.imgur.com/HLJlLoJ.jpg" alt=""></p>
+<p>聽說這種一層一層的是桑拿房，似乎可以幫忙傳導溫泉熱，愈多磚頭愈熱</p>
+<p>溫泉旁邊還會請人穿著古羅馬裝，扮演當時來泡澡的人們:</p>
+<p><img src="https://i.imgur.com/pQ9FWMp.jpg" alt=""></p>
+<p>另外浴場裡還有地方提供遊客品嚐「溫泉水」</p>
+<p><img src="https://i.imgur.com/Fv1q9Ez.jpg" alt=""></p>
+<p>喝完之後，我立馬覺得自己為啥會蠢到想把溫泉水拿來喝，爆幹噁心又難喝</p>
+<p><br></p>
+<p>羅馬浴場旁邊就是著名的巴斯修道院，外觀哥德式風格，讓人經過很難不多看幾眼</p>
+<p><img src="https://i.imgur.com/ee6F45B.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/emd3N3U.jpg" alt=""></p>
+<p>旁邊會有一些街頭藝人在表演：</p>
+<p><img src="https://i.imgur.com/tIa1Zez.jpg" alt=""></p>
+<p><br></p>
+<h3 id="u502B_u6566_u5854__26amp_3B__u502B_u6566_u5854_u6A4B"><a href="#u502B_u6566_u5854__26amp_3B__u502B_u6566_u5854_u6A4B" class="headerlink" title="倫敦塔 &amp; 倫敦塔橋"></a>倫敦塔 &amp; 倫敦塔橋</h3><p>這兩個點也算是來倫敦必去的景點</p>
+<p>倫敦塔其實不是一座塔，嚴格來說比較像城堡</p>
+<p>然後倫敦塔橋就是倫敦塔旁邊橫跨泰晤士河的一座橋，所以這兩個點可以同時去</p>
+<p>旁邊不遠處還有座「倫敦橋 (London Bridge)」，兩個是不同的橋，名字很容易混淆XD</p>
+<p>不過由於倫敦塔門票似乎有點貴，所以我們沒有進去，只有遠遠觀賞它</p>
+<p><img src="https://i.imgur.com/5XAKzNO.jpg" alt=""></p>
+<p>旁邊還看到類似投石機的東西:</p>
+<p><img src="https://i.imgur.com/lHQTIu6.jpg" alt=""></p>
+<p>害我腦中一直響起世紀帝國等登等登的聲音</p>
+<p><img src="https://i.imgur.com/zsjERqP.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/mHvSzFs.jpg" alt=""></p>
+<p>倫敦塔橋就在倫敦塔隔壁，一樣可以進去裡面參觀</p>
+<p>好像上面有步道可以走，但一樣門票太貴，我們沒上去</p>
+<p><img src="https://i.imgur.com/Ozt4qYY.jpg" alt=""></p>
+<p><br></p>
+<h3 id="u767D_u91D1_u6F22_u5BAE__26amp_3B__u897F_u654F_u5BFA__26amp_3B__u502B_u6566_u773C"><a href="#u767D_u91D1_u6F22_u5BAE__26amp_3B__u897F_u654F_u5BFA__26amp_3B__u502B_u6566_u773C" class="headerlink" title="白金漢宮 &amp; 西敏寺 &amp; 倫敦眼"></a>白金漢宮 &amp; 西敏寺 &amp; 倫敦眼</h3><p>這三個點都在同一區，都是走路可以到的距離</p>
+<p>其實大笨鐘也在這區，一出地鐵就會看到，不過因為還在維修，所以旁邊滿滿的都是鷹架QQ</p>
+<p><img src="https://i.imgur.com/2NExuQA.jpg" alt=""></p>
+<p>而白金漢宮其實蠻無聊的，大家來這裡應該主要都是看麥克風頭的禁衛軍交接</p>
+<p>不過我們在溫莎城堡已經看過一次交接了XD</p>
+<p><img src="https://i.imgur.com/VrX5CZj.jpg" alt=""></p>
+<p>另外白金漢宮旁邊的 Green Park 蠻美的，橘紅色的落葉很有秋天的歐洲味</p>
+<p><img src="https://i.imgur.com/JRgFCb9.jpg" alt=""></p>
+<p>相對於白金漢宮，西敏寺的哥德式風格倒是比較合我胃口，但一樣人太多，而且門票太貴，所以就沒進去了</p>
+<p><img src="https://i.imgur.com/JR8I6Kf.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/24cVNRw.jpg" alt=""></p>
+<p><br></p>
+<p>至於倫敦眼，其實就是一個普通的(?)摩天輪</p>
+<p>拍照時，天氣剛好要下雨不下雨的，所以拍出來陰陰的，沒啥美感</p>
+<p><img src="https://i.imgur.com/GnQmz3T.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/X4JHxEW.jpg" alt=""></p>
+<p>(這裡的海鷗會飛來飛去幹走路人手上的食物)</p>
+<p><br></p>
+<h3 id="u8C9D_u514B_u8857"><a href="#u8C9D_u514B_u8857" class="headerlink" title="貝克街"></a>貝克街</h3><p>雖然我不是福爾摩斯粉，但還是來朝聖一下著名的貝克街</p>
+<p>一出 Backer Street 地鐵站，旁邊就有一尊福爾摩斯雕像:</p>
+<p><img src="https://i.imgur.com/DfImgxJ.jpg" alt=""></p>
+<p>圖中這條樸實無華的街道就是大名鼎鼎的貝克街:</p>
+<p><img src="https://i.imgur.com/HSmWLs5.jpg" alt=""></p>
+<p>圖中左邊是福爾摩斯住的地方，右邊是博物館，其實就是紀念品店</p>
+<p><img src="https://i.imgur.com/fe43Qde.jpg" alt=""></p>
+<p>不過一樣，進去要排超長，又要收門票費，所以就沒進去了</p>
+<p>英國真的是到哪都要收費，連上廁所也要收錢</p>
+<p>不過紀念品店倒是蠻多特別的玩具，手癢買了一個音樂盒、火柴盒和打火機:</p>
+<p><img src="https://i.imgur.com/GdgprNP.jpg" alt=""></p>
+<p><br></p>
+<h3 id="u4E5D_u53C8_u56DB_u5206_u4E4B_u4E09_u6708_u53F0"><a href="#u4E5D_u53C8_u56DB_u5206_u4E4B_u4E09_u6708_u53F0" class="headerlink" title="九又四分之三月台"></a>九又四分之三月台</h3><p>著名的九又四分之三月台場景，就在我們住的飯店隔壁的國王十字車站裡</p>
+<p>排隊拍照的人長的很誇張，旁邊工作人員也很專業，會指導你該怎麼擺姿勢</p>
+<p>但一樣，我們只有在旁邊看而已，沒去排XD</p>
+<p><img src="https://i.imgur.com/pzWbTIa.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/0Mhw2Nc.jpg" alt=""></p>
+<p><br></p>
+<h3 id="u80AF_u9813_u5E02_u96C6"><a href="#u80AF_u9813_u5E02_u96C6" class="headerlink" title="肯頓市集"></a>肯頓市集</h3><p><img src="https://i.imgur.com/nSrpMqx.jpg" alt=""></p>
+<p>就是一個很有歐洲味的市集</p>
+<p><img src="https://i.imgur.com/uiQKwW1.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/sH6vAZv.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/kOBuvw9.jpg" alt=""></p>
+<p>然後有很多文青類的商店，例如有賣黑膠、賣古董的店</p>
+<p><img src="https://i.imgur.com/x0wtGhg.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/WssowKK.jpg" alt=""></p>
+<p>我也手癢買了一張甲殼蟲樂隊的黑膠唱片裝逼一下</p>
+<p>但其實這個市集蠻大的，我們最後也沒逛完，吃個東西就離開去大英博物館惹</p>
+<p><br></p>
+<h3 id="u5927_u82F1_u535A_u7269_u9928"><a href="#u5927_u82F1_u535A_u7269_u9928" class="headerlink" title="大英博物館"></a>大英博物館</h3><p><img src="https://i.imgur.com/r9LF3OE.jpg" alt=""></p>
+<p>最後一天的整個下午，基本上都只排大英博物館</p>
+<p>因為真的太大了，一天實在逛不完</p>
+<p>順便來見識一下大英帝國時期，英國人到底從各國幹回來多少贓物</p>
+<p><br></p>
+<p>一進博物館，就會看到很美的玻璃天花板</p>
+<p><img src="https://i.imgur.com/Cbmuqp7.jpg" alt=""></p>
+<p>然後往左走，就是最有看頭的埃及展區</p>
+<p>一進門就會看到鎮館之寶，傳說中的羅塞塔石碑</p>
+<p><img src="https://i.imgur.com/f7jZ2jr.jpg" alt=""></p>
+<p>記載著埃及象形文、埃及草書和古希臘文的羅塞塔石碑</p>
+<p>對於解讀古埃及歷史和古埃及象形文都是重要的里程碑</p>
+<p><br></p>
+<p>而隔壁就是著名法老拉姆西斯二世的雕像</p>
+<p><img src="https://i.imgur.com/wyP18o2.jpg" alt=""></p>
+<p>據說肩膀的孔洞，是拿破崙時期的法國人為了盜走所穿的孔</p>
+<p>展區內還有各種壁畫、石棺、雕像</p>
+<p><img src="https://i.imgur.com/wOVmBaP.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/nWO126D.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/fQ99DA3.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/Cylbd9Z.jpg" alt=""></p>
+<p>還有古埃及人視為聖甲蟲的糞金龜:</p>
+<p><img src="https://i.imgur.com/GIeFgPe.jpg" alt=""></p>
+<p><br></p>
+<p>其他展區也有一些特別的東西</p>
+<p>像下面這個就超狂，英國人跑去把別人家的門幹下來帶回英國</p>
+<p><img src="https://i.imgur.com/TEHHgxd.jpg" alt=""></p>
+<p>還有亞述展區很詭異的人面獸身拉瑪蘇</p>
+<p><img src="https://i.imgur.com/CimZ6XJ.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/TXScNoj.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/4vVIiWq.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/1BKs0cf.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/2UirN58.jpg" alt=""></p>
+<p><br></p>
+<p>也是大英博物館必看的摩艾石像:</p>
+<p><img src="https://i.imgur.com/eUaD37t.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/bLUMRHY.jpg" alt=""></p>
+<p><br></p>
+<p>後面是另一個必看重頭戲，埃及木乃伊</p>
+<p>說真的現場看還蠻驚悚的XD</p>
+<p><img src="https://i.imgur.com/8eGOrHN.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/2Y4kmfW.jpg" alt=""></p>
+<p>他們都會在包裹的繃帶和布上面畫上臉</p>
+<p><img src="https://i.imgur.com/J9bSjEV.jpg" alt=""></p>
+<p>其實還有解開繃帶的樣子，不過由於微噁爛，就不貼惹XD</p>
+<p><br></p>
+<p>其他還有像是帕德嫩神殿的雕刻，也是很壯觀</p>
+<p><img src="https://i.imgur.com/CZGBoU8.jpg" alt=""></p>
+<p>從圖片可能看不出來大小，實際上這個超級大，英國人到底怎麼幹回來的XD</p>
+<p><br></p>
+<h3 id="Google"><a href="#Google" class="headerlink" title="Google"></a>Google</h3><p>Google London 某種程度應該也算是個景點XD</p>
+<p>地點就在國王十字車站旁邊而已，超級方便，離飯店不到十分鐘路程</p>
+<p>在賽前一天，主辦方有辦一個 Office Tour 和晚宴，結束後還有 King’s club 行程</p>
+<p>但由於我們行程緊湊，所以 Office Tour 就沒去，只有參加晚宴跟 King’s club</p>
+<p>一走進 Google London 大樓，最吸引目光的就是這面有各種經典人物、角色的牆:</p>
+<p><img src="https://i.imgur.com/kBQ4tiq.jpg" alt=""></p>
+<p>白天時往上看也蠻壯觀的:</p>
+<p><img src="https://i.imgur.com/FtYpZT5.jpg" alt=""></p>
+<p>然後這場沒有 Badge，但是兩天都會發這種識別證給你配戴:</p>
+<p><img src="https://i.imgur.com/Iri9bjk.jpg" alt=""></p>
+<p>還發了一個整場都沒用到的 coin，也許是給我們當紀念品(?</p>
+<p><img src="https://i.imgur.com/suK1EDF.jpg" alt=""></p>
+<p>每人還有一件印著自己 ID 的T-shirt，不過材質不優，尤其是領子的地方，很不舒服</p>
+<p>(Google乾爹錢這麼多怎不挑個材質好一點的衣服QQ)</p>
+<p>而且樣式有點醜，工作人員的款式比較好看XD</p>
+<p><img src="https://i.imgur.com/mu7qpj7.jpg" alt=""></p>
+<p>每隊桌子旁邊都有一個會發光的擋板:</p>
+<p><img src="https://i.imgur.com/CzKIfRp.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/1cmWfiS.jpg" alt=""></p>
+<p>還有電競椅(?)</p>
+<p><img src="https://i.imgur.com/ceAeAOU.jpg" alt=""></p>
+<p>然後這是冠軍獎杯，雖然無緣拿到，但至少有摸過XD</p>
+<p><img src="https://i.imgur.com/nAKWfoU.jpg" alt=""></p>
+<p><br></p>
+<p>Web 的 Saber.ninja 那題，要讓 BOT 訪問你的連結，就是要來這邊跟他一樣玩這個VR遊戲:</p>
+<p><img src="https://i.imgur.com/fXT5UNT.jpg" alt=""></p>
+<p><br></p>
+<p>這是First Blood 和 New Leader(第一名換人時) 的特效:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/aSDAUpuaAhU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p>Pwn 的 Gomium Browser 那題，Exploit 會被放到大螢幕上打一遍給大家看，噴計算機就是成功:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/nKXAQbjIFPI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p><br></p>
+<p>頒獎典禮:</p>
+<p><img src="https://i.imgur.com/tlUT3Pr.jpg" alt=""></p>
+<p>Dragon Sector 帶了幾瓶波蘭烈酒來給大家喝:</p>
+<p><img src="https://i.imgur.com/3kwDube.jpg" alt=""></p>
+<p>賽後Party跟<code>A*O*E</code>大佬交流，能講中文的感覺真好:</p>
+<p><img src="https://i.imgur.com/LvJupd1.jpg" alt=""></p>
+<p>(不過這時我已經被 Dragon Sector 的烈酒灌到茫惹XD)</p>
+<p><br></p>
+<h2 id="u98DF_u7269"><a href="#u98DF_u7269" class="headerlink" title="食物"></a>食物</h2><h3 id="The_Easton"><a href="#The_Easton" class="headerlink" title="The Easton"></a>The Easton</h3><p><img src="https://i.imgur.com/R0OwL8m.jpg" alt=""></p>
+<p>這間是我們在英國吃的第一餐</p>
+<p>英國好像比較少正式的餐廳(以我們住的那一區來說)</p>
+<p>大部分都是這種酒吧類的，然後裡面也會賣一些吃的</p>
+<p>我吃的是類似紅酒牛肉派的東西:</p>
+<p><img src="https://i.imgur.com/jSskdP8.jpg" alt=""></p>
+<p>吃完就開始對英國食物不抱任何期待惹，實在不優</p>
+<p>不過這家的酒都不錯喝</p>
+<p>連不太喝酒的@bookgin都說好喝惹</p>
+<p>我點了一杯Pale ale的啤酒也是比想像中順口</p>
+<p><img src="https://i.imgur.com/fsSSjin.jpg" alt=""></p>
+<p><br></p>
+<h3 id="Shaka_Zulu"><a href="#Shaka_Zulu" class="headerlink" title="Shaka Zulu"></a>Shaka Zulu</h3><p><img src="https://i.imgur.com/r02cFiO.jpg" alt=""></p>
+<p>這間是賽前一天 Google 主辦方帶我們去吃的晚餐</p>
+<p>地點在肯頓市集裡的一間非洲餐廳</p>
+<p>從走進去的一步開始，就能感受到濃濃的非洲味</p>
+<p>除了是餐廳外，他裡面還是個酒吧，所以外面會有門禁管制</p>
+<p><img src="https://i.imgur.com/cSVNCkY.jpg" alt=""></p>
+<p>由於我們算是比較新的隊伍，其他隊伍都是老牌強隊</p>
+<p>所以除了 TokyoWesterns 之外，我們基本上都沒有認識的</p>
+<p>一進餐廳就有點像邊緣人，只能坐在角落的一桌XD</p>
+<p>不過也剛好因此跟這場的 Web 出題人坐一桌</p>
+<p><br></p>
+<p>餐點方面，這個雞翅和鮭魚比主菜好吃上百倍:</p>
+<p><img src="https://i.imgur.com/5KVjjW2.jpg" alt=""></p>
+<p>然後這款啤酒聽說是非洲有名的一款啤酒</p>
+<p>味道跟我印象中 Larger 啤酒的味道有點落差，不過是好喝的XD</p>
+<p><img src="https://i.imgur.com/uBt6kV1.jpg" alt=""></p>
+<p>它的紅白酒、粉紅酒也都不錯喝:</p>
+<p><img src="https://i.imgur.com/83SxgDV.jpg" alt=""></p>
+<p>然後這個是我點的主菜，斑馬肉!</p>
+<p><img src="https://i.imgur.com/80RspgY.jpg" alt=""></p>
+<p>不過吃起來口感像牛肉，但比較難咬，沒啥特別的味道，非常不優</p>
+<p>下面這個是@yuawn點的牛排，幾近全熟，也是不優:</p>
+<p><img src="https://i.imgur.com/8kJkdm7.jpg" alt=""></p>
+<p>不定時還有火舞表演，還算能看啦:</p>
+<p><img src="https://i.imgur.com/dMjCtnk.jpg" alt=""></p>
+<p><br></p>
+<p>最ㄎㄅ的是，晚餐結束本來有個King’s club行程</p>
+<p>不過大家好像都搞不太清楚到底是怎樣，甚至工作人員也不知道</p>
+<p>所以後來就一群人莫名被帶回飯店，只留下我們和那群出題人</p>
+<p>後來才知道 King’s club 就是同一家餐廳裡面的酒吧…WTF</p>
+<p>再加上隊上其他人都不太喝酒，所以最後坐了一會就跟出題人搭地鐵回飯店了</p>
+<p><br></p>
+<h3 id="Stoke_House"><a href="#Stoke_House" class="headerlink" title="Stoke House"></a>Stoke House</h3><p><img src="https://i.imgur.com/bsqjBtn.jpg" alt=""></p>
+<p>這間是我們從巨石陣回來吃的晚餐</p>
+<p>應該是倫敦之旅花費最高的一餐</p>
+<p>我的主餐是這個烤豬排</p>
+<p><img src="https://i.imgur.com/HNoTCK3.jpg" alt=""></p>
+<p>肉質意外的嫩，而且烤得很香，但吃到後面會有點微膩</p>
+<p>而我點的這杯調酒叫Lolipop，裡面有加Midori，所以看起來才綠綠的</p>
+<p><img src="https://i.imgur.com/MDVfvs4.jpg" alt=""></p>
+<p>然後下面這個是 @sasdf 和 @yuawn 點的大牛排(這盤要數千台幣XD):</p>
+<p><img src="https://i.imgur.com/zW2k5Mj.jpg" alt=""></p>
+<p><br></p>
+<h3 id="Borough_Market"><a href="#Borough_Market" class="headerlink" title="Borough Market"></a>Borough Market</h3><p><img src="https://i.imgur.com/apAOgOQ.jpg" alt=""></p>
+<p>這個市場還蠻熱鬧的，攤販多，人也很多</p>
+<p><img src="https://i.imgur.com/bhSd5i2.jpg" alt=""></p>
+<p>我們來這裡主要是為了吃英國必吃的炸魚薯條:</p>
+<p><img src="https://i.imgur.com/iBDtaZB.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/Ik7VsgX.jpg" alt=""></p>
+<p>但吃起來跟在 Vegas 吃到的沒啥太大差別，一樣吃到後面會很膩</p>
+<p>不過很幸運的在旁邊的小攤販買到一杯很好喝的熱紅酒:</p>
+<p><img src="https://i.imgur.com/QSRnZml.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/4UrzwWx.jpg" alt=""></p>
+<p><br></p>
+<h3 id="Google_Food"><a href="#Google_Food" class="headerlink" title="Google Food"></a>Google Food</h3><p>我們比賽兩天的食物都是 Google 包辦的</p>
+<p>不得不說，雖然沒有到特別好吃，但已經比我們在外面餐廳吃的東西好吃很多惹</p>
+<p>下面這個很像肉燥的東西，配飯超好吃，我嗑掉好幾碗飯:</p>
+<p><img src="https://i.imgur.com/ImN86EL.jpg" alt=""></p>
+<p>然後有神奇的檸檬薄荷水，個人不太喜歡:</p>
+<p><img src="https://i.imgur.com/nhu8W0W.jpg" alt=""></p>
+<p>Red bull, 可樂, 雪碧啥的也都是免費拿到爽:</p>
+<p><img src="https://i.imgur.com/skwk8Z6.jpg" alt=""></p>
+<p>晚餐吃pizza:</p>
+<p><img src="https://i.imgur.com/95cVcjM.jpg" alt=""></p>
+<p>還有滿滿的薯條和洋蔥圈:</p>
+<p><img src="https://i.imgur.com/9aUlkEs.jpg" alt=""></p>
+<p>墨西哥捲餅:</p>
+<p><img src="https://i.imgur.com/cebuTJp.jpg" alt=""></p>
+<p>After Party 的酒也是誠意滿滿</p>
+<p><img src="https://i.imgur.com/KeiNUfD.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/hL9JSBf.jpg" alt=""></p>
+<p>還有 Dragon Sector 帶的酒:</p>
+<p><img src="https://i.imgur.com/tW06Kjz.jpg" alt=""></p>
+<p><br></p>
+<h3 id="u80AF_u9813_u5E02_u96C6-1"><a href="#u80AF_u9813_u5E02_u96C6-1" class="headerlink" title="肯頓市集"></a>肯頓市集</h3><p>最後一天，在去大英博物館之前，我們先到肯頓市集亂晃，順便吃午餐</p>
+<p>由於英國幾乎沒有手搖杯店，所以走了很久才找到一家賣喝的</p>
+<p>點了一杯中規中矩的 Chocolate Milk Shake:</p>
+<p><img src="https://i.imgur.com/M6JT2s3.jpg" alt=""></p>
+<p>@sasdf 則是點了一杯顏色很神奇的飲料:</p>
+<p><img src="https://i.imgur.com/CO2etA2.jpg" alt=""></p>
+<p>然後附近吃的幾乎都是很美式的漢堡薯條或是炸物</p>
+<p><img src="https://i.imgur.com/b6oe4un.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/nvOKf3m.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/F5ZyFCV.jpg" alt=""></p>
+<p>還有 wow~big size 的大熱狗</p>
+<p><img src="https://i.imgur.com/vQUaWcN.jpg" alt=""></p>
+<p><br></p>
+<h3 id="u6A5F_u5834"><a href="#u6A5F_u5834" class="headerlink" title="機場"></a>機場</h3><p>最後要上飛機前的晚餐</p>
+<p>意外吃到爆幹好吃的食物，幾乎可以排在我這趟旅行的前三好吃食物了</p>
+<p><img src="https://i.imgur.com/kQL1dHZ.jpg" alt=""></p>
+<p>就是這個 Thai duck stir fry，超爆幹好吃的泰式炒麵</p>
+<p>醬汁鹹甜又帶點微辣，讓人不禁一口接著一口</p>
+<p>還意外找到我一直在找的 London Pride 啤酒:</p>
+<p><img src="https://i.imgur.com/odPMuVv.jpg" alt=""></p>
+<p>這款是英國經典的道地啤酒，不知為啥跑了很多超市都找不到</p>
+<p>最後居然給我在機場找到了</p>
+<p>喝起來口感，苦味偏低，然後帶有點微微焦糖味，和很濃的麥香</p>
+<p>不愧是道地經典啤酒，真的不錯喝</p>
+<p><br></p>
+<h3 id="u5176_u4ED6"><a href="#u5176_u4ED6" class="headerlink" title="其他"></a>其他</h3><p>巨石陣遊客中心買的奶油派:</p>
+<p><img src="https://i.imgur.com/uqoftNP.jpg" alt=""></p>
+<p>老實說，很難吃，真的不習慣吃英國的派</p>
+<p><br></p>
+<h2 id="u7D50_u5C3E"><a href="#u7D50_u5C3E" class="headerlink" title="結尾"></a>結尾</h2><p>總結來說，這場給我的感覺比之前打過的幾場現場賽都還要好</p>
+<p>雖然還是有些很黑人問號的地方，但都沒有到很嚴重影響比賽進行</p>
+<p>如果主辦方能把規則講清楚一點就完美了</p>
+<p>也從比賽解題的撞牆過程中學到很多東西，時間不長，收穫很大!</p>
+<p>然後食物飲料免費拿真的很爽，多送一天住宿也很爽，感謝 Google 乾爹</p>
+<p><br></p>
+<p>另外也遇到很多平常只會在 Twitter 上看到的超級大佬</p>
+<p>還記得跟某個出題人要 Twitter 時，才發現我已經 Follow 過他了，原來就是某某某大神XD</p>
+<p><br></p>
+<p>不過這幾天下來，覺得英國食物真的幾乎都很難吃QQ</p>
+<p>還好有@bookgin帶的泡麵，幫忙解決兩餐宵夜</p>
+<p><img src="https://i.imgur.com/3t0CQs1.jpg" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="Google_CTF_2019_Final"><a href="#Google_CTF_2019_Final" class="headerlink" title="Google CTF 2019 Final"></a>Google CTF 2019 Final</h1><p><img src="https://i.imgur.com/beVZJwI.png" alt="Final Scoreboard"></p>
+<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>這場是 Google 舉辦的 CTF 決賽，地點在英國倫敦的 Google 大樓內</p>
+<p>比賽時間兩天，都是早上9點開始，第一天到晚上8點，第二天到晚上6點半</p>
+<p>但其實回飯店後還是能繼續解題，題目都不會關，只有部分題目沒辦法線上解</p>
+<p>(內文圖多慎入)</p>]]>
+    
+    </summary>
+    
+      <category term="CTF" scheme="http://blog.kaibro.tw/tags/CTF/"/>
+    
+      <category term="Web" scheme="http://blog.kaibro.tw/tags/Web/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[DEFCON 27 Final CTF 遊記]]></title>
@@ -3121,41 +3619,6 @@
       <category term="Linux" scheme="http://blog.kaibro.tw/tags/Linux/"/>
     
       <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[DJ DAO FB9 Jubeat控制器開箱]]></title>
-    <link href="http://blog.kaibro.tw/2016/02/07/DJ-DAO-FB9-Jubeat%E6%8E%A7%E5%88%B6%E5%99%A8%E9%96%8B%E7%AE%B1/"/>
-    <id>http://blog.kaibro.tw/2016/02/07/DJ-DAO-FB9-Jubeat控制器開箱/</id>
-    <published>2016-02-07T14:53:32.000Z</published>
-    <updated>2016-02-07T16:54:59.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>有鑒於過去一年打ju實在燒太多錢了，但要戒掉也沒那麼容易<br>於是就有買controller的念頭，這樣就可以在家打ju，不用一直燒錢了!<br>所以一開始我就先買了一台27吋的螢幕<br>一方面可以當控制器的螢幕，另一方面可以雙螢幕coding或看影片，整個爽度十足<br>然後存了一段時間的錢後，就上淘寶買了看起來價格便宜內容又實在的DJ DAO控制器FB9<br><a id="more"></a><br>在下單後，其實還發生一連串瑣碎的麻煩事<br>一開始因為我沒有信用卡和金融卡，所以付款超麻煩<br>後來才找了個代付網站成功付款<br>結果過幾天看到淘寶居然推出超商付款的功能，害我白忙了那麼久QQ</p>
-<p>付完錢後過了幾天，賣家一直遲遲沒出貨也沒消息<br>無聊裝個阿里旺旺才知道，原來賣家幾天前用這玩意兒傳訊息討論運費的事<br>淘寶網站居然不會有通知，有點被雷到的感覺<br>後來補繳完運費才順利出貨</p>
-<p>另外，過年前一天，我傳訊息問貨運客服商品狀況，他回我他們已經放假，所以商品未簽收<br>然後晚上我就收到包裹了 囧….客服根本耍我</p>
-<h2 id="u958B_u7BB1"><a href="#u958B_u7BB1" class="headerlink" title="開箱"></a>開箱</h2><p><img src="http://i.imgur.com/Y98KAgD.jpg?1" alt="箱"><br>箱子超大箱</p>
-<p><br><br><img src="http://i.imgur.com/ScqWWmO.jpg" alt="1"><br>打開來看到控制器鍵盤</p>
-<p><br><br><img src="http://i.imgur.com/4sHrhYY.jpg" alt="2"><br>還有一些小零件，像支架、螺絲、可替換導電橡膠等</p>
-<p><br><br><img src="http://i.imgur.com/0UpAO6s.jpg" alt="3"><br>把控制器拿出來後的樣子</p>
-<p><br><br><img src="http://i.imgur.com/JAF4izY.jpg" alt="4"><br>近距離觀看，可以發現按鈕邊緣稜角做的和機台幾乎一樣</p>
-<p><br><br><img src="http://i.imgur.com/obyTJZ6.jpg" alt="5"><br>控制器背面，是一塊透明玻璃</p>
-<p><br><br><img src="http://i.imgur.com/46UUm5k.jpg" alt="6"><br>裝螢幕背後的支架，那塊金屬片不知為啥拿到時就髒髒的</p>
-<p><br><br><img src="http://i.imgur.com/BF6ajAu.jpg" alt="7"><br>一些小配件，傳輸線、螺絲等</p>
-<p><br><br><img src="http://i.imgur.com/y59XNl6.jpg?1" alt="8"><br>控制器組裝完的樣子!!<br>外觀其實還不錯看<br>螢幕架起來後，就放在控制器下面</p>
-<p><br><br><img src="http://i.imgur.com/EtnGhhi.jpg" alt="9"><br>後來測試發現不知為啥15號鍵不正常<br>按了沒反應，重接線後按其他顆鍵會一直卡15號鍵<br>所以就把背板打開喬正導電橡膠，和清理一下面板</p>
-<p><br><br><img src="http://i.imgur.com/kpLcN1e.jpg" alt="10"><br>五顏六色的線整理成一捆</p>
-<p><br></p>
-<h2 id="u6E2C_u8A66"><a href="#u6E2C_u8A66" class="headerlink" title="測試"></a>測試</h2><p>下面是我測試的影片，因為拍攝角度有點難喬<br>所以整個畫面有點看不太到整個控制器<br>(P.S. 這是以網路上找到的jubeat analyser來測試的)</p>
-<iframe width="504" height="378" src="http://www.youtube.com/embed/yssy60l8STI"><br></iframe>
-
-<p>整體來說，按鍵按起來手感還蠻特別的，對比機台較有段落感<br>(似乎是因為導電橡膠的關係?)<br>所以有時打起來跟機台不太一樣，一個很難形容的感覺<br>(不過聽說機台也是用差不多的導電橡膠，手感為啥會不太一樣就不知了..)<br>然後打的時候聲音還蠻大的，這部分如果可以改善的話應該會更好<br>不然深夜時分打，很容易吵到鄰居或家人</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>有鑒於過去一年打ju實在燒太多錢了，但要戒掉也沒那麼容易<br>於是就有買controller的念頭，這樣就可以在家打ju，不用一直燒錢了!<br>所以一開始我就先買了一台27吋的螢幕<br>一方面可以當控制器的螢幕，另一方面可以雙螢幕coding或看影片，整個爽度十足<br>然後存了一段時間的錢後，就上淘寶買了看起來價格便宜內容又實在的DJ DAO控制器FB9<br>]]>
-    
-    </summary>
-    
-      <category term="開箱文" scheme="http://blog.kaibro.tw/tags/%E9%96%8B%E7%AE%B1%E6%96%87/"/>
     
   </entry>
   
