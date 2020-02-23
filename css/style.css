@@ -983,7 +983,7 @@ a {
 .article-entry li code {
   padding: 1px 3px;
   margin: 0 3px;
-  background: rgba(0,0,0,0.07);
+  background: #f9f2f4;
   border: 1px solid rgba(0,0,0,0.07);
   font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
   word-wrap: break-word;
@@ -1484,6 +1484,7 @@ a {
 .article-entry pre,
 .article-entry code {
   font-family: "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace;
+  color: #c7254e;
 }
 .article-entry code {
   background: #eee;
