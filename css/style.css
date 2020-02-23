@@ -138,9 +138,9 @@ body,
 }
 body {
   font-family: "Noto Sans TC", sans-serif;
-  font-size: 16px;
+  font-size: 16.5px;
   background: #fff;
-  color: rgba(0,0,0,0.8);
+  color: rgba(0,0,0,0.65);
   -webkit-overflow-scrolling: touch;
 }
 h1,
@@ -475,7 +475,7 @@ a {
 .header-author {
   text-align: center;
   margin: 0.67em 0;
-  font-family: Roboto, "Roboto", serif;
+/*font-family: Roboto, "Roboto", serif;*/
   font-size: 30px;
   -webkit-transition: 0.3s;
   -moz-transition: 0.3s;
@@ -983,8 +983,8 @@ a {
 .article-entry li code {
   padding: 1px 3px;
   margin: 0 3px;
-  background: #ddd;
-  border: 1px solid #ccc;
+  background: rgba(0,0,0,0.07);
+  border: 1px solid rgba(0,0,0,0.07);
   font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
   word-wrap: break-word;
   font-size: 14px;
@@ -1018,8 +1018,8 @@ a {
 }
 .article-entry ul,
 .article-entry ol {
-  font-size: 14px;
-  margin: 10px 0px;
+  font-size: 16.5px;
+  margin: 14px 2px;
 }
 .article-entry li ul,
 .article-entry li ol {
@@ -1470,7 +1470,7 @@ a {
 }
 .article-entry pre,
 .article-entry .highlight {
-  background: #272822;
+  background: #303030;
   margin: 10px 0;
   padding: 10px 10px;
   overflow: auto;
@@ -1549,7 +1549,7 @@ a {
   border-style: solid;
   border-color: #ddd;
   border-width: 1px 0;
-  background: #272822;
+  background: #303030;
   padding: 15px 20px 15px 0;
 }
 .article-entry .gist .gist-file {
@@ -1575,7 +1575,7 @@ a {
   border: none;
 }
 .article-entry .gist .gist-file .gist-meta {
-  background: #272822;
+  background: #303030;
   color: highlight-comment;
   font: 0.85em "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-shadow: 0 0;
