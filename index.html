@@ -98,6 +98,8 @@
 					        
 								<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
 					        
+								<a class="twitter" target="_blank" href="https://twitter.com/KAIKAIBRO" title="twitter">twitter</a>
+					        
 						</div>
 					</nav>
 				</section>
@@ -105,7 +107,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BugBounty/" style="font-size: 10px;">BugBounty</a> <a href="/tags/CTF/" style="font-size: 20px;">CTF</a> <a href="/tags/DEFCON/" style="font-size: 12px;">DEFCON</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/NCU/" style="font-size: 14px;">NCU</a> <a href="/tags/NTU/" style="font-size: 12px;">NTU</a> <a href="/tags/Pwn/" style="font-size: 16px;">Pwn</a> <a href="/tags/Web/" style="font-size: 18px;">Web</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/開箱/" style="font-size: 10px;">開箱</a> <a href="/tags/開箱文/" style="font-size: 10px;">開箱文</a>
+						<a href="/tags/BugBounty/" style="font-size: 10px;">BugBounty</a> <a href="/tags/CTF/" style="font-size: 18.33px;">CTF</a> <a href="/tags/DEFCON/" style="font-size: 11.67px;">DEFCON</a> <a href="/tags/Java/" style="font-size: 11.67px;">Java</a> <a href="/tags/Linux/" style="font-size: 11.67px;">Linux</a> <a href="/tags/NCU/" style="font-size: 13.33px;">NCU</a> <a href="/tags/NTU/" style="font-size: 11.67px;">NTU</a> <a href="/tags/Pwn/" style="font-size: 15px;">Pwn</a> <a href="/tags/Web/" style="font-size: 16.67px;">Web</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/開箱/" style="font-size: 10px;">開箱</a> <a href="/tags/開箱文/" style="font-size: 10px;">開箱文</a>
 					</div>
 				</section>
 				
@@ -163,6 +165,8 @@
 			        
 						<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
 			        
+						<a class="twitter" target="_blank" href="https://twitter.com/KAIKAIBRO" title="twitter">twitter</a>
+			        
 				</div>
 			</nav>
 		</header>				
@@ -170,6 +174,72 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-Java反序列化之CommonCollections1分析" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/02/27/Java反序列化之CommonCollections1分析/" class="article-date">
+  	<time datetime="2020-02-26T18:06:56.000Z" itemprop="datePublished">2020-02-27</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/27/Java反序列化之CommonCollections1分析/">Java反序列化之CommonCollections1分析</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>Common Collections 反序列化漏洞歷史在<a href="https://blog.kaibro.tw/2020/02/23/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B9%8BreadObject%E5%88%86%E6%9E%90/">上一篇文章</a>中有稍微提過</p>
+<p>這個漏洞在 2015 年時，對整個 Java 生態系造成不小的影響</p>
+<p>後續也愈來愈多奇形怪狀的 Gadget chain 被大佬們一一挖出來</p>
+<p>而本篇文章就以 ysoserial 中經典的 <a href="https://github.com/frohoff/ysoserial/blob/477ecb8f05f42b0195a67d9712e97f2c6d31e1da/src/main/java/ysoserial/payloads/CommonsCollections1.java" target="_blank" rel="external">CommonCollections1</a> 這條 Gadget chain 來做分析</p>
+<p>雖然網路上類似本篇的分析文很多，但只看文章其實很難體會到 java gadget chain 裡頭的精髓</p>
+<p>強烈建議大家有興趣、有時間的話，可以自己拉原始碼下來跟一遍，相信可以收穫更多 !</p>
+<p>p.s. 這裡我分析的版本是 <a href="https://archive.apache.org/dist/commons/collections/source/commons-collections-3.1-src.zip" target="_blank" rel="external">Common Collections 3.1</a> 和 <a href="https://github.com/AdoptOpenJDK/openjdk-jdk8u" target="_blank" rel="external">JDK 8</a></p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/筆記/">筆記</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2020/02/27/Java反序列化之CommonCollections1分析/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Java反序列化之readObject分析" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -209,7 +279,7 @@
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/筆記/">筆記</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/筆記/">筆記</a></li></ul>
 	</div>
 
       
@@ -407,71 +477,6 @@
       
         <p class="article-more-link">
           <a  href="/2019/03/26/Codegate-Final-2019/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-羅馬尼亞遊記-DCTF-Final心得" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/11/15/羅馬尼亞遊記-DCTF-Final心得/" class="article-date">
-  	<time datetime="2018-11-15T05:32:32.000Z" itemprop="datePublished">2018-11-15</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/15/羅馬尼亞遊記-DCTF-Final心得/">羅馬尼亞遊記 &amp; DCTF Final心得</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://i.imgur.com/f928yat.png" alt=""></p>
-<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>因為DCTF初賽時運氣好，進了決賽</p>
-<p>也很幸運地申請到了各種經費，所以能夠DoubleSigma全隊五個人都出國去羅馬尼亞比賽</p>
-<p>這篇文章會大部分著重在羅馬尼亞一個禮拜的記錄</p>
-<p>比賽方面的細節會稍微少一點</p>
-<p>(圖多，慎入)<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2018/11/15/羅馬尼亞遊記-DCTF-Final心得/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
