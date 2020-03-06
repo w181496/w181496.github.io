@@ -14,12 +14,13 @@
 <meta property="og:url" content="http://blog.kaibro.tw/2020/02/26/Java反序列化之URLDNS與GadgetProbe/index.html">
 <meta property="og:site_name" content="Kaibro&#39;s blog">
 <meta property="og:description" content="URLDNS 分析URLDNS 是 ysoserial 工具裡面的一條 gadget chain 其主要目的是能夠對指定的 URL 發送 DNS Query 由於它不需要依賴第三方函式庫，原生 JDK 就能夠串起整條 Gadget Chain 所以一般在測試反序列化時，常會以 URLDNS 是否有發送 DNS 請求來判斷反序列化漏洞存在與否 尤其在實戰中常遇到嚴苛的網路環境限制，使得 HTTP/H">
+<meta property="og:image" content="https://i.imgur.com/05Cc4Au.png">
 <meta property="og:image" content="https://i.imgur.com/XKUggli.png">
-<meta property="og:updated_time" content="2020-03-04T14:27:35.429Z">
+<meta property="og:updated_time" content="2020-03-06T13:20:52.474Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 反序列化之 URLDNS 與 GadgetProbe">
 <meta name="twitter:description" content="URLDNS 分析URLDNS 是 ysoserial 工具裡面的一條 gadget chain 其主要目的是能夠對指定的 URL 發送 DNS Query 由於它不需要依賴第三方函式庫，原生 JDK 就能夠串起整條 Gadget Chain 所以一般在測試反序列化時，常會以 URLDNS 是否有發送 DNS 請求來判斷反序列化漏洞存在與否 尤其在實戰中常遇到嚴苛的網路環境限制，使得 HTTP/H">
-<meta name="twitter:image" content="https://i.imgur.com/XKUggli.png">
+<meta name="twitter:image" content="https://i.imgur.com/05Cc4Au.png">
   
     <link rel="alternative" href="/atom.xml" title="Kaibro&#39;s blog" type="application/atom+xml">
   
@@ -217,7 +218,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="URLDNS__u5206_u6790"><a href="#URLDNS__u5206_u6790" class="headerlink" title="URLDNS 分析"></a>URLDNS 分析</h2><p>URLDNS 是 ysoserial 工具裡面的一條 gadget chain</p>
+        <h2 id="URLDNS__u5206_u6790"><a href="#URLDNS__u5206_u6790" class="headerlink" title="URLDNS 分析"></a>URLDNS 分析</h2><p><code>URLDNS</code> 是 ysoserial 工具裡面的一條 gadget chain</p>
 <p>其主要目的是能夠對指定的 URL 發送 DNS Query</p>
 <p>由於它不需要依賴第三方函式庫，原生 JDK 就能夠串起整條 Gadget Chain</p>
 <p>所以一般在測試反序列化時，常會以 URLDNS 是否有發送 DNS 請求來判斷反序列化漏洞存在與否</p>
@@ -228,7 +229,7 @@
 <p>若直接從 Common Collections 系列或更複雜的利用鍊開始看，會相對來說吃力很多，很容易降低學習的熱情</p>
 <p><br></p>
 <a id="more"></a>
-<p>先從 HashMap 的 readObect 看起:</p>
+<p>先從 <code>HashMap</code> 的 <code>readObect</code> 看起:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(java.io.ObjectInputStream s)</span></span></div><div class="line">        <span class="keyword">throws</span> IOException, ClassNotFoundException &#123;</div><div class="line">    <span class="comment">// Read in the threshold (ignored), loadfactor, and any hidden stuff</span></div><div class="line">    s.defaultReadObject();</div><div class="line">    reinitialize();</div><div class="line">    <span class="keyword">if</span> (loadFactor &lt;= <span class="number">0</span> || Float.isNaN(loadFactor))</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InvalidObjectException(<span class="string">"Illegal load factor: "</span> +</div><div class="line">                                         loadFactor);</div><div class="line">    s.readInt();                <span class="comment">// Read and ignore number of buckets</span></div><div class="line">    <span class="keyword">int</span> mappings = s.readInt(); <span class="comment">// Read number of mappings (size)</span></div><div class="line">    <span class="keyword">if</span> (mappings &lt; <span class="number">0</span>)</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InvalidObjectException(<span class="string">"Illegal mappings count: "</span> +</div><div class="line">                                         mappings);</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (mappings &gt; <span class="number">0</span>) &#123; <span class="comment">// (if zero, use defaults)</span></div><div class="line">        <span class="comment">// Size the table using given load factor only if within</span></div><div class="line">        <span class="comment">// range of 0.25...4.0</span></div><div class="line">        <span class="keyword">float</span> lf = Math.min(Math.max(<span class="number">0.25f</span>, loadFactor), <span class="number">4.0f</span>);</div><div class="line">        <span class="keyword">float</span> fc = (<span class="keyword">float</span>)mappings / lf + <span class="number">1.0f</span>;</div><div class="line">        <span class="keyword">int</span> cap = ((fc &lt; DEFAULT_INITIAL_CAPACITY) ?</div><div class="line">                   DEFAULT_INITIAL_CAPACITY :</div><div class="line">                   (fc &gt;= MAXIMUM_CAPACITY) ?</div><div class="line">                   MAXIMUM_CAPACITY :</div><div class="line">                   tableSizeFor((<span class="keyword">int</span>)fc));</div><div class="line">        <span class="keyword">float</span> ft = (<span class="keyword">float</span>)cap * lf;</div><div class="line">        threshold = ((cap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; MAXIMUM_CAPACITY) ?</div><div class="line">                     (<span class="keyword">int</span>)ft : Integer.MAX_VALUE);</div><div class="line">        <span class="meta">@SuppressWarnings</span>(&#123;<span class="string">"rawtypes"</span>,<span class="string">"unchecked"</span>&#125;)</div><div class="line">            Node&lt;K,V&gt;[] tab = (Node&lt;K,V&gt;[])<span class="keyword">new</span> Node[cap];</div><div class="line">        table = tab;</div><div class="line"></div><div class="line">        <span class="comment">// Read the keys and values, and put the mappings in the HashMap</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mappings; i++) &#123;</div><div class="line">            <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</div><div class="line">                K key = (K) s.readObject();</div><div class="line">            <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</div><div class="line">                V value = (V) s.readObject();</div><div class="line">            putVal(hash(key), key, value, <span class="keyword">false</span>, <span class="keyword">false</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>由於 <code>HashMap</code> 中 Entry 的順序是根據 Key 的 Hash 值來計算並存放的，但是在不同 JVM 中，算出來的 Hash 值有可能不同</p>
 <p>HashMap 為了保持反序列化後物件狀態的一致性，所以重寫了 <code>HashMap.readObject()</code> 方法</p>
@@ -240,6 +241,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> h;</div><div class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>這裡是對傳進來的 Object 呼叫 <code>hashCode()</code> 方法</p>
 <p>而 URLDNS payload 中則選擇使用 <code>java.net.URL</code> 當作目標傳入</p>
+<p>也就是說當 key 是 <code>java.net.URL</code> 的實例時，在 <code>hash(key)</code> 執行過程中就會呼叫 <code>key.hashCode()</code></p>
 <p>所以來追進 <code>java.net.URL.hashCode()</code> 方法瞧瞧：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (hashCode != -<span class="number">1</span>)</div><div class="line">        <span class="keyword">return</span> hashCode;</div><div class="line"></div><div class="line">    hashCode = handler.hashCode(<span class="keyword">this</span>);</div><div class="line">    <span class="keyword">return</span> hashCode;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>當 <code>hashCode</code> 屬性等於 <code>-1</code> 時，會去呼叫 <code>handler</code> 的 <code>hashCode()</code> 方法</p>
@@ -272,6 +274,7 @@
 <p>接著又呼叫了 <code>key.hashCode()</code></p>
 <p>當 <code>hashCode</code> 屬性為 <code>-1</code> 時，會去呼叫 <code>handler.hashCode()</code></p>
 <p>而 <code>URLStreamHandler</code> 介面的 <code>hashCode()</code> 方法會去呼叫 <code>getHostAddress()</code> 做 DNS 查詢！</p>
+<p><img src="https://i.imgur.com/05Cc4Au.png" alt=""></p>
 <hr>
 <p><br></p>
 <h2 id="Gadget_Probe"><a href="#Gadget_Probe" class="headerlink" title="Gadget Probe"></a>Gadget Probe</h2><p>近期 github 上面有人分享了 <a href="https://github.com/BishopFox/GadgetProbe" target="_blank" rel="external">GadgetProbe</a> 這個工具</p>
@@ -301,7 +304,7 @@
 <p>前面講到的 gadget probe 也能用一樣的方法在 Weblogic 上實作出來</p>
 <p>所以我就把原本的 gadget probe 移植成 weblogic 能用的版本</p>
 <p>有興趣的讀者可以參考我的 <a href="https://github.com/w181496/weblogic-gadget-probe" target="_blank" rel="external">github repo</a></p>
-<p>(目前只有測試單一版本 weblogic 可以 work，有可能在其他版本或不同環境會失敗，所以有問題歡迎發issue或送PR~)</p>
+<p>(目前只有測試單一版本 weblogic 可以 work，有可能在其他版本或不同環境會失敗，所以有問題歡迎發 issue 或送 PR~)</p>
 
       
     </div>
