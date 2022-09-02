@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>DEFCON 27 Final CTF 遊記 | Kaibro&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!--<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">-->
+  <meta name="description" content="前言今年DEFCON CTF，再次以BFKinesiS的成員參加(去年叫BFS)，不同的是，今年和HITCON戰隊一起聯隊打。 初賽時在HITCON大佬們的帶領下，拿下第二名，同時也見識到了跟大神們的實力差距 真希望自己有一天也能像大佬們一樣電orz">
+<meta name="keywords" content="CTF,DEFCON">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DEFCON 27 Final CTF 遊記">
+<meta property="og:url" content="http://blog.kaibro.tw/2019/08/25/DEFCON-27-Final-CTF-遊記/index.html">
+<meta property="og:site_name" content="Kaibro&#39;s blog">
+<meta property="og:description" content="前言今年DEFCON CTF，再次以BFKinesiS的成員參加(去年叫BFS)，不同的是，今年和HITCON戰隊一起聯隊打。 初賽時在HITCON大佬們的帶領下，拿下第二名，同時也見識到了跟大神們的實力差距 真希望自己有一天也能像大佬們一樣電orz">
+<meta property="og:image" content="https://i.imgur.com/HtgiVjy.png">
+<meta property="og:image" content="https://i.imgur.com/EC9Dhbz.jpg">
+<meta property="og:image" content="https://i.imgur.com/nDyVKNB.jpg">
+<meta property="og:image" content="https://i.imgur.com/MrBtotH.jpg">
+<meta property="og:image" content="https://i.imgur.com/ePEQG4y.jpg">
+<meta property="og:image" content="https://i.imgur.com/XMw3JLZ.jpg">
+<meta property="og:image" content="https://i.imgur.com/Dkj6tEw.jpg">
+<meta property="og:image" content="https://i.imgur.com/G0FAjOI.jpg">
+<meta property="og:image" content="https://i.imgur.com/tOLJBbm.jpg">
+<meta property="og:image" content="https://i.imgur.com/iF00DTy.jpg">
+<meta property="og:image" content="https://i.imgur.com/0WfSZIo.jpg">
+<meta property="og:image" content="https://i.imgur.com/m3cKvBb.jpg">
+<meta property="og:image" content="https://i.imgur.com/0BZoYap.jpg">
+<meta property="og:image" content="https://i.imgur.com/21Z449Y.jpg">
+<meta property="og:image" content="https://i.imgur.com/769bV55.jpg">
+<meta property="og:image" content="https://i.imgur.com/woPvGx1.jpg">
+<meta property="og:image" content="https://i.imgur.com/bkswv1F.jpg">
+<meta property="og:image" content="https://i.imgur.com/fSMKn13.jpg">
+<meta property="og:image" content="https://i.imgur.com/uWIpUrY.jpg">
+<meta property="og:image" content="https://i.imgur.com/rnIFt5B.jpg">
+<meta property="og:image" content="https://i.imgur.com/71TvkjQ.jpg">
+<meta property="og:image" content="https://i.imgur.com/MK6V3lx.jpg">
+<meta property="og:image" content="https://i.imgur.com/nMDaEXr.jpg">
+<meta property="og:image" content="https://i.imgur.com/WGzBldo.jpg">
+<meta property="og:image" content="https://i.imgur.com/6BMtsDj.jpg">
+<meta property="og:image" content="https://i.imgur.com/ItaCdef.jpg">
+<meta property="og:image" content="https://i.imgur.com/7909oMJ.jpg">
+<meta property="og:image" content="https://i.imgur.com/uK12QRe.jpg">
+<meta property="og:image" content="https://i.imgur.com/AyZvWcl.jpg">
+<meta property="og:image" content="https://i.imgur.com/WkTmsRy.jpg">
+<meta property="og:image" content="https://i.imgur.com/xm5BbKy.jpg">
+<meta property="og:image" content="https://i.imgur.com/YDb9axc.jpg">
+<meta property="og:image" content="https://i.imgur.com/feAwhaA.jpg">
+<meta property="og:image" content="https://i.imgur.com/Qj4Dr3l.jpg">
+<meta property="og:image" content="https://i.imgur.com/tVgtO9v.jpg">
+<meta property="og:image" content="https://i.imgur.com/Z1HwSdp.jpg">
+<meta property="og:image" content="https://i.imgur.com/K61TRRr.jpg">
+<meta property="og:image" content="https://i.imgur.com/Z4SZc3r.jpg">
+<meta property="og:image" content="https://i.imgur.com/EiHKYB9.jpg">
+<meta property="og:image" content="https://i.imgur.com/WV1Yesw.jpg">
+<meta property="og:image" content="https://i.imgur.com/wnxPpgK.jpg">
+<meta property="og:image" content="https://i.imgur.com/IVgBt8g.jpg">
+<meta property="og:image" content="https://i.imgur.com/CoWshX6.jpg">
+<meta property="og:image" content="https://i.imgur.com/P0UM7Uj.jpg">
+<meta property="og:image" content="https://i.imgur.com/8Xfrdhn.jpg">
+<meta property="og:image" content="https://i.imgur.com/YOxFjxv.jpg">
+<meta property="og:image" content="https://i.imgur.com/KTU9k7E.jpg">
+<meta property="og:image" content="https://i.imgur.com/ThoJX2R.jpg">
+<meta property="og:image" content="https://i.imgur.com/6NP7v2W.jpg">
+<meta property="og:image" content="https://i.imgur.com/IHKzaAo.jpg">
+<meta property="og:image" content="https://i.imgur.com/nfIDVRW.jpg">
+<meta property="og:image" content="https://i.imgur.com/5u1UAyC.jpg">
+<meta property="og:image" content="https://i.imgur.com/vh6zCyF.jpg">
+<meta property="og:image" content="https://i.imgur.com/Uyvohi6.jpg">
+<meta property="og:image" content="https://i.imgur.com/kz3rVaF.jpg">
+<meta property="og:image" content="https://i.imgur.com/Q3ZGC0R.jpg">
+<meta property="og:image" content="https://i.imgur.com/UEcecFZ.jpg">
+<meta property="og:image" content="https://i.imgur.com/J0lSCn4.jpg">
+<meta property="og:updated_time" content="2019-09-10T08:50:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DEFCON 27 Final CTF 遊記">
+<meta name="twitter:description" content="前言今年DEFCON CTF，再次以BFKinesiS的成員參加(去年叫BFS)，不同的是，今年和HITCON戰隊一起聯隊打。 初賽時在HITCON大佬們的帶領下，拿下第二名，同時也見識到了跟大神們的實力差距 真希望自己有一天也能像大佬們一樣電orz">
+<meta name="twitter:image" content="https://i.imgur.com/HtgiVjy.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Kaibro&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/head.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">KaiBro</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>標籤</li>
+						
+						
+						<li>關於</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主頁</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="http://cv.kaibro.tw/">關於我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/w181496" title="github">github</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/KAIKAIBRO" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BugBounty/" style="font-size: 10px;">BugBounty</a> <a href="/tags/CTF/" style="font-size: 18.57px;">CTF</a> <a href="/tags/DEFCON/" style="font-size: 12.86px;">DEFCON</a> <a href="/tags/Java/" style="font-size: 12.86px;">Java</a> <a href="/tags/Linux/" style="font-size: 11.43px;">Linux</a> <a href="/tags/NCU/" style="font-size: 14.29px;">NCU</a> <a href="/tags/NTU/" style="font-size: 11.43px;">NTU</a> <a href="/tags/Pwn/" style="font-size: 15.71px;">Pwn</a> <a href="/tags/Web/" style="font-size: 17.14px;">Web</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/開箱/" style="font-size: 10px;">開箱</a> <a href="/tags/開箱文/" style="font-size: 10px;">開箱文</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Web security菜雞</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">KaiBro</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/head.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">KaiBro</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主頁</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="http://cv.kaibro.tw/">關於我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/w181496" title="github">github</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/KAIKAIBRO" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-DEFCON-27-Final-CTF-遊記" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/08/25/DEFCON-27-Final-CTF-遊記/" class="article-date">
+  	<time datetime="2019-08-24T17:55:39.000Z" itemprop="datePublished">2019-08-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      DEFCON 27 Final CTF 遊記
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="tags/CTF/" class="js-tag article-tag-list-link color4">CTF</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="tags/DEFCON/" class="js-tag article-tag-list-link color2">DEFCON</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://i.imgur.com/HtgiVjy.png" alt=""></p>
+<h1 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h1><p>今年DEFCON CTF，再次以BFKinesiS的成員參加(去年叫BFS)，不同的是，今年和HITCON戰隊一起聯隊打。</p>
+<p>初賽時在HITCON大佬們的帶領下，拿下第二名，同時也見識到了跟大神們的實力差距</p>
+<p>真希望自己有一天也能像大佬們一樣電orz</p>
+<a id="more"></a>
+<h1 id="u6BD4_u8CFD"><a href="#u6BD4_u8CFD" class="headerlink" title="比賽"></a>比賽</h1><p>賽前準備方面，大部分人都負責跟去年差不多的工作，我自己則是另外跑去幫忙毛哥弄了一些Packet分析相關的工具。</p>
+<p>賽制部分，跟去年一樣是Attack&amp;Defense + King of Hill</p>
+<p>然後封包一樣是題目被打到快爛掉才放，所以基本上不太需要花時間做封包Replay、分析封包</p>
+<p>而題目的部分，一如往常地，有各種奇怪的架構、語言，例如古老LISP題、XBox題</p>
+<p>還有一個很坑的地方是，他今年一堆服務外面都是套Web，所以有設流量限制，超過限制就直接Ban網路</p>
+<p><br></p>
+<p>題目細節已經有很多人寫過分析了，這邊就不再花時間撰寫</p>
+<p>比較值得一提的是，以往DEFCON CTF都沒有Web題，但去年開始出了bew這種包著WASM的半web題</p>
+<p>今年更是一口氣出了兩題Web題，其中一題jtaste還是純Web題XD</p>
+<p>也許未來會有更多Web題也不一定?</p>
+<p>看起來Web狗以後終於有點事情能做了(X</p>
+<p><br></p>
+<p>另一題Web題，則是super smash ooos</p>
+<p>打開來是一個大亂鬥的網頁，然後有個可以輸入信用卡號的購物頁面</p>
+<p>這題另外還給了一坨噁爛又逆不出來的WASM，讓大家都覺得是純逆向題，以為要想辦法逆出正確卡號之類的</p>
+<p>而且題目沒給一些重要config檔，本地Local很難直接跑起來測</p>
+<p>所以光是讓本地能跑起來，就花了不少時間</p>
+<p>但跑起來後，也很難戳出有用東西，後來我們甚至有人拿真的卡號下去刷XD</p>
+<p><br></p>
+<p>到了隔天，大家都在崩潰逆向wasm時，我和ysc則開始嘗試以web角度去黑箱fuzzing</p>
+<p>我意外發現Server會吃Referer，少了Referer，就不會走到某些功能</p>
+<p>e.g. Referer沒有<code>/purchase.html</code>，就會一直噴<code>Why did you do that</code></p>
+<p>甚至還發現塞單引號或特殊字元進Referer時，會噴<code>Request caused major error. please re-enter the information.</code></p>
+<p>當初只覺得有機會搞事，但提出來後沒人理我，所以就沒繼續鑽下去了XDDDD</p>
+<p>結果賽後問mhackeroni才知道，原來Referer那邊真的可以SQL Injection…</p>
+<p>想想真可惜，都已經戳到注入點了，居然就這樣放掉，慘QQ</p>
+<p><br></p>
+<p>比賽結果部分，我們到第二天結束，都還是處於第一名的位置</p>
+<p>可惜mirror-universe那題噴太多，最後還是被PPP搞下去</p>
+<p>也蠻佩服PPP碰到各種詭異古老題目都有辦法解掉</p>
+<p>真的跪了，老司機真會玩</p>
+<p><img src="https://i.imgur.com/EC9Dhbz.jpg" alt=""></p>
+<p><br></p>
+<p>比賽中間，樓上房間機器曾經出了點問題，貌似電源被打掃阿姨搞掉 (別隊派來的間諜?</p>
+<p>所以過程中一度網路停擺，然後剛好機器沒鍵盤，只能用滑鼠點小鍵盤下指令</p>
+<p>還好我隨身攜帶了一把Filco鍵盤，立馬接上去，緊急修復了網路</p>
+<p>不然不知道網路會死多久lol</p>
+<p><br></p>
+<h1 id="u98DF_u7269"><a href="#u98DF_u7269" class="headerlink" title="食物"></a>食物</h1><p>比賽幾天的食物，一樣是助理和老師幫忙處理</p>
+<p>這次有一大半都是吃中式餐點，早餐有幾次都是吃台灣菜，例如豆漿、蔥抓餅、蘿蔔糕、肉圓等XD</p>
+<p>而且大部分都出乎意料地好吃，甚至比台灣道地的還好吃(?</p>
+<p><img src="https://i.imgur.com/nDyVKNB.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/MrBtotH.jpg" alt=""></p>
+<p><br></p>
+<p>有一次晚餐吃泰國菜，他的冬陰功比我在泰國吃的還好吃XD</p>
+<p><img src="https://i.imgur.com/ePEQG4y.jpg" alt=""></p>
+<p>泰式珍奶也不錯喝，奶茶是泰奶，跟珍珠莫名很搭</p>
+<p><img src="https://i.imgur.com/XMw3JLZ.jpg" alt=""></p>
+<p><br></p>
+<p>還有一些從台灣帶來的泡麵、零食，在比賽幾天中扮演了很重要的能量補給角色</p>
+<p><img src="https://i.imgur.com/Dkj6tEw.jpg" alt=""></p>
+<p>其實還有帶一堆牛奶花生，只是都一下子就被嗑光惹</p>
+<p><img src="https://i.imgur.com/G0FAjOI.jpg" alt=""></p>
+<p><br></p>
+<p>頒獎結束後，跟去年一樣，大伙一起去吃大餐</p>
+<p>不過今年吃的是日式燒肉:</p>
+<p><img src="https://i.imgur.com/tOLJBbm.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/iF00DTy.jpg" alt=""></p>
+<p>比較崩潰的是，晚上要去看KA秀，所以吃到一半就走人了</p>
+<p>似乎少吃了很多厲害的肉QQ</p>
+<p><br></p>
+<p>比賽前某天的晚餐，法國餐廳 Mon Ami Gabi:</p>
+<p><img src="https://i.imgur.com/0WfSZIo.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/m3cKvBb.jpg" alt=""></p>
+<p>只可惜牛排有點雷，酒也普普通通</p>
+<p><br></p>
+<p>GORDON RAMSAY Fish &amp; Chips:</p>
+<p><img src="https://i.imgur.com/0BZoYap.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/21Z449Y.jpg" alt=""></p>
+<p>飲料可以無限裝，很讚</p>
+<p>魚很好吃，只是吃到後面會超膩</p>
+<p><br></p>
+<p>大峽谷團的午餐:</p>
+<p><img src="https://i.imgur.com/769bV55.jpg" alt=""></p>
+<p>還有奇特包裝的中式料理，但出乎意料地好吃</p>
+<p><img src="https://i.imgur.com/woPvGx1.jpg" alt=""></p>
+<p><br></p>
+<p>在往大峽谷路上的雜貨店，發現看起來很可口的蠍子棒棒糖:</p>
+<p><img src="https://i.imgur.com/bkswv1F.jpg" alt=""></p>
+<p>不過我沒勇氣嘗試就是了</p>
+<p><br></p>
+<p>某天晚餐的漢堡</p>
+<p>這間店的菜名都很有特色，例如我點的這個漢堡叫Morning Glory</p>
+<p><img src="https://i.imgur.com/fSMKn13.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/uWIpUrY.jpg" alt=""></p>
+<p><br></p>
+<h1 id="u98EF_u5E97"><a href="#u98EF_u5E97" class="headerlink" title="飯店"></a>飯店</h1><p>這次飯店住的是Planet Hollywood，主要是因為今年DEFCON會場辦在這個飯店附近</p>
+<p>住起來的感覺，似乎沒有上次凱撒宮那麼高級、舒適</p>
+<p>冰箱裡面也沒有放看起來很貴的酒</p>
+<p>(不過Planet Hollywood好像跟凱撒宮是同一個老闆?)</p>
+<p>一開始我住四人房，後面幾天才換到DEFCON送的雙人房</p>
+<p><img src="https://i.imgur.com/rnIFt5B.jpg" alt=""></p>
+<p>房間看出去的樣子:</p>
+<p><img src="https://i.imgur.com/71TvkjQ.jpg" alt=""></p>
+<p>比賽用的大房間長這樣:</p>
+<p><img src="https://i.imgur.com/MK6V3lx.jpg" alt=""></p>
+<p>大房間看出去的景色 (真D牛逼):</p>
+<p><img src="https://i.imgur.com/nMDaEXr.jpg" alt=""></p>
+<p>還有從天花板降下來的螢幕，害我撞到頭，真該死:</p>
+<p><img src="https://i.imgur.com/WGzBldo.jpg" alt=""></p>
+<p><br></p>
+<h1 id="u5A1B_u6A02"><a href="#u5A1B_u6A02" class="headerlink" title="娛樂"></a>娛樂</h1><h2 id="u73A9_u5177"><a href="#u73A9_u5177" class="headerlink" title="玩具"></a>玩具</h2><p>這次去DEFCON，有順便去Vendor Area逛一下</p>
+<p>看到一些很炫炮的玩具，手癢也買了一些回來XD</p>
+<p><img src="https://i.imgur.com/6BMtsDj.jpg" alt=""></p>
+<p>買了一台Pineapple Tetra和很邪惡的USB Type C線</p>
+<p>不過都蠻貴的，噴了不少錢QQ</p>
+<p>有機會再來開箱一下</p>
+<p><br></p>
+<h2 id="u5927_u5CFD_u8C37"><a href="#u5927_u5CFD_u8C37" class="headerlink" title="大峽谷"></a>大峽谷</h2><p>這次來DEFCON，比去年多很多空閒時間</p>
+<p>所以大家就揪團衝去大峽谷觀摩一下</p>
+<p>幾乎整團BFKinesiS都有去吧(?</p>
+<p>不過我們去的是大峽谷南緣，所以基本上整天都在坐車，屁股頗痛</p>
+<p>中間還有順路去胡佛水壩，見識一下電影裡常看到的場景</p>
+<p><img src="https://i.imgur.com/ItaCdef.jpg" alt=""></p>
+<p>還有66號公路上的金拱門:</p>
+<p><img src="https://i.imgur.com/7909oMJ.jpg" alt=""></p>
+<p><br></p>
+<p>最後搭了不知道幾個小時的車子，終於見到大峽谷本人了:</p>
+<p><img src="https://i.imgur.com/uK12QRe.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/AyZvWcl.jpg" alt=""></p>
+<p>從大峽谷底爬上來的男人:</p>
+<p><img src="https://i.imgur.com/WkTmsRy.jpg" alt=""></p>
+<p>三杯松鼠:</p>
+<p><img src="https://i.imgur.com/xm5BbKy.jpg" alt=""></p>
+<p>早上6, 7點起床出發，晚上回到飯店就大概11點了，根本坐車日</p>
+<p><br></p>
+<h2 id="u6253_u69CD"><a href="#u6253_u69CD" class="headerlink" title="打槍"></a>打槍</h2><p>拉斯維加斯的休閒娛樂中，實彈射擊算是蠻熱門的一個項目</p>
+<p>所以我就揪了幾個人一起來打槍槍</p>
+<p>挑了一家看起來很猛的店，叫BattleField</p>
+<p>結果後面幾天，也一堆其他團的跟著跑去打槍槍</p>
+<p>安安，不要跟風好ㄇXDDDD</p>
+<p><img src="https://i.imgur.com/YDb9axc.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/feAwhaA.jpg" alt=""></p>
+<p>一開始我選了兩把經典槍: AK-47 和 Desert Eagle</p>
+<p>(玩CS恐怖份子那麼久，想試試看真的槍XD)</p>
+<p>但店員再三勸退我不要用沙漠之鷹，因為後座力太大，容易撞碎眼鏡之類的，很危險XD</p>
+<p>於是後來我就被說服惹，改成基本款Glock，我難過QQ</p>
+<p><br></p>
+<p>實際打起來，Glock沒啥特別的地方，後座力也不大，很一般般</p>
+<p>不過AK-47射起來後座力也不小，肩膀沒頂好的話，會撞得很痛XD</p>
+<p><img src="https://i.imgur.com/Qj4Dr3l.jpg" alt=""></p>
+<p><br></p>
+<p>店外還有很多坦克、飛機，似乎只要花錢就能給你開坦克XD</p>
+<p><img src="https://i.imgur.com/tVgtO9v.jpg" alt=""></p>
+<p><br></p>
+<p>結束時，還能免費搭他們的接駁車回飯店</p>
+<p>不過他們的車子其實是吉普車</p>
+<p>我們整個人都露在車外面，坐起來有點恐怖，但蠻好玩的XD</p>
+<p><img src="https://i.imgur.com/Z1HwSdp.jpg" alt=""></p>
+<p><br></p>
+<h2 id="u8CFD_u8ECA"><a href="#u8CFD_u8ECA" class="headerlink" title="賽車"></a>賽車</h2><p><img src="https://i.imgur.com/K61TRRr.jpg" alt=""></p>
+<p>賽車也算是Vegas著名的休閒娛樂，一直手癢想開看看跑車</p>
+<p>不過由於大家都沒帶駕照，所以後來我就只揪美國的朋友去開車車</p>
+<p>(p.s. 這邊用自己國家駕照就行惹，不一定要國際駕照)</p>
+<p>我去的這家叫Dream Racing，裡面有各種跑車、超跑，可以挑一台然後上賽道跑</p>
+<p>沒錯，是真的賽道，就是那種會各種彎來彎去的賽道XDDD</p>
+<p><br></p>
+<p>一開始，教練會先簡單解釋賽道的跑法，例如轉彎時，該靠外還是靠內、哪些地方該踩煞車、補油門等等</p>
+<p>之後可以選擇用模擬機台練習，或是Discovery tour兩圈</p>
+<p>Discovery tour是讓教練開車實際上路，跑兩圈，然後邊開邊解說</p>
+<p>理所當然地，我選的是Discovery tour</p>
+<p>教練挑了一台瑪莎拉蒂休旅車 (應該是Levante?)</p>
+<p><img src="https://i.imgur.com/Z4SZc3r.jpg" alt=""></p>
+<p>然後就直接在賽道上飆起來惹XDDDD</p>
+<p>我才知道原來休旅車還能這樣開，兩圈一眨眼就跑完惹</p>
+<p><br></p>
+<p>接著，就是實際上路開了</p>
+<p>我選的車是黑色的Nissan GTR R35</p>
+<p><img src="https://i.imgur.com/EiHKYB9.jpg" alt=""></p>
+<p>一直很想開開看GTR，所以就沒選其他潮爆的超跑惹 (當然一部分也是基於金錢考量…)</p>
+<p>只能說，GTR開起來的加速感，真的很猛，比以前開過的野馬還爽</p>
+<p>然後教練還會一直在旁邊不斷叫你油門踩到底XD</p>
+<p>開到我都覺得快翻車了</p>
+<p><br></p>
+<p>結束會問你要不要買影片 (他車上會放攝影機拍車內跟車外)</p>
+<p>除了車內車外的影片外，還有時速錶跟車子在賽道上的位置圖</p>
+<p>雖然有點貴，要80鎂左右，不過看了一下影片品質，覺得還不錯</p>
+<p>所以最後還是咬著牙買下去了</p>
+<p><br></p>
+<h2 id="Show"><a href="#Show" class="headerlink" title="Show"></a>Show</h2><p><img src="https://i.imgur.com/WV1Yesw.jpg" alt=""></p>
+<p>比賽結束那天，忘記是誰說想去看Show，於是就順手報名惹</p>
+<p>這次看的是太陽馬戲團KA</p>
+<p>算是我人生第一次看這種世界級的秀</p>
+<p>覺得裡頭各種道具和舞台都很炫砲，看得眼花撩亂</p>
+<p>只可惜裡面不能拍照，所以沒照片啦QQ</p>
+<p><img src="https://i.imgur.com/wnxPpgK.jpg" alt=""></p>
+<p><br></p>
+<h2 id="u5438_u8349"><a href="#u5438_u8349" class="headerlink" title="吸草"></a>吸草</h2><p>由於去年我已經嘗試過了，所以今年變成帶大家去吸草的吸草團團長</p>
+<p>這次的吸草團包含我只有5個人，附帶一隻看門海狗</p>
+<p>然後嘗試了另一家評價不錯的草店，好像叫做Oasis，沙漠中的綠洲</p>
+<p><img src="https://i.imgur.com/IVgBt8g.jpg" alt=""></p>
+<p>裡面賣的口味幾乎都是怪名字，感覺是自己隨便取名的(?</p>
+<p>跟去年我去的那家賣的東西差很多</p>
+<p><img src="https://i.imgur.com/CoWshX6.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/P0UM7Uj.jpg" alt=""></p>
+<p><br></p>
+<p>由於Vegas規定公共場所和飯店不能吸草，所以我們買完回去後就亂走</p>
+<p>跑到飯店停車場旁邊的一個類似卸貨區的地方吸</p>
+<p>這次大家一樣都買pre-roll的草，我自己一根，其他四個人分另外兩根</p>
+<p><img src="https://i.imgur.com/8Xfrdhn.jpg" alt=""></p>
+<p><br></p>
+<p>不過吸起來的感覺，沒有去年Mimosa那麼飄飄然，也沒有很明顯感受到感官上的變化</p>
+<p>可能我這口味的效果不強吧(?</p>
+<p>倒是其他人的感受比較明顯，有的人似乎還出現幻覺(?</p>
+<p><br></p>
+<p>最後還被騎腳踏車經過的保全趕走，叫我們去別的地方Chill</p>
+<p>所以後來大家在看門海狗的帶領下，都跑回我們房間Chill了</p>
+<p><img src="https://i.imgur.com/YOxFjxv.jpg" alt=""></p>
+<p><br></p>
+<h2 id="u5176_u4ED6"><a href="#u5176_u4ED6" class="headerlink" title="其他"></a>其他</h2><p>很高的摩天輪:</p>
+<p><img src="https://i.imgur.com/KTU9k7E.jpg" alt=""></p>
+<p>傍晚的Vegas:</p>
+<p><img src="https://i.imgur.com/ThoJX2R.jpg" alt=""></p>
+<p>夜晚的Vegas:</p>
+<p><img src="https://i.imgur.com/6NP7v2W.jpg" alt=""></p>
+<p>今年的Badge:</p>
+<p><img src="https://i.imgur.com/IHKzaAo.jpg" alt=""></p>
+<p>沒錯，就是一塊石頭(or 玉?)</p>
+<p>我個人是覺得醜爆了啦，居然還有人把這麼大塊石頭當手錶戴</p>
+<p>而且電池一下子就沒電了，整個有點雷</p>
+<p>然後Badge的真正玩法應該是這樣:</p>
+<p><img src="https://i.imgur.com/nfIDVRW.jpg" alt=""></p>
+<p>紀念品一樣排到快死，而且又很貴:</p>
+<p><img src="https://i.imgur.com/5u1UAyC.jpg" alt=""></p>
+<p>然後今年的金幣長這樣:</p>
+<p><img src="https://i.imgur.com/vh6zCyF.jpg" alt=""></p>
+<p>在Vendor Area還看到百度安全:</p>
+<p><img src="https://i.imgur.com/Uyvohi6.jpg" alt=""></p>
+<p>比賽結束後，用酒票換了一瓶可樂娜:</p>
+<p><img src="https://i.imgur.com/kz3rVaF.jpg" alt=""></p>
+<p>BlackHat奶嘴:</p>
+<p><img src="https://i.imgur.com/Q3ZGC0R.jpg" alt=""></p>
+<p>從DEFCON頒獎台往下拍的樣子:</p>
+<p><img src="https://i.imgur.com/UEcecFZ.jpg" alt=""></p>
+<p><br></p>
+<h1 id="u7E3D_u7D50"><a href="#u7E3D_u7D50" class="headerlink" title="總結"></a>總結</h1><p>整體來說，今年來Vegas的感覺跟<a href="https://blog.kaibro.tw/2018/08/20/DEFCON-26-Final-CTF初體驗/">去年</a>差蠻多的</p>
+<p>但也說不上來是差在哪裡，可能就是少了一點新鮮感(?</p>
+<p>也有可能是少了<a href="http://djosix.com/" target="_blank" rel="external">@djosix</a> QQ</p>
+<p>不過還是體驗了很多去年沒體驗過的東西</p>
+<p>簡單總結一下今年:</p>
+<ul>
+<li>感謝乾爹們</li>
+<li>AK-47好玩</li>
+<li>GTR開起來好爽</li>
+<li>大峽谷真的好大</li>
+<li>胡佛水壩沒有變形金剛</li>
+<li>KA秀好看</li>
+<li>DEFCON CTF有Web題</li>
+<li>Packet還是一樣垃圾</li>
+<li>比賽結果很可惜，就差一點QQ</li>
+<li>HITCON大佬太牛逼了</li>
+<li>我還太菜了</li>
+</ul>
+<p><img src="https://i.imgur.com/J0lSCn4.jpg" alt=""></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/11/05/Google-CTF-2019-Final-遊記/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Google CTF 2019 Final 遊記
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/26/Codegate-Final-2019/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Codegate Final 2019</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'kaibrosblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2022 KaiBro
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61797645-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>

