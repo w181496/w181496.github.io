@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>DEFCON 30 CTF Final 參加記 | Kaibro&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!--<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">-->
+  <meta name="description" content="前言這次是我第五年打 DEFCON CTF Final，也是第三次飛 Las Vegas 現場。 前兩年決賽都因為 COVID-19 疫情的關係而沒辦法到現場比。 今年是 Balsn 和 TSJ 跟 217 組成的大聯隊(Balsn.217@TSJ.tw)，但其實大部分老人都已經退休，幾乎都是年輕人在打。 所以整團大概有一半以上的人都是第一次去 Vegas，也有一半的人我叫不太出名字XD 台灣部">
+<meta name="keywords" content="CTF,DEFCON">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DEFCON 30 CTF Final 參加記">
+<meta property="og:url" content="http://blog.kaibro.tw/2022/09/02/DEFCON-30-CTF-Final-參加記/index.html">
+<meta property="og:site_name" content="Kaibro&#39;s blog">
+<meta property="og:description" content="前言這次是我第五年打 DEFCON CTF Final，也是第三次飛 Las Vegas 現場。 前兩年決賽都因為 COVID-19 疫情的關係而沒辦法到現場比。 今年是 Balsn 和 TSJ 跟 217 組成的大聯隊(Balsn.217@TSJ.tw)，但其實大部分老人都已經退休，幾乎都是年輕人在打。 所以整團大概有一半以上的人都是第一次去 Vegas，也有一半的人我叫不太出名字XD 台灣部">
+<meta property="og:image" content="https://i.imgur.com/RqT8xJO.jpg">
+<meta property="og:image" content="https://i.imgur.com/LNdDzUq.jpg">
+<meta property="og:image" content="https://i.imgur.com/41DkfyG.jpg">
+<meta property="og:image" content="https://i.imgur.com/Ae3avpp.jpg">
+<meta property="og:image" content="https://i.imgur.com/BEjbsPv.jpg">
+<meta property="og:image" content="https://i.imgur.com/mgFFw5Q.jpg">
+<meta property="og:image" content="https://i.imgur.com/BBBJkC1.jpg">
+<meta property="og:image" content="https://i.imgur.com/imSbxnR.jpg">
+<meta property="og:image" content="https://i.imgur.com/Fvs45Nf.jpg">
+<meta property="og:image" content="https://i.imgur.com/fMm01rI.jpg">
+<meta property="og:image" content="https://i.imgur.com/rqtlFAC.jpg">
+<meta property="og:image" content="https://i.imgur.com/Ql01FIu.jpg">
+<meta property="og:image" content="https://i.imgur.com/qUdAUpr.jpg">
+<meta property="og:image" content="https://i.imgur.com/3RqB815.jpg">
+<meta property="og:image" content="https://i.imgur.com/mJEiY7C.jpg">
+<meta property="og:image" content="https://i.imgur.com/IqvKUXD.png">
+<meta property="og:image" content="https://i.imgur.com/dsNAVTN.png">
+<meta property="og:image" content="https://i.imgur.com/oI99Gna.gif">
+<meta property="og:image" content="https://i.imgur.com/imfwFp6.png">
+<meta property="og:image" content="https://i.imgur.com/UtBhAPz.png">
+<meta property="og:image" content="https://i.imgur.com/nJY6g0M.png">
+<meta property="og:image" content="https://i.imgur.com/2CikCMK.jpg">
+<meta property="og:image" content="https://i.imgur.com/cUDMDye.jpg">
+<meta property="og:image" content="https://i.imgur.com/IIkciSB.jpg">
+<meta property="og:image" content="https://i.imgur.com/kfolNmI.jpg">
+<meta property="og:image" content="https://i.imgur.com/VQUdwMg.jpg">
+<meta property="og:image" content="https://i.imgur.com/3nSOdTK.jpg">
+<meta property="og:image" content="https://i.imgur.com/StmzR1g.jpg">
+<meta property="og:image" content="https://i.imgur.com/u0tz3Gt.jpg">
+<meta property="og:image" content="https://i.imgur.com/Zafbi7i.jpg">
+<meta property="og:image" content="https://i.imgur.com/zlJrGLO.jpg">
+<meta property="og:image" content="https://i.imgur.com/0aj3Pyu.jpg">
+<meta property="og:image" content="https://i.imgur.com/x8VCN5P.jpg">
+<meta property="og:image" content="https://i.imgur.com/ebkKrwd.jpg">
+<meta property="og:image" content="https://i.imgur.com/ZnUjUGG.jpg">
+<meta property="og:image" content="https://i.imgur.com/cFUma1o.jpg">
+<meta property="og:image" content="https://i.imgur.com/f4DWbRV.jpg">
+<meta property="og:image" content="https://i.imgur.com/MCD7u5l.jpg">
+<meta property="og:image" content="https://i.imgur.com/gPdPxb8.jpg">
+<meta property="og:image" content="https://i.imgur.com/TxQitI7.jpg">
+<meta property="og:image" content="https://i.imgur.com/SlQisuY.jpg">
+<meta property="og:image" content="https://i.imgur.com/aSTS9wm.jpg">
+<meta property="og:image" content="https://i.imgur.com/ZQPT1V3.jpg">
+<meta property="og:image" content="https://i.imgur.com/BcZWSIA.jpg">
+<meta property="og:image" content="https://i.imgur.com/cTkvOYy.jpg">
+<meta property="og:image" content="https://i.imgur.com/GW2LG5R.jpg">
+<meta property="og:image" content="https://i.imgur.com/uGfsV1c.jpg">
+<meta property="og:image" content="https://i.imgur.com/KmGuLyJ.jpg">
+<meta property="og:image" content="https://i.imgur.com/gwTeHCa.jpg">
+<meta property="og:image" content="https://i.imgur.com/Z34cliJ.jpg">
+<meta property="og:image" content="https://i.imgur.com/TN73mRb.jpg">
+<meta property="og:image" content="https://i.imgur.com/CsRTr0h.jpg">
+<meta property="og:image" content="https://i.imgur.com/xAahchz.jpg">
+<meta property="og:image" content="https://i.imgur.com/lLJGDoO.jpg">
+<meta property="og:updated_time" content="2022-09-04T10:37:16.747Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DEFCON 30 CTF Final 參加記">
+<meta name="twitter:description" content="前言這次是我第五年打 DEFCON CTF Final，也是第三次飛 Las Vegas 現場。 前兩年決賽都因為 COVID-19 疫情的關係而沒辦法到現場比。 今年是 Balsn 和 TSJ 跟 217 組成的大聯隊(Balsn.217@TSJ.tw)，但其實大部分老人都已經退休，幾乎都是年輕人在打。 所以整團大概有一半以上的人都是第一次去 Vegas，也有一半的人我叫不太出名字XD 台灣部">
+<meta name="twitter:image" content="https://i.imgur.com/RqT8xJO.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="Kaibro&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/head.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">KaiBro</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>標籤</li>
+						
+						
+						<li>關於</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主頁</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="http://cv.kaibro.tw/">關於我</a></li>
+				        
+							<li><a href="http://blog.30cm.club/">New Blog</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/w181496" title="github">github</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/KAIKAIBRO" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BugBounty/" style="font-size: 11.67px;">BugBounty</a> <a href="/tags/CTF/" style="font-size: 18.33px;">CTF</a> <a href="/tags/DEFCON/" style="font-size: 13.33px;">DEFCON</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Linux/" style="font-size: 11.67px;">Linux</a> <a href="/tags/NCU/" style="font-size: 15px;">NCU</a> <a href="/tags/NTU/" style="font-size: 11.67px;">NTU</a> <a href="/tags/Pwn/" style="font-size: 16.67px;">Pwn</a> <a href="/tags/Web/" style="font-size: 18.33px;">Web</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/開箱/" style="font-size: 10px;">開箱</a> <a href="/tags/開箱文/" style="font-size: 10px;">開箱文</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Web security菜雞</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">KaiBro</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/head.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">KaiBro</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主頁</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="http://cv.kaibro.tw/">關於我</a></li>
+		        
+					<li><a href="http://blog.30cm.club/">New Blog</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/w181496" title="github">github</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/KAIKAIBRO" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-DEFCON-30-CTF-Final-參加記" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/09/02/DEFCON-30-CTF-Final-參加記/" class="article-date">
+  	<time datetime="2022-09-02T14:32:35.000Z" itemprop="datePublished">2022-09-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      DEFCON 30 CTF Final 參加記
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="tags/CTF/" class="js-tag article-tag-list-link color4">CTF</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="tags/DEFCON/" class="js-tag article-tag-list-link color2">DEFCON</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://i.imgur.com/RqT8xJO.jpg" alt=""></p>
+<h1 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h1><p>這次是我第五年打 DEFCON CTF Final，也是第三次飛 Las Vegas 現場。</p>
+<p>前兩年決賽都因為 COVID-19 疫情的關係而沒辦法到現場比。</p>
+<p>今年是 Balsn 和 TSJ 跟 217 組成的大聯隊(Balsn.217@TSJ.tw)，但其實大部分老人都已經退休，幾乎都是年輕人在打。</p>
+<p>所以整團大概有一半以上的人都是第一次去 Vegas，也有一半的人我叫不太出名字XD</p>
+<p>台灣部分也有為數不多的幾個人在 Remote 幫忙看題，因為美國和台灣幾乎日夜顛倒，這樣剛好可以接關美國這邊的進度。</p>
+<p>每次去 Vegas 都要寫遊記好像已經變成一種傳統，所以這篇就一樣來記錄一下這趟比賽行程的各種事情吧！</p>
+<p>順便拯救一下荒廢兩年、長滿草的 Blog XD</p>
+<p>(圖多慎入)</p>
+<a id="more"></a>
+<h1 id="Timeline"><a href="#Timeline" class="headerlink" title="Timeline"></a>Timeline</h1><h3 id="8/9"><a href="#8/9" class="headerlink" title="8/9"></a>8/9</h3><ul>
+<li>8/9 (台灣時間) 17:00 桃園機場集合</li>
+<li>8/9 (台灣時間) 21:10 飛機起飛</li>
+<li>8/9 (美國時間) 18:40 抵達安大略機場</li>
+<li>8/9 (美國時間) 20:30 搭遊覽車前往 Las Vegas</li>
+</ul>
+<h3 id="8/10"><a href="#8/10" class="headerlink" title="8/10"></a>8/10</h3><ul>
+<li>8/10 (美國時間) 00:30 抵達 Las Vegas 飯店</li>
+<li>8/10 (美國時間) 01:25 Check In 結束，抵達房間</li>
+<li>8/10 (美國時間) 18:00 Mon Ami Gabi 全員聚餐</li>
+</ul>
+<h3 id="8/11"><a href="#8/11" class="headerlink" title="8/11"></a>8/11</h3><ul>
+<li>8/11 (美國時間) 早上 DEFCON Opening</li>
+<li>8/11 (美國時間) 21:00 賽前作戰會議</li>
+</ul>
+<h3 id="8/12"><a href="#8/12" class="headerlink" title="8/12"></a>8/12</h3><ul>
+<li>8/12 (美國時間) 比賽 (10:00 ~ 18:00)</li>
+</ul>
+<h3 id="8/13"><a href="#8/13" class="headerlink" title="8/13"></a>8/13</h3><ul>
+<li>8/13 (美國時間) 比賽 (10:00 ~ 18:00)</li>
+</ul>
+<h3 id="8/14"><a href="#8/14" class="headerlink" title="8/14"></a>8/14</h3><ul>
+<li>8/14 (美國時間) 比賽 (10:00 ~ 14:00)</li>
+<li>8/14 (美國時間) 19:00 Strip House 全員聚餐</li>
+</ul>
+<h3 id="8/15"><a href="#8/15" class="headerlink" title="8/15"></a>8/15</h3><ul>
+<li>8/15 (美國時間) 11:00 搭遊覽車離開 Las Vegas</li>
+<li>8/15 (美國時間) 14:00 抵達 Barstow 用餐</li>
+<li>8/15 (美國時間) 17:00 中國戲院/星光大道逛街+吃飯</li>
+<li>8/15 (美國時間) 19:00 抵達洛杉磯機場</li>
+</ul>
+<h3 id="8/16"><a href="#8/16" class="headerlink" title="8/16"></a>8/16</h3><ul>
+<li>8/16 (美國時間) 00:35 飛機起飛</li>
+</ul>
+<h3 id="8/17"><a href="#8/17" class="headerlink" title="8/17"></a>8/17</h3><ul>
+<li>8/17 (台灣時間) 05:00 到達台灣</li>
+</ul>
+<p>// 這個行程規劃可以吐槽的點其實頗多，光是搭數小時遊覽車往返安大略/洛杉磯和 Las Vegas 就已經是蠻奇葩的操作了。</p>
+<h1 id="u4EA4_u901A"><a href="#u4EA4_u901A" class="headerlink" title="交通"></a>交通</h1><p>我上次搭飛機已經是 2019 年的北京 RealWorld CTF，隔了三年已經差點快忘記飛機怎麼搭了，所以出發前一直很緊張怕漏帶重要東西。</p>
+<p>去程我們搭的是華航 CI24 (A359)，約 12.5 小時到達加州安大略機場後，會轉搭遊覽車到 Las Vegas。</p>
+<p>今年機票一樣是由行政那邊協助處理，但似乎是因為太晚買機票的關係，所以今年沒辦法搭飛機直達 Vegas，必須在 12.5 小時的崩潰飛行後，接著坐 4~5 小時遊覽車才能到飯店。那些選擇在台灣 Remote 的人根本是先知XD</p>
+<p>回程也是差不多，會從 Las Vegas 搭車到洛杉磯機場後，搭華航 CI7 (777-300ER) 回台灣，只不過中間還會停靠洛杉磯星光大道，讓大家小逛一下街、紓解長途搭車的苦悶。</p>
+<p>// 明明今年就沒有大峽谷行程，結果怎麼還是跟之前一樣一直整天在搭車 T___T</p>
+<p>不過今年運氣還不錯的是，去程和回程都坐到最後面的位置，可以把椅背放到最低就是舒服；去程隔壁座位還是空的，可以爽放雜物、不用怕動作太大會尻到隔壁的人，也算是個小確幸。</p>
+<p><img src="https://i.imgur.com/LNdDzUq.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/41DkfyG.jpg" alt=""></p>
+<h1 id="u4F4F_u5BBF"><a href="#u4F4F_u5BBF" class="headerlink" title="住宿"></a>住宿</h1><p>由於比賽期間官方會送決賽隊伍房間，所以有部分比較衰的人住到一半時必須換過去新的房間，而我們幾個老人剛好就是運氣比較差的那群人。</p>
+<p>第一天助理他們訂的是 Harrah’s 飯店，然後第二天開始我們少部分人要換去住官方給的房間，地點在離 Harrah’s 有一點距離的 Flamingo 飯店 (要穿越 LINQ 才能到達)。</p>
+<p>Harrah’s 的房間理論上是四人房，但入住時發現只有兩張 size 比想像中小的床，而毛巾、盥洗用具等也都只有兩人份，一度懷疑他們把兩人房硬當四人房用，小夥伴們都半開玩笑的說可能經費都拿去買價格最高點的機票和五小時的遊覽車錢了吧。</p>
+<p>Harrah’s 房間的樣子(我努力用超廣角把他拍得看起來很大):<br><img src="https://i.imgur.com/Ae3avpp.jpg" alt=""></p>
+<p>Harrah’s 房間的燈上還殘留前房客的…假睫毛??? (噁爆)<br><img src="https://i.imgur.com/BEjbsPv.jpg" alt=""></p>
+<p>Harrah’s 飯店旁邊其實就是熟悉的超大麥當勞 M 標誌:</p>
+<p><img src="https://i.imgur.com/mgFFw5Q.jpg" alt=""></p>
+<p><br></p>
+<p>值得慶幸的是，原本以為住到一半換飯店是很慘的一件事，結果沒想到 Flamingo 雙人房居然給的是兩張大床，等於我一個人可以直接爽睡雙人床，心裡瞬間比較平衡一點了。</p>
+<p>Flamingo 房間的樣子: (這次沒有假睫毛了)</p>
+<p><img src="https://i.imgur.com/BBBJkC1.jpg" alt=""></p>
+<p>而且還有浴缸，雖然看起來很一般般，但至少比 Harrah’s 啥都沒有還要好:</p>
+<p><img src="https://i.imgur.com/imSbxnR.jpg" alt=""></p>
+<p>Flamingo 窗外看出去的景色也挺不賴：</p>
+<p><img src="https://i.imgur.com/Fvs45Nf.jpg" alt=""></p>
+<p>樓下還有小型動物園(?):</p>
+<p><img src="https://i.imgur.com/fMm01rI.jpg" alt=""></p>
+<p>附註：切記，一定要自己帶牙刷，Vegas 飯店都不給牙刷的，害我每次都要花大錢重買</p>
+<hr>
+<p>比賽時照慣例都會租大房間(總統套房?)讓大家能一起討論，只是今年的房間比往年還要小一些:</p>
+<p><img src="https://i.imgur.com/rqtlFAC.jpg" alt=""></p>
+<p>而房間網路依舊是跟往年一樣悲劇，連手機 sim 卡都像是訊號被屏蔽一樣收不太到訊號，頗慘。</p>
+<h1 id="u6BD4_u8CFD"><a href="#u6BD4_u8CFD" class="headerlink" title="比賽"></a>比賽</h1><p><img src="https://i.imgur.com/Ql01FIu.jpg" alt=""></p>
+<p>去年是 <a href="https://oooverflow.io/" target="_blank" rel="external">OOO</a> 當主辦的最後一屆，所以今年由新的主辦 <a href="https://nautilus.institute/" target="_blank" rel="external">Nautilus</a> 負責 CTF 題目。</p>
+<p>按照經驗，新主辦的第一年通常都會各種出包，然後被靠北到爆炸，很明顯今年也不例外。</p>
+<p>除了比賽中的 Infra 不太穩定外，其他像是決賽隊伍名單、規則這種基本的資訊也都是賽前一小時內臨時現場告知的，官網也完全是空白的，我們賽前一度以為主辦要直接跑路棄賽。</p>
+<p>然後他們給的狗牌也做的超像國小生美勞作品，印張紙護貝，然後裁切還裁超爛：</p>
+<p><img src="https://i.imgur.com/qUdAUpr.jpg" alt=""></p>
+<p><br></p>
+<p>今年比賽規則在這裡可以看到: <a href="https://web.archive.org/web/20220827150615/https://nautilus.institute/rules.pdf" target="_blank" rel="external">https://web.archive.org/web/20220827150615/https://nautilus.institute/rules.pdf</a></p>
+<p>比較特別的是有新的賽制: LiveCTF (官網: <a href="https://livectf.com/" target="_blank" rel="external">https://livectf.com/</a>)</p>
+<p>基本上就是每隊各派一員出來 PK 解 Pwn 題，先解出來的人獲勝，採單淘汰賽制，贏的人可以晉級到下一輪。</p>
+<p>全程會被直播到 Youtube，然後還會有專業賽評講解，搞得跟電競比賽一樣炫砲，某種程度上其實挺有創意的。</p>
+<p>但到後面會發現這個新的賽制其實大幅破壞比賽平衡，因為各個名次得分如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1st place: 4011 points</div><div class="line">2nd place: 2674 points</div><div class="line">3rd &amp; 4th place: 1337 points</div><div class="line">5th ~ 8th place: 668 points</div><div class="line">9th ~ 16th place: 0 points</div></pre></td></tr></table></figure>
+<p>第一名直接可以爽拿 4000 分，基本上分數多到可以直接逆轉在 KoH/A&amp;D 等題目拼得要死要活的排名 (LiveCTF 最後的冠軍 Starbugs 也因此翻上總排名第三)</p>
+<p>在 LiveCTF 也可以見識到韓國電競選手的手速真的屌炸天，對手 IDA Pro 都還沒開起來，他已經快標完整隻 Binary 了。</p>
+<p><img src="https://i.imgur.com/3RqB815.jpg" alt=""></p>
+<p>最後 LiveCTF 排名:</p>
+<p><img src="https://i.imgur.com/mJEiY7C.jpg" alt=""></p>
+<hr>
+<p>今年題目對我這種 Web 狗來說比較值得一提的是，開賽就直接放兩題(類)Web題！</p>
+<p>兩題分別是 <code>router_pi</code> 和 <code>web4factory</code> 。</p>
+<p><code>router_pi</code> 這題基本上跟初賽的 router 系列題長差不多樣子，雖然是 Web 外表但也一樣背後有 Binary 可以啃。</p>
+<p>這題漏洞(Web部分)跟初賽蠻類似的，登入點就是一個單純弱密碼: <code>admin</code> / <code>password</code> (但也就是吐一個 <code>authenticated=1</code> 的 cookie 而已)</p>
+<p>登入之後，我順手黑箱戳戳，直接有個明顯的 Command Injection:</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">POST</span> <span class="string">/ping</span> HTTP/1.1</div><div class="line"><span class="attribute">Host</span>: 10.13.40.102:13864</div><div class="line"><span class="attribute">Content-Length</span>: 15</div><div class="line"><span class="attribute">Cookie</span>: authenticated=1</div><div class="line"><span class="attribute">Connection</span>: close</div><div class="line"><span class="attribute">Content-Type</span>: application/x-www-form-urlencoded</div><div class="line"></div><div class="line"><span class="undefined">host=|cat&lt;flag</span></div></pre></td></tr></table></figure>
+<p>另一個 Web 狗隊友也戳到 Path Traversal 能讀 flag:</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">GET</span> <span class="string">/../../../../home/services/router_pi/flag</span> HTTP/1.1</div><div class="line"><span class="attribute">Host</span>: 10.13.40.102:13864</div><div class="line"><span class="attribute">Content-Length</span>: 0</div><div class="line"><span class="attribute">Cookie</span>: authenticated=1</div><div class="line"><span class="attribute">Connection</span>: close</div><div class="line"><span class="attribute">Content-Type</span>: application/x-www-form-urlencoded</div></pre></td></tr></table></figure>
+<p>這題 Web 部分大概就差不多這樣，上完 Attack Manager 自動化攻擊 &amp; 補洞後，後面就換 Binary 組的隊友去挖其他洞。</p>
+<p>於是我就跳到另一題 <code>web4factory</code>，這題雖然說是 web，但他 Java Spring 前面其實包了一層噁心 Protocol，要看懂這邊邏輯其實就蠻花時間的。</p>
+<p>看懂 Protocol 後，裡面其實有蠻明顯的反序列化點，和 EL Injection 洞。</p>
+<p>隊友搞定 Protocol 後，我就跟 @maple3142 和 @splitline 一起戳反序列化，但怎麼戳都沒啥反應，連 URLDNS 都沒出來。</p>
+<p>後來從封包發現有隊伍已經開始在攻擊，所以他們就開始研究對方攻擊 Payload 怎麼寫的，但我注意到其實他們 Payload 沒特別處理、可以直接 replay，就先無腦直上自動化打一波。</p>
+<p>後面這題也沒啥進展，好打的洞都直接 replay 就好，另外要 Patch jar 也是一件非常麻煩的事。</p>
+<p>這題在 Twitter 上也可以看到部分討論: <a href="https://twitter.com/ZeddYu_Lu/status/1559372823684063235" target="_blank" rel="external">https://twitter.com/ZeddYu_Lu/status/1559372823684063235</a></p>
+<p>賽中其他道題目就都是真 Binary 題，這邊我太菜就不細寫了，有興趣的可以參考其他人的 Writeup/Blog。</p>
+<hr>
+<p>而這場比賽從開賽就各種放錯題目、Leak 未來題目資訊，像是我們就撈到 <code>web4proxy</code>, <code>web4ransom</code> 等題目資訊，但這些題目到最後比賽結束也沒放出來，有花心力投資下去就會血本無歸。</p>
+<p>開賽時，主辦的 Infra 也各種出包，常常會有莫名的 SLA Fail，啥都沒開始做就一直被扣分，也讓我們一開賽就直接排名墊底XD</p>
+<p>第一天也因為各種狀況延遲一小時結束，主辦也表示之後會把 SLA Fail 和 flag 提交異常等問題少的分數補回給大家。</p>
+<p>第二天開賽計分板有稍微調整過，其中一隊因為放 fork bomb 被罰了一些分，不過昨天 SLA Fail 的分數還是沒完全處理好…</p>
+<p>這天還開了一道 KoH 題 <code>corewar</code>，隊友開場直接傳檔屌虐全場好幾回合，只是最後就變互抄作業大賽了。</p>
+<p>另外我們尻了一個超級 patch，效果是讓別人打進來也幹不走真正的 flag，似乎靠這招守住不少分數，但最後一天似乎還是被繞過的樣子。</p>
+<p>然後這天結束時，有幾道題表示隔天會繼續開，所以這天晚上大家都準備爆肝寫回家作業，打算明天開賽打一波。</p>
+<p>到第三天時，一開賽就各種混亂，大家準備用熬夜弄出的 exploit 屌打一波時，主辦直接說因為題目遇到一些問題必須下架修復。</p>
+<p>最後主辦在原訂結束時間的前一小時，直接放棄治療，宣布說沒辦法修復題目問題，所以提前一小時結束比賽。</p>
+<p>今年 DEFCON 30 CTF Final 就這樣在眾人滿頭問號的狀況下結束了。</p>
+<p>而因為比賽結束時就停在 Tick 196，這個數字瞬間變成這場比賽的熱門關鍵字，所以就開始出現各種 meme 洗板:</p>
+<p><img src="https://i.imgur.com/IqvKUXD.png" alt=""></p>
+<p><img src="https://i.imgur.com/dsNAVTN.png" alt=""></p>
+<p><img src="https://i.imgur.com/oI99Gna.gif" alt=""></p>
+<p><img src="https://i.imgur.com/imfwFp6.png" alt=""></p>
+<p><img src="https://i.imgur.com/UtBhAPz.png" alt=""></p>
+<p>還有人設計出衣服 (cult of 196):</p>
+<p><img src="https://i.imgur.com/nJY6g0M.png" alt=""></p>
+<p>(我也無聊訂了一件，不知啥時會送到台灣XD)</p>
+<p>印像往年賽後都會有個小交流時間，各隊彼此送個禮物或是一起喝酒討論題目，但今年可能真的太雷，所以比賽結束大家都各自解散了XD</p>
+<h1 id="u7DB2_u53CB_u898B_u9762_u6703"><a href="#u7DB2_u53CB_u898B_u9762_u6703" class="headerlink" title="網友見面會"></a>網友見面會</h1><p>隔了三年沒出國，這次來 DEFCON 除了看到幾個以前很常遇到的強隊大佬外，這次也特別去找仰慕已久、在 Twitter 上很活躍的大佬 <a href="https://twitter.com/aszx87410" target="_blank" rel="external">Huli</a> 拍照 &amp; 小聊了一下。<br>(小補充: Huli 在這場是跟國際強隊 Water Paddler 一起打的)</p>
+<p>另外在比賽結束後，非常有緣的，我和 @bookgin 遇上了三年前在日本 TrendMicro CTF 上相談甚歡的巴西 Web 大佬 <a href="https://twitter.com/lbherrera_" target="_blank" rel="external">@lbherrera_</a> (有趣的是，我是在比賽離場回飯店時，看到前面的人的鬍子很眼熟才認出他的XD)</p>
+<p>除了他們之外也見到了很多沒有在現實見過面的大神，像是我還跑去找 Twitter 上很常看到的 <a href="https://twitter.com/gf_256" target="_blank" rel="external">cts</a> 合照，一整個就像是網友見面會。</p>
+<p>比較可惜的是這場後來沒啥機會跟其他隊伍的人交流，雖然有賽後的 After Party ，但當時卡到晚餐就沒去了。</p>
+<p>(怕有人不想露臉，上述跟大佬們合照的照片就不附上了XD)</p>
+<h1 id="DEFCON__u6703_u5834"><a href="#DEFCON__u6703_u5834" class="headerlink" title="DEFCON 會場"></a>DEFCON 會場</h1><p>DEFCON 會場通常都有各式各樣有趣的 Village 散佈在會場的各個角落，也有各式各樣的 CTF 或是演講在同時進行。</p>
+<p>主會場 Caesars Forum 就是在那個大摩天輪隔壁而已，雖然看起來很近，實際上要走很長一段路才能到。</p>
+<p><img src="https://i.imgur.com/2CikCMK.jpg" alt=""></p>
+<p>我們在打的 CTF 場地其實就在 DEFCON 主會場的某間大會議室裡，然後門口其實到後面也沒人在管進出，所以常常會有路過的聽眾進來觀摩XD</p>
+<p>其中有個 Village 是關於實體攻擊的，裡面有各式各樣的鎖或是奇形怪狀的門要想辦法去打開，蠻有趣的。</p>
+<p>像是這種傳統的一般門鎖，要想辦法透過工具打開這扇門：</p>
+<p><img src="https://i.imgur.com/cUDMDye.jpg" alt=""></p>
+<p>然後他的預期解法其實很有趣，不是要硬幹門鎖，而是從門縫塞一個這樣的工具(J Tool)進去對面把鎖轉開XD</p>
+<p><img src="https://i.imgur.com/IIkciSB.jpg" alt=""></p>
+<p>像這桌目標是要開手銬，就看到有個人把自己雙手銬起來，然後自己在那邊開XD</p>
+<p><img src="https://i.imgur.com/kfolNmI.jpg" alt=""></p>
+<p>也有路過 Packet village 看經典的綿羊牆：</p>
+<p><img src="https://i.imgur.com/VQUdwMg.jpg" alt=""></p>
+<p>其他還有像是 Car hacking, IoT, Voting Machine, Red Team village 之類的，也都蠻有趣的，只是它場地橫跨三間飯店，如果每個 village 都去逛一遍，真的會走到腳斷掉。</p>
+<h1 id="u73A9_u5177"><a href="#u73A9_u5177" class="headerlink" title="玩具"></a>玩具</h1><p>按照慣例，DEFCON 第一天開幕通常都沒啥活動，可以做的事就是排隊買門票(Badge)和紀念品。</p>
+<p>今年由於我們要換房，早上整理行李耽擱不少時間，所以比較晚才下去會場排，整個排隊隊伍長到看不見盡頭。</p>
+<p><img src="https://i.imgur.com/3nSOdTK.jpg" alt=""></p>
+<p>最後我們排了四個小時左右才買到紀念品，原本規劃的租超跑尬車行程也因此取消了T___T</p>
+<p>今年的 Badge 比前幾年有趣多了，是一個可以錄音取樣的駭客小鋼琴，比之前的大理石和奇怪迷宮小遊戲還要耐玩，所以排紀念品過程一直可以聽到各種神奇音樂聲。<br>(不過如果太暴力去玩它，就會開始冒出不太妙的燒焦味)</p>
+<p><img src="https://i.imgur.com/StmzR1g.jpg" alt=""></p>
+<p>(彈起來就有點像這樣: <a href="https://twitter.com/JessieDax/status/1557849389011542019" target="_blank" rel="external">https://twitter.com/JessieDax/status/1557849389011542019</a>)</p>
+<p>除了 DEFCON 官方紀念品外，Vendor Area 通常會有各家廠商來擺攤賣各種駭客小玩具，像是大家都很熟悉的 Hak5 就擺了一個大攤位。</p>
+<p>以前窮學生時來 DEFCON 都沒啥錢買這些酷玩具，現在工作後有點零用錢，買這些又貴又酷的玩具比較不會心痛。</p>
+<p>所以今年手一滑，就不小心刷了一兩萬元台幣買了一些酷玩具:</p>
+<p><img src="https://i.imgur.com/u0tz3Gt.jpg" alt=""></p>
+<p>除了以上這些玩具外，Vegas 常常也可以看到店家在賣各種詭異的酷東西，像是我買了這些很讚的玩意兒：</p>
+<p><img src="https://i.imgur.com/Zafbi7i.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/zlJrGLO.jpg" alt=""></p>
+<p>前幾年 DEFCON 在房間門口意外撿到美國人的身分證，而這次雖然沒有身分證可以撿，但我卻在商店買到這個酷東西:</p>
+<p><img src="https://i.imgur.com/0aj3Pyu.jpg" alt=""></p>
+<p>一起亂買玩具的好室友們:</p>
+<p><img src="https://i.imgur.com/x8VCN5P.jpg" alt=""></p>
+<h1 id="u8CED_u535A"><a href="#u8CED_u535A" class="headerlink" title="賭博"></a>賭博</h1><p><img src="https://i.imgur.com/ebkKrwd.jpg" alt=""></p>
+<p>既然都來到賭城 Las Vegas 怎麼能不小賭一把呢?</p>
+<p>除了每家飯店裡隨處可見的拉霸機和各種賭博機台之外，</p>
+<p>這次我們一群人還挑戰了前幾年都沒做過的事，就是上牌桌跟真人賭一把！</p>
+<p>但其實只是為了換籌碼帶回台灣作紀念，所以逼不得已才鼓起勇氣上牌桌 (有問過能不能單純只換籌碼就走人，很明顯是不行XD)</p>
+<p>然後他會花超久的時間跟每個人要護照，確認身份年紀都正確才讓你玩 (沒有上牌桌的人他也要看護照)</p>
+<p>我們玩的是俄羅斯輪盤，基本上就是可以壓數字、顏色或是奇偶，然後賭他輪盤上的球最後會停在哪，基本上不太需要動腦。</p>
+<p>這場最後的賭王是 @bookgin，隨手亂壓幾個數字剛好壓中，結果錢直接翻了好幾倍，差點就能原地退休。</p>
+<p>一局結束之後，大夥兒就趕緊扛著賺來的滿手籌碼烙跑了<br>(花 20 分鐘看護照，結果我們玩 5 分鐘就跑走，他一定覺得很幹XD)</p>
+<p>最後我也分食了一部分剩餘的籌碼:</p>
+<p><img src="https://i.imgur.com/ZnUjUGG.jpg" alt=""></p>
+<p>玩拉霸機時也不小心從 \$1 玩到變 \$4.82 (480% 有夠瘋狂):</p>
+<p><img src="https://i.imgur.com/cFUma1o.jpg" alt=""></p>
+<h1 id="u6253_u69CD_u69CD"><a href="#u6253_u69CD_u69CD" class="headerlink" title="打槍槍"></a>打槍槍</h1><p>遙想 2019 年時，來 Vegas 最後悔的一件事，就是沒有玩到沙漠之鷹 (詳情見 <a href="https://blog.kaibro.tw/2019/08/25/DEFCON-27-Final-CTF-%E9%81%8A%E8%A8%98/#u6253_u69CD">DEFCON 27 Final CTF 遊記</a>)</p>
+<p>所以今年來 Vegas 其中一個必做行程，就是來打靶，並且一定要打沙漠之鷹！</p>
+<p>加上最近國際局勢緊張，搞不好哪天睡醒突然就被抓去上戰場送頭，所以練一下基本的槍法還是挺必要的。</p>
+<p>這次我選擇的組合是 AK-47 + 沙漠之鷹 (Desert Eagle)，走一個 CS 恐怖份子的經典組合XD</p>
+<p>打沙漠之鷹前其實有點小緊張，畢竟上次就是被店員以後座力超大為由勸退的，加上腦海中一直出現這部經典的爆頭影片：</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dFJjaj7pXsA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p>實際上場打的時候，沙漠之鷹比想像中還沉重，而且槍身很大把，其實不太好穩定地握住。</p>
+<p>射擊時後座力的確如同想像中的大，甚至體感後座力比 AK-47 還大，會有一種槍快噴掉的感覺，手腕其實還蠻痛的，但真的很爽XD</p>
+<p>只是沙漠之鷹只有五發很快就打完了，其實還蠻燒錢的。</p>
+<p>AK-47 的部分倒是跟上次體感差不多，不過上次來打時還沒當過兵，而這次我已經是受過精良 65K2 訓練的步槍兵了，直接輕鬆無痛上手 AK-47！</p>
+<p><img src="https://i.imgur.com/f4DWbRV.jpg" alt=""></p>
+<p>砸多一點錢還能開坦克:</p>
+<p><img src="https://i.imgur.com/MCD7u5l.jpg" alt=""></p>
+<h1 id="u5947_u805E_u8EFC_u4E8B"><a href="#u5947_u805E_u8EFC_u4E8B" class="headerlink" title="奇聞軼事"></a>奇聞軼事</h1><p>被稱為罪惡都市 (Sin city) 的 Las Vegas，每年來這邊都可以在街頭上遇到一些怪異的人事物，加上 DEFCON 期間的各國駭客們總是喜歡做一些跟別人不一樣的事情，這邊就來記錄一下今年看到的鬼東西。</p>
+<p>首先當然就是每年都能看到的假眼睛 googly eyes (不知為啥 DEFCON 駭客都喜歡到處貼這個):</p>
+<p><img src="https://i.imgur.com/gPdPxb8.jpg" alt=""></p>
+<p>Gordon Ramsay 當然也躲不掉:<br><img src="https://i.imgur.com/TxQitI7.jpg" alt=""></p>
+<p>甚至還有這種超大的版本:</p>
+<p><blockquote class="twitter-tweet"><p lang="en" dir="ltr">thanks <a href="https://twitter.com/defcon?ref_src=twsrc%5Etfw" target="_blank" rel="external">@defcon</a> for another great year ✌️ <a href="https://t.co/j90XNPTR4A" target="_blank" rel="external">pic.twitter.com/j90XNPTR4A</a></p>&mdash; ρσℓα¢ķ͌͌͌͌͌͌͌͌͌͌͌͌͌͌ (@deviouspolack) <a href="https://twitter.com/deviouspolack/status/1558987216604389376?ref_src=twsrc%5Etfw" target="_blank" rel="external">August 15, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<p>還有被摧殘過的電梯，螢幕跳奇怪的 Error 外，上面也被刻滿字:</p>
+<p><img src="https://i.imgur.com/SlQisuY.jpg" alt=""></p>
+<p>亂貼奇怪貼紙也算是習以為常的 DEFCON 文化:</p>
+<p><img src="https://i.imgur.com/aSTS9wm.jpg" alt=""></p>
+<p>在會場時還有看起來很像釣魚的 Hack this 送錢錢的神秘遊戲:</p>
+<p><img src="https://i.imgur.com/ZQPT1V3.jpg" alt=""></p>
+<p>另外 Vegas 路邊還會有一些穿著很暴露的妹子或是超級英雄裝扮的黑人，用盡各種方法或是話術坑觀光客的錢，十分兇殘。</p>
+<p>像下面這傢伙就是被坑了 50 鎂換來這張照片的。</p>
+<p>她們一開始會說拍照免費，但拍照免費不代表小費不用給，所以拍完會一直凹你給超高價格的小費，可憐的亞洲觀光客。</p>
+<p><img src="https://i.imgur.com/BcZWSIA.jpg" alt=""></p>
+<p>隊上某 g 先生甚至還在路上被一群黑人坑了 80 鎂左右的錢…在罪惡都市的街道上行走時真的不可不慎。</p>
+<p>另外在 Downtown 閒晃時，我們還花了 $1 跟這個很酷的老頭拍照:</p>
+<p><img src="https://i.imgur.com/cTkvOYy.jpg" alt=""></p>
+<p><br></p>
+<p>今年這趟還有個比較特別的經歷是，居然能在 Vegas 遇到超大暴雨！</p>
+<p>但我剛好這時間太累睡死，只在睡夢中聽到各種雨聲和打雷聲，沒有親眼看到這個奇景實在有點可惜。</p>
+<p>在沙漠地區下大雨感覺應該不是太常見的事情(?)，所以在 twitter 上可以看到各種淹水災情回報，Vegas 瞬間變成水上樂園，甚至隔天好像還有發現屍體的樣子。</p>
+<p>真．Overflow:</p>
+<p><blockquote class="twitter-tweet"><p lang="en" dir="ltr">first day of defcon and there&#39;s already an overflow exploit <a href="https://t.co/M0xE1k6w9A" target="_blank" rel="external">https://t.co/M0xE1k6w9A</a></p>&mdash; est (@emilyst) <a href="https://twitter.com/emilyst/status/1557988630907342850?ref_src=twsrc%5Etfw" target="_blank" rel="external">August 12, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<p>水上樂園:</p>
+<p><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Uh defcon 30? <a href="https://twitter.com/hashtag/defcon?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="external">#defcon</a> <a href="https://twitter.com/hashtag/vegas?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="external">#vegas</a> <a href="https://t.co/FxRjUbkzpn" target="_blank" rel="external">pic.twitter.com/FxRjUbkzpn</a></p>&mdash; Skittish and Bus (@Skittishandbus) <a href="https://twitter.com/Skittishandbus/status/1557967978989113344?ref_src=twsrc%5Etfw" target="_blank" rel="external">August 12, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<p>除了暴雨，某天晚上還收到這個 AMBER alert，手機狂震:</p>
+<p><img src="https://i.imgur.com/GW2LG5R.jpg" alt=""></p>
+<p>查了一下才知道是跟失蹤兒童有關的警報，漲知識:</p>
+<blockquote>
+<p>安珀警報，是一個主要用於美國和加拿大的兒童失蹤或綁架預警系統。<br>當確認發生兒童綁架案件時，警務部門透過各種大眾媒體向社會大眾傳播警報訊息，以大範圍搜尋失蹤兒童</p>
+</blockquote>
+<h1 id="u5927_u9EBB_u7169_u4E0D_u7169"><a href="#u5927_u9EBB_u7169_u4E0D_u7169" class="headerlink" title="大麻煩不煩"></a>大麻煩不煩</h1><p>第一天半夜到 Vegas 放完行李後，大家就揪一揪衝 <a href="https://maps.app.goo.gl/5wwT95s5jFny4wnQ6" target="_blank" rel="external">Reef Dispensaries</a> 買”合法”的草。</p>
+<p>Reef Dispensaries 外面很偏僻，很像那種會有一群黑人群聚抽草的壞地方:</p>
+<p><img src="https://i.imgur.com/uGfsV1c.jpg" alt=""></p>
+<p>但進到裡面後，整個擺設其實就像一般商店、雜貨店一樣：</p>
+<p><img src="https://i.imgur.com/KmGuLyJ.jpg" alt=""></p>
+<p>而大麻除了用像一般紙菸的抽法外，其實還有很多不同形式的服用方法。</p>
+<p>光是透過傳統燃燒的方式，就還能細分成使用 roll, pipe, bong 等不同工具的玩法。</p>
+<p>而比較特別的是還有像是電子煙油或是做成食物(軟糖、餅乾、蛋糕)的方式可以使用。</p>
+<p>這次我買的組合：</p>
+<ul>
+<li>Pre-roll * 2 (CandyLand, RD Sky Fuel OG)</li>
+<li>Gummies (Huckleberry Gummies)</li>
+<li>Vape (Blue dream)</li>
+</ul>
+<p>買完當下，記得大約是凌晨兩點多，為了妥善調整時差(?)，我決定直接原地試用一下 Vape:</p>
+<p><img src="https://i.imgur.com/gwTeHCa.jpg" alt=""></p>
+<p>Blue Dream 的煙油聞起來會有一點微酸的味道，但抽的時候基本上聞不到味道，也沒有任何擊喉感，當下會懷疑是不是真的有抽到。</p>
+<p>但大概抽 4、5 口後，我一個不小心吸太大口嗆到，覺得肺超痛、一直狂咳，然後就突然起飛了(?)</p>
+<p>當下沒有記錄感受，所以現在有點難回憶當時體感，只有印象類似酒醉微醺，但不會腦袋昏沉沉，反而覺得有點放鬆、輕飄飄的。</p>
+<p>同行的小夥伴 @franklin 和 @ginoah 另外還試了軟糖 (跟我買的軟糖不同)，都表示非常有感，甚至隔天起床都還沒完全退。</p>
+<p>最後我們還去 Denny’s 吃宵夜，搞到後來凌晨五點才回飯店睡覺 (但事後證明這麼做的確對於調時差非常有幫助)</p>
+<hr>
+<p>而吸草團有部分人不想第一天下飛機就熬夜吸草，所以我們後來幾個人又挑了一天晚上跑去找沒有人煙的地方抽。</p>
+<p>一開始原本是要去我第一年抽草的凱撒皇宮邪惡巷子那裡，但後來發現那邊變的燈火通明且人來人往，於是就改成到<a href="https://www.google.com/maps/@36.1184597,-115.1749057,3a,75y,183.75h,88.45t/data=!3m6!1e1!3m4!1sjqs86g9qKyBuALwSc8ZIeg!2e0!7i16384!8i8192" target="_blank" rel="external">凱撒皇宮地下停車場入口旁</a>抽。</p>
+<p>整團包含我共四個人(原本還有更多人，但他們出發前先吃軟糖，提前陣亡回去了)，我們躲在一個隱蔽又昏暗的階梯上細細品嚐純天然的草本香氣。</p>
+<p>我這次嘗試的是 <a href="https://www.leafly.com/strains/candyland" target="_blank" rel="external">CandyLand</a> 這個品種，我原本是想要找我第一年抽的 <a href="https://www.leafly.com/strains/mimosa" target="_blank" rel="external">Mimosa</a>，但當時店員說沒有賣，於是才推薦我這個效果相似的品種。</p>
+<p><img src="https://i.imgur.com/Z34cliJ.jpg" alt=""></p>
+<p>我大概只抽半根多一點，效果大概 10 ~ 20 分鐘就出來，當下體感的確跟我第一年抽 Mimosa 時非常類似。</p>
+<p>會有一種頭像氣球一樣充飽浮起來的感覺，然後頭兩側會有一點麻麻的，跟前面用 Vape 的感受其實差蠻多的。</p>
+<p>而且自己講話時會有一種像是在聽別人說話的感覺，有點切換到第三人稱視角的感覺，所以會一直有種明明整團只有四個人，但卻覺得像是有五個人的錯覺XD</p>
+<p>最有趣的是，原本我們是走飯店裡面下來停車場的，但由於當時的時間蠻晚的，所以要離開時發現原本的門已經上鎖了，我們直接被困在地下停車場！！</p>
+<p>由於我們在停車場旁邊，所以其實左右兩側看起來都有車道出去。</p>
+<p>這時隊長 @ginoah 就下令往右側走，但其實往左走直接就能通到 Las Vegas 大道上，不過因為大家都太ㄎㄧㄤ，所以就乖乖聽話往右邊走。</p>
+<p>過程愈走愈不對，順著車道走會一直走到類似快車道的地方，一度以為要走去機場回台灣了。</p>
+<p>最後大概浪費了半小時、整整繞了快一圈才放棄人生，原路折返到原點，改從左邊走才回到大街上，想想也算是一個奇妙的飛行迷路經驗XD</p>
+<p>回去路上還遇到一位黑人女性語帶挑逗的跑來摸我們手臂，但我們飛太高又太累，於是大家都傻在那邊不知如何反應。</p>
+<p>p.s. 回飯店後，我戴上耳機聽音樂，意外發現整個聽覺感受度變化很明顯，彷彿可以聽到平常聽不到的音樂細節，整個人會墜入一個音樂黑洞裡，很讚。</p>
+<hr>
+<p>另外我在某天晚上一個人在房間時，嘗試吃一顆我買的軟糖 (Huckleberry Gummies)</p>
+<p>結果出乎意料地，竟然讓進入數小時超級痛苦的 Bad Trip 循環！</p>
+<p>一開始跟之前一樣頭微漲微麻，然後開始覺得動作、思緒變得有點遲緩，盯著窗外泳池發呆時，會覺得顏色似乎不斷漸變，波紋有點迷幻的感覺。</p>
+<p>然後進到高峰時，覺得超爆幹暈眩、超級想吐，而且恐懼感會被放大，會有一種快被這個空間吞噬掉的恐慌感，甚至有一點幻覺的產生。</p>
+<p>於是我決定採取躺平睡覺大法，但沒想到睡到一半直接被暈醒，所以後來太恐慌就跑去找隔壁房毛哥求救，然後在他的房間昏睡到藥效退掉，算是非常難忘的一次 Bad Trip 經歷。</p>
+<p>(後來我把整盒軟糖直接送給海狗吃又是另一個故事惹…)</p>
+<p><img src="https://i.imgur.com/TN73mRb.jpg" alt=""></p>
+<hr>
+<p>由於 Las Vegas 基本上明確規定不能在公共場所或飯店抽草，所以其實對觀光客來說很難找到一個適合的地方來飛行。</p>
+<p>這應該也是為何在 Las Vegas 大道上或是停車場角落常可以看到一堆人在路邊抽草的原因。</p>
+<p>不過據說 Las Vegas 有唯一一家可以合法在店內抽草的 Tasting Room (應該類似荷蘭 Coffeeshop?):</p>
+<p><a href="https://nuwu.vegas/vegastastingroom" target="_blank" rel="external">https://nuwu.vegas/vegastastingroom</a></p>
+<p>但可惜這次行程太趕，幾乎都在打比賽和搭車，最後都沒時間去拜訪看看這家合法飛行室 QQ</p>
+<hr>
+<p>最後離開 Vegas 時，還有一根 Pre-roll 來不及抽，所以就連同維力炸醬麵一起當作小費留給打掃阿姨，希望她會喜歡。</p>
+<p><img src="https://i.imgur.com/CsRTr0h.jpg" alt=""></p>
+<h1 id="u9694_u96E2"><a href="#u9694_u96E2" class="headerlink" title="隔離"></a>隔離</h1><p>回台灣之後，按照規定要採 3+4 的方式隔離，所以兩天的 HITCON 就剛好都無法參加 (我的 VIP 票直接送人T___T)</p>
+<p>下飛機之後，會先在機場叫你吐口水做 PCR 篩檢，然後接著搭防疫計程車去防疫旅館/居家隔離。計程車車資超過 1000 的部分政府會補助，所以我從機場搭回台北只花了 1000 元。</p>
+<p>PCR 結果大概隔天就會出來，最後我們整團大概 1/4 ~ 1/3 的人確診…</p>
+<p>似乎大部分都是有去參加 After Party 的確診，感覺就是大毒窟，只能說還好我沒去(?)</p>
+<p>然後隔離期間每天會有人打電話來問候你身體的狀況(區公所的樣子)，也有指揮中心傳簡訊來確認身體狀況。</p>
+<p>另外他們還會寄防疫大禮包給你，內容物還算不錯，有一堆餅乾泡麵和口罩：</p>
+<p><img src="https://i.imgur.com/xAahchz.jpg" alt=""></p>
+<p>第四天快篩陰性基本上就可以出門了，但聽說住防疫旅館的那群人好像還會被各種奇葩限制卡(?)</p>
+<h1 id="u7E3D_u7D50"><a href="#u7E3D_u7D50" class="headerlink" title="總結"></a>總結</h1><p>整體來說，覺得今年其實食衣住行育樂各方面都稍微偏慘，比賽主辦也是出乎意料的雷 (相比我參加過的前兩次)</p>
+<p>但這裡還是感謝辛苦的老師、助理們，讓我們能專心在準備比賽本身，不用去顧慮其他行政等事務，也感謝乾爹讓我們有錢能出國比賽，當然也要感謝公司讓我能用公假名義去打比賽。</p>
+<p>雖然已經去過 Las Vegas 很多次了，然後每次過去都要忍受長途飛機的腰痠背痛，但是每年都還是能從過程中得到新的體驗，整體下來覺得還是挺值得的。</p>
+<p>自從變成社畜後，很難像以前學生時期那麼有熱情了，這次難得的出國也算是有種充電的感覺，讓我在忙碌的工作中能稍微喘口氣，也讓我又再次見識到國外高手跟自己的實力差距，好想擁有跟韓國人一樣快的手速啊。</p>
+<p><img src="https://i.imgur.com/lLJGDoO.jpg" alt=""></p>
+<h1 id="u5176_u4ED6_u53C3_u52A0_u8A18/_u904A_u8A18/Blog"><a href="#u5176_u4ED6_u53C3_u52A0_u8A18/_u904A_u8A18/Blog" class="headerlink" title="其他參加記/遊記/Blog"></a>其他參加記/遊記/Blog</h1><ul>
+<li>黃老師<ul>
+<li><a href="https://www.facebook.com/huangant/posts/pfbid02z3CDk86z797tPnxnLW5rEgkBKuXhTM7DQg9TiW6kQDBitAjC7mBT6B51fECRKXM7l" target="_blank" rel="external">https://www.facebook.com/huangant/posts/pfbid02z3CDk86z797tPnxnLW5rEgkBKuXhTM7DQg9TiW6kQDBitAjC7mBT6B51fECRKXM7l</a></li>
+</ul>
+</li>
+<li>翔哥(限友)<ul>
+<li><a href="https://www.facebook.com/lys0829/posts/pfbid02fDkMzfHMykHQJ4kV2jWDpubEzJjk3oQnxoBqFeMpGbDj88mNGY1hUVMeZGfpeMtil" target="_blank" rel="external">https://www.facebook.com/lys0829/posts/pfbid02fDkMzfHMykHQJ4kV2jWDpubEzJjk3oQnxoBqFeMpGbDj88mNGY1hUVMeZGfpeMtil</a></li>
+</ul>
+</li>
+<li>Kia<ul>
+<li><a href="https://forum.gamer.com.tw/C.php?bsn=60076&amp;snA=7275684" target="_blank" rel="external">https://forum.gamer.com.tw/C.php?bsn=60076&amp;snA=7275684</a></li>
+</ul>
+</li>
+<li>Huli (<code>WaterPaddler</code>):<ul>
+<li><a href="https://hulitw.medium.com/def-con-30-ctf-final-1-79220bba7f02" target="_blank" rel="external">https://hulitw.medium.com/def-con-30-ctf-final-1-79220bba7f02</a></li>
+<li><a href="https://hulitw.medium.com/def-con-30-ctf-final-2-4444cf3645e" target="_blank" rel="external">https://hulitw.medium.com/def-con-30-ctf-final-2-4444cf3645e</a></li>
+<li><a href="https://hulitw.medium.com/def-con-30-ctf-final-3-e19eeeed8e44" target="_blank" rel="external">https://hulitw.medium.com/def-con-30-ctf-final-3-e19eeeed8e44</a></li>
+</ul>
+</li>
+<li>Satoki (<code>./V /home/r/.bin/tw</code>):<ul>
+<li><a href="https://hackmd.io/@satoki/rkf9Qq8jc" target="_blank" rel="external">https://hackmd.io/@satoki/rkf9Qq8jc</a></li>
+</ul>
+</li>
+<li>族繁不及備載</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/03/18/台電-Bug-Bounty-參加記/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          台電 Bug Bounty 參加記
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/27/Java反序列化之CommonCollections1分析/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java 反序列化之 CommonCollections1 分析</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'kaibrosblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2023 KaiBro
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61797645-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>

